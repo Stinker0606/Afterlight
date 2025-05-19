@@ -16,7 +16,7 @@ namespace enemy
       int enemy_health;
       int enemy_movement_speed;
       int enemy_damage;
-      int enemy_XP;
+      int enemy_XP; // Score etc.
 
     public:
 
