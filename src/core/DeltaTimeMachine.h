@@ -18,11 +18,11 @@ namespace DT {
         ctime frame2;
 
 
-        void start();
+        void Start();
 
-        void update();
+        void Update();
 
-        float getdt();
+        float Get_Dt();
 
     };
 }

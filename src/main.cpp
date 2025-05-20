@@ -14,7 +14,7 @@
 
 using namespace std::string_literals;
 
-RenderTexture2D canvas= LoadRenderTexture(940,560);
+
 
 int main() {
     game::core::Game game(game::Config::kStageWidth, game::Config::kStageHeight, game::Config::kFullScreen,
