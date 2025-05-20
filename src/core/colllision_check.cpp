@@ -2,7 +2,9 @@
 // Created by $Will on 27.04.2025.
 //
 
-bool check_collision(rectangle rec1, rectangle rec2)
+#include "raylib.h"
+
+bool Check_Collision(Rectangle rec1, Rectangle rec2)
 {
     //allgemeine Kollisionserkennung von 2 Rechtecken
 
@@ -20,10 +22,11 @@ bool check_collision(rectangle rec1, rectangle rec2)
     return collision;
 }
 
+
 /*theoretisch gäbe es wohl noch einen viel einfacheren Weg den ich hier einfach mal
 ausgeklammert reinnehme.
 
-bool check_collision(rectangle rec1, rectangle rec2)
+bool check_collision(Rectangle rec1, Rectangle rec2)
 {
     bool collision = false;
 
@@ -32,10 +35,9 @@ bool check_collision(rectangle rec1, rectangle rec2)
         collision = true;
     }
 
-    returen collision;
+    return collision;
 }
 
 Die Raylib verfügt wohl selbst mit "CheckCollisionRecs" über eine Funktion um die Kollision
 zwischen Rechtecken zu prüfen. Keine Ahnung wie die läuft, aber falls was, kann man die oben
-nutzen.
-*/
+nutzen.*/
