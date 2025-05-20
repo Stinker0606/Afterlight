@@ -2,8 +2,8 @@ Wilkommen zu unserem Style Guide hier stehen einfach die grundregeln auf die wir
 unsere Benennungen angeht:
 
 1. Variablennamen und Funktionsnamen nur auf Englisch
-2. Funktionen und Variablen werden nach folgendem Schema Erstellt: Wort1_Wort2_Wort3
-3. Variabelnnamen immer klein funktionen immer Groß
+2. Variablem werden nach folgendem Schema Erstellt: wort1_Wort2_Wort3
+3. Funktionen werden nach folgendem Schema Erstellt: Wort1_Wort2_Wort3
 4. Pointer und Smart pointer sind mit sp_ und p_ zu kenzeichnen
 5. Funktionen müssen immer bei der Deklaration mit einem Kommentar erklärt werden
 6. Wenn externe Librarys genutzt wurden oder der Code schwer nachzuvollziehen ist bitte in der definition
