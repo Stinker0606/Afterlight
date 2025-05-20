@@ -2,45 +2,49 @@
 // Created by $Will on 15.05.2025.
 //
 
-#ifndef ENEMY_BASE_CLASS_H
-#define ENEMY_BASE_CLASS_H
+#ifndef Enemy_Base_Class_H
+#define Enemy_Base_Class_H
 
 #include <string>
 
 namespace enemy
 {
-    class enemy_base_class
+    class Enemy_Base_Class
     {
     protected:
-      std::string enemy_name;
-      int enemy_health;
-      int enemy_movement_speed;
-      int enemy_damage;
-      int enemy_value; // Score etc.
+      std::string enemy_Name;
+      int enemy_Health;
+      int enemy_Movement_Speed;
+      int enemy_Damage;
+      int enemy_Value; // Score etc.
 
     public:
 
     //Konstruktor
-    enemy_base_class(std::string& name, int health, int movement_speed, int damage, int XP);
+    Enemy_Base_Class(std::string& name, int health, int movement_Speed, int damage, int value);
 
     //Destruktor
-    virtual ~enemy_base_class();
+    virtual ~Enemy_Base_Class();
 
     //Getter
-    std::string get_name() const;
-    int get_health() const;
-    int get_movement_speed() const;
-    int get_damage() const;
+    std::string get_Name() const;
+    int get_Health() const;
+    int get_Movement_Speed() const;
+    int get_Damage() const;
+    int get_Value() const;
 
     //Setter
-    void set_health (int new_health);
+    void set_Health (int new_Health);
     //health ist erstmal der einzige Wert den wir während der Laufzeit durch Schaden verändern wollen
 
     //Methoden welche noch entwickelt werden müssen
-    virtual void enemy_attack();
-    virtual void enemy_take_damage();
-    virtual void enemy_die();
+    virtual void Enemy_Attack() = 0;
+    virtual void Enemy_Take_Damage() = 0;
+	virtual void Enemy_Draw() = 0;
+    virtual void Enemy_Pathfinding() = 0;
+    //Wir nutzen "= 0". Dadurch wird die Klasse abstrakt und MUSS überschrieben werden
+
     };
 }
 
-#endif //ENEMY_BASE_CLASS_H
+#endif //Enemy_Base_Class_H

@@ -2,45 +2,50 @@
 // Created by $Will on 15.05.2025.
 //
 
-#include "enemy_base_class.h"
+#include "Enemy_Base_Class.h"
 
 
 namespace enemy
 {
     //Konstruktor
-    enemy_base_class::enemy_base_class(std::string& name, int health, int movement_speed, int damage, int XP)
-       : enemy_name(name), enemy_health(health), enemy_movement_speed(movement_speed),
-      enemy_damage(damage), enemy_XP(XP) {}
+    Enemy_Base_Class::Enemy_Base_Class(std::string& name, int health, int movement_speed, int damage, int value)
+      : enemy_Name(name), enemy_Health(health), enemy_Movement_Speed(movement_speed),
+      enemy_Damage(damage), enemy_Value(value) {}
 
     //Destruktor
-    enemy_base_class::~enemy_base_class() = default;
+    Enemy_Base_Class::~Enemy_Base_Class() = default;
 
     //Getter
-    std::string enemy_base_class::get_name() const
+    std::string Enemy_Base_Class::get_Name() const
     {
-      return enemy_name;
+      return enemy_Name;
     }
-    int enemy_base_class::get_health() const
+    int Enemy_Base_Class::get_Health() const
     {
-      return enemy_health;
+      return enemy_Health;
     }
-    int enemy_base_class::get_movement_speed() const
+    int Enemy_Base_Class::get_Movement_Speed() const
     {
-      return enemy_movement_speed;
+      return enemy_Movement_Speed;
     }
-    int enemy_base_class::get_damage() const
+    int Enemy_Base_Class::get_Damage() const
     {
-      return enemy_damage;
+      return enemy_Damage;
+    }
+    int Enemy_Base_Class::get_Value() const
+    {
+      return enemy_Value;
     }
 
     //Setter
-    void enemy_base_class::set_health(int new_health)
+    void Enemy_Base_Class::set_Health(int new_Health)
     {
-      enemy_health = new_health;
+      enemy_Health = new_Health;
     }
 
     //Virtuelle Methoden
-    void enemy_base_class::enemy_attack() {}
-    void enemy_base_class::enemy_take_damage() {}
-    void enemy_base_class::enemy_die() {}
+    void Enemy_Base_Class::Enemy_Attack() {}
+    void Enemy_Base_Class::Enemy_Take_Damage() {}
+    void Enemy_Base_Class::Enemy_Draw() {}
+    void Enemy_Base_Class::Enemy_Pathfinding() {}
 }
