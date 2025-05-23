@@ -40,5 +40,16 @@ namespace game {
 
         // Defines if Raylib audio should be enabled
         inline static constexpr const bool kAudio = true;
+
+        // Class by Andreas
+
+                //Warrior Stats - Default 0 | Sprite Path - Default assets/graphics/XXXX.png
+                inline static constexpr int warrior_hp = 0;
+                inline static constexpr float warrior_speed = 0.0f;
+                inline static constexpr int warrior_damage = 0;
+                inline static constexpr const char* warrior_sprite_path = "assets/graphics/XXXX.png";
+
+                // drains HP every second - Default 0 HP
+                inline static constexpr float hp_drain = 0.0f;
     };
 }

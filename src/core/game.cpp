@@ -1,15 +1,16 @@
 #include <raylib.h>
-
+#include "../scenes/screen.h"
 #include "game.h"
 
 #include "store.h"
 #include "stage.h"
+#include "../scenes/menu_scene.h"
 
 using namespace std::string_literals;
 
 game::core::Game::Game(int stage_width, int stage_height, bool full_screen, int target_fps, int window_flags,
                        int texture_filter, int exit_key, bool mouse, bool audio, const char *project_name)
-                       : stage_width_(stage_width), stage_height_(stage_height), audio_(audio), mouse_(mouse) {
+        : stage_width_(stage_width), stage_height_(stage_height), audio_(audio), mouse_(mouse) {
     SetConfigFlags(window_flags);
     InitWindow(stage_width, stage_height, project_name);
     SetWindowMinSize(stage_width / 2, stage_height / 2);
@@ -61,8 +62,11 @@ void game::core::Game::Run(const std::string& scene_name, std::unique_ptr<game::
         // Process input and update current active scene
         game::core::Store::stage->Update();
 
+
+
         // Draw
         BeginDrawing();
+
         ClearBackground(BLACK); // Letterbox color
 
         // Draw everything in the render texture, note this will not be rendered on screen, yet
@@ -74,6 +78,7 @@ void game::core::Game::Run(const std::string& scene_name, std::unique_ptr<game::
         // Draw render texture to window, properly scaled
         this->DrawRenderTexture();
         EndDrawing();
+
 
         // Increment game tick counter
         game::core::Store::ticks++;

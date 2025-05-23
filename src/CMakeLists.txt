@@ -2,6 +2,7 @@
 
 include(../cmake/raylib.cmake)
 include(../cmake/raylib_cpp.cmake)
+include(../cmake/nlohmann_json.cmake)
 
 project(game VERSION 0.1.0 LANGUAGES CXX)
 
@@ -22,22 +23,22 @@ add_executable(${PROJECT_NAME} main.cpp)
 configure_file(config.h.in config.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-        "${PROJECT_BINARY_DIR}"
-        )
+"${PROJECT_BINARY_DIR}"
+)
 
 # Link to libraries
-target_link_libraries(${PROJECT_NAME} core scenes)
+target_link_libraries(${PROJECT_NAME} core scenes nlohmann_json::nlohmann_json)
 
 # Copy assets to assets path
 add_custom_target(copy_assets
-        COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_LIST_DIR}/../cmake/copy-assets.cmake"
-        )
+COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_LIST_DIR}/../cmake/copy-assets.cmake"
+)
 add_dependencies(${PROJECT_NAME} copy_assets)
 
 if (APPLE)
-    target_link_libraries(${PROJECT_NAME} "-framework IOKit")
-    target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
-    target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
+target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 endif ()
 
 # CPack instructions
