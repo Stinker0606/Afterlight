@@ -15,7 +15,11 @@ namespace DT{
                                                                 // if you want an explanation https://www.youtube.com/watch?v=yGhfUcPjXuE
         this->frame2= std::chrono::high_resolution_clock::now();
         std::chrono::milliseconds deltaTime= std::chrono::duration_cast<std::chrono::milliseconds>(frame2-frame1);
-        this->dt= deltaTime.count()/1000;
+        this->dt= deltaTime.count();
+        if (dt==0){
+            dt=1;
+        }
+        this->dt=dt/100;
         this->frame1=this->frame2;
     }
 
