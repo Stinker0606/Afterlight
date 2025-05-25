@@ -8,17 +8,33 @@
 
 #include "raylib.h"
 
-class Player{
+
+class Player
+{
+protected:
+    float width = 20.0f;
+    float height = 30.0f;
 public:
+
+    enum Direction
+    {
+        Up, Down, Left, Right, LeftDown, RightDown, LeftUp, RightUp
+    };
+
     // Konstroktor initialisiert Spieler mit Start Position und Bewegungsgeschwindigkeit
     Player(Vector2 start_Position, float move_Speed);
 
     // Wird mit jedem Frame aufgerufen, um Position zu aktualisieren
-    void Update();
+    Direction Update();
+
+    void DrawRectangle(Vector2 vector2, int pos_y, Color color);
 
     //Zeichnet den Spieler
     void Draw();
     Vector2 GetPosition() const { return position; }
+
+    bool IsAttacking() const { return attacking; }
+    Rectangle GetAttackHitbox() const;
 
 private:
 
@@ -34,6 +50,14 @@ private:
     int key_Left;
     int key_Right;
 
+    //Taste für den Angriff
+    int key_J;
+
+    bool attacking=false;
+    float attackDuration=0.3f;
+    float attackTimer = 0.0f;
+
+    Direction lastDirection = Down;
 };
 
 

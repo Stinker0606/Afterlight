@@ -18,49 +18,86 @@ Player::Player(Vector2 start_Position, float move_Speed)
 }
 
 //Methode zur Steuerung der Bewegung. Wird jeden Frame aufgerufen
-void Player::Update()
+Player::Direction Player::Update()
 {
-    //Bewegungsrichtung ohne Werte
-    Vector2 movement_Direction;
-    movement_Direction.x = 0.0f;
-    movement_Direction.y = 0.0f;
+    Vector2 movement_Direction = {0.0f, 0.0f};
 
-    // Abfragen welche Tasten gedrückt werden
-    if (IsKeyDown(key_Up))
-    {
-        movement_Direction.y -= 1.0f; //nach oben
-    }
-    if (IsKeyDown(key_Down))
-    {
-        movement_Direction.y += 1.0f; //nach unten
-    }
-    if (IsKeyDown(key_Left))
-    {
-        movement_Direction.x -= 1.0f; //nach links
-    }
-    if (IsKeyDown(key_Right))
-    {
-        movement_Direction.x += 1.0f; // nach rechts
-    }
+    bool up = IsKeyDown(key_Up);
+    bool down = IsKeyDown(key_Down);
+    bool left = IsKeyDown(key_Left);
+    bool right = IsKeyDown(key_Right);
 
-    // Wenn der Spieler sich bewegt
+    if (up) movement_Direction.y -= 1.0f;
+    if (down) movement_Direction.y += 1.0f;
+    if (left) movement_Direction.x -= 1.0f;
+    if (right) movement_Direction.x += 1.0f;
+
+    // Bewegung normalisieren
     if (movement_Direction.x != 0.0f || movement_Direction.y != 0.0f)
     {
-        // Die Bewegung wird normalisiert, damit diagonale Bewegung nicht schneller ist
-        // Richting wird beibehalten, Stärke (Länge) des Vectors auf 1 gesetzt
-        float vectorLength = sqrtf((movement_Direction.x * movement_Direction.x) +
-                                   (movement_Direction.y * movement_Direction.y));
+        float length = sqrtf(movement_Direction.x * movement_Direction.x + movement_Direction.y * movement_Direction.y);
+        movement_Direction.x /= length;
+        movement_Direction.y /= length;
 
-        movement_Direction.x = movement_Direction.x / vectorLength;
-        movement_Direction.y = movement_Direction.y / vectorLength;
+        position.x += movement_Direction.x * speed * GetFrameTime();
+        position.y += movement_Direction.y * speed * GetFrameTime();
     }
 
-    // Die Bewegung wird mit der Zeit pro Frame verrechnet,
-    // damit Geschwindigkeit unabhängig von der Framerate bleibt
-    float deltaTime = GetFrameTime();
+    if (IsKeyPressed(key_J) && !attacking)
+    {
+        attacking = true;
+        attackTimer = attackDuration;
+    }
 
-    //Neue Position berechnen
-    position.x += movement_Direction.x * speed * deltaTime;
-    position.y += movement_Direction.y * speed * deltaTime;
+    if (attacking)
+    {
+        attackTimer -= GetFrameTime();
+        if (attackTimer <= 0.0f)
+        {
+            attacking = false;
+            attackTimer = 0.0f;
+        }
+    }
+    // Richtung zurückgeben
+    if (movement_Direction.x < 0 && movement_Direction.y < 0) lastDirection = LeftUp;
+    else if (movement_Direction.x > 0 && movement_Direction.y < 0) lastDirection = RightUp;
+    else if (movement_Direction.x < 0 && movement_Direction.y > 0) lastDirection = LeftDown;
+    else if (movement_Direction.x > 0 && movement_Direction.y > 0) lastDirection = RightDown;
+    else if (movement_Direction.x < 0) lastDirection = Left;
+    else if (movement_Direction.x > 0) lastDirection = Right;
+    else if (movement_Direction.y < 0) lastDirection = Up;
+    else if (movement_Direction.y > 0) lastDirection = Down;
 
+    return lastDirection;
+}
+Rectangle Player::GetAttackHitbox() const
+{
+    if (!attacking) return { 0, 0, 0, 0 };
+
+    float size = 20.0f;
+    Vector2 hitboxPos = position;
+
+    switch (lastDirection)
+    {
+        case Up:        hitboxPos.y -= size; break;
+        case Down:      hitboxPos.y += size; break;
+        case Left:      hitboxPos.x -= size; break;
+        case Right:     hitboxPos.x += size; break;
+        case LeftUp:    hitboxPos.x -= size; hitboxPos.y -= size; break;
+        case RightUp:   hitboxPos.x += size; hitboxPos.y -= size; break;
+        case LeftDown:  hitboxPos.x -= size; hitboxPos.y += size; break;
+        case RightDown: hitboxPos.x += size; hitboxPos.y += size; break;
+    }
+
+    return Rectangle{ hitboxPos.x - size / 2, hitboxPos.y - size / 2, size, size };
+}
+void Player::Draw()
+{
+    Rectangle playerRect = {
+        position.x - width / 2,
+        position.y - height / 2,
+        width,
+        height
+    };
+    DrawRectangleRec(playerRect, BLUE);
 }
