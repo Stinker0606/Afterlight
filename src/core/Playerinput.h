@@ -44,7 +44,7 @@ private:
     //Bewegungsgeschwindigkeit
     float speed;
 
-    //Tastenzuweoßung für die Bewegung
+    //Tastenzuweißung für die Bewegung
     int key_Up;
     int key_Down;
     int key_Left;
