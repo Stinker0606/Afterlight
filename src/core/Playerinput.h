@@ -51,7 +51,7 @@ private:
     int key_Right;
 
     //Taste für den Angriff
-    int key_J;
+    int key_Melee_Attack;
 
     bool attacking=false;
     float attackDuration=0.3f;

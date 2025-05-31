@@ -3,6 +3,7 @@
 //
 
 #include "PlayerInput.h"
+#include "../config.h.in"
 #include <cmath> // für mmathematische Funktionen (wie sqrtf)
 
 Player::Player(Vector2 start_Position, float move_Speed)
@@ -11,16 +12,18 @@ Player::Player(Vector2 start_Position, float move_Speed)
     speed = move_Speed;
 
     //Steuerungstasten in die Config !
-    key_Up = KEY_W;
-    key_Down = KEY_S;
-    key_Left = KEY_A;
-    key_Right = KEY_D;
+    key_Up = game::Config::key_Up;
+    key_Down = game::Config::key_Down;
+    key_Left = game::Config::key_Left;
+    key_Right = game::Config::key_Right;
 }
 
 //Methode zur Steuerung der Bewegung. Wird jeden Frame aufgerufen
 Player::Direction Player::Update()
 {
     Vector2 movement_Direction = {0.0f, 0.0f};
+
+    key_Melee_Attack = game::Config::key_Melee_Attack;
 
     bool up = IsKeyDown(key_Up);
     bool down = IsKeyDown(key_Down);
@@ -43,7 +46,7 @@ Player::Direction Player::Update()
         position.y += movement_Direction.y * speed * GetFrameTime();
     }
 
-    if (IsKeyPressed(key_J) && !attacking)
+    if (IsKeyPressed(key_Melee_Attack) && !attacking)
     {
         attacking = true;
         attackTimer = attackDuration;
