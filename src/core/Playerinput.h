@@ -31,12 +31,6 @@ namespace game::core
         // Gibt die aktuelle Spielerposition zurück
         Vector2 GetPosition() const;
 
-        // Gibt an, ob gerade ein Angriff ausgeführt wird
-        bool IsAttacking() const;
-
-        // Gibt die Hitbox dese aktuellen Angriffs zurück
-        Rectangle GetAttackHitbox() const;
-
     private:
 
         // Aktuelle Position des Spielers
@@ -44,10 +38,6 @@ namespace game::core
 
         // Bewegungsgeschwindigkeit
         float speed;
-
-        // Abmessung der Spielfigur
-        float width = 20.0f;
-        float height = 30.0f;
 
         // Tastenzuweisung für die Bewegung
         int key_Up;
