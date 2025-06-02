@@ -7,13 +7,17 @@ add_library(core STATIC game.h game.cpp store.h scene.h stage.h stage.cpp render
         Cam.h
         Playerinput.cpp
         Playerinput.h
-        collision_check.cpp
+        colission_check.cpp
         enemy_base_class.cpp
         enemy_base_class.h
-        collision_check.h
-        wall.cpp
-        wall_collisions.h
-        movable_wall.cpp)
+        objects.cpp
+        objects.h
+        consumables.cpp
+        consumables.h
+        Walls.cpp
+        Walls.h
+        Spawnpoints.cpp
+        Spawnpoints.h)
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 

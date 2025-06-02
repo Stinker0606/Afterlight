@@ -15,56 +15,56 @@ namespace game::core
     {
     public:
         enum Direction
-    {
-        Up, Down, Left, Right, LeftDown, RightDown, LeftUp, RightUp
-    };
+        {
+            Up, Down, Left, Right, LeftDown, RightDown, LeftUp, RightUp
+        };
 
-    // Konstruktor initialisiert Spieler mit Start Position und Bewegungsgeschwindigkeit
-    Player(Vector2 start_Position, float move_Speed);
+        // Konstruktor initialisiert Spieler mit Start Position und Bewegungsgeschwindigkeit
+        Player(Vector2 start_Position, float move_Speed);
 
-    // Wird mit jedem Frame aufgerufen, um Position zu aktualisieren
-    Direction Update(DT::timemachine& deltaTimeMachine);
+        // Wird mit jedem Frame aufgerufen, um Position zu aktualisieren
+        Direction Update(DT::timemachine& deltaTimeMachine);
 
-    // Zeichnet den Spieler
-    void Draw();
+        // Zeichnet den Spieler
+        void Draw();
 
-    // Gibt die aktuelle Spielerposition zurück
-    Vector2 GetPosition() const;
+        // Gibt die aktuelle Spielerposition zurück
+        Vector2 GetPosition() const;
 
-    // Gibt an, ob gerade ein Angriff ausgeführt wird
-    bool IsAttacking() const;
+        // Gibt an, ob gerade ein Angriff ausgeführt wird
+        bool IsAttacking() const;
 
-    // Gibt die Hitbox dese aktuellen Angriffs zurück
-    Rectangle GetAttackHitbox() const;
+        // Gibt die Hitbox dese aktuellen Angriffs zurück
+        Rectangle GetAttackHitbox() const;
 
-private:
+    private:
 
-    // Aktuelle Position des Spielers
-    Vector2 position;
+        // Aktuelle Position des Spielers
+        Vector2 position;
 
-    // Bewegungsgeschwindigkeit
-    float speed;
+        // Bewegungsgeschwindigkeit
+        float speed;
 
-    // Abmessung der Spielfigur
-    float width = 20.0f;
-    float height = 30.0f;
+        // Abmessung der Spielfigur
+        float width = 20.0f;
+        float height = 30.0f;
 
-    // Tastenzuweisung für die Bewegung
-    int key_Up;
-    int key_Down;
-    int key_Left;
-    int key_Right;
+        // Tastenzuweisung für die Bewegung
+        int key_Up;
+        int key_Down;
+        int key_Left;
+        int key_Right;
 
-    // Taste für den Nahkampfangriff
-    int key_Melee_Attack;
+        // Taste für den Nahkampfangriff
+        int key_Melee_Attack;
 
-    // Angriffssteuerung
-    bool attacking=false;
-    float attackDuration=0.3f;
-    float attackTimer = 0.0f;
+        // Angriffssteuerung
+        bool attacking=false;
+        float attackDuration=0.3f;
+        float attackTimer = 0.0f;
 
-    // Zuletzt registrierte Bewegungsrichtung
-    Direction lastDirection = Down;
+        // Zuletzt registrierte Bewegungsrichtung
+        Direction lastDirection = Down;
     };
 }
 

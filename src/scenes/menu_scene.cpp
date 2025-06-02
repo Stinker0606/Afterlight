@@ -1,12 +1,12 @@
 #include <string>
 
-
+#include <raylib-cpp.hpp>
 #include <raylib.h>
-
+#include "../scenes/screen.h"
 #include <store.h>
 
 #include "scenes.h"
-
+#include "../Vectors.h"
 
 using namespace std::string_literals;
 
@@ -31,12 +31,11 @@ void game::scenes::MenuScene::Draw() {
     // Your scene drawing code here...
     // Note that scene-actors are drawn automatically
     //DrawText("Menu - press ENTER to load game scene", 10, 10, 30, LIGHTGRAY);
-
-    screen.draw_Level();
-    /*for (int i = 0; i < vec_cons.size(); ++i) {
+    for (int i = 0; i < vec_cons.size(); ++i) {
         vec_cons[i].draw();
     }
     for (int i = 0; i < vec_walls.size(); ++i) {
         vec_walls[i].draw();
-    }*/
+    }
+    screen.draw_Level();
 }
