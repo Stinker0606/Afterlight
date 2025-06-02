@@ -19,6 +19,8 @@ namespace enemy
         int enemy_Damage;
         int enemy_Value; // Score etc.
 
+        Rectangle enemy_Hitbox;
+
     public:
 
         //Konstruktor
