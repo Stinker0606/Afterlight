@@ -48,7 +48,7 @@ namespace game::core
     };
 
     // Movable Wall erbt von der standard Wall
-    class MovableWall : public Wall
+    class MovableWall : public Wall    //DIESE KLASSE IST TEAM INTERN UND SOLL NICHT INS BASISSYSTEM
     {
     private:
         Vector2 direction;      // Bewegungsrichtung

@@ -7,6 +7,8 @@
 
 #include "raylib.h"
 #include "DeltaTimeMachine.h"
+
+//Vieles hier ist Teamspezifisch
 namespace game::core
 {
     class Player
