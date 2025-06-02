@@ -7,10 +7,11 @@
 
 
 #include "base_class.h"
-#include "config.h"
-#include <raylib.h>
+#include "../config.h.in"
+#include "raylib.h"
 
-class warrior : public base_class {
+class warrior : public base_class
+{
 private:
     Texture2D sprite;
 

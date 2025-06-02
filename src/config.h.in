@@ -51,5 +51,15 @@ namespace game {
 
                 // drains HP every second - Default 0 HP
                 inline static constexpr float hp_drain = 0.0f;
+
+        // Objects
+                inline static constexpr const char consumables_path ="assets/graphics/ball.png"
+
+
+            // Control Settings
+                inline static constexpr const int key_Up = KEY_W;
+                inline static constexpr const int key_Down = KEY_S;
+                inline static constexpr const int key_Left = KEY_A;
+                inline static constexpr const int key_Right = KEY_D;
     };
 }

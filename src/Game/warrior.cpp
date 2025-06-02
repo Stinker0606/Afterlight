@@ -4,7 +4,7 @@
 
 #include "warrior.h"
 #include <iostream>
-#include "config.h"
+#include "../config.h.in"
 
 warrior::warrior() {
     hp = game::Config::warrior_hp;

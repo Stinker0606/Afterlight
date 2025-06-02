@@ -3,7 +3,7 @@
 //
 
 #include "player_class.h"
-#include "config.h"
+#include "../config.h.in"
 
 
 void player_base_class::UPDATE(float delta_time) {
