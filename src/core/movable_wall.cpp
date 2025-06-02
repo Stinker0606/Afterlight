@@ -5,6 +5,7 @@
 #include "collision_check.h"
 #include "../config.h.in"
 
+//Diese komplette Datei ist Teamspezifisch
 namespace game::core
 {
 

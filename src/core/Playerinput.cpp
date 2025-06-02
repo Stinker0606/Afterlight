@@ -6,6 +6,7 @@
 #include "../config.h.in"
 #include <cmath> // für mathematische Funktionen (wie sqrtf)
 
+//Vieles hier ist Teamspezifisch
 namespace game::core
 {
     // Spieler Input

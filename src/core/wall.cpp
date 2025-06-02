@@ -13,7 +13,7 @@ namespace game::core
     {
         float dt = deltaTimeMachine.Get_Dt();
 
-        for (auto& wall : walls)
+        for (auto& wall : walls) //Variable Wall soll aus dem Vector kommen in welchem die Walls gespeichert sind
             {
             if (wall->CheckCollision(playerRect))
                 {
