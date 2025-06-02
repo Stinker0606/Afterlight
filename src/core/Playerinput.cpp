@@ -81,7 +81,7 @@ namespace game::core
 
     // Bestimmt die Nahkampfhittbox je nach Richtung
     Rectangle Player::GetAttackHitbox() const
-{
+    {
     if (!attacking) return { 0, 0, 0, 0 };
 
     const float size = 20.0f;
@@ -100,18 +100,18 @@ namespace game::core
     }
 
     return Rectangle{ hitboxPos.x - size / 2, hitboxPos.y - size / 2, size, size };
-}
+    }
 
     // Bestimmt Erscheinungsbild des Spielers
     void Player::Draw()
-{
-    Rectangle playerRect =
     {
-        position.x - width / 2,
-        position.y - height / 2,
-        width,
-        height
-    };
-    DrawRectangleRec(playerRect, BLUE);
-}
+        Rectangle playerRect =
+        {
+            position.x - width / 2,
+            position.y - height / 2,
+            width,
+            height
+        };
+        DrawRectangleRec(playerRect, BLUE);
+    }
 }
