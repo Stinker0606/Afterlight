@@ -17,7 +17,7 @@ namespace game::core
             {
             if (wall->CheckCollision(playerRect))
                 {
-                if (auto* movable = dynamic_cast<MovableWall*>(wall))
+                if (auto* movable = dynamic_cast<Movable_Wall*>(wall))
                 {
                     movable ->TriggerMove(direction);
                 }
