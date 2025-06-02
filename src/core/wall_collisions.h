@@ -48,7 +48,7 @@ namespace game::core
     };
 
     // Movable Wall erbt von der standard Wall
-    class MovableWall : public Wall    //DIESE KLASSE IST TEAM INTERN UND SOLL NICHT INS BASISSYSTEM
+    class Movable_Wall : public Wall    //DIESE KLASSE IST TEAM INTERN UND SOLL NICHT INS BASISSYSTEM
     {
     private:
         Vector2 direction;      // Bewegungsrichtung
@@ -57,7 +57,7 @@ namespace game::core
         float movedDistance;    // Wie weit wurde sie schon verschoben
 
     public:
-        MovableWall(Rectangle rectangle, const std::string& wallType, Vector2 moveDir, float moveSpeed)
+        Movable_Wall(Rectangle rectangle, const std::string& wallType, Vector2 moveDir, float moveSpeed)
             : Wall(rectangle, wallType), direction(moveDir), speed(moveSpeed),
               isMoving(false), movedDistance(0.0f) {}
 
