@@ -5,32 +5,25 @@
 
 #include <string>
 #include <raylib.h>
-#include <game.h>
-#include "../scenes/scenes.h"
-#include "scenes/screen.h"
+#include <Game.h>
+#include "../scenes/Scenes.h"
+#include "scenes/Screen.h"
 #include "config.h.in"
-#include "Walls.h"
-#include "consumables.h"
-#include "enemy_base_class.h"
+
+/* Aktiviert "String-Literalen erlaubt "menu"s Daraus wird dann direkt ein std::string
+ * also "menu"s == std::string ("menu")
+ */
 
 using namespace std::string_literals;
 
-//RenderTexture2D canvas= LoadRenderTexture(940,560);
-
-
-
-int main() {
+int main()
+{
     game::core::Game game(game::Config::kStageWidth, game::Config::kStageHeight, game::Config::kFullScreen,
                           game::Config::kTargetFps, game::Config::kWindowFlags, game::Config::kTextureFilter,
-                          game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio, game::Config::kProjectName);
-
-    //intizialize screen object
-    //Screen screen;
+                          game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio,
+                          game::Config::kProjectName);
 
     game.Run("menu"s, std::make_unique<game::scenes::MenuScene>());
-
-    //call draw_Level function from screen
-    // screen.draw_Level();
 
     return EXIT_SUCCESS;
 }

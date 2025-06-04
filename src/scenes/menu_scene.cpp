@@ -3,7 +3,7 @@
 #include <raylib-cpp.hpp>
 #include <raylib.h>
 #include "../scenes/screen.h"
-#include <store.h>
+#include <Store.h>
 
 #include "scenes.h"
 #include "../Vectors.h"

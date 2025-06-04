@@ -1,10 +1,7 @@
 #include <raylib.h>
-
 #include <utility>
-
-#include "store.h"
+#include "Store.h"
 #include "config.h"
-
 #include "sprite_animated.h"
 
 game::core::SpriteAnimated::SpriteAnimated(std::shared_ptr<game::core::Texture2D> texture, float frame_width, float frame_height, int row, int steps, int speed)
