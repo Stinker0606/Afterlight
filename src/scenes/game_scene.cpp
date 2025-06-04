@@ -4,7 +4,7 @@
 #include <raylib-cpp.hpp>
 #include <raylib.h>
 
-#include <store.h>
+#include <Store.h>
 
 #include "scenes.h"
 #include "renderer.h"

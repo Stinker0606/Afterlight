@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-
 #include "scene.h"
 
 #define MAX(a, b) ((a)>(b)? (a) : (b))
@@ -12,7 +11,8 @@ namespace game::core {
      * @brief The entry point into the game. The constructor is used to specify the basic settings such as the size of
      * the drawing area in pixels. Finally, a first game scene can be started via the Run() method.
      */
-    class Game final {
+    class Game final
+    {
     public:
         Game() = delete;
 
@@ -30,11 +30,12 @@ namespace game::core {
          * @param audio If true, Raylib will initialize the audio device.
          * @param project_name Project name to be displayed as window title in Window mode.
          */
-        Game(int stage_width, int stage_height, bool full_screen, int target_fps, int window_flags,
-             int texture_filter, int exit_key, bool mouse, bool audio, const char *project_name);
+        Game (int stage_Width, int stage_Height, bool full_Screen, int target_Fps, int window_Flags,
+             int texture_Filter, int exit_Key, bool mouse, bool audio, const char *project_Name);
 
-        Game(const game::core::Game &game) = delete;
 
+
+        Game (const game::core::Game &game) = delete;
         Game &operator=(const Game &) = delete;
 
         ~Game();
@@ -59,16 +60,16 @@ namespace game::core {
 
     private:
         /// Width of the game scene (unscaled). Fixed for the entire run time of the game.
-        int stage_width_;
+        int stage_Width_;
         /// Height of the game scene (unscaled). Fixed for the entire run time of the game.
-        int stage_height_;
+        int stage_Height_;
         /// Defines whether the audio device is initialized.
         bool audio_;
         /// Defines if the mouse support should be activated.
         bool mouse_;
 
         /// Temporary render target, which will later be output correctly scaled on the screen.
-        RenderTexture2D render_target_ = { };
+        RenderTexture2D render_Target_ = { };
 
         /**
          * @brief Clamp Vector2 value with MIN and MAX and return a new vector2. Required for virtual mouse, to clamp
