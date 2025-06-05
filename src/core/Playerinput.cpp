@@ -3,7 +3,7 @@
 //
 
 #include "PlayerInput.h"
-#include "../config.h.in"
+#include "../../cmake-build-debug/src/config.h"
 #include <cmath> // für mathematische Funktionen (wie sqrtf)
 
 namespace game::core
