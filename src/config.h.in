@@ -3,7 +3,7 @@
 #include <raylib.h>
 
 namespace game {
-    class Config final {
+    class config final {
     public:
         inline static constexpr const char* kProjectName = "@PROJECT_NAME@";
         inline static constexpr const char* kProjectVersion = "@PROJECT_VERSION@";
@@ -53,7 +53,7 @@ namespace game {
                 inline static constexpr float hp_drain = 0.0f;
 
         // Objects
-                inline static constexpr const char consumables_path ="assets/graphics/ball.png"
+                inline static constexpr const char* consumables_path ="assets/graphics/ball.png";
 
 
             // Control Settings

@@ -3,7 +3,7 @@
 //
 
 #include "PlayerInput.h"
-#include "../config.h.in"
+#include "../../cmake-build-debug/src/config.h"
 #include <cmath> // für mathematische Funktionen (wie sqrtf)
 
 //Vieles hier ist Teamspezifisch
@@ -20,7 +20,6 @@ namespace game::core
         key_Left = game::Config::key_Left;
         key_Right = game::Config::key_Right;
 
-        key_Melee_Attack = game::Config::key_Melee_Attack;
     }
 
     // Prüft Tasteneingabe, normalisiert bewegung, kontrolliert Angriffsdauer, setzt Spieler Richtung
@@ -28,7 +27,7 @@ namespace game::core
     {
         Vector2 movement = {0.0f, 0.0f};
 
-        key_Melee_Attack = game::Config::key_Melee_Attack;
+
 
         // Tasteneingabe prüfen
         if (IsKeyDown(key_Up))    movement.y -= 1.0f;
@@ -116,7 +115,7 @@ namespace game::core
     }
 }
 
-    // Wenn der Spieler sich bewegt
+    /*// Wenn der Spieler sich bewegt
     if (movement_Direction.x != 0.0f || movement_Direction.y != 0.0f)
     {
         // Die Bewegung wird normalisiert, damit diagonale Bewegung nicht schneller ist
@@ -135,5 +134,5 @@ namespace game::core
     //Neue Position berechnen
     position.x += movement_Direction.x * speed * deltaTime;
     position.y += movement_Direction.y * speed * deltaTime;
+*/
 
-}
