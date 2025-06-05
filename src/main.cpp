@@ -8,7 +8,7 @@
 #include <game.h>
 #include "../scenes/scenes.h"
 #include "scenes/screen.h"
-#include "config.h.in"
+#include "../config.h.in"
 #include "Walls.h"
 #include "consumables.h"
 #include "enemy_base_class.h"
@@ -20,9 +20,9 @@ using namespace std::string_literals;
 
 
 int main() {
-    game::core::Game game(game::config::kStageWidth, game::config::kStageHeight, game::config::kFullScreen,
-                          game::config::kTargetFps, game::config::kWindowFlags, game::config::kTextureFilter,
-                          game::config::kExitKey,game::config::kUseMouse, game::config::kAudio, game::config::kProjectName);
+    game::core::Game game(game::Config::kStageWidth, game::Config::kStageHeight, game::Config::kFullScreen,
+                          game::Config::kTargetFps, game::Config::kWindowFlags, game::Config::kTextureFilter,
+                          game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio, game::Config::kProjectName);
 
     //intizialize screen object
     //Screen screen;

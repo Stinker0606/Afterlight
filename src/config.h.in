@@ -3,7 +3,7 @@
 #include <raylib.h>
 
 namespace game {
-    class config final {
+    class Config final {
     public:
         inline static constexpr const char* kProjectName = "@PROJECT_NAME@";
         inline static constexpr const char* kProjectVersion = "@PROJECT_VERSION@";
