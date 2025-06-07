@@ -1,7 +1,7 @@
 #include "MenuScene.h"
 #include <string>
 #include <raylib.h>
-#include "../scenes/screen.h"
+#include "../scenes/Screen.h"
 #include <Store.h>
 #include "GameScene.h"
 #include "../Vectors.h"
@@ -25,7 +25,7 @@ void game::scenes::MenuScene::Update()
     // Your process input and update game scene code here...
 
     if (IsKeyPressed(KEY_ENTER))
-        game::core::Store::stage->replaceWithNewScene("menu"s, "game"s, std::make_unique<GameScene>());
+        game::core::Store::stage->ReplaceWithNewScene("menu"s, "game"s, std::make_unique<GameScene>());
 }
 
 void game::scenes::MenuScene::Draw()
@@ -41,5 +41,5 @@ void game::scenes::MenuScene::Draw()
     {
         vec_walls[i].draw();
     }
-    screen.draw_Level();
+    screen.Draw_Level();
 }

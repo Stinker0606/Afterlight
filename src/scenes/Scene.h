@@ -7,7 +7,8 @@
 
 #include "actor.h"
 
-namespace game::core {
+namespace game::core
+{
     /**
      * Scenes are one basic element of this engine. They contain the actual game-play elements. Scene classes derived
      * from this base class implement an Update() method to manipulate the game state and draw graphics via the Draw()

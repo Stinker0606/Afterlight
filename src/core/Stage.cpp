@@ -4,61 +4,71 @@
 #include "renderer.h"
 
 
-game::core::Stage::Stage(const std::string& new_scene_name,
-    std::unique_ptr<game::core::Scene> scene)
+game::core::Stage::Stage(const std::string& new_Scene_Name, std::unique_ptr<game::core::Scene> scene)
 {
-    this->next_scene_ = std::move(scene);
-    this->scenes_.insert(std::make_pair(new_scene_name, this->next_scene_));
+    this->next_Scene_ = std::move(scene);
+    this->scenes_.insert(std::make_pair(new_Scene_Name, this->next_Scene_));
 }
 
-void game::core::Stage::switchToScene(const std::string& new_scene_name) {
-    auto it = this->scenes_.find(new_scene_name);
+void game::core::Stage::SwitchToScene(const std::string& new_Scene_Name)
+{
+    auto it = this->scenes_.find(new_Scene_Name);
+    if(it != this->scenes_.end())
+        this->next_Scene_ = it->second;
+}
+
+void game::core::Stage::SwitchToNewScene(const std::string &new_Scene_Name, std::shared_ptr<game::core::Scene> scene)
+{
+    this->next_Scene_ = std::move(scene);
+    this->scenes_.insert(std::make_pair(new_Scene_Name, this->next_Scene_));
+}
+
+void game::core::Stage::ReplaceWithNewScene(const std::string& old_Scene_Name,
+    const std::string& new_Scene_Name, std::shared_ptr<game::core::Scene> scene)
+{
+    this->scenes_.erase(old_Scene_Name);
+
+    this->next_Scene_ = std::move(scene);
+    this->scenes_.insert(std::make_pair(new_Scene_Name, this->next_Scene_));
+}
+
+void game::core::Stage::ReplaceWithExistingScene(const std::string &old_Scene_Name, const std::string &new_Scene_Name)
+{
+    auto it = this->scenes_.find(new_Scene_Name);
 
     if(it != this->scenes_.end())
-        this->next_scene_ = it->second;
-}
-
-void game::core::Stage::switchToNewScene(const std::string &new_scene_name, std::shared_ptr<Scene> scene) {
-    this->next_scene_ = std::move(scene);
-    this->scenes_.insert(std::make_pair(new_scene_name, this->next_scene_));
-}
-
-void game::core::Stage::replaceWithNewScene(const std::string& old_scene_name, const std::string& new_scene_name, std::shared_ptr<Scene> scene) {
-    this->scenes_.erase(old_scene_name);
-
-    this->next_scene_ = std::move(scene);
-    this->scenes_.insert(std::make_pair(new_scene_name, this->next_scene_));
-}
-
-void game::core::Stage::replaceWithExistingScene(const std::string &old_scene_name, const std::string &new_scene_name) {
-    auto it = this->scenes_.find(new_scene_name);
-
-    if(it != this->scenes_.end()) {
-        this->scenes_.erase(old_scene_name);
-        this->next_scene_ = it->second;
+    {
+        this->scenes_.erase(old_Scene_Name);
+        this->next_Scene_ = it->second;
     }
 }
 
-const std::shared_ptr<game::core::Scene> &game::core::Stage::scene() const {
+const std::shared_ptr<game::core::Scene> &game::core::Stage::Scene() const
+{
     return this->scene_;
 }
 
-const std::map<std::string, std::shared_ptr<game::core::Scene>> &game::core::Stage::scenes() const {
+const std::map<std::string, std::shared_ptr<game::core::Scene>> &game::core::Stage::Scenes() const
+{
     return this->scenes_;
 }
 
-void game::core::Stage::Update() {
-    if (this->next_scene_) {
-        this->scene_ = std::move(this->next_scene_);
+void game::core::Stage::Update()
+{
+    if (this->next_Scene_)
+    {
+        this->scene_ = std::move(this->next_Scene_);
     }
 
     this->scene_->Update();
 }
 
-void game::core::Stage::Draw() {
+void game::core::Stage::Draw()
+{
     ClearBackground(WHITE);
 
-    for (auto const& [key, val] : this->scene_->actors) {
+    for (auto const& [key, val] : this->scene_->actors)
+    {
         val->sprite()->Update();
 
         if(val->sprite()->visible)

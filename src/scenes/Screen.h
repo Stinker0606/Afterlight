@@ -7,11 +7,12 @@
 #include <../../external/tileson/tileson.hpp>
 
 
-class Screen {
+class Screen
+{
 public:
     Screen();
     ~Screen();
-    void draw_Level() const;
+    void Draw_Level() const;
 
 private:
     std::unique_ptr<tson::Map> map;
