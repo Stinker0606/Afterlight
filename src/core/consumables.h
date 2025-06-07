@@ -9,7 +9,8 @@
 #include "objects.h"
 #include "config.h"
 
-class consumables: public objects {
+class consumables: public objects
+{
 public:
     consumables(Vector2,std::string);
     void draw() override;

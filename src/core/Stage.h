@@ -2,12 +2,9 @@
 
 #include <memory>
 #include <string>
-
-#include <raylib.h>
 #include <map>
-
 #include "../scenes/Scene.h"
-#include "sprite.h"
+
 
 namespace game::core {
     /**
