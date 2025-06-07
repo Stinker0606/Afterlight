@@ -2,8 +2,8 @@
 
 #include <map>
 #include <raylib.h>
-#include "stage.h"
-#include "actor.h"
+#include "Stage.h"
+#include "Actor.h"
 
 namespace game::core
 {

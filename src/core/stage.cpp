@@ -1,11 +1,12 @@
 #include <memory>
 #include <map>
-
 #include "stage.h"
 #include "renderer.h"
-#include "sprite.h"
 
-game::core::Stage::Stage(const std::string& new_scene_name, std::unique_ptr<game::core::Scene> scene) {
+
+game::core::Stage::Stage(const std::string& new_scene_name,
+    std::unique_ptr<game::core::Scene> scene)
+{
     this->next_scene_ = std::move(scene);
     this->scenes_.insert(std::make_pair(new_scene_name, this->next_scene_));
 }

@@ -1,11 +1,9 @@
+#include "MenuScene.h"
 #include <string>
-
-#include <raylib-cpp.hpp>
 #include <raylib.h>
 #include "../scenes/screen.h"
 #include <Store.h>
-
-#include "scenes.h"
+#include "GameScene.h"
 #include "../Vectors.h"
 
 using namespace std::string_literals;
