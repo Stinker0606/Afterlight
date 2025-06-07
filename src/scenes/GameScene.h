@@ -1,8 +1,10 @@
 #pragma once
 #include <Scene.h>
 
-namespace game::scenes {
-    class GameScene final : public game::core::Scene {
+namespace game::scenes
+{
+    class GameScene final : public game::core::Scene
+    {
     public:
         GameScene();
 

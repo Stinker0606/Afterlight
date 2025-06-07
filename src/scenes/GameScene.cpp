@@ -10,7 +10,8 @@
 
 using namespace std::string_literals;
 
-game::scenes::GameScene::GameScene() {
+game::scenes::GameScene::GameScene()
+{
     // Your scene initialization code here...
     std::shared_ptr<game::core::Actor> actor1 = std::make_unique<game::core::Actor>
     (std::make_unique<game::core::Sprite>(std::make_shared<game::core::Texture2D>
@@ -23,17 +24,20 @@ game::scenes::GameScene::GameScene() {
     this->actors.insert(std::make_pair("actor2", actor2));
 }
 
-game::scenes::GameScene::~GameScene() {
+game::scenes::GameScene::~GameScene()
+{
     // Your scene cleanup code here...
 }
 
-void game::scenes::GameScene::Update() {
+void game::scenes::GameScene::Update()
+{
     // Your process input and update game scene code here...
     if (IsKeyPressed(KEY_ESCAPE))
-        game::core::Store::stage->switchToNewScene("pause"s, std::make_unique<PauseScene>());
+        game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
 }
 
-void game::scenes::GameScene::Draw() {
+void game::scenes::GameScene::Draw()
+{
     // Your scene drawing code here...
     // Note that scene-actors are drawn automatically
     DrawText("This is the game scene - press ESCAPE for pause", 10, 10, 30, LIGHTGRAY);

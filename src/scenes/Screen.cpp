@@ -1,12 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "screen.h"
+#include "Screen.h"
 #include "../Vectors.h"
 #include "Walls.h"
 #include <vector>
 
-Screen::Screen() {
+Screen::Screen()
+{
 
     //Create a Tileson parser Object
     tson::Tileson parser;
@@ -46,14 +47,16 @@ Screen::Screen() {
     }
 }
 
-Screen::~Screen() {
+Screen::~Screen()
+{
     if (tileatlas_Texture.id != 0)
     {
         UnloadTexture(tileatlas_Texture);
     }
 }
 
-void Screen::draw_Level() const {
+void Screen::Draw_Level() const
+{
 
     //make sure the map is loaded before drawing
     if (map == nullptr)
@@ -63,7 +66,8 @@ void Screen::draw_Level() const {
     }
 
     //Iterate through the map layers
-    for (auto& layer : map->getLayers()) {
+    for (auto& layer : map->getLayers())
+        {
         if (layer.getType() == tson::LayerType::TileLayer)
         {
             //get Tilelayer Data
