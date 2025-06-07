@@ -1,9 +1,9 @@
 #include <raylib.h>
-#include "../scenes/screen.h"
+#include "../scenes/Screen.h"
 #include "Game.h"
 #include "store.h"
-#include "stage.h"
-#include "../scenes/menu_scene.h"
+#include "Stage.h"
+#include "../scenes/MenuScene.h"
 
 using namespace std::string_literals;
 

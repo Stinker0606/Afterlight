@@ -1,9 +1,10 @@
 #pragma once
+#include "Scene.h"
 
-#include <scene.h>
-
-namespace game::scenes {
-    class PauseScene final : public game::core::Scene {
+namespace game::scenes
+{
+    class PauseScene final : public game::core::Scene
+    {
     public:
         PauseScene();
 

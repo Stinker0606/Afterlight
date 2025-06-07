@@ -6,7 +6,7 @@
 #include <raylib.h>
 #include <map>
 
-#include "scene.h"
+#include "../scenes/Scene.h"
 #include "sprite.h"
 
 namespace game::core {

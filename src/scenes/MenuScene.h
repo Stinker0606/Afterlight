@@ -1,10 +1,12 @@
 #pragma once
 
-#include <scene.h>
-#include "screen.h"
+#include "Scene.h"
+#include "Screen.h"
 
-namespace game::scenes {
-    class MenuScene final : public game::core::Scene {
+namespace game::scenes
+{
+    class MenuScene final : public game::core::Scene
+    {
     public:
         MenuScene();
 
