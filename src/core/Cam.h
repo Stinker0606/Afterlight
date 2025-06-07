@@ -6,11 +6,11 @@
 #define RAYLIBSTARTER_CAM_H
 #include <raylib.h>
 
-struct Cam{
+struct Cam
+{
     Camera2D cam={};
 
     void Cam_Movement();
-
 };
 
 
