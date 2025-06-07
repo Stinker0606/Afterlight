@@ -7,15 +7,15 @@
 
 namespace enemy
 {
-    //Konstruktor
+    // Konstruktor
     Enemy_Base_Class::Enemy_Base_Class(std::string& name, int health, int movement_speed, int damage, int value)
             : enemy_Name(name), enemy_Health(health), enemy_Movement_Speed(movement_speed),
               enemy_Damage(damage), enemy_Value(value) {}
 
-    //Destruktor
+    // Destruktor
     Enemy_Base_Class::~Enemy_Base_Class() = default;
 
-    //Getter
+    // Getter
     std::string Enemy_Base_Class::get_Name() const
     {
         return enemy_Name;
@@ -37,13 +37,13 @@ namespace enemy
         return enemy_Value;
     }
 
-    //Setter
+    // Setter
     void Enemy_Base_Class::set_Health(int new_Health)
     {
         enemy_Health = new_Health;
     }
 
-    //Virtuelle Methoden
+    // Virtuelle Methoden
     void Enemy_Base_Class::Enemy_Attack() {}
     void Enemy_Base_Class::Enemy_Take_Damage() {}
     void Enemy_Base_Class::Enemy_Draw() {}

@@ -2,9 +2,7 @@
 
 #include <map>
 #include <string>
-
 #include <raylib.h>
-
 #include "actor.h"
 
 namespace game::core

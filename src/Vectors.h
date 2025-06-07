@@ -8,7 +8,7 @@
 #include <vector>
 #include "Walls.h"
 #include "consumables.h"
-#include "enemy_base_class.h"
+#include "game/Enemy_Base_Class.h"
 
 std::vector<Walls> vec_walls;
 std::vector<consumables> vec_cons;
