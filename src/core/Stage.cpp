@@ -1,6 +1,6 @@
 #include <memory>
 #include <map>
-#include "stage.h"
+#include "Stage.h"
 #include "renderer.h"
 
 

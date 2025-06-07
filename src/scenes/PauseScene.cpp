@@ -1,11 +1,8 @@
+#include "PauseScene.h"
 #include <string>
-
-#include <raylib-cpp.hpp>
 #include <raylib.h>
-
 #include <Store.h>
 
-#include "scenes.h"
 
 using namespace std::string_literals;
 

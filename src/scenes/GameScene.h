@@ -1,11 +1,5 @@
 #pragma once
-
-#include <memory>
-
-#include <actor.h>
-#include <scene.h>
-#include <sprite.h>
-#include <sprite_animated.h>
+#include <Scene.h>
 
 namespace game::scenes {
     class GameScene final : public game::core::Scene {
