@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Scene.h"
 #include "Screen.h"
 

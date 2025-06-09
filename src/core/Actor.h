@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sprite.h"
+#include "Sprite.h"
 
 namespace game::core {
     /**
@@ -13,7 +13,8 @@ namespace game::core {
      * game::core::actors. Objects that are only referenced there will not be drawn automatically.
      * The position and appearance of an actor object in the game depends on attributes (e.g. position and rotation) of its sprite member.
      */
-    class Actor {
+    class Actor
+    {
     private:
         std::shared_ptr<game::core::Sprite> sprite_;
 

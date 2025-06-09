@@ -1,7 +1,7 @@
 #include <memory>
 #include <map>
 #include "Stage.h"
-#include "renderer.h"
+#include "Renderer.h"
 
 
 game::core::Stage::Stage(const std::string& new_Scene_Name, std::unique_ptr<game::core::Scene> scene)

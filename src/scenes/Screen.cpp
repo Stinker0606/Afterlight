@@ -3,7 +3,7 @@
 #include <string>
 #include "Screen.h"
 #include "../Vectors.h"
-#include "Walls.h"
+#include "../game/Walls.h"
 #include <vector>
 
 Screen::Screen()
@@ -139,7 +139,7 @@ void Screen::Draw_Level() const
                     Vector2 temp;
                     temp.x=object.getPosition().x;
                     temp.y=object.getPosition().y;
-                    vec_cons.push_back(consumables(temp,object.getName()));
+                    vec_cons.push_back(Consumables(temp,object.getName()));
                 }
 
                 else if (layer_Name == "levelSpawns")

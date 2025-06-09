@@ -1,6 +1,6 @@
 #include <raylib.h>
 
-#include "actor.h"
+#include "Actor.h"
 
 game::core::Actor::Actor(std::shared_ptr<game::core::Sprite> sprite) : sprite_(std::move(sprite)){
     TraceLog(LOG_INFO, "game::core::Actor constructor called");

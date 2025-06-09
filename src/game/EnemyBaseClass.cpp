@@ -6,22 +6,31 @@
 
 namespace enemy
 {
-    Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_Speed, int damage,
-    int value, Vector2 start_position, int width, int height)
-        : enemy_Name(name), enemy_Health(health), enemy_Movement_Speed(movement_Speed), enemy_Damage(damage),
-        enemy_Value(value)
+Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
+    const char* sprite_path, Vector2 start_position, int width, int height)
+    : enemy_Name(name), enemy_Health(health), enemy_Movement_Speed(movement_speed), enemy_Damage(damage),
+      enemy_Value(value)
     {
-        this->enemy_Hitbox.x = start_position.x;
-        this->enemy_Hitbox.y = start_position.y;
-        this->enemy_Hitbox.width = width;
-        this->enemy_Hitbox.height = height;
+    enemy_Hitbox = {start_position.x, start_position.y, (float)width, (float)height};
+    sprite = LoadTexture(sprite_path);
     }
 
-    void Enemy_Base_Class::Take_Damage(int damage_amount)
+Enemy_Base_Class::~Enemy_Base_Class()
     {
-        this->enemy_Health -= damage_amount;
-
-        // Muss noch weiter ausgearbeitet werden. Bedingung, sobald Leben auf 0 fällt stirbt der Gegner und gibt
-        // vermutlich "valu" zurück
+    // Gibt die Textur frei, wenn der Gegner zerstört wird.
+    UnloadTexture(sprite);
     }
+
+void Enemy_Base_Class::Take_Damage(int damage_amount)
+    {
+    enemy_Health -= damage_amount;
+    }
+
+void Enemy_Base_Class::Attack(){}
+
+void Enemy_Base_Class::Draw() {}
+
+void Enemy_Base_Class::Pathfinding() {}
+
+void Enemy_Base_Class::Update(){}
 }

@@ -3,7 +3,7 @@
 #include <raylib.h>
 
 #include "../scenes/Scene.h"
-#include "sprite.h"
+#include "Sprite.h"
 
 namespace game::core {
     /**

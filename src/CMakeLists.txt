@@ -19,8 +19,7 @@ add_subdirectory(scenes)
 
 add_executable(${PROJECT_NAME} main.cpp
         Vectors.h
-        game/EnemyClass1.cpp
-        game/EnemyClass1.h)
+)
 
 # Add config.h.in file
 configure_file(config.h.in)

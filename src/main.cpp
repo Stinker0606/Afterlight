@@ -6,9 +6,9 @@
 #include <string>
 #include <raylib.h>
 #include <Game.h>
-#include "../scenes/Scenes.h"
 #include "scenes/Screen.h"
 #include "config.h.in"
+#include "MenuScene.h"
 
 /* Aktiviert "String-Literalen erlaubt "menu"s Daraus wird dann direkt ein std::string
  * also "menu"s == std::string ("menu")

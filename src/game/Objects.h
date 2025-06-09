@@ -7,14 +7,15 @@
 #include <raylib.h>
 #include <string>
 
-class objects {
+class Objects
+{
 protected:
     Vector2 pos;
     Texture2D text;
     Rectangle hitbox;
     std::string name;
-    objects()=default;
-    objects(Vector2,std::string);
+    Objects()=default;
+    Objects(Vector2,std::string);
 public:
 
     virtual void draw();

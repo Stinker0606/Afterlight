@@ -8,12 +8,8 @@
 Player_Base_Class::Player_Base_Class(int max_health, float movement_speed, int damage, Vector2 start_position)
     : player_Max_Health(max_health), player_Movement_Speed(movement_speed), player_Damage(damage)
 {
-    player_Health = player_Max_Health;
-
-    player_Hitbox.x = start_position.x;
-    player_Hitbox.y = start_position.y;
-    player_Hitbox.width = game::Config::player_Hitbox_Width;
-    player_Hitbox.height = game::Config::player_Hitbox_Height;
+    player_Health = player_Max_Health; player_Hitbox.x = start_position.x; player_Hitbox.y = start_position.y;
+    player_Hitbox.width = game::Config::player_Hitbox_Width; player_Hitbox.height = game::Config::player_Hitbox_Height;
 }
 
 void Player_Base_Class::Update(float delta_time)
