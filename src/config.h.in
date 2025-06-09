@@ -41,16 +41,26 @@ namespace game {
         // Defines if Raylib audio should be enabled
         inline static constexpr const bool kAudio = true;
 
-        // Class by Andreas
+        // Player Settings
+        inline static constexpr bool enable_Health_Drain = true; // HP-Drain durch Zeit an/aus
+        inline static constexpr float player_Health_Drain_Rate = 1.0f; // HP-Verlust pro Sekunde
+        inline static constexpr int player_Hitbox_Width = 32;
+        inline static constexpr int player_Hitbox_Height = 48;
 
-                //Warrior Stats - Default 0 | Sprite Path - Default assets/graphics/XXXX.png
-                inline static constexpr int warrior_hp = 0;
-                inline static constexpr float warrior_speed = 0.0f;
-                inline static constexpr int warrior_damage = 0;
-                inline static constexpr const char* warrior_sprite_path = "assets/graphics/XXXX.png";
+        // PlayerClass1
+        inline static constexpr int player_Class_1_Max_Health = 1000;
+        inline static constexpr float player_Class_1_Movement_Speed = 16.0f;
+        inline static constexpr int player_Class_1_Damage = 10;
+        inline static constexpr const char* player_Class_1_Sprite_Path = "assets/graphics/player_Class_1.png";
 
-                // drains HP every second - Default 0 HP
-                inline static constexpr float hp_drain = 0.0f;
+        // EnemyClass1
+        inline static constexpr int enemy_Class_1_Health = 50;
+        inline static constexpr float enemy_Class_1_Movement_Speed = 100.0f;
+        inline static constexpr int enemy_Class_1_Damage = 5;
+        inline static constexpr int enemy_Class_1_Value = 10; // Punkte für den Kill
+        inline static constexpr const char* enemy_Class_1_Sprite_Path = "assets/graphics/enemy_Class_1.png";
+        inline static constexpr int enemy_Class_1_Hitbox_Width = 32;
+        inline static constexpr int enemy_Class_1_Hitbox_Height = 32;
 
         // Objects
                 inline static constexpr const char consumables_path ="assets/graphics/ball.png"
