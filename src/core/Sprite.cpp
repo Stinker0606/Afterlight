@@ -2,7 +2,7 @@
 
 #include <utility>
 
-#include "sprite.h"
+#include "Sprite.h"
 
 game::core::Sprite::Sprite(std::shared_ptr<game::core::Texture2D> texture)
         : Sprite(std::move(texture), 0, 0, 0.0f) {

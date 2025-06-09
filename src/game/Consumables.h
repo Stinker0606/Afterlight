@@ -6,13 +6,13 @@
 #define RAYLIBSTARTER_CONSUMABLES_H
 
 
-#include "objects.h"
+#include "Objects.h"
 #include "config.h"
 
-class consumables: public objects
+class Consumables: public Objects
 {
 public:
-    consumables(Vector2,std::string);
+    Consumables(Vector2,std::string);
     void draw() override;
 };
 

@@ -1,6 +1,6 @@
 #include <raylib.h>
 
-#include "texture2d.h"
+#include "Texture2d.h"
 
 game::core::Texture2D::Texture2D(const char *filename) {
     // @todo Error handling needed

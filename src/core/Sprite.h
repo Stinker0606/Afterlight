@@ -4,7 +4,7 @@
 
 #include <raylib.h>
 
-#include "texture2d.h"
+#include "Texture2d.h"
 
 namespace game::core {
     /**

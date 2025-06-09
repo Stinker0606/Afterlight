@@ -6,9 +6,10 @@
 #define RAYLIBSTARTER_WALLS_H
 
 
-#include "objects.h"
+#include "../game/Objects.h"
 
-class Walls: public objects{
+class Walls: public Objects
+{
 protected:
     Vector2 size{};
 public:

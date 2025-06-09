@@ -5,8 +5,8 @@
 #include <raylib.h>
 #include <Store.h>
 #include "PauseScene.h"
-#include "renderer.h"
-#include "sprite_animated.h"
+#include "Renderer.h"
+#include "Sprite_animated.h"
 
 using namespace std::string_literals;
 

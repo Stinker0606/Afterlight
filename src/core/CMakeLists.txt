@@ -5,19 +5,17 @@ add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.
         DeltaTimeMachine.h
         Cam.cpp
         Cam.h
-        Playerinput.cpp
-        Playerinput.h
         colission_check.cpp
         ../game/EnemyBaseClass.cpp
         ../game/EnemyBaseClass.h
-        objects.cpp
-        objects.h
-        consumables.cpp
-        consumables.h
-        Walls.cpp
-        Walls.h
-        Spawnpoints.cpp
-        Spawnpoints.h)
+        ../game/Objects.cpp
+        ../game/Objects.h
+        ../game/Consumables.cpp
+        ../game/Consumables.h
+        ../game/Walls.cpp
+        ../game/Walls.h
+        ../game/Spawnpoints.cpp
+        ../game/Spawnpoints.h)
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 

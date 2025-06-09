@@ -6,9 +6,10 @@
 #define RAYLIBSTARTER_SPAWNPOINTS_H
 
 
-#include "objects.h"
+#include "../game/Objects.h"
 
-class Spawnpoints: public objects{
+class Spawnpoints: public Objects
+{
 
 
 

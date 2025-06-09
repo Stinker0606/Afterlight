@@ -2,11 +2,11 @@
 // Created by Kruse on 02/06/2025.
 //
 
-#include "consumables.h"
+#include "Consumables.h"
 #include <iostream>
-#include "config.h"
+#include "../../cmake-build-debug/_deps/raylib-src/src/config.h"
 
-consumables::consumables(Vector2 position, std::string name) {
+Consumables::Consumables(Vector2 position, std::string name) {
 
     this->name=name;
     this->pos.x=position.x ;
@@ -16,6 +16,6 @@ consumables::consumables(Vector2 position, std::string name) {
     this->hitbox=hb;
 
 }
-void consumables::draw() {
+void Consumables::draw() {
 
 }
