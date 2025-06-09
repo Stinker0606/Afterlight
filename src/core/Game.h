@@ -1,12 +1,13 @@
 #pragma once
 
 #include <string>
-#include "scene.h"
+#include "../scenes/Scene.h"
 
 #define MAX(a, b) ((a)>(b)? (a) : (b))
 #define MIN(a, b) ((a)<(b)? (a) : (b))
 
-namespace game::core {
+namespace game::core
+{
     /**
      * @brief The entry point into the game. The constructor is used to specify the basic settings such as the size of
      * the drawing area in pixels. Finally, a first game scene can be started via the Run() method.
@@ -56,7 +57,7 @@ namespace game::core {
          *
          * @brief Starts the first game scene.
          */
-        void Run(const std::string &scene_name, std::unique_ptr<game::core::Scene> scene) const;
+        void Run(const std::string &scene_Name, std::unique_ptr<game::core::Scene> scene) const;
 
     private:
         /// Width of the game scene (unscaled). Fixed for the entire run time of the game.

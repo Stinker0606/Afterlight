@@ -51,7 +51,7 @@ game::core::Game::~Game()
     CloseWindow();
 }
 
-void game::core::Game::Run(const std::string& scene_Name, std::unique_ptr<game::core::Scene> scene) const
+void game::core::Game::Run(const std::string &scene_Name, std::unique_ptr<game::core::Scene> scene) const
 {
     // Create game::Stage instance and assign new scene
     game::core::Store::stage = std::make_unique<game::core::Stage>(scene_Name, std::move(scene));

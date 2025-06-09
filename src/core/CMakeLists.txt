@@ -5,7 +5,6 @@ add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.
         DeltaTimeMachine.h
         Cam.cpp
         Cam.h
-        colission_check.cpp
         ../game/EnemyBaseClass.cpp
         ../game/EnemyBaseClass.h
         ../game/Objects.cpp
