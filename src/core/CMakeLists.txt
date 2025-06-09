@@ -8,8 +8,8 @@ add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.
         Playerinput.cpp
         Playerinput.h
         colission_check.cpp
-        ../game/enemy_base_class.cpp
-        ../game/enemy_base_class.h
+        ../game/EnemyBaseClass.cpp
+        ../game/EnemyBaseClass.h
         objects.cpp
         objects.h
         consumables.cpp

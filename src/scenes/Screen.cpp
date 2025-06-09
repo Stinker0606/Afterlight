@@ -8,7 +8,6 @@
 
 Screen::Screen()
 {
-
     //Create a Tileson parser Object
     tson::Tileson parser;
 
