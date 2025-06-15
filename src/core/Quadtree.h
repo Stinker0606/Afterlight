@@ -8,8 +8,8 @@
 #include <vector>
 #include <memory>
 #include "raylib.h"
-#include "../game/Collidable.h"
 
+class Collidable;
 class Quadtree
 {
 private:

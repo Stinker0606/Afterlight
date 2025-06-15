@@ -10,8 +10,8 @@
 #include "../game/Consumables.h"
 #include "game/EnemyBaseClass.h"
 
-std::vector<Walls> vec_walls;
+/*std::vector<Walls> vec_walls;
 std::vector<Consumables> vec_cons;
-std::vector<enemy::Enemy_Base_Class> vec_enemys;
+std::vector<enemy::Enemy_Base_Class> vec_enemys;*/
 
 #endif //RAYLIBSTARTER_VECTORS_H

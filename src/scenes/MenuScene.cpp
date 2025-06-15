@@ -30,16 +30,16 @@ void game::scenes::MenuScene::Update()
 
 void game::scenes::MenuScene::Draw()
 {
-    // Your scene drawing code here...
+    /*// Your scene drawing code here...
     // Note that scene-actors are drawn automatically
     //DrawText("Menu - press ENTER to load game scene", 10, 10, 30, LIGHTGRAY);
     for (int i = 0; i < vec_cons.size(); ++i)
     {
-        vec_cons[i].draw();
+        vec_cons[i].Draw();
     }
     for (int i = 0; i < vec_walls.size(); ++i)
     {
-        vec_walls[i].draw();
+        vec_walls[i].Draw();
     }
-    screen.Draw_Level();
+    screen.Draw_Level();*/
 }

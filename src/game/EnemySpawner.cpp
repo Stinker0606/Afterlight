@@ -1,5 +1,6 @@
 #include "EnemySpawner.h"
 #include "raylib.h"
+#include "CollisionManager.h"
 
 Enemy_Spawner::Enemy_Spawner(Rectangle spawner_Area, const std::vector<Rectangle>& obstacle_List,
                  std::vector<enemy::Enemy_Base_Class*>& enemy_List, float spawn_Rate, int max_Enemies)

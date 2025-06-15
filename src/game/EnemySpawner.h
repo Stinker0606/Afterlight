@@ -7,7 +7,8 @@
 
 
 // Basisklasse für Spawner (abstrakt)
-class Enemy_Spawner
+class Collision_Manager;
+class Enemy_Spawner : Collidable
 {
 public:
     Enemy_Spawner(Rectangle spawner_Area,

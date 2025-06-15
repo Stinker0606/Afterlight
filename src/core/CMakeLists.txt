@@ -7,8 +7,6 @@ add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.
         Cam.h
         ../game/EnemyBaseClass.cpp
         ../game/EnemyBaseClass.h
-        ../game/Objects.cpp
-        ../game/Objects.h
         ../game/Consumables.cpp
         ../game/Consumables.h
         ../game/Walls.cpp

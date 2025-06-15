@@ -6,6 +6,7 @@
 #define COLLIDABLE_H
 
 #include "raylib.h"
+#include <string>
 
 enum class CollisionType
 {
@@ -25,9 +26,7 @@ public:
     virtual ~Collidable() = default;
 
     virtual Rectangle Get_Hitbox() const = 0;
-
     virtual CollisionType Get_Collision_Type() const = 0;
-
     virtual void On_Collision(Collidable* other) = 0;
 };
 #endif //COLLIDABLE_H

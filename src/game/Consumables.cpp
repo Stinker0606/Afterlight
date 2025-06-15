@@ -4,26 +4,49 @@
 
 #include "Consumables.h"
 #include <iostream>
+#include "CollisionManager.h"
 #include "../../cmake-build-debug/_deps/raylib-src/src/config.h"
 
-Consumables::Consumables(Vector2 position, std::string name) {
+Consumables::Consumables(Vector2 position, std::string name, Collision_Manager* manager)
+{
+    name = name;
+    texture = LoadTexture("assets/graphics/ball.png"); // Beispielpfad
+    hitbox = { position.x, position.y, (float)texture.width, (float)texture.height };
 
-    this->name=name;
-    this->pos.x=position.x ;
-    this->pos.y=position.y;
-    this->text= LoadTexture("assets/graphics/ball.png");
-    Rectangle hb(position.x,position.y, this->text.width, this->text.height);
-    this->hitbox=hb;
-
+    manager_ptr = manager;
+    if (manager_ptr)
+    {
+        manager_ptr->Regist_Object(this);
+    }
 }
-void Consumables::Draw() {}
+
+Consumables::~Consumables()
+{
+    if (manager_ptr)
+    {
+        manager_ptr->Unregist_Object(this);
+    }
+    UnloadTexture(texture);
+}
 
 CollisionType Consumables::Get_Collision_Type() const
 {
     return CollisionType::CONSUMABLE;
 }
 
+
+//Core Methoden
+void Consumables::Tick(float delta_time)
+{
+
+}
+
 void Consumables::On_Collision(Collidable* other)
+{
+
+}
+
+void Consumables::Draw()
 {
 
 }

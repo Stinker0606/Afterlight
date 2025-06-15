@@ -6,10 +6,14 @@
 #define COLLISIONMANAGER_H
 
 #include <vector>
-#include "../game/Collidable.h"
 #include <memory>
-#include "Quadtree.h"
+#include <algorithm>
+#include <set>
 
+#include "raylib.h"
+
+class Collidable;
+class Quadtree;
 class Collision_Manager
 {
 private:

@@ -6,18 +6,27 @@
 #define RAYLIBSTARTER_WALLS_H
 
 
-#include "../game/Objects.h"
+#include "Collidable.h"
 
-class Walls: public Objects
+class Collision_Manager;
+class Walls : public Collidable
 {
 protected:
-    Vector2 size{};
-public:
-    Walls(Vector2 position,Vector2 size);
-    void Draw() override;
-    CollisionType Get_Collision_Type() const override;
-    void On_Collision(Collidable* other) override;
-};
+    Rectangle hitbox;
+    Collision_Manager* manager_ptr;
 
+public:
+    Walls(Vector2 position, Vector2 size, Collision_Manager* manager);
+    ~Walls();
+
+    // ... Rest der Klasse ...
+    Rectangle Get_Hitbox() const override;
+    CollisionType Get_Collision_Type() const override;
+
+
+    void Tick(float delta_time);
+    void On_Collision(Collidable* other) override;
+    void Draw();
+};
 
 #endif //RAYLIBSTARTER_WALLS_H

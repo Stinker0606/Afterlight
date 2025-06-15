@@ -11,6 +11,7 @@
 
 namespace enemy
 {
+    class Collision_Manager;
     class Enemy_Base_Class : public Collidable
     {
     protected:
@@ -22,27 +23,29 @@ namespace enemy
         int enemy_Value;
         Rectangle enemy_Hitbox;
         Texture2D sprite;
+        Collision_Manager* manager_ptr;
 
     public:
         Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
-            const char* sprite_path, Vector2 start_position, int width, int height);
+            const char* sprite_path, Vector2 start_position, int width, int height, Collision_Manager* manager);
 
         virtual ~Enemy_Base_Class();
 
         void Take_Damage(int damage_amount);
-        virtual void Attack();
-        virtual void Draw();
+        virtual void Range_Attack();
+        virtual void Melee_Attack();
         virtual void Pathfinding()=0;
-        virtual void Update();
 
         int Get_Health() const { return enemy_Health; }
         int Get_Damage() const { return enemy_Damage; }
 
         Rectangle Get_Hitbox() const override { return enemy_Hitbox; }
         CollisionType Get_Collision_Type() const override { return CollisionType::ENEMY; }
+
+        void Tick(float delta_time);
         void On_Collision(Collidable* other) override;
+        void Draw();
     };
 }
+#endif
 
-
-#endif //RAYLIBSTARTER_ENEMY_BASE_CLASS_H

@@ -3,9 +3,8 @@
 //
 
 #include "CollisionManager.h"
-#include <algorithm>
-#include <set>
-#include "raylib.h"
+#include "Quadtree.h"
+#include "../game/Collidable.h"
 
 Collision_Manager::Collision_Manager(Rectangle world_bounds)
 {

@@ -3,6 +3,7 @@
 //
 
 #include "Quadtree.h"
+#include "../game/Collidable.h"
 
 Quadtree::Quadtree(int pLevel, Rectangle pBounds)
 {

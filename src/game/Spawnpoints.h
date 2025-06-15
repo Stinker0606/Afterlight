@@ -6,21 +6,28 @@
 #define RAYLIBSTARTER_SPAWNPOINTS_H
 
 
-#include "../game/Objects.h"
+#include "Collidable.h"
 
-class Spawnpoints : public Objects
+class Collision_Manager;
+class Spawnpoints : public Collidable
 {
 private:
-    int spawner_Hits; // Die Anzahl der Treffer, die der Spawner aushält
+    int spawner_Hits;
+    Rectangle hitbox;
+    Collision_Manager* manager_ptr;
 
 public:
-    Spawnpoints(Vector2 position, int hits); // Angepasster Konstruktor
+    Spawnpoints(Vector2 position, int hits, Collision_Manager* manager);
+    ~Spawnpoints();
 
-    // Implementierung der pure virtual functions
+
+    Rectangle Get_Hitbox() const override;
     CollisionType Get_Collision_Type() const override;
-    void On_Collision(Collidable* other) override;
-
     bool Is_Destroyed() const;
+
+    void Tick(float delta_time);
+    void On_Collision(Collidable* other) override;
+    void Draw();
 };
 
 

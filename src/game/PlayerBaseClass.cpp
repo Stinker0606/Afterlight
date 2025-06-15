@@ -4,15 +4,40 @@
 
 #include "PlayerBaseClass.h"
 #include "../config.h.in"
+#include "CollisionManager.h"
 
-Player_Base_Class::Player_Base_Class(int max_health, float movement_speed, int damage, Vector2 start_position)
+Player_Base_Class::Player_Base_Class(int max_health, float movement_speed, int damage, Vector2 start_position,
+                                             Collision_Manager* manager_ptr)
     : player_Max_Health(max_health), player_Movement_Speed(movement_speed), player_Damage(damage)
 {
     player_Health = player_Max_Health; player_Hitbox.x = start_position.x; player_Hitbox.y = start_position.y;
     player_Hitbox.width = game::Config::player_Hitbox_Width; player_Hitbox.height = game::Config::player_Hitbox_Height;
 }
 
-void Player_Base_Class::Update(float delta_time)
+void Player_Base_Class::Take_Damage(int damage_amount)
+{
+    player_Health -= damage_amount;
+}
+
+void Player_Base_Class::Update_Previous_Position()
+{
+    previous_position.x = player_Hitbox.x;
+    previous_position.y = player_Hitbox.y;
+}
+
+void Player_Base_Class::Stop_Movement()
+{
+    player_Hitbox.x = previous_position.x;
+    player_Hitbox.y = previous_position.y;
+}
+
+//Core Methoden
+void Player_Input()
+{
+
+}
+
+void Player_Base_Class::Tick(float delta_time)
 {
     if (game::Config::enable_Health_Drain)
     {
@@ -23,11 +48,6 @@ void Player_Base_Class::Update(float delta_time)
     {
         player_Health = 0;
     }
-}
-
-void Player_Base_Class::Take_Damage(int damage_amount)
-{
-    player_Health -= damage_amount;
 }
 
 void Player_Base_Class::On_Collision(Collidable* other)
@@ -42,14 +62,7 @@ void Player_Base_Class::On_Collision(Collidable* other)
     }
 }
 
-void Player_Base_Class::Update_Previous_Position()
+void Player_Base_Class::Draw()
 {
-    previous_position.x = player_Hitbox.x;
-    previous_position.y = player_Hitbox.y;
-}
 
-void Player_Base_Class::Stop_Movement()
-{
-    player_Hitbox.x = previous_position.x;
-    player_Hitbox.y = previous_position.y;
 }
