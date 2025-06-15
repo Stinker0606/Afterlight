@@ -7,8 +7,9 @@
 
 #include "raylib.h"
 #include <string>
+#include "Collidable.h"
 
-class Player_Base_Class
+class Player_Base_Class : public Collidable
 {
 	protected:
     	// Kern-Attribute
@@ -20,6 +21,7 @@ class Player_Base_Class
         // Player Länge und Breite sind in der Config. Die Position muss man noch mit dem passenden Vektor und dem
         // Spieler Spawner verbinden
     	Rectangle player_Hitbox;
+		Vector2 previous_position;
 
 	public:
     	// Konstruktor
@@ -35,7 +37,12 @@ class Player_Base_Class
 
     	float Get_Health() const { return player_Health; }
     	int Get_Damage() const { return player_Damage; }
-    	Rectangle Get_Hitbox() const { return player_Hitbox; }
+        Rectangle Get_Hitbox() const override { return player_Hitbox; }
+    	CollisionType Get_Collision_Type() const override { return CollisionType::PLAYER; }
+    	void On_Collision(Collidable* other) override;
+
+		void Update_Previous_Position();
+		void Stop_Movement();
 };
 
 #endif //RAYLIBSTARTER_PLAYER_CLASS_H

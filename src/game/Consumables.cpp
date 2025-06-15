@@ -16,6 +16,14 @@ Consumables::Consumables(Vector2 position, std::string name) {
     this->hitbox=hb;
 
 }
-void Consumables::draw() {
+void Consumables::Draw() {}
+
+CollisionType Consumables::Get_Collision_Type() const
+{
+    return CollisionType::CONSUMABLE;
+}
+
+void Consumables::On_Collision(Collidable* other)
+{
 
 }

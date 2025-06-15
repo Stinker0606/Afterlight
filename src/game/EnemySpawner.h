@@ -7,25 +7,26 @@
 
 
 // Basisklasse für Spawner (abstrakt)
-class spawner {
+class Enemy_Spawner
+{
 public:
-    spawner(Rectangle spawner_Area,
+    Enemy_Spawner(Rectangle spawner_Area,
             const std::vector<Rectangle>& obstacle_List,
             std::vector<enemy::Enemy_Base_Class*>& enemy_List,
             float spawn_Rate,
             int max_Enemies);
 
 
-    virtual ~spawner() = default;
+    virtual ~Enemy_Spawner() = default;
 
     // Wird jede Frame aufgerufen, steuert automatisches Spawnen
-    void update(float delta_Time);
+    void Update(float delta_Time);
 
     // Versucht einen Gegner an spawn_Position zu spawnen
-    void trySpawn(Vector2 spawn_Position);
+    void Try_Spawn(Vector2 spawn_Position);
 
     // Zeichnet optional den Spawnerbereich
-    void drawSpawnerArea() const;
+    void Draw_Spawner_Area() const;
 
 protected:
     Rectangle spawner_Area;                     // Spawnbereich
@@ -38,7 +39,7 @@ protected:
     float time_Since_Last_Spawn_; // Zeit seit letztem Spawn
 
     // Prüft, ob der Platz frei ist (keine Kollision)
-    bool isSpaceFree(const Rectangle& newHitbox) const;
+    bool Is_Space_Free(const Rectangle& newHitbox) const;
 
     // erzeugt konkreten Gegner
     virtual enemy::Enemy_Base_Class* createEnemy(Vector2 position) = 0;

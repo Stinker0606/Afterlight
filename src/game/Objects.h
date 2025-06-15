@@ -6,19 +6,27 @@
 #define RAYLIBSTARTER_OBJECTS_H
 #include <raylib.h>
 #include <string>
+#include "Collidable.h"
 
-class Objects
+class Objects : public Collidable
 {
 protected:
     Vector2 pos;
     Texture2D text;
     Rectangle hitbox;
     std::string name;
+
     Objects()=default;
     Objects(Vector2,std::string);
 public:
+    virtual void Draw();
 
-    virtual void draw();
+    Rectangle Get_Hitbox() const override
+    {
+        return hitbox;
+    }
+    CollisionType Get_Collision_Type() const override = 0;
+    void On_Collision(Collidable* other) override = 0;
 };
 
 

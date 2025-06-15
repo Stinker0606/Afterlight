@@ -16,16 +16,40 @@ void Player_Base_Class::Update(float delta_time)
 {
     if (game::Config::enable_Health_Drain)
     {
-        this->player_Health -= game::Config::player_Health_Drain_Rate * delta_time;
+        player_Health -= game::Config::player_Health_Drain_Rate * delta_time;
     }
 
-    if (this->player_Health < 0)
+    if (player_Health < 0)
     {
-        this->player_Health = 0;
+        player_Health = 0;
     }
 }
 
 void Player_Base_Class::Take_Damage(int damage_amount)
 {
-    this->player_Health -= damage_amount;
+    player_Health -= damage_amount;
+}
+
+void Player_Base_Class::On_Collision(Collidable* other)
+{
+	CollisionType otherType = other->Get_Collision_Type();
+
+    if (otherType == CollisionType::WALL ||
+        otherType == CollisionType::ENEMY_SPAWNER ||
+        otherType == CollisionType::ENEMY)
+    {
+        Stop_Movement();
+    }
+}
+
+void Player_Base_Class::Update_Previous_Position()
+{
+    previous_position.x = player_Hitbox.x;
+    previous_position.y = player_Hitbox.y;
+}
+
+void Player_Base_Class::Stop_Movement()
+{
+    player_Hitbox.x = previous_position.x;
+    player_Hitbox.y = previous_position.y;
 }

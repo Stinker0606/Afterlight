@@ -14,7 +14,9 @@ protected:
     Vector2 size{};
 public:
     Walls(Vector2 position,Vector2 size);
-    void draw() override;
+    void Draw() override;
+    CollisionType Get_Collision_Type() const override;
+    void On_Collision(Collidable* other) override;
 };
 
 

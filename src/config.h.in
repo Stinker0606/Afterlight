@@ -63,7 +63,7 @@ namespace game {
         inline static constexpr int enemy_Class_1_Hitbox_Height = 32;
 
         // Objects
-                inline static constexpr const char consumables_path ="assets/graphics/ball.png"
+                inline static constexpr const char consumables_path ="assets/graphics/ball.png";
 
 
             // Control Settings

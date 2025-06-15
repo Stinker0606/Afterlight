@@ -17,7 +17,6 @@ Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_
 
 Enemy_Base_Class::~Enemy_Base_Class()
     {
-    // Gibt die Textur frei, wenn der Gegner zerstört wird.
     UnloadTexture(sprite);
     }
 
