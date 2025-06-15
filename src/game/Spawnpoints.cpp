@@ -19,21 +19,29 @@ CollisionType Spawnpoints::Get_Collision_Type() const
     return CollisionType::ENEMY;
 }
 
+
+bool Spawnpoints::Is_Destroyed() const
+{
+    return spawner_Hits <= 0;
+}
+
+//Core Methoden
+void Spawnpoints::Tick(float delta_time)
+{
+
+}
+
 void Spawnpoints::On_Collision(Collidable* other)
 {
-    // Der Spawner soll Schaden von Spieler-Projektilen oder Nahkampfangriffen nehmen
     CollisionType type = other->Get_Collision_Type();
 
     if (type == CollisionType::PLAYER_PROJECTILE || type == CollisionType::PLAYER_MELEE_HITBOX)
     {
         this-> spawner_Hits--;
-
-        // Wichtig: Das Projektil/der Nahkampfangriff muss sich selbst zerstören.
-        // Das passiert in dessen eigener On_Collision-Methode.
     }
 }
 
-bool Spawnpoints::Is_Destroyed() const
+void Spawnpoints::Draw() override
 {
-    return spawner_Hits <= 0;
+
 }

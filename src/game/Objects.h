@@ -19,14 +19,11 @@ protected:
     Objects()=default;
     Objects(Vector2,std::string);
 public:
-    virtual void Draw();
 
-    Rectangle Get_Hitbox() const override
-    {
-        return hitbox;
-    }
-    CollisionType Get_Collision_Type() const override = 0;
-    void On_Collision(Collidable* other) override = 0;
+    Rectangle Get_Hitbox() const override{ return hitbox; }
+    virtual void Tick(float delta_time) = 0;
+    virtual void On_Collision(Collidable* other) = 0;
+    virtual void Draw() = 0;
 };
 
 

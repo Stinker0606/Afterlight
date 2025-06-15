@@ -30,19 +30,22 @@ class Player_Base_Class : public Collidable
     	// Destruktor
     	virtual ~Player_Base_Class() = default;
 
-    	virtual void Update(float delta_time);
+
     	void Take_Damage(int damage_amount);
     	virtual void Attack() = 0;
-    	virtual void Draw() = 0;
+
 
     	float Get_Health() const { return player_Health; }
     	int Get_Damage() const { return player_Damage; }
         Rectangle Get_Hitbox() const override { return player_Hitbox; }
     	CollisionType Get_Collision_Type() const override { return CollisionType::PLAYER; }
-    	void On_Collision(Collidable* other) override;
-
 		void Update_Previous_Position();
 		void Stop_Movement();
+
+        void Player_Input();
+		void Tick(float delta_time);
+		void On_Collision(Collidable* other) override;
+		void Draw();
 };
 
 #endif //RAYLIBSTARTER_PLAYER_CLASS_H

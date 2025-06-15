@@ -30,19 +30,20 @@ namespace enemy
         virtual ~Enemy_Base_Class();
 
         void Take_Damage(int damage_amount);
-        virtual void Attack();
-        virtual void Draw();
+        virtual void Range_Attack();
+        virtual void Melee_Attack();
         virtual void Pathfinding()=0;
-        virtual void Update();
 
         int Get_Health() const { return enemy_Health; }
         int Get_Damage() const { return enemy_Damage; }
 
         Rectangle Get_Hitbox() const override { return enemy_Hitbox; }
         CollisionType Get_Collision_Type() const override { return CollisionType::ENEMY; }
+
+        void Tick(float delta_time);
         void On_Collision(Collidable* other) override;
+        void Draw();
     };
 }
+#endif
 
-
-#endif //RAYLIBSTARTER_ENEMY_BASE_CLASS_H

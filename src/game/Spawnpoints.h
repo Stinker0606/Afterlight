@@ -18,9 +18,11 @@ public:
 
     // Implementierung der pure virtual functions
     CollisionType Get_Collision_Type() const override;
-    void On_Collision(Collidable* other) override;
-
     bool Is_Destroyed() const;
+
+    void Tick(float delta_time);
+    void On_Collision(Collidable* other) override;
+    void Draw() override;
 };
 
 

@@ -12,11 +12,13 @@ class Consumables: public Objects
 {
 public:
     Consumables(Vector2,std::string);
-    void Draw() override;
 
     CollisionType Get_Collision_Type() const override;
+
+    void Tick(float delta_time);
     void On_Collision(Collidable* other) override;
+    void Draw() override;
 };
 
 
-#endif //RAYLIBSTARTER_CONSUMABLES_H
+#endif //RAYLIBSTA

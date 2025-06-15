@@ -9,7 +9,3 @@ Objects::Objects(Vector2 position, std::string name)
     this->pos.x=position.x ;
     this->pos.y=position.y;
 }
-void Objects::Draw()
-{
-    DrawTexture(this->text, this->pos.x, this->pos.y,WHITE);
-}

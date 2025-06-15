@@ -6,7 +6,8 @@
 #include <iostream>
 #include "../../cmake-build-debug/_deps/raylib-src/src/config.h"
 
-Consumables::Consumables(Vector2 position, std::string name) {
+Consumables::Consumables(Vector2 position, std::string name)
+{
 
     this->name=name;
     this->pos.x=position.x ;
@@ -16,14 +17,25 @@ Consumables::Consumables(Vector2 position, std::string name) {
     this->hitbox=hb;
 
 }
-void Consumables::Draw() {}
+
 
 CollisionType Consumables::Get_Collision_Type() const
 {
     return CollisionType::CONSUMABLE;
 }
 
+
+//Core Methoden
+void Consumables::Tick(float delta_time)
+{
+
+}
 void Consumables::On_Collision(Collidable* other)
+{
+
+}
+
+void Consumables::Draw()
 {
 
 }
