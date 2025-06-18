@@ -19,7 +19,6 @@ public:
     Walls(Vector2 position, Vector2 size, Collision_Manager* manager);
     ~Walls();
 
-    // ... Rest der Klasse ...
     Rectangle Get_Hitbox() const override;
     Collision_Type Get_Collision_Type() const override;
 
