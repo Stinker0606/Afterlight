@@ -8,7 +8,7 @@
 #include "raylib.h"
 #include <string>
 
-enum class CollisionType
+enum class Collision_Type
 {
     PLAYER,
     ENEMY,
@@ -26,7 +26,7 @@ public:
     virtual ~Collidable() = default;
 
     virtual Rectangle Get_Hitbox() const = 0;
-    virtual CollisionType Get_Collision_Type() const = 0;
+    virtual Collision_Type Get_Collision_Type() const = 0;
     virtual void On_Collision(Collidable* other) = 0;
 };
 #endif //COLLIDABLE_H

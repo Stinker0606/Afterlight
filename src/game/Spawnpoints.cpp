@@ -29,17 +29,17 @@ Spawnpoints::~Spawnpoints()
 
 Rectangle Spawnpoints::Get_Hitbox() const { return this->hitbox; }
 
-CollisionType Spawnpoints::Get_Collision_Type() const
+Collision_Type Spawnpoints::Get_Collision_Type() const
 {
-    return CollisionType::ENEMY_SPAWNER; // KORRIGIERT (war vorher ENEMY)
+    return Collision_Type::ENEMY_SPAWNER; // KORRIGIERT (war vorher ENEMY)
 }
 
 bool Spawnpoints::Is_Destroyed() const { return spawner_Hits <= 0; }
 
 void Spawnpoints::On_Collision(Collidable* other)
 {
-    CollisionType type = other->Get_Collision_Type();
-    if (type == CollisionType::PLAYER_PROJECTILE || type == CollisionType::PLAYER_MELEE_HITBOX)
+    Collision_Type type = other->Get_Collision_Type();
+    if (type == Collision_Type::PLAYER_PROJECTILE || type == Collision_Type::PLAYER_MELEE_HITBOX)
     {
         this->spawner_Hits--;
     }

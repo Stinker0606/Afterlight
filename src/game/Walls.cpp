@@ -23,9 +23,9 @@ Walls::~Walls()
     }
 }
 
-CollisionType Walls::Get_Collision_Type() const
+Collision_Type Walls::Get_Collision_Type() const
 {
-    return CollisionType::WALL;
+    return Collision_Type::WALL;
 }
 
 //Core Methoden

@@ -52,11 +52,11 @@ void Player_Base_Class::Tick(float delta_time)
 
 void Player_Base_Class::On_Collision(Collidable* other)
 {
-	CollisionType otherType = other->Get_Collision_Type();
+	Collision_Type otherType = other->Get_Collision_Type();
 
-    if (otherType == CollisionType::WALL ||
-        otherType == CollisionType::ENEMY_SPAWNER ||
-        otherType == CollisionType::ENEMY)
+    if (otherType == Collision_Type::WALL ||
+        otherType == Collision_Type::ENEMY_SPAWNER ||
+        otherType == Collision_Type::ENEMY)
     {
         Stop_Movement();
     }

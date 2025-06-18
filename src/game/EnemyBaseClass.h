@@ -40,7 +40,7 @@ namespace enemy
         int Get_Damage() const { return enemy_Damage; }
 
         Rectangle Get_Hitbox() const override { return enemy_Hitbox; }
-        CollisionType Get_Collision_Type() const override { return CollisionType::ENEMY; }
+        Collision_Type Get_Collision_Type() const override { return Collision_Type::ENEMY; }
 
         void Tick(float delta_time);
         void On_Collision(Collidable* other) override;

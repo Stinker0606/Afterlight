@@ -21,7 +21,7 @@ public:
 
     // ... Rest der Klasse ...
     Rectangle Get_Hitbox() const override;
-    CollisionType Get_Collision_Type() const override;
+    Collision_Type Get_Collision_Type() const override;
 
 
     void Tick(float delta_time);

@@ -29,9 +29,9 @@ Consumables::~Consumables()
     UnloadTexture(texture);
 }
 
-CollisionType Consumables::Get_Collision_Type() const
+Collision_Type Consumables::Get_Collision_Type() const
 {
-    return CollisionType::CONSUMABLE;
+    return Collision_Type::CONSUMABLE;
 }
 
 

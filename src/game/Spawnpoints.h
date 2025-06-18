@@ -22,7 +22,7 @@ public:
 
 
     Rectangle Get_Hitbox() const override;
-    CollisionType Get_Collision_Type() const override;
+    Collision_Type Get_Collision_Type() const override;
     bool Is_Destroyed() const;
 
     void Tick(float delta_time);

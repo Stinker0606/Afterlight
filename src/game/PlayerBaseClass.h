@@ -40,7 +40,7 @@ class Player_Base_Class : public Collidable
     	float Get_Health() const { return player_Health; }
     	int Get_Damage() const { return player_Damage; }
         Rectangle Get_Hitbox() const override { return player_Hitbox; }
-    	CollisionType Get_Collision_Type() const override { return CollisionType::PLAYER; }
+    	Collision_Type Get_Collision_Type() const override { return Collision_Type::PLAYER; }
 		void Update_Previous_Position();
 		void Stop_Movement();
 
