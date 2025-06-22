@@ -4,17 +4,12 @@
 
 #include "PlayerBaseClass.h"
 
-Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage,
-                                     const char* sprite_path, Vector2 start_Position, Collision_Manager* manager)
+Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, const char* sprite_Path,
+    int frame_Width, int frame_Height, int anim_Steps, int anim_Speed, Vector2 start_Position, Collision_Manager* manager)
 
-    : Actor(std::make_shared<game::core::SpriteAnimated>(std::make_shared<game::core::Texture2D>(sprite_path),
-			16.0f, // frame_width
-            16.0f, // frame_height
-            1,     // start row
-            4,     // steps
-            15     // speed
-        )
-    ),
+    : Actor(std::make_shared<game::core::SpriteAnimated>(std::make_shared<game::core::Texture2D>(sprite_Path),
+            (float)frame_Width, (float)frame_Height, 1,anim_Steps, anim_Speed)),
+
     Collidable()
 {
     // Werte aus den Parametern in die Member-Variablen speichern
@@ -23,8 +18,8 @@ Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int d
     player_Movement_Speed = movement_Speed;
     player_Damage = damage;
 
-    // Initialisiere die Hitbox mit der Startposition
-    player_Hitbox = { start_Position.x, start_Position.y, 16.0f, 16.0f };
+    // Initialisiere die Hitbox und die Sprite-Position
+    player_Hitbox = { start_Position.x, start_Position.y, (float)frame_Width, (float)frame_Height };
     sprite()->pos_x = (int)start_Position.x;
     sprite()->pos_y = (int)start_Position.y;
 
@@ -39,14 +34,6 @@ Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int d
     inventory_Is_Full = false;
     facing_Direction = Facing_Direction::DOWN;
     is_Moving = false;
-
-    auto anim_Sprite = std::dynamic_pointer_cast<game::core::SpriteAnimated>(sprite());
-    if (anim_Sprite)
-    {
-        anim_Sprite->AddState(2, 4, 15, 16, 16);
-        anim_Sprite->AddState(3, 4, 15, 16, 16);
-        anim_Sprite->AddState(4, 4, 15, 16, 16);
-    }
 }
 
 Player_Base_Class::~Player_Base_Class()

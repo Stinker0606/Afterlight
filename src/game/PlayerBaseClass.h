@@ -41,8 +41,9 @@ protected:
 
 public:
 	// Konstruktor
-	Player_Base_Class(int max_Health, float movement_Speed, int damage, const char* sprite_path,
-						Vector2 start_Position, Collision_Manager* manager = nullptr);
+	Player_Base_Class(int max_Health, float movement_Speed, int damage, const char* sprite_Path, int frame_Width,
+		int frame_Height, int anim_Frames, int anim_Speed, Vector2 start_Position, Collision_Manager* manager);
+
 	// Destruktor
 	~Player_Base_Class();
 	void Player_Input();
