@@ -47,13 +47,13 @@ namespace game {
         inline static constexpr int player_Hitbox_Width = 32;
         inline static constexpr int player_Hitbox_Height = 48;
 
-        // PlayerClass1
-        inline static constexpr int player_Class_1_Max_Health = 1000;
-        inline static constexpr float player_Class_1_Movement_Speed = 16.0f;
-        inline static constexpr int player_Class_1_Damage = 10;
-        inline static constexpr const char* player_Class_1_Sprite_Path = "assets/graphics/player_Class_1.png";
+        // Player_Class_One
+        inline static constexpr const char* player_Sprite_Path = "assets/graphics/player/class1_sheet.png";
+        inline static constexpr int player_Max_Health = 120;
+        inline static constexpr float player_Movement_Speed = 180.0f;
+        inline static constexpr int player_Damage = 12;
 
-        // EnemyClass1
+        // Enemy_Class_One
         inline static constexpr int enemy_Class_1_Health = 50;
         inline static constexpr float enemy_Class_1_Movement_Speed = 100.0f;
         inline static constexpr int enemy_Class_1_Damage = 5;

@@ -9,13 +9,18 @@
 #include "raymath.h"
 #include <string>
 #include "Collidable.h"
+#include "Actor.h"
+#include "../config.h.in"
+#include "CollisionManager.h"
 #include "SpriteAnimated.h"
+#include "Texture2d.h"
+#include <memory>
 
 class Collision_Manager;
 
 enum class Facing_Direction {UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
 
-class Player_Base_Class : public Collidable
+class Player_Base_Class : public game::core::Actor, public Collidable
 {
 protected:
 	// Kern-Attribute
@@ -24,8 +29,6 @@ protected:
 	float player_Movement_Speed;
 	int player_Damage;
 
-	// Player Länge und Breite sind in der Config. Die Position muss man noch mit dem passenden Vektor und dem
-	// Spieler Spawner verbinden
 	Rectangle player_Hitbox;
 	Vector2 previous_Position;
 	Collision_Manager* manager_Ptr;
@@ -34,27 +37,28 @@ protected:
 	float ranged_Cooldown;
 	bool inventory_Is_Full;
 	Facing_Direction facing_Direction;
+	bool is_Moving;
 
 public:
 	// Konstruktor
-	Player_Base_Class(int max_Health, float movement_Speed, int damage,
+	Player_Base_Class(int max_Health, float movement_Speed, int damage, const char* sprite_path,
 						Vector2 start_Position, Collision_Manager* manager = nullptr);
 	// Destruktor
 	~Player_Base_Class();
 	void Player_Input();
 	void Tick(float delta_time);
 	void On_Collision(Collidable* other) override;
-	virtual void Draw() = 0;
 
 	void Update_Previous_Position();
+	void Update_Facing_Direction();
 	void Stop_Movement();
 
-protected:
 	void Melee_Attack();
 	void Ranged_Attack();
 	void Use_Item();
 
-	void Update_Facing_Direction();
+    Rectangle Get_Hitbox() const override;
+    Collision_Type Get_Collision_Type() const override;
 };
 
 #endif //RAYLIBSTARTER_PLAYER_CLASS_H

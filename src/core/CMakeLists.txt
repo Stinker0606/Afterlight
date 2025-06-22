@@ -17,7 +17,9 @@ add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.
         CollisionManager.cpp
         CollisionManager.h
         Quadtree.cpp
-        Quadtree.h)
+        Quadtree.h
+        ../game/PlayerClassOne.cpp
+        ../game/PlayerClassOne.h)
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
