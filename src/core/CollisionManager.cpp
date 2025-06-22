@@ -30,17 +30,17 @@ void Collision_Manager::Unregist_Object(Collidable* object)
 
 void Collision_Manager::Check_Collisions()
 {
-    this->quadtree->Clear();
-    for (Collidable* obj : this->collidables)
+    quadtree->Clear();
+    for (Collidable* obj : collidables)
     {
-        this->quadtree->Insert(obj);
+        quadtree->Insert(obj);
     }
 
     std::set<std::pair<Collidable*, Collidable*>> processed_pairs;
 
-    for (Collidable* objA : this->collidables)
+    for (Collidable* objA : collidables)
     {
-        std::vector<Collidable*> candidates = this->quadtree->Retrieve(objA);
+        std::vector<Collidable*> candidates = quadtree->Retrieve(objA);
 
         for (Collidable* objB : candidates)
         {
