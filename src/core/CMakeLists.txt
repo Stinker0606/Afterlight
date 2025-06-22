@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.cpp renderer.h renderer.cpp texture2d.cpp texture2d.h sprite.h sprite.cpp sprite_animated.cpp sprite_animated.h actor.cpp actor.h
+add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.cpp renderer.h renderer.cpp texture2d.cpp texture2d.h sprite.h sprite.cpp SpriteAnimated.cpp SpriteAnimated.h actor.cpp actor.h
         DeltaTimeMachine.cpp
         DeltaTimeMachine.h
         Cam.cpp

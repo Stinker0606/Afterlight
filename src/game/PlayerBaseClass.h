@@ -9,6 +9,7 @@
 #include "raymath.h"
 #include <string>
 #include "Collidable.h"
+#include "SpriteAnimated.h"
 
 class Collision_Manager;
 

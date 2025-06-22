@@ -6,7 +6,7 @@
 #include <Store.h>
 #include "PauseScene.h"
 #include "Renderer.h"
-#include "Sprite_animated.h"
+#include "SpriteAnimated.h"
 
 using namespace std::string_literals;
 

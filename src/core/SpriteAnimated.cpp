@@ -2,7 +2,7 @@
 #include <utility>
 #include "Store.h"
 #include "config.h"
-#include "Sprite_animated.h"
+#include "SpriteAnimated.h"
 
 game::core::SpriteAnimated::SpriteAnimated(std::shared_ptr<game::core::Texture2D> texture, float frame_width, float frame_height, int row, int steps, int speed)
         : SpriteAnimated(std::move(texture), frame_width, frame_height, row, steps, speed, 0, 0, 0.0) {
