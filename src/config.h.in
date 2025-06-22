@@ -62,14 +62,14 @@ namespace game {
         inline static constexpr int enemy_Class_1_Hitbox_Width = 32;
         inline static constexpr int enemy_Class_1_Hitbox_Height = 32;
 
-        // Objects
-               // inline static constexpr const char consumables_path ="assets/graphics/ball.png";
+        // Control Settings
+        inline static constexpr const int key_Up = KEY_W;
+        inline static constexpr const int key_Down = KEY_S;
+        inline static constexpr const int key_Left = KEY_A;
+        inline static constexpr const int key_Right = KEY_D;
 
-
-            // Control Settings
-                inline static constexpr const int key_Up = KEY_W;
-                inline static constexpr const int key_Down = KEY_S;
-                inline static constexpr const int key_Left = KEY_A;
-                inline static constexpr const int key_Right = KEY_D;
+        inline static constexpr const int key_Melee_Attack = KEY_J;
+        inline static constexpr const int key_Ranged_Attack = KEY_K;
+        inline static constexpr const int key_Use_Item = KEY_L;
     };
 }
