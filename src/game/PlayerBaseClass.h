@@ -6,24 +6,19 @@
 #define RAYLIBSTARTER_PLAYER_CLASS
 
 #include "raylib.h"
-#include "raymath.h"
-#include <string>
 #include "Collidable.h"
-#include "Actor.h"
-#include "../config.h.in"
 #include "CollisionManager.h"
-#include "SpriteAnimated.h"
-#include "Texture2d.h"
-#include <memory>
+#include "../Config.h.in"
+#include "raymath.h"
 
 class Collision_Manager;
 
 enum class Facing_Direction {UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
 
-class Player_Base_Class : public game::core::Actor, public Collidable
+class Player_Base_Class : public Collidable
 {
 protected:
-	// Kern-Attribute
+
 	float player_Health;
 	int player_Max_Health;
 	float player_Movement_Speed;
@@ -41,18 +36,18 @@ protected:
 
 public:
 	// Konstruktor
-	Player_Base_Class(int max_Health, float movement_Speed, int damage, const char* sprite_Path, int frame_Width,
-		int frame_Height, int anim_Frames, int anim_Speed, Vector2 start_Position, Collision_Manager* manager);
+	Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position,
+			Collision_Manager* manager);
 
 	// Destruktor
-	~Player_Base_Class();
+	~Player_Base_Class() override;
 	void Player_Input();
 	void Tick(float delta_time);
 	void On_Collision(Collidable* other) override;
+	virtual void Draw();
 
 	void Update_Previous_Position();
 	void Update_Facing_Direction();
-	void Stop_Movement();
 
 	void Melee_Attack();
 	void Ranged_Attack();

@@ -50,10 +50,6 @@ namespace game {
         inline static constexpr int player_Class_One_Max_Health = 120;
         inline static constexpr float player_Class_One_Movement_Speed = 180.0f;
         inline static constexpr int player_Class_One_Damage = 12;
-        inline static constexpr int player_Class_One_Frame_Width = 16;
-        inline static constexpr int player_Class_One_Frame_Height = 16;
-        inline static constexpr int player_Class_One_Walk_Anim_Frames = 4;
-        inline static constexpr int player_Class_One_Anim_Speed = 15;
 
         // Enemy_Class_One
         inline static constexpr int enemy_Class_1_Health = 50;
