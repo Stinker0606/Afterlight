@@ -9,11 +9,12 @@
 #include <memory>
 #include <algorithm>
 #include <set>
-
+#include "Quadtree.h"
+#include "../game/Collidable.h"
 #include "raylib.h"
 
-class Collidable;
-class Quadtree;
+
+
 class Collision_Manager
 {
 private:
@@ -21,7 +22,7 @@ private:
     std::unique_ptr<Quadtree> quadtree;
 
 public:
-    Collision_Manager(Rectangle world_bounds);
+    Collision_Manager(Rectangle world_Bounds);
 
     void Regist_Object(Collidable* object);
     void Unregist_Object(Collidable* object);
