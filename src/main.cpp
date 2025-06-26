@@ -10,6 +10,7 @@
 #include "config.h.in"
 #include "MenuScene.h"
 
+
 /* Aktiviert "String-Literalen erlaubt "menu"s Daraus wird dann direkt ein std::string
  * also "menu"s == std::string ("menu")
  */
@@ -18,6 +19,7 @@ using namespace std::string_literals;
 
 int main()
 {
+
     game::core::Game game(game::Config::kStageWidth, game::Config::kStageHeight, game::Config::kFullScreen,
                           game::Config::kTargetFps, game::Config::kWindowFlags, game::Config::kTextureFilter,
                           game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio,

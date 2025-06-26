@@ -42,7 +42,7 @@ class Text;
 class Window;
 
 ////////////////////////////////////////////////////////////
-/// \brief Image living on the graphics card that can be used for drawing
+/// \brief Image living on the pngs card that can be used for drawing
 ///
 ////////////////////////////////////////////////////////////
 class SFML_GRAPHICS_API Texture : GlResource
@@ -112,7 +112,7 @@ public:
     /// If the \a area rectangle crosses the bounds of the image, it
     /// is adjusted to fit the image size.
     ///
-    /// The maximum size for a texture depends on the graphics
+    /// The maximum size for a texture depends on the pngs
     /// driver and can be retrieved with the getMaximumSize function.
     ///
     /// If this function fails, the texture is left unchanged.
@@ -143,7 +143,7 @@ public:
     /// If the \a area rectangle crosses the bounds of the image, it
     /// is adjusted to fit the image size.
     ///
-    /// The maximum size for a texture depends on the graphics
+    /// The maximum size for a texture depends on the pngs
     /// driver and can be retrieved with the getMaximumSize function.
     ///
     /// If this function fails, the texture is left unchanged.
@@ -175,7 +175,7 @@ public:
     /// If the \a area rectangle crosses the bounds of the image, it
     /// is adjusted to fit the image size.
     ///
-    /// The maximum size for a texture depends on the graphics
+    /// The maximum size for a texture depends on the pngs
     /// driver and can be retrieved with the getMaximumSize function.
     ///
     /// If this function fails, the texture is left unchanged.
@@ -199,7 +199,7 @@ public:
     /// If the \a area rectangle crosses the bounds of the image, it
     /// is adjusted to fit the image size.
     ///
-    /// The maximum size for a texture depends on the graphics
+    /// The maximum size for a texture depends on the pngs
     /// driver and can be retrieved with the getMaximumSize function.
     ///
     /// If this function fails, the texture is left unchanged.
@@ -226,7 +226,7 @@ public:
     /// \brief Copy the texture pixels to an image
     ///
     /// This function performs a slow operation that downloads
-    /// the texture's pixels from the graphics card and copies
+    /// the texture's pixels from the pngs card and copies
     /// them to a new image, potentially applying transformations
     /// to pixels if necessary (texture may be padded or flipped).
     ///
@@ -460,7 +460,7 @@ public:
     /// 3 * width, the texture will be repeated 3 times).
     /// If repeat mode is disabled, the "extra space" will instead
     /// be filled with border pixels.
-    /// Warning: on very old graphics cards, white pixels may appear
+    /// Warning: on very old pngs cards, white pixels may appear
     /// when the texture is repeated. With such cards, repeat mode
     /// can be used reliably only if the texture has power-of-two
     /// dimensions (such as 256x128).
@@ -541,7 +541,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Bind a texture for rendering
     ///
-    /// This function is not part of the graphics API, it mustn't be
+    /// This function is not part of the pngs API, it mustn't be
     /// used when drawing SFML entities. It must be used only if you
     /// mix sf::Texture with OpenGL code.
     ///
@@ -561,7 +561,7 @@ public:
     /// must be in range [0 .. 1], which is the default way of handling
     /// texture coordinates with OpenGL. If Pixels, they must be given
     /// in pixels (range [0 .. size]). This mode is used internally by
-    /// the graphics classes of SFML, it makes the definition of texture
+    /// the pngs classes of SFML, it makes the definition of texture
     /// coordinates more intuitive for the high-level API, users don't need
     /// to compute normalized values.
     ///
@@ -574,8 +574,8 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Get the maximum texture size allowed
     ///
-    /// This maximum size is defined by the graphics driver.
-    /// You can expect a value of 512 pixels for low-end graphics
+    /// This maximum size is defined by the pngs driver.
+    /// You can expect a value of 512 pixels for low-end pngs
     /// card, and up to 8192 pixels or more for newer hardware.
     ///
     /// \return Maximum size allowed for textures, in pixels
@@ -592,7 +592,7 @@ private:
     ////////////////////////////////////////////////////////////
     /// \brief Get a valid image size according to hardware support
     ///
-    /// This function checks whether the graphics driver supports
+    /// This function checks whether the pngs driver supports
     /// non power of two sizes or not, and adjusts the size
     /// accordingly.
     /// The returned size is greater than or equal to the original size.
@@ -635,22 +635,22 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Texture
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::Texture stores pixels that can be drawn, with a sprite
-/// for example. A texture lives in the graphics card memory,
+/// for example. A texture lives in the pngs card memory,
 /// therefore it is very fast to draw a texture to a render target,
-/// or copy a render target to a texture (the graphics card can
+/// or copy a render target to a texture (the pngs card can
 /// access both directly).
 ///
-/// Being stored in the graphics card memory has some drawbacks.
+/// Being stored in the pngs card memory has some drawbacks.
 /// A texture cannot be manipulated as freely as a sf::Image,
 /// you need to prepare the pixels first and then upload them
 /// to the texture in a single operation (see Texture::update).
 ///
 /// sf::Texture makes it easy to convert from/to sf::Image, but
 /// keep in mind that these calls require transfers between
-/// the graphics card and the central memory, therefore they are
+/// the pngs card and the central memory, therefore they are
 /// slow operations.
 ///
 /// A texture can be loaded from an image, but also directly
@@ -661,7 +661,7 @@ private:
 /// sf::Image, do whatever you need with the pixels, and then call
 /// Texture::loadFromImage.
 ///
-/// Since they live in the graphics card memory, the pixels of a texture
+/// Since they live in the pngs card memory, the pixels of a texture
 /// cannot be accessed without a slow copy first. And they cannot be
 /// accessed individually. Therefore, if you need to read the texture's
 /// pixels (like for pixel-perfect collisions), it is recommended to

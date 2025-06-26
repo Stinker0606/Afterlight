@@ -228,7 +228,7 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Sprite
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::Sprite is a drawable class that allows to easily display
 /// a texture (or a part of it) on a render target.

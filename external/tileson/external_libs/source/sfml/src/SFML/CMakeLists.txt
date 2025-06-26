@@ -65,7 +65,7 @@ if(SFML_BUILD_NETWORK)
     add_subdirectory(Network)
 endif()
 
-# sfml-graphics
+# sfml-pngs
 if(SFML_BUILD_GRAPHICS)
     add_subdirectory(Graphics)
 endif()

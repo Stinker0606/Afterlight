@@ -77,7 +77,7 @@ protected:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Drawable
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::Drawable is a very simple base class that allows objects
 /// of derived classes to be drawn to a sf::RenderTarget.

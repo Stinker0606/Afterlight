@@ -28,7 +28,7 @@ function(sfml_set_stdlib target)
 endfunction()
 
 # add a new target which is a SFML library
-# example: sfml_add_library(sfml-graphics
+# example: sfml_add_library(sfml-pngs
 #                           SOURCES sprite.cpp image.cpp ...
 #                           [STATIC]) # Always create a static library and ignore BUILD_SHARED_LIBS
 macro(sfml_add_library target)

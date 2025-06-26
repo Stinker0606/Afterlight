@@ -367,7 +367,7 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Font
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// Fonts can be loaded from a file, from memory or from a custom
 /// stream, and supports the most common types of fonts. See

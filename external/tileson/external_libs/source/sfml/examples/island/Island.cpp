@@ -88,7 +88,7 @@ int main()
     if (!font.loadFromFile("resources/sansation.ttf"))
         return EXIT_FAILURE;
 
-    // Create all of our graphics resources
+    // Create all of our pngs resources
     sf::Text hudText;
     sf::Text statusText;
     sf::Shader terrainShader;
@@ -115,7 +115,7 @@ int main()
     // Check whether the prerequisites are suppprted
     bool prerequisitesSupported = sf::VertexBuffer::isAvailable() && sf::Shader::isAvailable();
 
-    // Set up our graphics resources and set the status text accordingly
+    // Set up our pngs resources and set the status text accordingly
     if (!prerequisitesSupported)
     {
         statusText.setString("Shaders and/or Vertex Buffers Unsupported");
@@ -199,7 +199,7 @@ int main()
             }
         }
 
-        // Clear, draw graphics objects and display
+        // Clear, draw pngs objects and display
         window.clear();
 
         window.draw(statusText);

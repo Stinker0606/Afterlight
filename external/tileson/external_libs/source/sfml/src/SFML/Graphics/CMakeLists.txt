@@ -89,7 +89,7 @@ set(RENDER_TEXTURE_SRC
 source_group("render texture" FILES ${RENDER_TEXTURE_SRC})
 
 
-# define the sfml-graphics target
+# define the sfml-pngs target
 sfml_add_library(sfml-graphics
                  SOURCES ${SRC} ${DRAWABLES_SRC} ${RENDER_TEXTURE_SRC} ${STB_SRC})
 
@@ -99,7 +99,7 @@ target_link_libraries(sfml-graphics PUBLIC sfml-window)
 # stb_image sources
 target_include_directories(sfml-graphics PRIVATE "${PROJECT_SOURCE_DIR}/extlibs/headers/stb_image")
 
-# let CMake know about our additional graphics libraries paths
+# let CMake know about our additional pngs libraries paths
 if(SFML_OS_WINDOWS)
     set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "${PROJECT_SOURCE_DIR}/extlibs/headers/freetype2")
 elseif(SFML_OS_MACOSX)

@@ -33,7 +33,7 @@ Screen::Screen()
     //A Tilemap can have multiple tilesets. We're loading the texture of the first one
     for (auto& tileset : map->getTilesets())
     {
-        std::string image_Path = "assets/maps/" + tileset.getImagePath().string();
+        std::string image_Path = "assets/graphics/pngs/"+tileset.getImagePath().string();
 
         //load texture and check if loading was successfull
         tileatlas_Texture = LoadTexture(image_Path.c_str());

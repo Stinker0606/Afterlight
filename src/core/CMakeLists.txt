@@ -19,7 +19,8 @@ add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.
         Quadtree.cpp
         Quadtree.h
         ../game/PlayerClassOne.cpp
-        ../game/PlayerClassOne.h)
+        ../game/PlayerClassOne.h
+        ../game/PlayerBaseClass.cpp)
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 

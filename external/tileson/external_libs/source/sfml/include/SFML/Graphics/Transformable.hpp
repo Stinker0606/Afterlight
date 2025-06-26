@@ -334,7 +334,7 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Transformable
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// This class is provided for convenience, on top of sf::Transform.
 ///

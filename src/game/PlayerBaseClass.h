@@ -34,6 +34,8 @@ protected:
 	Facing_Direction facing_Direction;
 	bool is_Moving;
 
+    Texture2D maintex= LoadTexture("assets/graphics/ball.png");
+
 public:
 	// Konstruktor
 	Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position,

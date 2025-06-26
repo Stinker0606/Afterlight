@@ -121,7 +121,7 @@ namespace tson
 
             //v1.2.0-stuff
             tson::Colori                                        m_tintColor;                  /*! 'tintcolor': Hex-formatted color (#RRGGBB or #AARRGGBB) that is multiplied with
-                                                                                               *        any graphics drawn by this layer or any child layers (optional). */
+                                                                                               *        any pngs drawn by this layer or any child layers (optional). */
             inline void decompressData();                                                     /*! Defined in tileson_forward.hpp */
             inline void queueFlaggedTile(size_t x, size_t y, uint32_t id);                    /*! Queue a flagged tile */
 
@@ -557,7 +557,7 @@ void tson::Layer::resolveFlaggedTiles()
 }
 
 /*!
- * 'tintcolor': Hex-formatted color (#RRGGBB or #AARRGGBB) that is multiplied with any graphics drawn by this layer or any child layers (optional).
+ * 'tintcolor': Hex-formatted color (#RRGGBB or #AARRGGBB) that is multiplied with any pngs drawn by this layer or any child layers (optional).
  *
  * @return tintcolor
  */

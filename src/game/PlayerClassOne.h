@@ -11,6 +11,8 @@
 
 class Player_Class_One : public Player_Base_Class
 {
+private:
+
 public:
     Player_Class_One(Vector2 start_Position, Collision_Manager* manager);
     ~Player_Class_One();

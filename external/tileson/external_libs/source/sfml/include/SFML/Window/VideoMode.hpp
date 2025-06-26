@@ -72,7 +72,7 @@ public:
     /// \brief Retrieve all the video modes supported in fullscreen mode
     ///
     /// When creating a fullscreen window, the video mode is restricted
-    /// to be compatible with what the graphics driver and monitor
+    /// to be compatible with what the pngs driver and monitor
     /// support. This function returns the complete list of all video
     /// modes that can be used in fullscreen mode.
     /// The returned array is sorted from best to worst, so that
@@ -193,7 +193,7 @@ SFML_WINDOW_API bool operator >=(const VideoMode& left, const VideoMode& right);
 /// The main usage of video modes is for fullscreen mode:
 /// indeed you must use one of the valid video modes
 /// allowed by the OS (which are defined by what the monitor
-/// and the graphics card support), otherwise your window
+/// and the pngs card support), otherwise your window
 /// creation will just fail.
 ///
 /// sf::VideoMode provides a static function for retrieving

@@ -160,7 +160,7 @@ SFML_GRAPHICS_API extern const BlendMode BlendNone;     ///< Overwrite dest with
 
 ////////////////////////////////////////////////////////////
 /// \class sf::BlendMode
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::BlendMode is a class that represents a blend mode. A blend
 /// mode determines how the colors of an object you draw are

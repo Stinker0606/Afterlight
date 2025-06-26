@@ -151,7 +151,7 @@ endif()
 sfml_set_option(SFML_MISC_INSTALL_PREFIX "${DEFAULT_INSTALL_MISC_DIR}" PATH "Prefix installation path for miscellaneous files")
 
 
-# force building sfml-window, if sfml-graphics module is built
+# force building sfml-window, if sfml-pngs module is built
 if(SFML_BUILD_GRAPHICS AND NOT SFML_BUILD_WINDOW)
     message(WARNING "You're trying to build SFML's Graphics module without the Window module. Forcing building of the Window module as a dependency.")
     set(SFML_BUILD_WINDOW TRUE)
@@ -365,7 +365,7 @@ else()
                            $<TARGET_FILE_DIR:SFML>/Headers)
     endif()
 
-     # add graphics module headers if enabled
+     # add pngs module headers if enabled
     if(SFML_BUILD_GRAPHICS)
         add_custom_command(TARGET SFML POST_BUILD COMMAND cp -r
                            ${PROJECT_SOURCE_DIR}/include/SFML/Graphics.hpp

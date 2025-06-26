@@ -287,7 +287,7 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::View
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::View defines a camera in the 2D scene. This is a
 /// very powerful concept: you can scroll, rotate or zoom

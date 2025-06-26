@@ -134,7 +134,7 @@ FT_BEGIN_HEADER
    *   FT_CONFIG_OPTION_SUBPIXEL_HINTING, selecting version~38 causes an
    *   `FT_Err_Unimplemented_Feature' error.
    *
-   *   Depending on the graphics framework, Microsoft uses different
+   *   Depending on the pngs framework, Microsoft uses different
    *   bytecode engines.  As a consequence, the version numbers returned by
    *   a call to the `GETINFO[1]' bytecode instruction are more convoluted
    *   than desired.

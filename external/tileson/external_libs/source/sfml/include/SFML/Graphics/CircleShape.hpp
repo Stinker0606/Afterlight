@@ -123,7 +123,7 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::CircleShape
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// This class inherits all the functions of sf::Transformable
 /// (position, rotation, scale, bounds, ...) as well as the
@@ -140,7 +140,7 @@ private:
 /// window.draw(circle);
 /// \endcode
 ///
-/// Since the graphics card can't draw perfect circles, we have to
+/// Since the pngs card can't draw perfect circles, we have to
 /// fake them with multiple triangles connected to each other. The
 /// "points count" property of sf::CircleShape defines how many of these
 /// triangles to use, and therefore defines the quality of the circle.

@@ -9,7 +9,7 @@ namespace game::core
 {
     /**
      * Scenes are one basic element of this engine. They contain the actual game-play elements. Scene classes derived
-     * from this base class implement an Update() method to manipulate the game state and draw graphics via the Draw()
+     * from this base class implement an Update() method to manipulate the game state and draw pngs via the Draw()
      * method to be implemented.
      *
      * A scene object contains actors that are automatically drawn by the Stage object. Actor objects can be placed in
@@ -39,7 +39,7 @@ namespace game::core
         virtual void Update() = 0;
 
         /**
-         * @brief The Draw() method can be used to output graphics. Note that the elements of the actor map are drawn automatically.
+         * @brief The Draw() method can be used to output pngs. Note that the elements of the actor map are drawn automatically.
          */
         virtual void Draw() = 0;
     };

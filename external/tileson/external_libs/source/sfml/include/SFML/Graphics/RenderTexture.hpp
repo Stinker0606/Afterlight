@@ -250,7 +250,7 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::RenderTexture
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::RenderTexture is the little brother of sf::RenderWindow.
 /// It implements the same 2D drawing and OpenGL-related functions

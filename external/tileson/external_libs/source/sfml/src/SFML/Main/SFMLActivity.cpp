@@ -181,7 +181,7 @@ void ANativeActivity_onCreate(ANativeActivity* activity, void* savedState, size_
 #if !defined(SFML_DEBUG)
     loadLibrary("sfml-system", lJNIEnv, ObjectActivityInfo);
     loadLibrary("sfml-window", lJNIEnv, ObjectActivityInfo);
-    loadLibrary("sfml-graphics", lJNIEnv, ObjectActivityInfo);
+    loadLibrary("sfml-pngs", lJNIEnv, ObjectActivityInfo);
     loadLibrary("sfml-audio", lJNIEnv, ObjectActivityInfo);
     loadLibrary("sfml-network", lJNIEnv, ObjectActivityInfo);
 #else

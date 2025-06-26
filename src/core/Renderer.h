@@ -7,7 +7,7 @@
 
 namespace game::core {
     /**
-     * @brief A central place for graphics and rendering oriented functions
+     * @brief A central place for pngs and rendering oriented functions
      */
     class Renderer final {
     public:

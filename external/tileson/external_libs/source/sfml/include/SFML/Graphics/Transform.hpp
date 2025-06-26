@@ -440,7 +440,7 @@ SFML_GRAPHICS_API bool operator !=(const Transform& left, const Transform& right
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Transform
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// A sf::Transform specifies how to translate, rotate, scale,
 /// shear, project, whatever things. In mathematical terms, it defines

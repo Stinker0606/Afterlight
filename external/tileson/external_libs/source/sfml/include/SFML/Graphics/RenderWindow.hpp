@@ -65,7 +65,7 @@ public:
     /// The fourth parameter is an optional structure specifying
     /// advanced OpenGL context settings such as antialiasing,
     /// depth-buffer bits, etc. You shouldn't care about these
-    /// parameters for a regular usage of the graphics module.
+    /// parameters for a regular usage of the pngs module.
     ///
     /// \param mode     Video mode to use (defines the width, height and depth of the rendering area of the window)
     /// \param title    Title of the window
@@ -84,7 +84,7 @@ public:
     /// The second parameter is an optional structure specifying
     /// advanced OpenGL context settings such as antialiasing,
     /// depth-buffer bits, etc. You shouldn't care about these
-    /// parameters for a regular usage of the graphics module.
+    /// parameters for a regular usage of the pngs module.
     ///
     /// \param handle   Platform-specific handle of the control (\a HWND on
     ///                 Windows, \a %Window on Linux/FreeBSD, \a NSWindow on OS X)
@@ -187,11 +187,11 @@ protected:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::RenderWindow
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::RenderWindow is the main class of the Graphics module.
 /// It defines an OS window that can be painted using the other
-/// classes of the graphics module.
+/// classes of the pngs module.
 ///
 /// sf::RenderWindow is derived from sf::Window, thus it inherits
 /// all its features: events, window management, OpenGL rendering,
@@ -199,7 +199,7 @@ protected:
 /// description of all these features, as well as code examples.
 ///
 /// On top of that, sf::RenderWindow adds more features related to
-/// 2D drawing with the graphics module (see its base class
+/// 2D drawing with the pngs module (see its base class
 /// sf::RenderTarget for more details).
 /// Here is a typical rendering and event loop with a sf::RenderWindow:
 ///

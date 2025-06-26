@@ -110,7 +110,7 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::RectangleShape
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// This class inherits all the functions of sf::Transformable
 /// (position, rotation, scale, bounds, ...) as well as the

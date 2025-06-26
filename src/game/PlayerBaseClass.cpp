@@ -41,10 +41,10 @@ void Player_Base_Class::Player_Input()
         Ranged_Attack();
     }
 
-    if (IsKeyPressed(game::Config::key_Use_Item) && inventory_Is_Full)
+    /*if (IsKeyPressed(game::Config::key_Use_Item) && inventory_Is_Full)
     {
         Use_Item();
-    }
+    }*/
 }
 
 // Phase 2 :: Verwaltung für alles was das Objekt über eine gewisse Zeit machen soll
@@ -101,7 +101,7 @@ void Player_Base_Class::On_Collision(Collidable* other)
 // Draw Methode ist noch nicht klar, wie das mit der Visualisierung laufen wird
 void Player_Base_Class::Draw()
 {
-
+    DrawTexture(this->maintex, this->player_Hitbox.x,player_Hitbox.y,WHITE);
 }
 
 // Um die beiden Attack Methoden weiter auszuarbeiten, braucht es die passenden Klassen

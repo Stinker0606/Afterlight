@@ -232,7 +232,7 @@ SFML_GRAPHICS_API Color& operator *=(Color& left, const Color& right);
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Color
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::Color is a simple color class composed of 4 components:
 /// \li Red

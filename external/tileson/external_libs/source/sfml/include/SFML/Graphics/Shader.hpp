@@ -640,7 +640,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Bind a shader for rendering
     ///
-    /// This function is not part of the graphics API, it mustn't be
+    /// This function is not part of the pngs API, it mustn't be
     /// used when drawing SFML entities. It must be used only if you
     /// mix sf::Shader with OpenGL code.
     ///
@@ -759,10 +759,10 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Shader
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// Shaders are programs written using a specific language,
-/// executed directly by the graphics card and allowing
+/// executed directly by the pngs card and allowing
 /// to apply real-time operations to the rendered entities.
 ///
 /// There are three kinds of shaders:

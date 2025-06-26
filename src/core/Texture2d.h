@@ -4,7 +4,7 @@
 
 namespace game::core {
     /**
-     * @note A Raylib Texture2D structure contains width and height information as well as the ID of the associated graphics
+     * @note A Raylib Texture2D structure contains width and height information as well as the ID of the associated pngs
      * texture in VRAM. Copy and assignment operators of this class are therefore deleted, since a copy of an object of
      * this class should correctly also mean a copy of the VRAM texture, which is not normally wanted.
      * Of course, it still makes sense to use one texture for several use cases (e.g. two sprite objects that use the

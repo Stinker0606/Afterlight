@@ -126,7 +126,7 @@ public:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::RenderStates
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// There are four global states that can be applied to
 /// the drawn objects:

@@ -96,7 +96,7 @@ struct ContextSettings
 /// of the OpenGL context attached to a window. All these
 /// settings with the exception of the compatibility flag
 /// and anti-aliasing level have no impact on the regular
-/// SFML rendering (graphics module), so you may need to use
+/// SFML rendering (pngs module), so you may need to use
 /// this structure only if you're using SFML as a windowing
 /// system for custom OpenGL rendering.
 ///
@@ -121,9 +121,9 @@ struct ContextSettings
 /// a compatibility context is created. You only need to specify
 /// the core flag if you want a core profile context to use with
 /// your own OpenGL rendering.
-/// <b>Warning: The graphics module will not function if you
+/// <b>Warning: The pngs module will not function if you
 /// request a core profile context. Make sure the attributes are
-/// set to Default if you want to use the graphics module.</b>
+/// set to Default if you want to use the pngs module.</b>
 ///
 /// Setting the debug attribute flag will request a context with
 /// additional debugging features enabled. Depending on the

@@ -199,7 +199,7 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::VertexArray
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::VertexArray is a very simple wrapper around a dynamic
 /// array of vertices and a primitives type.

@@ -28,7 +28,7 @@
 namespace sf
 {
 ////////////////////////////////////////////////////////////
-/// \ingroup graphics
+/// \ingroup pngs
 /// \brief Types of primitives that a sf::VertexArray can render
 ///
 /// Points and lines have no area, therefore their thickness

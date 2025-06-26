@@ -80,7 +80,7 @@ namespace game::core
 
         /**
          * @brief Update virtual mouse position. This becomes necessary because the Raylib function GetMousePosition
-         * can no longer work correctly due to the scaling of the graphics output.
+         * can no longer work correctly due to the scaling of the pngs output.
          */
         void UpdateMousePosition() const;
 

@@ -107,7 +107,7 @@ public:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Vertex
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// A vertex is an improved point. It has a position and other
 /// extra attributes that will be used for drawing: in SFML,
@@ -140,7 +140,7 @@ public:
 /// \endcode
 ///
 /// Note: although texture coordinates are supposed to be an integer
-/// amount of pixels, their type is float because of some buggy graphics
+/// amount of pixels, their type is float because of some buggy pngs
 /// drivers that are not able to process integer coordinates correctly.
 ///
 /// \see sf::VertexArray

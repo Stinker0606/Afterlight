@@ -121,13 +121,13 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Create the vertex buffer
     ///
-    /// Creates the vertex buffer and allocates enough graphics
+    /// Creates the vertex buffer and allocates enough pngs
     /// memory to hold \p vertexCount vertices. Any previously
     /// allocated memory is freed in the process.
     ///
     /// In order to deallocate previously allocated memory pass 0
     /// as \p vertexCount. Don't forget to recreate with a non-zero
-    /// value when graphics memory should be allocated again.
+    /// value when pngs memory should be allocated again.
     ///
     /// \param vertexCount Number of vertices worth of memory to allocate
     ///
@@ -286,7 +286,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Bind a vertex buffer for rendering
     ///
-    /// This function is not part of the graphics API, it mustn't be
+    /// This function is not part of the pngs API, it mustn't be
     /// used when drawing SFML entities. It must be used only if you
     /// mix sf::VertexBuffer with OpenGL code.
     ///
@@ -348,28 +348,28 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::VertexBuffer
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::VertexBuffer is a simple wrapper around a dynamic
 /// buffer of vertices and a primitives type.
 ///
 /// Unlike sf::VertexArray, the vertex data is stored in
-/// graphics memory.
+/// pngs memory.
 ///
 /// In situations where a large amount of vertex data would
-/// have to be transferred from system memory to graphics memory
+/// have to be transferred from system memory to pngs memory
 /// every frame, using sf::VertexBuffer can help. By using a
 /// sf::VertexBuffer, data that has not been changed between frames
-/// does not have to be re-transferred from system to graphics
+/// does not have to be re-transferred from system to pngs
 /// memory as would be the case with sf::VertexArray. If data transfer
 /// is a bottleneck, this can lead to performance gains.
 ///
 /// Using sf::VertexBuffer, the user also has the ability to only modify
-/// a portion of the buffer in graphics memory. This way, a large buffer
+/// a portion of the buffer in pngs memory. This way, a large buffer
 /// can be allocated at the start of the application and only the
 /// applicable portions of it need to be updated during the course of
 /// the application. This allows the user to take full control of data
-/// transfers between system and graphics memory if they need to.
+/// transfers between system and pngs memory if they need to.
 ///
 /// In special cases, the user can make use of multiple threads to update
 /// vertex data in multiple distinct regions of the buffer simultaneously.

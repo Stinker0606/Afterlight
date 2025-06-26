@@ -10,7 +10,7 @@
 Consumables::Consumables(Vector2 position, std::string name, Collision_Manager* manager)
 {
     name = name;
-    texture = LoadTexture("assets/graphics/ball.png"); // Beispielpfad
+    texture = LoadTexture("assets/pngs/ball.png"); // Beispielpfad
     hitbox = { position.x, position.y, (float)texture.width, (float)texture.height };
 
     manager_ptr = manager;

@@ -581,7 +581,7 @@ private:
 /// structure which is passed as an optional argument when creating the
 /// window.
 ///
-/// On dual-graphics systems consisting of a low-power integrated GPU
+/// On dual-pngs systems consisting of a low-power integrated GPU
 /// and a powerful discrete GPU, the driver picks which GPU will run an
 /// SFML application. In order to inform the driver that an SFML application
 /// can benefit from being run on the more powerful discrete GPU,

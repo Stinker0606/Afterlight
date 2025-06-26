@@ -198,7 +198,7 @@ namespace Glsl
 
 ////////////////////////////////////////////////////////////
 /// \namespace sf::Glsl
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// \details The sf::Glsl namespace contains types that match
 /// their equivalents in GLSL, the OpenGL shading language.

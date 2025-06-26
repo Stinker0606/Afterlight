@@ -154,7 +154,7 @@ public:
     ///
     /// This function finds the 2D position that matches the
     /// given pixel of the render target. In other words, it does
-    /// the inverse of what the graphics card does, to find the
+    /// the inverse of what the pngs card does, to find the
     /// initial position of a rendered pixel.
     ///
     /// Initially, both coordinate systems (world units and target pixels)
@@ -205,7 +205,7 @@ public:
     ///
     /// This function finds the pixel of the render target that matches
     /// the given 2D point. In other words, it goes through the same process
-    /// as the graphics card, to compute the final position of a rendered point.
+    /// as the pngs card, to compute the final position of a rendered point.
     ///
     /// Initially, both coordinate systems (world units and target pixels)
     /// match perfectly. But if you define a custom view or resize your
@@ -485,10 +485,10 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::RenderTarget
-/// \ingroup graphics
+/// \ingroup pngs
 ///
 /// sf::RenderTarget defines the common behavior of all the
-/// 2D render targets usable in the graphics module. It makes
+/// 2D render targets usable in the pngs module. It makes
 /// it possible to draw 2D entities like sprites, shapes, text
 /// without using any OpenGL command directly.
 ///

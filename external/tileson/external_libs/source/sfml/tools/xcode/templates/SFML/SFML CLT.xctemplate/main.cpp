@@ -3,7 +3,7 @@
 // Disclaimer:
 // ----------
 //
-// This code will work only if you selected window, graphics and audio.
+// This code will work only if you selected window, pngs and audio.
 //
 // In order to load the resources like cute_image.png, you have to set up
 // your target scheme:
