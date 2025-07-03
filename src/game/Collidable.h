@@ -22,10 +22,12 @@ enum class Collision_Type
 
 class Collidable
 {
+protected:
+    Rectangle hitbox;
 public:
     virtual ~Collidable() = default;
 
-    virtual Rectangle Get_Hitbox() const = 0;
+    Rectangle Get_Hitbox() const{return this->hitbox;};
     virtual Collision_Type Get_Collision_Type() const = 0;
     virtual void On_Collision(Collidable* other) = 0;
 };

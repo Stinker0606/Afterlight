@@ -12,7 +12,7 @@ Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_
     : enemy_Name(name), enemy_Health(health), enemy_Movement_Speed(movement_speed), enemy_Damage(damage),
       enemy_Value(value)
     {
-    enemy_Hitbox = {start_position.x, start_position.y, (float)width, (float)height};
+    hitbox = {start_position.x, start_position.y, (float)width, (float)height};
     sprite = LoadTexture(sprite_path);
     }
 

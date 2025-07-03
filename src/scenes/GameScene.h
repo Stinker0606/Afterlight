@@ -4,6 +4,7 @@
 #include "CollisionManager.h"
 #include "../game/PlayerClassOne.h"
 #include "DeltaTimeMachine.h"
+#include "Cam.h"
 
 namespace game::scenes
 {
@@ -24,6 +25,10 @@ namespace game::scenes
         void Draw() override;
 
         Screen screen;
+
+        std::shared_ptr<Cam> cam;
+
+        Object_Manager objectManager;
 
     private:
         // Add private members here...

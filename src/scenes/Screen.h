@@ -5,6 +5,9 @@
 #include <nlohmann/json.hpp>
 #include <memory>
 #include <../../external/tileson/tileson.hpp>
+#include "Cam.h"
+#include "Object_Manager.h"
+#include "CollisionManager.h"
 
 
 class Screen
@@ -12,7 +15,8 @@ class Screen
 public:
     Screen();
     ~Screen();
-    void Draw_Level() const;
+    void Draw_Level(std::shared_ptr<Cam>) const;
+    void Load_Tiled_Objects(Object_Manager&, Collision_Manager*) const;
 
 private:
     std::unique_ptr<tson::Map> map;

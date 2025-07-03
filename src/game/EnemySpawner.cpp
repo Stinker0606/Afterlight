@@ -7,7 +7,7 @@ Enemy_Spawner::Enemy_Spawner(Rectangle spawner_Area, const std::vector<Rectangle
     : spawner_Area(spawner_Area), obstacle_List(obstacle_List), enemy_List(enemy_List),  spawn_Rate_(spawn_Rate),
       max_Enemies_(max_Enemies), time_Since_Last_Spawn_(0.0f) {}
 
-void Enemy_Spawner::Update(float delta_Time)
+void Enemy_Spawner::Tick(float delta_Time)
 {
     time_Since_Last_Spawn_ += delta_Time;
 

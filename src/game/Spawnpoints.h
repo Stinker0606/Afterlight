@@ -13,7 +13,6 @@ class Spawnpoints : public Collidable
 {
 private:
     int spawner_Hits;
-    Rectangle hitbox;
     Collision_Manager* manager_ptr;
 
 public:
@@ -21,7 +20,6 @@ public:
     ~Spawnpoints();
 
 
-    Rectangle Get_Hitbox() const override;
     Collision_Type Get_Collision_Type() const override;
     bool Is_Destroyed() const;
 

@@ -21,7 +21,7 @@ public:
     virtual ~Enemy_Spawner() = default;
 
     // Wird jede Frame aufgerufen, steuert automatisches Spawnen
-    void Update(float delta_Time);
+    void Tick(float delta_Time);
 
     // Versucht einen Gegner an spawn_Position zu spawnen
     void Try_Spawn(Vector2 spawn_Position);

@@ -5,16 +5,16 @@
 #include "Walls.h"
 #include "CollisionManager.h"
 
-Walls::Walls(Vector2 position, Vector2 size, Collision_Manager* manager)
+Walls::Walls(Vector2 position, Vector2 size,Collision_Manager* cm)
 {
     hitbox = { position.x, position.y, size.x, size.y };
-    manager_ptr = manager;
-
+    manager_ptr=cm;
     if (manager_ptr)
     {
         manager_ptr->Regist_Object(this);
     }
 }
+
 Walls::~Walls()
 {
     if (manager_ptr)

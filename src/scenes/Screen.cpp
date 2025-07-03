@@ -33,7 +33,7 @@ Screen::Screen()
     //A Tilemap can have multiple tilesets. We're loading the texture of the first one
     for (auto& tileset : map->getTilesets())
     {
-        std::string image_Path = "assets/graphics/pngs/"+tileset.getImagePath().string();
+        std::string image_Path = "assets/graphics/pngs/" + tileset.getImagePath().string();
 
         //load texture and check if loading was successfull
         tileatlas_Texture = LoadTexture(image_Path.c_str());
@@ -54,7 +54,7 @@ Screen::~Screen()
     }
 }
 
-void Screen::Draw_Level() const
+void Screen::Draw_Level(std::shared_ptr<Cam> kamera) const
 {
 
     //make sure the map is loaded before drawing
@@ -65,10 +65,10 @@ void Screen::Draw_Level() const
     }
 
     //Iterate through the map layers
+    BeginMode2D(kamera->cam);
     for (auto& layer : map->getLayers())
-        {
-        if (layer.getType() == tson::LayerType::TileLayer)
-        {
+    {
+        if (layer.getType() == tson::LayerType::TileLayer) {
             //get Tilelayer Data
             auto& tile_Layer = layer.getTileData();
 
@@ -105,89 +105,75 @@ void Screen::Draw_Level() const
                 }
             }
         }
-            //Processing Object layers
-        else if (layer.getType() == tson::LayerType::ObjectGroup)
-        {
-            std::cout << "Processing Object Layer: " << layer.getName() << std::endl;
+    }
+    EndMode2D();
+}
 
-            //get the name of the current Layer
+void Screen::Load_Tiled_Objects(Object_Manager& g_objectManager, Collision_Manager* cm) const
+{
+    if (map == nullptr)
+    {
+        std::cerr << "Kann Spielobjekte nicht laden: Karte ist nicht geladen." << std::endl;
+        return;
+    }
+
+    for (auto& layer : map->getLayers())
+    {
+        if (layer.getType() == tson::LayerType::ObjectGroup)
+        {
             const std::string& layer_Name = layer.getName();
 
-            //Iterate through each object in the object group
-            for (auto& object : layer.getObjects()) {
-                std::cout << "Object Name: " << object.getName()
-                          << ", Type: " << object.getType()
-                          << ", Position: (" << object.getPosition().x << ", " << object.getPosition().y << ")"
-                          << ", Size: (" << object.getSize().x << ", " << object.getSize().y << ")" << std::endl;
+            for (auto& object : layer.getObjects())
+            {
 
-                //Check for certain layer Names
-                //Add any specific Object layer functionalities here, depending on the type of layer
-                //For example: Walls, Player Spawns, Enemy Spawns, audio/environmental triggers...
-                /*if (layer_Name == "walls")
+                if (layer_Name == "walls")
                 {
-                    Vector2 temp;
-                    temp.x=object.getPosition().x;
-                    temp.y=object.getPosition().y;
-                    Vector2 temp2;
-                    temp2.x=object.getSize().x;
-                    temp2.y=object.getSize().y;
-                    vec_walls.push_back(Walls(temp,temp2,));
-                }
+                    Vector2 temp_pos;
+                    temp_pos.x = static_cast<float>(object.getPosition().x);
+                    temp_pos.y = static_cast<float>(object.getPosition().y);
+                    Vector2 temp_size;
+                    temp_size.x = static_cast<float>(object.getSize().x);
+                    temp_size.y = static_cast<float>(object.getSize().y);
 
+                    Walls* new_wall = new Walls(temp_pos, temp_size, cm /*, ggf. weitere Konstruktor-Parameter */);
+                    g_objectManager.AddObject(new_wall);
+                    std::cout << "Wand zu Object Manager hinzugefügt: " << new_wall << std::endl;
+                }
                 else if (layer_Name == "consumable")
                 {
-                    Vector2 temp;
-                    temp.x=object.getPosition().x;
-                    temp.y=object.getPosition().y;
-                    vec_cons.push_back(Consumables(temp,object.getName(),));
+                    Vector2 temp_pos;
+                    temp_pos.x = static_cast<float>(object.getPosition().x);
+                    temp_pos.y = static_cast<float>(object.getPosition().y);
+
+                    Consumables* new_consumable = new Consumables(temp_pos, object.getName(), cm /*, ggf. weitere Konstruktor-Parameter */);
+                    g_objectManager.AddObject(new_consumable);
+                    std::cout << "Verbrauchsgegenstand zu Object Manager hinzugefügt: " << new_consumable << std::endl;
                 }
 
-                else if (layer_Name == "levelSpawns")
-                {
-                    std::cout << " This layer contains level spawns." << std::endl;
-                }
-
-                else if (layer_Name == "levelSpawns")
-                {
-                    std::cout << " This layer contains level spawns." << std::endl;
-                }*/
 
 
-                //If the object has a gid (is a tile object), it can be drawn
-                //object that are visually represented by a tile may use this
                 if (object.getGid() > 0)
                 {
                     tson::Tile* tile = nullptr;
-                    //Iterate through the tilesets to find the one containing this gid
                     for (auto& tileset : map->getTilesets())
                     {
-                        //check if gid is within this tileset
                         if (object.getGid() >= tileset.getFirstgid() &&
                             object.getGid() < (tileset.getFirstgid() + tileset.getTileCount()))
                         {
-                            //calculate the local ID within this tileset
                             uint32_t localTileId = object.getGid() - tileset.getFirstgid();
-                            //get the tile from the tileset using it's local Id
                             tile = tileset.getTile(localTileId);
-                            if (tile != nullptr)
-                            {
-                                //found the tile, no need to keep searching
-                                break;
-                            }
+                            if (tile != nullptr) break;
                         }
                     }
                     if (tile != nullptr)
                     {
                         tson::Rect drawingRect = tile->getDrawingRect();
                         Rectangle srcRect = {
-                                static_cast<float>(drawingRect.x),
-                                static_cast<float>(drawingRect.y),
-                                static_cast<float>(drawingRect.width),
-                                static_cast<float>(drawingRect.height)
+                                static_cast<float>(drawingRect.x), static_cast<float>(drawingRect.y),
+                                static_cast<float>(drawingRect.width), static_cast<float>(drawingRect.height)
                         };
                         Vector2 destPos = {
-                                static_cast<float>(object.getPosition().x),
-                                static_cast<float>(object.getPosition().y)
+                                static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y)
                         };
                         DrawTextureRec(tileatlas_Texture, srcRect, destPos, WHITE);
                     }

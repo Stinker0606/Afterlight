@@ -27,7 +27,7 @@ Spawnpoints::~Spawnpoints()
     }
 }
 
-Rectangle Spawnpoints::Get_Hitbox() const { return this->hitbox; }
+
 
 Collision_Type Spawnpoints::Get_Collision_Type() const
 {

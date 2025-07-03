@@ -5,12 +5,15 @@
 #ifndef RAYLIBSTARTER_CAM_H
 #define RAYLIBSTARTER_CAM_H
 #include <raylib.h>
+#include "../game/PlayerBaseClass.h"
 
 struct Cam
-{
-    Camera2D cam={};
+{public:
+    Camera2D cam={0,0,0,0,0,3};
+    Player_Base_Class& pao;
 
-    void Cam_Movement();
+    Cam(Player_Base_Class&);
+    void Cam_Movement(double dtm);
 };
 
 

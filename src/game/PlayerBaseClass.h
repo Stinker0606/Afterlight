@@ -1,9 +1,8 @@
 //
 // Created by Kruse on 23/05/2025.
 //
+#pragma once
 
-#ifndef RAYLIBSTARTER_PLAYER_CLASS_H
-#define RAYLIBSTARTER_PLAYER_CLASS
 
 #include "raylib.h"
 #include "Collidable.h"
@@ -13,7 +12,7 @@
 
 class Collision_Manager;
 
-enum class Facing_Direction {UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
+enum Facing_Direction {UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
 
 class Player_Base_Class : public Collidable
 {
@@ -24,7 +23,7 @@ protected:
 	float player_Movement_Speed;
 	int player_Damage;
 
-	Rectangle player_Hitbox;
+    Vector2 player_Pos;
 	Vector2 previous_Position;
 	Collision_Manager* manager_Ptr;
 
@@ -55,8 +54,7 @@ public:
 	void Ranged_Attack();
 	void Use_Item();
 
-    Rectangle Get_Hitbox() const override;
     Collision_Type Get_Collision_Type() const override;
+    Vector2 Get_Player_Pos();
 };
 
-#endif //RAYLIBSTARTER_PLAYER_CLASS_H

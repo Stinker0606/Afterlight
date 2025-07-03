@@ -21,7 +21,6 @@ namespace enemy
         int enemy_Movement_Speed;
         int enemy_Damage;
         int enemy_Value;
-        Rectangle enemy_Hitbox;
         Texture2D sprite;
         Collision_Manager* manager_ptr;
 
@@ -39,7 +38,6 @@ namespace enemy
         int Get_Health() const { return enemy_Health; }
         int Get_Damage() const { return enemy_Damage; }
 
-        Rectangle Get_Hitbox() const override { return enemy_Hitbox; }
         Collision_Type Get_Collision_Type() const override { return Collision_Type::ENEMY; }
 
         void Tick(float delta_time);
