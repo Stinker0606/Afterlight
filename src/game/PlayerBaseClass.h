@@ -9,6 +9,7 @@
 #include "CollisionManager.h"
 #include "../Config.h.in"
 #include "raymath.h"
+#include "PlayerProjectile.h"
 
 class Collision_Manager;
 
@@ -33,7 +34,11 @@ protected:
 	Facing_Direction facing_Direction;
 	bool is_Moving;
 
+
     Texture2D maintex= LoadTexture("assets/graphics/ball.png");
+
+    float projectile_Speed;
+    std::vector<std::unique_ptr<game::Player_Projectile>> sp_projectiles;
 
 public:
 	// Konstruktor
@@ -56,5 +61,7 @@ public:
 
     Collision_Type Get_Collision_Type() const override;
     Vector2 Get_Player_Pos();
+
+    void Take_Damage(int damage);
 };
 

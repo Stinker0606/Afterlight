@@ -63,9 +63,31 @@
          "width":30,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":3,
+         "name":"walls",
+         "objects":[
+                {
+                 "height":159.281925744594,
+                 "id":2,
+                 "name":"lake_wall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":125.989392084863,
+                 "x":112.280701754386,
+                 "y":95.9608323133415
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":3,
- "nextobjectid":1,
+ "nextlayerid":4,
+ "nextobjectid":3,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
