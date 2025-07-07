@@ -50,6 +50,8 @@ namespace game {
         inline static constexpr int player_Class_One_Max_Health = 120;
         inline static constexpr float player_Class_One_Movement_Speed = 100.0f;
         inline static constexpr int player_Class_One_Damage = 12;
+        inline static constexpr float player_Class_One_Projectile_Speed = 300.0f;
+        inline static constexpr const char* player_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER Pfad für Player-Projectile
 
         // Enemy_Class_One
         inline static constexpr int enemy_Class_1_Health = 50;
@@ -59,6 +61,7 @@ namespace game {
         inline static constexpr const char* enemy_Class_1_Sprite_Path = "assets/graphics/enemy_Class_1.png";
         inline static constexpr int enemy_Class_1_Hitbox_Width = 32;
         inline static constexpr int enemy_Class_1_Hitbox_Height = 32;
+        inline static constexpr const char* enemy_Class_1_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER Pfad für Gegner-Projectile
 
         // Control Settings
         inline static constexpr const int key_Up = KEY_W;
@@ -69,5 +72,11 @@ namespace game {
         inline static constexpr const int key_Melee_Attack = KEY_J;
         inline static constexpr const int key_Ranged_Attack = KEY_K;
         inline static constexpr const int key_Use_Item = KEY_L;
+
+        //Cam stuff
+        inline static constexpr const int cam_start_pos_x = 0;
+        inline static constexpr const int cam_start_pos_y = 0;
+        inline static constexpr const float cam_zoom = 3;
+
     };
 }

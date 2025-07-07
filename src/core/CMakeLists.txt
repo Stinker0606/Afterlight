@@ -24,7 +24,19 @@ add_library(core STATIC game.h game.cpp store.h ../scenes/Scene.h stage.h stage.
         Animations.cpp
         Animations.h
         Object_Manager.cpp
-        Object_Manager.h)
+        Object_Manager.h
+        ../game/EnemyProjectile.cpp
+        ../game/EnemyProjectile.h
+        ../game/MeleeEnemy.cpp
+        ../game/MeleeEnemy.h
+        ../game/PlayerProjectile.cpp
+        ../game/PlayerProjectile.h
+        ../game/RangedEnemy8D.cpp
+        ../game/RangedEnemy8D.h
+        ../game/RangedEnemyOmni.cpp
+        ../game/RangedEnemyOmni.h
+        ../game/CollisionResponse.cpp
+        ../game/CollisionResponse.h)
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
