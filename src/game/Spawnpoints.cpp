@@ -6,25 +6,19 @@
 #include "../game/Collidable.h"
 #include "CollisionManager.h"
 
-Spawnpoints::Spawnpoints(Vector2 position, int hits, Collision_Manager* manager)
+Spawnpoints::Spawnpoints(Vector2 position, int hits)
 {
     this->spawner_Hits = hits;
     this->hitbox = { position.x, position.y, 64, 64 }; // Annahme einer festen Größe
 
-    this->manager_ptr = manager;
-    if (this->manager_ptr)
-    {
-        this->manager_ptr->Regist_Object(this);
-    }
+
+
 }
 
 Spawnpoints::~Spawnpoints()
 {
     // NEU: Abmelde-Logik
-    if (this->manager_ptr)
-    {
-        this->manager_ptr->Unregist_Object(this);
-    }
+
 }
 
 

@@ -10,8 +10,8 @@ namespace enemy {
 
     Melee_Enemy::Melee_Enemy(std::string name, int health, float movement_speed, int damage, int value,
                              const char* sprite_path, Vector2 start_position, int width, int height,
-                             float attack_range, float attack_cooldown, Collision_Manager* manager)
-            : Enemy_Base_Class(name, health, movement_speed, damage, value, sprite_path, nullptr, start_position, width, height, manager,attack_cooldown),
+                             float attack_range, float attack_cooldown)
+            : Enemy_Base_Class(name, health, movement_speed, damage, value, sprite_path, nullptr, start_position, width, height,attack_cooldown),
               attack_range(attack_range),
               attack_cooldown(attack_cooldown),
               time_since_last_attack(0.0f)

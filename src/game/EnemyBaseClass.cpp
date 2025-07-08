@@ -11,7 +11,7 @@
 namespace enemy
 {
 Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
-    const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height, Collision_Manager* manager_ptr, float cooldown_Duration)
+    const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height, float cooldown_Duration)
     : enemy_Name(name), enemy_Health(health), enemy_Movement_Speed(movement_speed), enemy_Damage(damage),
       enemy_Value(value),attack_Cooldown_Duration(cooldown_Duration), attack_Cooldown_Timer(0.0f), is_Moving(false)
     {

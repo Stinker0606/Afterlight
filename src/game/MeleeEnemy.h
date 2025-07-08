@@ -37,7 +37,7 @@ namespace enemy {
         */
         Melee_Enemy(std::string name, int health, float movement_speed, int damage, int value,
                     const char* sprite_path, Vector2 start_position, int width, int height,
-                    float attack_range, float attack_cooldown, Collision_Manager* manager);
+                    float attack_range, float attack_cooldown);
 
         ~Melee_Enemy() override = default;
 

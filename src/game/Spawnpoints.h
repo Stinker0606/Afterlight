@@ -13,10 +13,10 @@ class Spawnpoints : public Collidable
 {
 private:
     int spawner_Hits;
-    Collision_Manager* manager_ptr;
+
 
 public:
-    Spawnpoints(Vector2 position, int hits, Collision_Manager* manager);
+    Spawnpoints(Vector2 position, int hits);
     ~Spawnpoints();
 
 

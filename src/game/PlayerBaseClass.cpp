@@ -7,28 +7,21 @@
 #include "Store.h"
 
 // Konstruktor
-Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position,
-     Collision_Manager* manager)
+Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position)
     : player_Max_Health(max_Health), player_Health((float)max_Health), player_Movement_Speed(movement_Speed),
       player_Damage(damage),
-      previous_Position(start_Position), manager_Ptr(manager), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
+      previous_Position(start_Position), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
       inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false)
 {
     hitbox={start_Position.x,start_Position.y,static_cast<float >(maintex.width),static_cast<float >(maintex.height)};
     // 2. Registriere Objekt beim Manager
-    if (manager_Ptr)
-    {
-        manager_Ptr->Regist_Object(this);
-    }
+
 }
 
 // Destruktor
 Player_Base_Class::~Player_Base_Class()
 {
-    if (manager_Ptr)
-    {
-        manager_Ptr->Unregist_Object(this);
-    }
+
 }
 
 // Phase 1 :: Player input Prüfung
@@ -80,6 +73,9 @@ void Player_Base_Class::Tick(float delta_time)
 
     Update_Facing_Direction();
 
+    if (ranged_Cooldown>0&& IsKeyDown(game::Config::key_Ranged_Attack)){
+        Ranged_Attack();
+    }
     if (melee_Cooldown > 0) melee_Cooldown -= delta_time;
     if (ranged_Cooldown > 0) ranged_Cooldown -= delta_time;
 }

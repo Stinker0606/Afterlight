@@ -10,8 +10,8 @@ namespace enemy {
     Ranged_Enemy_Omni::Ranged_Enemy_Omni(std::string name, int health, float movement_speed, int damage, int value,
                                          const char* enemy_sprite_path, const char* proj_sprite_path,
                                          Vector2 start_position, int width, int height,
-                                         float attack_range, float attack_cooldown, float projectile_speed, Collision_Manager* manager)
-            : Enemy_Base_Class(name, health, movement_speed, damage, value, enemy_sprite_path, proj_sprite_path, start_position, width, height, manager,attack_cooldown),
+                                         float attack_range, float attack_cooldown, float projectile_speed)
+            : Enemy_Base_Class(name, health, movement_speed, damage, value, enemy_sprite_path, proj_sprite_path, start_position, width, height, attack_cooldown),
               attack_range(attack_range),
               attack_cooldown(attack_cooldown),
               projectile_speed(projectile_speed),

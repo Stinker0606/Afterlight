@@ -16,7 +16,7 @@ public:
     Screen();
     ~Screen();
     void Draw_Level(std::shared_ptr<Cam>) const;
-    void Load_Tiled_Objects(Object_Manager&, Collision_Manager*) const;
+    void Load_Tiled_Objects(Object_Manager&) const;
 
 private:
     std::unique_ptr<tson::Map> map;

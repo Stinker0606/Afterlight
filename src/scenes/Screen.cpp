@@ -109,7 +109,7 @@ void Screen::Draw_Level(std::shared_ptr<Cam> kamera) const
     EndMode2D();
 }
 
-void Screen::Load_Tiled_Objects(Object_Manager& g_objectManager, Collision_Manager* cm) const
+void Screen::Load_Tiled_Objects(Object_Manager& g_objectManager) const
 {
     if (map == nullptr)
     {
@@ -135,7 +135,7 @@ void Screen::Load_Tiled_Objects(Object_Manager& g_objectManager, Collision_Manag
                     temp_size.x = static_cast<float>(object.getSize().x);
                     temp_size.y = static_cast<float>(object.getSize().y);
 
-                    Walls* new_wall = new Walls(temp_pos, temp_size, cm /*, ggf. weitere Konstruktor-Parameter */);
+                    Walls* new_wall = new Walls(temp_pos, temp_size/*, ggf. weitere Konstruktor-Parameter */);
                     g_objectManager.AddObject(new_wall);
                     std::cout << "Wand zu Object Manager hinzugefügt: " << new_wall << std::endl;
                 }
@@ -145,7 +145,7 @@ void Screen::Load_Tiled_Objects(Object_Manager& g_objectManager, Collision_Manag
                     temp_pos.x = static_cast<float>(object.getPosition().x);
                     temp_pos.y = static_cast<float>(object.getPosition().y);
 
-                    Consumables* new_consumable = new Consumables(temp_pos, object.getName(), cm /*, ggf. weitere Konstruktor-Parameter */);
+                    Consumables* new_consumable = new Consumables(temp_pos, object.getName() /*, ggf. weitere Konstruktor-Parameter */);
                     g_objectManager.AddObject(new_consumable);
                     std::cout << "Verbrauchsgegenstand zu Object Manager hinzugefügt: " << new_consumable << std::endl;
                 }

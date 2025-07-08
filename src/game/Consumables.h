@@ -15,10 +15,9 @@ protected:
 
     Texture2D texture;
     std::string name;
-    Collision_Manager* manager_ptr;
 
 public:
-    Consumables(Vector2 position, std::string name, Collision_Manager* cm);
+    Consumables(Vector2 position, std::string name);
     ~Consumables();
 
 

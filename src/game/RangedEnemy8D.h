@@ -57,7 +57,7 @@ namespace enemy {
         Ranged_Enemy_8_Directional(std::string name, int health, float movement_speed, int damage, int value,
                                    const char* enemy_sprite_path, const char* proj_sprite_path,
                                    Vector2 start_position, int width, int height,
-                                   float attack_range, float attack_cooldown, float projectile_speed, Collision_Manager* manager);
+                                   float attack_range, float attack_cooldown, float projectile_speed);
 
         ~Ranged_Enemy_8_Directional() override = default;
 

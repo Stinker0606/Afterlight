@@ -25,12 +25,11 @@ namespace enemy
         int enemy_Value;
         bool is_Moving;
         Texture2D sprite;
-        Collision_Manager* manager_ptr;
         const char* projectile_sprite_path;
 
     public:
         Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
-            const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height, Collision_Manager* manager,
+            const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height,
             float cooldown_duration);
 
         virtual ~Enemy_Base_Class();

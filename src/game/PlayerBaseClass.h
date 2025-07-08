@@ -42,8 +42,7 @@ protected:
 
 public:
 	// Konstruktor
-	Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position,
-			Collision_Manager* manager);
+	Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position);
 
 	// Destruktor
 	~Player_Base_Class() override;

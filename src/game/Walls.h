@@ -13,10 +13,9 @@ class Walls : public Collidable
 {
 protected:
 
-    Collision_Manager* manager_ptr;
 
 public:
-    Walls(Vector2 position, Vector2 size, Collision_Manager* cm);
+    Walls(Vector2 position, Vector2 size);
     ~Walls();
 
 
