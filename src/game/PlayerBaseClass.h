@@ -47,9 +47,9 @@ public:
 	// Destruktor
 	~Player_Base_Class() override;
 	void Player_Input();
-	void Tick(float delta_time);
+	void Tick(float delta_time) override;
 	void On_Collision(Collidable* other) override;
-	virtual void Draw();
+	virtual void Draw() override;
 
 	void Update_Previous_Position();
 	void Update_Facing_Direction();

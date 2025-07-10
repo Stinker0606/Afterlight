@@ -22,8 +22,7 @@ Collision_Type Walls::Get_Collision_Type() const
 }
 
 //Core Methoden
-void Tick(float delta_time)
-{
+void Walls::Tick(float delta_time) {
 
 }
 void Walls::On_Collision(Collidable* other)

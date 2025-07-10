@@ -31,8 +31,8 @@ namespace game {
         Player_Projectile(Vector2 start_position, Vector2 direction, float projectile_speed, int damage, const char* sprite_path);
         ~Player_Projectile();
 
-        void Tick(float delta_time);
-        void Draw() const;
+        void Tick(float delta_time) override;
+        void Draw() override;
 
         Collision_Type Get_Collision_Type() const override;
         void On_Collision(Collidable* other) override;

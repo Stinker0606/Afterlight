@@ -30,6 +30,8 @@ public:
 
     Rectangle Get_Hitbox() const{return this->hitbox;};
     virtual Collision_Type Get_Collision_Type() const = 0;
+    virtual void Tick(float delta_time) = 0;
+    virtual void Draw()=0;
     virtual void On_Collision(Collidable* other) = 0;
     virtual void Set_Position(Vector2 position){}
 

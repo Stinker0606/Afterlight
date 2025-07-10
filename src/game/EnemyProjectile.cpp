@@ -34,7 +34,7 @@ namespace game {
     }
 
     // Draw
-    void Enemy_Projectile::Draw() const {
+    void Enemy_Projectile::Draw()  {
         if (!is_active) return;
         DrawTextureV(sprite, position, WHITE);
     }

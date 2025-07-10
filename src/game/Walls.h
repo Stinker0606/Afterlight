@@ -22,10 +22,9 @@ public:
     Collision_Type Get_Collision_Type() const override;
 
 
-    void Tick(float delta_time);
+    void Tick(float delta_time) override;
     void On_Collision(Collidable* other) override;
-    void Draw();
-    Rectangle Get_Hitbox();
+    void Draw() override;
 };
 
 #endif //RAYLIBSTARTER_WALLS_H

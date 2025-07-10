@@ -24,7 +24,9 @@ namespace game::scenes
 
         void Draw() override;
 
-        Screen screen;
+        int Level_Nbr = 1;
+
+        Screen screen {&Level_Nbr};
 
         std::shared_ptr<Cam> cam;
 

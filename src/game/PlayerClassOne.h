@@ -20,7 +20,7 @@ public:
     Animations test_animation{size,"assets/graphics/anim_sprite.png",9,3};
     Player_Class_One(Vector2 start_Position);
     ~Player_Class_One();
-    void Draw();
+    void Draw() override;
 
 };
 
