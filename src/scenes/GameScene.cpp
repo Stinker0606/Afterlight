@@ -39,6 +39,16 @@ void game::scenes::GameScene::Update()
     }
     mp.Tick(dtm.Get_Dt());
 
+    // Update fog with player position and delta time
+    Vector2 playerWorldPos = mp.Get_Player_Pos();
+    Rectangle playerHitbox = mp.Get_Hitbox();
+    Vector2 playerCenter = {
+        playerWorldPos.x + playerHitbox.width / 2.0f,
+        playerWorldPos.y + playerHitbox.height / 2.0f
+    };
+
+    screen.UpdateFog(playerCenter, dtm.Get_Dt());
+
     this->cam->Cam_Movement(dtm.Get_Dt());
 
     dtm.Update();
@@ -49,7 +59,6 @@ void game::scenes::GameScene::Draw()
     BeginDrawing();
     ClearBackground(WHITE);
     screen.Draw_Level(this->cam, false);
-    BeginMode2D(cam->cam);
     mp.Draw();
 
     screen.Draw_Level(this->cam, true);
