@@ -18,7 +18,7 @@ game::scenes::GameScene::GameScene()
 {
     dtm.Start();
     cam=std::make_shared<Cam>(this->mp);
-    screen.Load_Tiled_Objects(objectManager,p_cm);
+    screen.LoadGameObjects(objectManager);
 
     // Your scene initialization code here...
 
@@ -40,7 +40,7 @@ void game::scenes::GameScene::Update()
     mp.Tick(dtm.Get_Dt());
 
     this->cam->Cam_Movement(dtm.Get_Dt());
-    objectManager.Cleanup_Objects();
+
     dtm.Update();
 }
 
@@ -48,7 +48,9 @@ void game::scenes::GameScene::Draw()
 {
     BeginDrawing();
     ClearBackground(WHITE);
-    screen.Draw_Level(this->cam);
+    screen.Draw_Level(this->cam, false);
+    BeginMode2D(cam->cam);
     mp.Draw();
 
+    screen.Draw_Level(this->cam, true);
 }

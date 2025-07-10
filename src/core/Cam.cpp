@@ -17,5 +17,5 @@ Cam::Cam(Player_Base_Class& mp):pao(mp) {
 }
 void Cam::Cam_Movement(double dtm) {
     Vector2 mpp=pao.Get_Player_Pos();
-    this->cam.target= (Vector2){mpp.x-110.00f,mpp.y-100.0f};
+    this->cam.target= (Vector2){mpp.x-100,mpp.y-50};
 }

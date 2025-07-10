@@ -41,7 +41,7 @@ namespace game {
     }
 
     // Draw
-    void Player_Projectile::Draw() const {
+    void Player_Projectile::Draw() {
         if (!is_active) return; // Inaktive Projektile werden nicht gezeichnet
         DrawTextureV(sprite, position, WHITE);
     }

@@ -15,6 +15,5 @@ namespace game::scenes
 
         void Draw() override;
 
-        Screen screen;
     };
 }
