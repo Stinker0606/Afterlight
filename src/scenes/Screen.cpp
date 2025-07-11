@@ -61,9 +61,6 @@ void Screen::Load_Levelmap() {
 //while Draw_Level(true) only draws the ones above the Objects
 
 void Screen::Draw_Level(std::shared_ptr<Cam> kamera,bool aboveObjects) {
-    if (!this->loaded){
-        Load_Levelmap();
-    }
 
 
     //make sure the map is loaded before drawing

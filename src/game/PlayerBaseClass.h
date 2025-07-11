@@ -60,6 +60,7 @@ public:
 
     Collision_Type Get_Collision_Type() const override;
     Vector2 Get_Player_Pos();
+    Vector2 Get_Player_Center();
 
     void Take_Damage(int damage);
 };

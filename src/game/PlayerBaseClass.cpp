@@ -187,3 +187,6 @@ void Player_Base_Class::Take_Damage(int damage_amount)
 {
     player_Health -= damage_amount;
 }
+Vector2 Player_Base_Class::Get_Player_Center() {
+    return (Vector2){player_Pos.x+maintex.width/2,player_Pos.y+maintex.height/2};
+}
