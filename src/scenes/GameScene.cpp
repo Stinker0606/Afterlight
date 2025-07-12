@@ -48,8 +48,8 @@ void game::scenes::GameScene::Update()
     Vector2 playerWorldPos = mp.Get_Player_Pos();
     Rectangle playerHitbox = mp.Get_Hitbox();
     Vector2 playerCenter = {
-        playerWorldPos.x + playerHitbox.width / 2.7f,
-        playerWorldPos.y + playerHitbox.height / 2.7f
+        playerWorldPos.x + playerHitbox.width / 1.0f,
+        playerWorldPos.y + playerHitbox.height / 1.0f
     };
 
     screen.UpdateFog(playerCenter, dtm.Get_Dt());

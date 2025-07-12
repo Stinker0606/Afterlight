@@ -83,6 +83,12 @@
          "id":2,
          "name":"walls",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"IsAboveObjects",
+                 "type":"bool",
+                 "value":false
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":30,
@@ -112,6 +118,12 @@
          "id":3,
          "name":"walls",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"IsAboveObjects",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":30,
