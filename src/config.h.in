@@ -47,10 +47,10 @@ namespace game {
 
         // Player_Class_One
         inline static constexpr const char* player_Class_One_Sprite_Path = "assets/graphics/player/class1_sheet.png";
-        inline static constexpr int player_Class_One_Max_Health = 120;
-        inline static constexpr float player_Class_One_Movement_Speed = 100.0f;
-        inline static constexpr int player_Class_One_Damage = 12;
-        inline static constexpr float player_Class_One_Projectile_Speed = 300.0f;
+        inline static constexpr int player_Class_One_Max_Health = 600;
+        inline static constexpr float player_Class_One_Movement_Speed = 40.0f;
+        inline static constexpr int player_Class_One_Damage = 50;
+        inline static constexpr float player_Class_One_Projectile_Speed = 100.0f;
         inline static constexpr const char* player_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER Pfad für Player-Projectile
 
         // Enemy_Class_One

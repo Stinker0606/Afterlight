@@ -23,8 +23,7 @@ protected:
 	int player_Max_Health;
 	float player_Movement_Speed;
 	int player_Damage;
-
-    Vector2 player_Pos;
+	Vector2 player_Pos;
 	Vector2 previous_Position;
 	Collision_Manager* manager_Ptr;
 
@@ -33,7 +32,6 @@ protected:
 	bool inventory_Is_Full;
 	Facing_Direction facing_Direction;
 	bool is_Moving;
-
 
     Texture2D maintex= LoadTexture("assets/graphics/ball.png");
 
@@ -61,7 +59,6 @@ public:
     Collision_Type Get_Collision_Type() const override;
     Vector2 Get_Player_Pos();
     Vector2 Get_Player_Center();
-
     void Take_Damage(int damage);
 };
 
