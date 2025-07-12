@@ -1,133 +1,78 @@
-//
-// Created by Manza on 7/7/2025.
-//
-
 #include "FogManager.h"
 #include <iostream>
-#include <algorithm>
+#include <raymath.h>
 
 FogManager::FogManager()
-    : fogLoaded(false), fogActive(false), fogStrength(1.0f), timeAccumulator(0.0f),
-      resolution({0, 0}), playerPosLocation(-1), resolutionLocation(-1),
-      timeLocation(-1), fogStrengthLocation(-1)
+    : fogLoaded(false), fogEnabled(true), timeAccumulator(0.0f)
 {
-    // Default fog maps
-    fogMaps = {"Swamp_1", "Swamp_1.json"};
+    // Standardwerte für den Nebel
+    innerRadius = 90.0f;
+    outerRadius = 250.0f;
+    fogColor = { 153, 153, 153, 180 }; // Dein ursprüngliches Grau
 }
 
-FogManager::~FogManager()
-{
+FogManager::~FogManager() {
     UnloadFog();
 }
 
-void FogManager::InitializeFog(const std::string& mapName, Vector2 screenResolution)
-{
+void FogManager::InitializeFog(const std::string& mapName, Vector2 screenResolution) {
     resolution = screenResolution;
-    fogActive = ShouldUseFog(mapName);
-
-    if (fogActive && !fogLoaded)
-    {
+    if (!fogLoaded) {
         LoadFogShader();
-    }
-    else if (!fogActive && fogLoaded)
-    {
-        UnloadFog();
     }
 }
 
-void FogManager::LoadFogShader()
-{
+void FogManager::LoadFogShader() {
     fogShader = LoadShader(0, "assets/shaders/fog.fs");
-
-    if (fogShader.id != 0)
-    {
-        // Get uniform locations
+    if (fogShader.id != 0) {
         playerPosLocation = GetShaderLocation(fogShader, "playerPos");
         resolutionLocation = GetShaderLocation(fogShader, "resolution");
         timeLocation = GetShaderLocation(fogShader, "time");
-        fogStrengthLocation = GetShaderLocation(fogShader, "fogStrength");
+        innerRadiusLocation = GetShaderLocation(fogShader, "innerRadius");
+        outerRadiusLocation = GetShaderLocation(fogShader, "outerRadius");
+        fogColorLocation = GetShaderLocation(fogShader, "fogColorValue");
 
-        // Set static uniforms
         SetShaderValue(fogShader, resolutionLocation, &resolution, SHADER_UNIFORM_VEC2);
-        SetShaderValue(fogShader, fogStrengthLocation, &fogStrength, SHADER_UNIFORM_FLOAT);
-
         fogLoaded = true;
-        std::cout << "Fog shader loaded successfully" << std::endl;
-    }
-    else
-    {
-        std::cerr << "Failed to load fog shader" << std::endl;
-        fogActive = false;
     }
 }
 
-void FogManager::Update(Vector2 playerPosition, float deltaTime)
-{
-    if (!fogActive || !fogLoaded) return;
-
+void FogManager::Update(Vector2 playerPosition, float deltaTime) {
+    if (!fogLoaded) return;
     timeAccumulator += deltaTime;
     UpdateShaderUniforms(playerPosition);
 }
 
-void FogManager::UpdateShaderUniforms(Vector2 playerPos)
-{
+void FogManager::UpdateShaderUniforms(Vector2 playerPos) {
     if (!fogLoaded) return;
 
-    // Update dynamic uniforms
     SetShaderValue(fogShader, playerPosLocation, &playerPos, SHADER_UNIFORM_VEC2);
     SetShaderValue(fogShader, timeLocation, &timeAccumulator, SHADER_UNIFORM_FLOAT);
+    SetShaderValue(fogShader, innerRadiusLocation, &innerRadius, SHADER_UNIFORM_FLOAT);
+    SetShaderValue(fogShader, outerRadiusLocation, &outerRadius, SHADER_UNIFORM_FLOAT);
+
+    Vector4 colorNormalized = {
+        (float)fogColor.r / 255.0f, (float)fogColor.g / 255.0f,
+        (float)fogColor.b / 255.0f, (float)fogColor.a / 255.0f
+    };
+    SetShaderValue(fogShader, fogColorLocation, &colorNormalized, SHADER_UNIFORM_VEC4);
 }
 
-void FogManager::BeginFogMode() const
-{
-    if (fogActive && fogLoaded)
-    {
+void FogManager::BeginFogMode() const {
+    if (fogLoaded && fogEnabled) {
         BeginShaderMode(fogShader);
     }
 }
 
-void FogManager::EndFogMode() const
-{
-    if (fogActive && fogLoaded)
-    {
+void FogManager::EndFogMode() const {
+    if (fogLoaded && fogEnabled) {
         EndShaderMode();
     }
 }
 
-bool FogManager::IsFogActive() const
-{
-    return fogActive && fogLoaded;
-}
-
-void FogManager::SetFogStrength(float strength)
-{
-    fogStrength = strength;
-    if (fogLoaded)
-    {
-        SetShaderValue(fogShader, fogStrengthLocation, &fogStrength, SHADER_UNIFORM_FLOAT);
-    }
-}
-
-void FogManager::SetFogMaps(const std::vector<std::string>& maps)
-{
-    fogMaps = maps;
-}
-
-bool FogManager::ShouldUseFog(const std::string& mapName) const
-{
-    return std::find_if(fogMaps.begin(), fogMaps.end(),
-                       [&mapName](const std::string& fogMap) {
-                           return mapName.find(fogMap) != std::string::npos;
-                       }) != fogMaps.end();
-}
-
-void FogManager::UnloadFog()
-{
-    if (fogLoaded)
-    {
+void FogManager::UnloadFog() {
+    if (fogLoaded) {
         UnloadShader(fogShader);
         fogLoaded = false;
-        fogActive = false;
-        std::cout << "Fog shader unloaded" << std::endl;
     }
 }
