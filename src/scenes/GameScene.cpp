@@ -17,6 +17,7 @@ using namespace std::string_literals;
 game::scenes::GameScene::GameScene()
 {
     dtm.Start();
+    objectManager.AddObject(&mp);
     cam=std::make_shared<Cam>(this->mp);
     screen.LoadGameObjects(objectManager);
 
@@ -37,7 +38,11 @@ void game::scenes::GameScene::Update()
     if (IsKeyPressed(KEY_L)){
         ToggleFullscreen();
     }
-    mp.Tick(dtm.Get_Dt());
+
+
+    for (int i = 0; i < objectManager.managed_objects.size(); ++i) {
+        objectManager.managed_objects[i]->Tick(dtm.Get_Dt());
+    }
 
     // Update fog with player position and delta time
     Vector2 playerWorldPos = mp.Get_Player_Pos();
@@ -50,7 +55,8 @@ void game::scenes::GameScene::Update()
     screen.UpdateFog(playerCenter, dtm.Get_Dt());
 
     this->cam->Cam_Movement(dtm.Get_Dt());
-
+    this->p_cm->Check_Collisions();
+    objectManager.Cleanup_Objects();
     dtm.Update();
 }
 
@@ -59,7 +65,9 @@ void game::scenes::GameScene::Draw()
     BeginDrawing();
     ClearBackground(WHITE);
     screen.Draw_Level(this->cam, false);
+    BeginMode2D(cam->cam);
     mp.Draw();
+    objectManager.managed_objects[1]->Draw();
 
     screen.Draw_Level(this->cam, true);
 }

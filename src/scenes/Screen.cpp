@@ -76,9 +76,6 @@ void Screen::UpdateFog(Vector2 playerPosition, float deltaTime)
 
 
 void Screen::Draw_Level(std::shared_ptr<Cam> kamera,bool aboveObjects) {
-    if (!this->loaded){
-        Load_Levelmap();
-    }
 
 
     //make sure the map is loaded before drawing
