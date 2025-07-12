@@ -1,0 +1,14 @@
+{ "columns":13,
+ "image":"..\/graphics\/tilesets\/Testtilemap_sumpf_wasserextralayer.png",
+ "imageheight":224,
+ "imagewidth":416,
+ "margin":0,
+ "name":"Tileset_1",
+ "spacing":0,
+ "tilecount":91,
+ "tiledversion":"1.11.2",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.10"
+}
