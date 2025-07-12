@@ -8,20 +8,29 @@
 #include "Cam.h"
 #include "Object_Manager.h"
 #include "CollisionManager.h"
+#include "FogManager.h"
 
 
 class Screen
 {
 public:
-    Screen();
+    Screen(int* Level_Ptr);
     ~Screen();
-    void Draw_Level(std::shared_ptr<Cam>) const;
-    void Load_Tiled_Objects(Object_Manager&, Collision_Manager*) const;
+    void Draw_Level(std::shared_ptr<Cam>, bool aboveObjects) ;
+    void LoadGameObjects(Object_Manager& g_objectManager);
+    void Load_Levelmap();
+    void UpdateFog(Vector2 playerPosition, float deltaTime);
 
 private:
-    std::unique_ptr<tson::Map> map;
+    bool includeEnemySpawnersAsCollidables=false;
     Texture2D tileatlas_Texture;
-    std::string levelmap_Path ="assets/graphics/data/Testmap1.json";
+    std::unique_ptr<tson::Map> map;
+    int* Level_Nbr_Ptr = nullptr;
+    bool loaded;
+
+    // Fog management
+    FogManager fogManager;
+    std::string Load_Levelmap() const;
 };
 
 

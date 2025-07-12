@@ -9,7 +9,7 @@
 
 struct Cam
 {public:
-    Camera2D cam={0,0,0,0,0,3};
+    Camera2D cam={0,0,game::Config::cam_start_pos_x,game::Config::cam_start_pos_y,0,game::Config::cam_zoom};
     Player_Base_Class& pao;
 
     Cam(Player_Base_Class&);

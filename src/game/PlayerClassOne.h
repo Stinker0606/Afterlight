@@ -8,15 +8,18 @@
 
 
 #include "PlayerBaseClass.h"
+#include "RepeatAnimation.h"
 
 class Player_Class_One : public Player_Base_Class
 {
 private:
+    Vector2 size{32,48};
 
 public:
-    Player_Class_One(Vector2 start_Position, Collision_Manager* manager);
+    RepeatAnimation test_animation{size,"assets/graphics/MC_Walkcycle_Front.png",10,10};
+    Player_Class_One(Vector2 start_Position);
     ~Player_Class_One();
+    void Draw() override;
 };
-
 
 #endif //PLAYERCLASSONE_H

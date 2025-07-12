@@ -7,24 +7,17 @@
 #include "CollisionManager.h"
 #include "../../cmake-build-debug/_deps/raylib-src/src/config.h"
 
-Consumables::Consumables(Vector2 position, std::string name,Collision_Manager* cm)
+Consumables::Consumables(Vector2 position, std::string name)
 {
     name = name;
     texture = LoadTexture("assets/pngs/ball.png"); // Beispielpfad
     hitbox = { position.x, position.y, (float)texture.width, (float)texture.height };
-    manager_ptr=cm;
-    if (manager_ptr)
-    {
-        manager_ptr->Regist_Object(this);
-    }
+
 }
 
 Consumables::~Consumables()
 {
-    if (manager_ptr)
-    {
-        manager_ptr->Unregist_Object(this);
-    }
+
     UnloadTexture(texture);
 }
 

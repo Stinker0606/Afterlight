@@ -9,17 +9,18 @@ Animations::Animations(Vector2 sprite_size,const char* filename,int FC,int spl) 
     this->size=sprite_size;
     this->frame_Count=FC;
     this->sprites_per_line=spl;
+    this->target=(Rectangle){1,1, this->size.x, this->size.y};
 }
 void Animations::First_Frame() {
-    target.x=0;
-    target.y=0;
+    target.x=1;
+    target.y=1;
     this->current_Frame=0;
 }
 void Animations::Next_Frame() {
     this->current_Frame++;
     if (this->frame_Count> this->current_Frame) {
         if (this->current_Frame % this->sprites_per_line == 0 && current_Frame != 0) {
-            this->target.x = 0;
+            this->target.x = 1;
             this->target.y = this->target.y + this->size.y;
         } else {
             this->target.x = this->target.x + this->size.x;
