@@ -66,5 +66,16 @@ void game::scenes::GameScene::Draw()
     screen.Draw_Level(this->cam, false);
     BeginMode2D(cam->cam);
     mp.Draw();
+
+    // HITBOX ANZEIGEN
+
+    //for (const auto& p_object : objectManager.managed_objects)
+    //{
+    //    if (p_object != nullptr)
+    //    {
+    //        DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+    //    }
+    //}
+
     screen.Draw_Level(this->cam, true);
 }
