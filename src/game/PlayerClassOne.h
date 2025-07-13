@@ -8,14 +8,20 @@
 
 
 #include "PlayerBaseClass.h"
+#include "Animations.h"
 
 class Player_Class_One : public Player_Base_Class
 {
 private:
+    Vector2 size{80,80};
+
 
 public:
-    Player_Class_One(Vector2 start_Position, Collision_Manager* manager);
+    Animations test_animation{size,"assets/graphics/anim_sprite.png",9,3};
+    Player_Class_One(Vector2 start_Position);
     ~Player_Class_One();
+    void Draw() override;
+
 };
 
 

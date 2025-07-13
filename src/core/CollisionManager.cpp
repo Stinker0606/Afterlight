@@ -5,10 +5,10 @@
 #include "CollisionManager.h"
 
 // Konstruktor
-Collision_Manager::Collision_Manager(Rectangle world_Bounds)
-    : quadtree(std::make_unique<Quadtree>(0, world_Bounds)){}
+Collision_Manager::Collision_Manager(Rectangle world_Bounds,std::vector<Collidable*>& collidables)
+    : quadtree(std::make_unique<Quadtree>(0, world_Bounds)),collidables(collidables){}
 
-void Collision_Manager::Regist_Object(Collidable* object)
+/*void Collision_Manager::Regist_Object(Collidable* object)
 {
     // push_back nimmtdas Element "objecte" also einen Collidable zeiger (eine Adresse) und speichert diese
     // am Ende des collidables Vector. Vektor vergrößert bei Bedarf seinen Speicher automatisch.
@@ -30,7 +30,7 @@ void Collision_Manager::Unregist_Object(Collidable* object)
         }
     }
 }
-
+*/
 void Collision_Manager::Check_Collisions()
 {
     // Ruft die Clear des Quadtrees auf. Löscht nicht den Quadtree aber alle seine Unterknoten

@@ -18,14 +18,14 @@
 class Collision_Manager
 {
 private:
-    std::vector<Collidable*> collidables;
+    std::vector<Collidable*>& collidables;
     std::unique_ptr<Quadtree> quadtree;
 
 public:
-    Collision_Manager(Rectangle world_Bounds);
+    Collision_Manager(Rectangle world_Bounds,std::vector<Collidable*>& collidables);
 
-    void Regist_Object(Collidable* object);
-    void Unregist_Object(Collidable* object);
+    /*void Regist_Object(Collidable* object);
+    void Unregist_Object(Collidable* object);*/
     void Check_Collisions();
 };
 

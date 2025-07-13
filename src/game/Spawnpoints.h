@@ -13,19 +13,19 @@ class Spawnpoints : public Collidable
 {
 private:
     int spawner_Hits;
-    Collision_Manager* manager_ptr;
+
 
 public:
-    Spawnpoints(Vector2 position, int hits, Collision_Manager* manager);
+    Spawnpoints(Vector2 position, int hits);
     ~Spawnpoints();
 
 
     Collision_Type Get_Collision_Type() const override;
     bool Is_Destroyed() const;
 
-    void Tick(float delta_time);
+    void Tick(float delta_time) override;
     void On_Collision(Collidable* other) override;
-    void Draw();
+    void Draw() override;
 };
 
 
