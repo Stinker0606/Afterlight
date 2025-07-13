@@ -1,7 +1,6 @@
 #pragma once
 #include <Scene.h>
 #include "Screen.h"
-#include "CollisionManager.h"
 #include "../game/PlayerClassOne.h"
 #include "DeltaTimeMachine.h"
 #include "Cam.h"
@@ -17,8 +16,10 @@ namespace game::scenes
         Player_Class_One mp{sp};
         DT::timemachine dtm;
 
+        RenderTexture2D gameRenderTexture; // Die "Leinwand" für unsere Szene
+
         float key_cooldown;
-        const float KEY_PRESS_DELAY = 10.0f;
+        const float KEY_PRESS_DELAY = 1.0f;
 
         void Handle_Fog_Controls(float delta_time);
         void Draw_Fog_UI();

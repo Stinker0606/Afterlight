@@ -10,6 +10,8 @@
 #include "config.h"
 #include "raymath.h"
 
+using namespace std::string_literals;
+
 game::scenes::GameScene::GameScene() {
     dtm.Start();
     key_cooldown = 0.0f;
@@ -27,35 +29,42 @@ void game::scenes::GameScene::Update() {
     for (auto& obj : objectManager.managed_objects) { obj->Tick(dt); }
     p_cm->Check_Collisions();
     cam->Cam_Movement(dt);
+
+    // Ein sauberer Aufruf zum Nebel mit einem Offset
     Vector2 player_world_pos = cam->cam.target;
     Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, cam->cam);
-    screen.UpdateFog(player_screen_pos, dt);
+    Vector2 fog_visual_offset = { -88.0f, -69.0f }; // Dein funktionierender Offset
+    Vector2 final_fog_pos = Vector2Add(player_screen_pos, fog_visual_offset);
+    screen.UpdateFog(final_fog_pos, dt); // Nur noch dieser eine Aufruf
+
     objectManager.Cleanup_Objects();
     dtm.Update();
 }
 
-// Die FINALE, KORREKTE Draw-Funktion
 void game::scenes::GameScene::Draw() {
     BeginDrawing();
     ClearBackground(BLACK);
 
-    // KORREKTUR: Zuerst die Kamera starten, dann den Shader anwenden.
     BeginMode2D(cam->cam);
-
         screen.fogManager.BeginFogMode();
-
-            // Zeichne alle Spielwelt-Elemente, die vom Nebel betroffen sein sollen
+            // Zeichne zuerst den Hintergrund der Welt
             screen.Draw_Level(this->cam, false);
-            mp.Draw();
-            // screen.Draw_Level(this->cam, true); // Falls du Ebenen über dem Spieler hast
+
+            // Zeichne ALLE Objekte aus dem Manager
+            // Das macht deine Wände und andere Objekte sichtbar.
+            for (const auto& p_object : objectManager.managed_objects) {
+                if (p_object != nullptr) {
+                    p_object->Draw();
+                }
+            }
+
+            // Zeichne Ebenen, die über den Objekten liegen sollen
+            // screen.Draw_Level(this->cam, true);
 
         screen.fogManager.EndFogMode();
-
     EndMode2D();
 
-    // Zeichne die UI ganz zum Schluss, damit sie immer sichtbar ist.
     Draw_Fog_UI();
-
 }
 
 // Die Steuerungs- und UI-Funktionen bleiben unverändert

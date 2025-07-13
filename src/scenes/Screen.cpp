@@ -30,14 +30,10 @@ void Screen::UpdateFog(Vector2 playerPosition, float deltaTime) {
     fogManager.Update(playerPosition, deltaTime);
 }
 
-// KORREKTUR: Diese Funktion zeichnet jetzt NUR noch die Kacheln.
-// Alle Shader- und Kamera-Aufrufe wurden entfernt.
 void Screen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
     if (map == nullptr) return;
-
     for (auto &layer: map->getLayers()) {
         if (!layer.isVisible() || layer.getType() != tson::LayerType::TileLayer) continue;
-
         bool isAbove = false;
         if (layer.getProperties().hasProperty("IsAboveObjects")) {
             auto *prop = layer.getProperties().getProperty("IsAboveObjects");
@@ -46,7 +42,6 @@ void Screen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
             }
         }
         if (isAbove != aboveObjects) continue;
-
         auto &tile_Layer = layer.getTileData();
         for (const auto &pair: tile_Layer) {
             int x = std::get<0>(pair.first);
