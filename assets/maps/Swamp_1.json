@@ -292,8 +292,8 @@
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":95.7440505579145,
-                 "x":62.565419176459,
+                 "width":92.74,
+                 "x":65.57,
                  "y":320.410783055199
                 }, 
                 {
@@ -319,18 +319,18 @@
                  "y":542.666666666667
                 }, 
                 {
-                 "height":32.6666666666667,
+                 "height":12,
                  "id":10,
                  "name":"wall_6",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":96.6666666666667,
-                 "x":63.3333333333333,
+                 "width":90.67,
+                 "x":69.33,
                  "y":447.333333333333
                 }, 
                 {
-                 "height":32,
+                 "height":10,
                  "id":11,
                  "name":"wall_7",
                  "rotation":0,
@@ -352,7 +352,7 @@
                  "y":415.333333333333
                 }, 
                 {
-                 "height":31.3333333333333,
+                 "height":10,
                  "id":13,
                  "name":"wall_9",
                  "rotation":0,
@@ -363,25 +363,25 @@
                  "y":352
                 }, 
                 {
-                 "height":31.3333333333333,
+                 "height":10,
                  "id":14,
                  "name":"wall_10",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":32.6666666666667,
-                 "x":191.333333333333,
+                 "width":30,
+                 "x":192.33,
                  "y":320
                 }, 
                 {
-                 "height":32.6666666666667,
+                 "height":10,
                  "id":15,
                  "name":"wall_11",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":32,
-                 "x":256,
+                 "width":30,
+                 "x":258,
                  "y":319.333333333333
                 }, 
                 {
@@ -407,18 +407,18 @@
                  "y":384
                 }, 
                 {
-                 "height":32.6666666666667,
+                 "height":10,
                  "id":18,
                  "name":"wall_14",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":66,
+                 "width":62,
                  "x":222.666666666667,
                  "y":479.333333333333
                 }, 
                 {
-                 "height":32,
+                 "height":10,
                  "id":19,
                  "name":"wall_15",
                  "rotation":0,
@@ -429,7 +429,7 @@
                  "y":288
                 }, 
                 {
-                 "height":31.3333333333333,
+                 "height":10,
                  "id":20,
                  "name":"wall_16",
                  "rotation":0,
@@ -440,7 +440,7 @@
                  "y":352
                 }, 
                 {
-                 "height":33.3333333333333,
+                 "height":15,
                  "id":21,
                  "name":"wall_17",
                  "rotation":0,
@@ -462,15 +462,15 @@
                  "y":480
                 }, 
                 {
-                 "height":34.6666666666666,
+                 "height":31.67,
                  "id":23,
                  "name":"wall_19",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":95.3333333333333,
-                 "x":384,
-                 "y":446
+                 "width":90.33,
+                 "x":389,
+                 "y":448
                 }, 
                 {
                  "height":96,
@@ -550,7 +550,7 @@
                  "y":0
                 }, 
                 {
-                 "height":35.3333333333333,
+                 "height":10,
                  "id":31,
                  "name":"wall_27",
                  "rotation":0,
@@ -561,7 +561,7 @@
                  "y":286
                 }, 
                 {
-                 "height":33.3333333333333,
+                 "height":10,
                  "id":32,
                  "name":"wall_28",
                  "rotation":0,
@@ -903,7 +903,7 @@
                  "y":224
                 }, 
                 {
-                 "height":32,
+                 "height":15,
                  "id":69,
                  "name":"wall_40",
                  "rotation":0,
@@ -911,11 +911,11 @@
                  "visible":true,
                  "width":32,
                  "x":64,
-                 "y":192
+                 "y":195
                 },
             
                 {
-                 "height":32.6666666666667,
+                 "height":15,
                  "id":70,
                  "name":"wall_41",
                  "rotation":0,
@@ -992,7 +992,7 @@
                  "y":96
                 }, 
                 {
-                 "height":32,
+                 "height":15,
                  "id":78,
                  "name":"wall_48",
                  "rotation":0,
@@ -1003,7 +1003,7 @@
                  "y":128
                 }, 
                 {
-                 "height":31.6666666666667,
+                 "height":15,
                  "id":79,
                  "name":"wall_49",
                  "rotation":0,
@@ -1011,7 +1011,7 @@
                  "visible":true,
                  "width":32,
                  "x":384,
-                 "y":192.333333333333
+                 "y":195
                 }, 
                 {
                  "height":31.6666666666667,
@@ -1089,6 +1089,17 @@
                  "width":97,
                  "x":31,
                  "y":95.6666666666667
+                }, 
+                {
+                 "height":226.75,
+                 "id":98,
+                 "name":"wall_53",
+                 "rotation":0,
+                 "type":"walls",
+                 "visible":true,
+                 "width":3.25,
+                 "x":959.5,
+                 "y":62.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1147,7 +1158,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":97,
+ "nextobjectid":100,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
