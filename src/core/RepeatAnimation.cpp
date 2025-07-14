@@ -18,7 +18,7 @@ void RepeatAnimation::First_Frame() {
 void RepeatAnimation::Next_Frame() {
     this->current_Frame++;
 
-    if (this->frame_Count> this->current_Frame) {
+    if (this->frame_Count > this->current_Frame) {
         if (this->current_Frame % this->sprites_per_line == 0 && current_Frame != 0) {
             this->target.x = 1;
             this->target.y = this->target.y + this->size.y;
@@ -26,7 +26,7 @@ void RepeatAnimation::Next_Frame() {
             this->target.x = this->target.x + this->size.x;
         }
     }
-    if (this->current_Frame> this->frame_Count){
+    if (this->current_Frame >= this->frame_Count){
         First_Frame();
     }
 }
