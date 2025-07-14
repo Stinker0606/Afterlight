@@ -24,9 +24,15 @@ public:
     void EndFogMode() const;
     void UnloadFog();
 
+    // KORREKTUR: Diese alten Funktionen werden entfernt, da sie nicht mehr benötigt werden.
+    // bool IsFogActive() const;
+    // void SetFogStrength(float strength);
+    // void SetFogMaps(const std::vector<std::string>& maps);
+
 private:
     Shader fogShader;
     bool fogLoaded;
+    bool fogActive; // Dieser wird intern verwendet
     float timeAccumulator;
     Vector2 resolution;
 
@@ -39,6 +45,7 @@ private:
 
     void LoadFogShader();
     void UpdateShaderUniforms(Vector2 playerPos);
+    bool ShouldUseFog(const std::string& mapName) const;
 };
 
 #endif // FOG_MANAGER_H

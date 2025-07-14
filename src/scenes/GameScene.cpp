@@ -18,56 +18,52 @@ game::scenes::GameScene::GameScene() {
     objectManager.AddObject(&mp);
     cam = std::make_shared<Cam>(this->mp);
     screen.LoadGameObjects(objectManager);
-    screen.fogManager.InitializeFog("", {(float)game::Config::kStageWidth, (float)game::Config::kStageHeight});
 }
 
 game::scenes::GameScene::~GameScene() {}
 
 void game::scenes::GameScene::Update() {
-    if (IsKeyPressed(KEY_ESCAPE))
-        game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
-    if (IsKeyPressed(KEY_P)){
-        ToggleFullscreen();
-    }
     float dt = dtm.Get_Dt();
     Handle_Fog_Controls(dt);
     for (auto& obj : objectManager.managed_objects) { obj->Tick(dt); }
     p_cm->Check_Collisions();
     cam->Cam_Movement(dt);
 
-    // Ein sauberer Aufruf zum Nebel mit einem Offset
+    // DEINE BEWÄHRTE METHODE FÜR DEN NEBEL-OFFSET
     Vector2 player_world_pos = cam->cam.target;
     Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, cam->cam);
-    Vector2 fog_visual_offset = { -88.0f, -69.0f }; // Dein funktionierender Offset
+    Vector2 fog_visual_offset = { -88.0f, -69.0f }; // Dein Offset für die Feinjustierung
     Vector2 final_fog_pos = Vector2Add(player_screen_pos, fog_visual_offset);
-    screen.UpdateFog(final_fog_pos, dt); // Nur noch dieser eine Aufruf
+    screen.UpdateFog(final_fog_pos, dt);
 
     objectManager.Cleanup_Objects();
     dtm.Update();
 }
 
+// Die FINALE, KORREKTE Draw-Funktion, die deine Struktur respektiert
 void game::scenes::GameScene::Draw() {
     BeginDrawing();
-    ClearBackground(BLACK);
+    ClearBackground(BLACK); // Schwarzer Rand außerhalb des Spielfensters
 
-    BeginMode2D(cam->cam);
-        screen.fogManager.BeginFogMode();
-            // Zeichne zuerst den Hintergrund der Welt
+    // Wende den Nebel-Shader auf die gesamte Szene an
+    screen.fogManager.BeginFogMode();
+
+        BeginMode2D(cam->cam);
+            // Zeichne alle Spielwelt-Elemente
             screen.Draw_Level(this->cam, false);
 
-            // Zeichne ALLE Objekte aus dem Manager
-            // Das macht deine Wände und andere Objekte sichtbar.
+            // KORREKTUR: Zeichne ALLE Objekte aus dem Manager
+            // Das macht deine Wände wieder sichtbar.
             for (const auto& p_object : objectManager.managed_objects) {
                 if (p_object != nullptr) {
                     p_object->Draw();
                 }
             }
 
-            // Zeichne Ebenen, die über den Objekten liegen sollen
-            // screen.Draw_Level(this->cam, true);
+            screen.Draw_Level(this->cam, true);
+        EndMode2D();
 
-        screen.fogManager.EndFogMode();
-    EndMode2D();
+    screen.fogManager.EndFogMode();
 
     Draw_Fog_UI();
 }

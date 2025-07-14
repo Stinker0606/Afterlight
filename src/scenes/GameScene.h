@@ -16,10 +16,8 @@ namespace game::scenes
         Player_Class_One mp{sp};
         DT::timemachine dtm;
 
-        RenderTexture2D gameRenderTexture; // Die "Leinwand" für unsere Szene
-
         float key_cooldown;
-        const float KEY_PRESS_DELAY = 1.0f;
+        const float KEY_PRESS_DELAY = 0.1f;
 
         void Handle_Fog_Controls(float delta_time);
         void Draw_Fog_UI();
