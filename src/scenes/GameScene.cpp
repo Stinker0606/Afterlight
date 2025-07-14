@@ -44,23 +44,34 @@ void game::scenes::GameScene::Draw() {
     BeginDrawing();
     ClearBackground(BLACK);
 
-    // Diese Struktur zeichnet die Welt und wendet dabei den Nebel
-    // in der Screen::Draw_Level Funktion an.
+    // --- 1. Zeichne die gesamte Spielwelt normal (ohne Nebel) ---
+    bool originalFogState = screen.fogManager.fogEnabled;
+    screen.fogManager.fogEnabled = false;
+
     screen.Draw_Level(this->cam, false);
-
-    // Wir müssen den Spieler und die anderen Objekte separat zeichnen,
-    // da sie sonst vom Nebel-Shader der Screen-Funktion übermalt werden.
     BeginMode2D(cam->cam);
-        for (const auto& p_object : objectManager.managed_objects) {
-            if (p_object != nullptr) {
-                p_object->Draw();
-            }
+    for (const auto& p_object : objectManager.managed_objects) {
+        if (p_object != nullptr) {
+            p_object->Draw();
         }
+    }
     EndMode2D();
-
     screen.Draw_Level(this->cam, true);
 
+    screen.fogManager.fogEnabled = originalFogState;
+
+    // --- 2. Zeichne den durchsichtigen Nebel als Overlay ---
+    if (screen.fogManager.fogEnabled)
+    {
+        screen.fogManager.BeginFogMode();
+        // Zeichnet ein durchsichtiges Rechteck, auf das der Shader angewendet wird
+        DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLANK);
+        screen.fogManager.EndFogMode();
+    }
+
+    // --- 3. Zeichne die UI ganz oben ---
     Draw_Fog_UI();
+
 }
 
 // Die Steuerungs- und UI-Funktionen bleiben unverändert
