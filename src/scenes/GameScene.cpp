@@ -23,10 +23,10 @@ game::scenes::GameScene::GameScene() {
 
 game::scenes::GameScene::~GameScene() {}
 
-void game::scenes::GameScene::Update() {{
+void game::scenes::GameScene::Update() {
     if (IsKeyPressed(KEY_ESCAPE))
         game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
-    if (IsKeyPressed(KEY_L)){
+    if (IsKeyPressed(KEY_P)){
         ToggleFullscreen();
     }
     float dt = dtm.Get_Dt();
