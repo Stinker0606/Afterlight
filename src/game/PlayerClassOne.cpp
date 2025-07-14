@@ -37,8 +37,8 @@ Player_Class_One::Player_Class_One(Vector2 start_Position)
       // --- END OF MEMBER INITIALIZER LIST ---
 {
     // Hitbox Player
-    this->hitbox.width = 31.0f;
-    this->hitbox.height = 46.0f;
+    this->hitbox.width = 30.0f;
+    this->hitbox.height = 44.0f;
 
     // Set the initial animation
     current_animation = &Idle_Front;
