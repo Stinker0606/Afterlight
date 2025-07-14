@@ -13,20 +13,18 @@ class Walls : public Collidable
 {
 protected:
 
-    Collision_Manager* manager_ptr;
 
 public:
-    Walls(Vector2 position, Vector2 size, Collision_Manager* cm);
+    Walls(Vector2 position, Vector2 size);
     ~Walls();
 
 
     Collision_Type Get_Collision_Type() const override;
 
 
-    void Tick(float delta_time);
-    void On_Collision(Collidable* other) override;
-    void Draw();
-    Rectangle Get_Hitbox();
+    void Tick(float delta_time) override;
+    void On_Collision(std::shared_ptr<Collidable> other) override;
+    void Draw() override;
 };
 
 #endif //RAYLIBSTARTER_WALLS_H

@@ -6,25 +6,19 @@
 #include "../game/Collidable.h"
 #include "CollisionManager.h"
 
-Spawnpoints::Spawnpoints(Vector2 position, int hits, Collision_Manager* manager)
+Spawnpoints::Spawnpoints(Vector2 position, int hits)
 {
     this->spawner_Hits = hits;
     this->hitbox = { position.x, position.y, 64, 64 }; // Annahme einer festen Größe
 
-    this->manager_ptr = manager;
-    if (this->manager_ptr)
-    {
-        this->manager_ptr->Regist_Object(this);
-    }
+
+
 }
 
 Spawnpoints::~Spawnpoints()
 {
     // NEU: Abmelde-Logik
-    if (this->manager_ptr)
-    {
-        this->manager_ptr->Unregist_Object(this);
-    }
+
 }
 
 
@@ -36,7 +30,7 @@ Collision_Type Spawnpoints::Get_Collision_Type() const
 
 bool Spawnpoints::Is_Destroyed() const { return spawner_Hits <= 0; }
 
-void Spawnpoints::On_Collision(Collidable* other)
+void Spawnpoints::On_Collision(std::shared_ptr<Collidable> other)
 {
     Collision_Type type = other->Get_Collision_Type();
     if (type == Collision_Type::PLAYER_PROJECTILE || type == Collision_Type::PLAYER_MELEE_HITBOX)
