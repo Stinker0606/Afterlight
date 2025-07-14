@@ -11,6 +11,7 @@
 #include "FogManager.h"
 
 
+
 class Screen
 {
 public:

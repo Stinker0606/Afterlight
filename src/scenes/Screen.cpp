@@ -6,6 +6,8 @@
 #include <vector>
 #include "../config.h.in"
 #include "GameScene.h"
+#include "../game/EnemySpawner.h"
+#include "../game/EnemyBaseSpawner.h"
 
 // in main erstellen: object_Manager g_objectManager;
 

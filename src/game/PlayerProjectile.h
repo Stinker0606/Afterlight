@@ -5,6 +5,7 @@
 #pragma once
 #include "raylib.h"
 #include "Collidable.h"
+#include "Object_Manager.h"
 
 namespace game {
     /**
@@ -20,6 +21,8 @@ namespace game {
         Texture2D sprite;
         Rectangle hitbox;
 
+        Object_Manager& om;
+
         /**
          * @brief Konstruktor für ein neues Spieler-Projektil.
          * @param start_position Die Startposition des Projektils.
@@ -28,7 +31,7 @@ namespace game {
          * @param damage Der Schaden, den das Projektil verursacht.
          * @param sprite_path Der Pfad zur Sprite-Textur des Projektils.
          */
-        Player_Projectile(Vector2 start_position, Vector2 direction, float projectile_speed, int damage, const char* sprite_path);
+        Player_Projectile(Vector2 start_position, Vector2 direction, float projectile_speed, int damage, const char* sprite_path,Object_Manager& om);
         ~Player_Projectile();
 
         void Tick(float delta_time) override;

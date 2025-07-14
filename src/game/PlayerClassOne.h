@@ -5,9 +5,12 @@
 #ifndef PLAYERCLASSONE_H
 #define PLAYERCLASSONE_H
 
+
+
 #include "PlayerBaseClass.h"
 #include "Animations.h"
 #include "RepeatAnimation.h"
+#include "Object_Manager.h"
 #include "raylib.h" // Für Vector2
 
 class Player_Class_One : public Player_Base_Class
@@ -45,10 +48,11 @@ public:
     RepeatAnimation Run_Front_Left;
 
 
-    Player_Class_One(Vector2 start_Position);
+    Player_Class_One(Vector2 start_Position,Object_Manager& om);
     ~Player_Class_One();
     void Draw() override;
 
 };
+
 
 #endif //PLAYERCLASSONE_H

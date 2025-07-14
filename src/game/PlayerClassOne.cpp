@@ -6,9 +6,9 @@
 #include "../config.h.in"
 #include "raylib.h" // For IsKeyDown
 
-Player_Class_One::Player_Class_One(Vector2 start_Position)
+Player_Class_One::Player_Class_One(Vector2 start_Position, Object_Manager& om)
     : Player_Base_Class(game::Config::player_Class_One_Max_Health, game::Config::player_Class_One_Movement_Speed,
-        game::Config::player_Class_One_Damage, start_Position),
+        game::Config::player_Class_One_Damage, start_Position,om),
       // --- START OF MEMBER INITIALIZER LIST ---
       // 1. Initialize the size Vector2 members first
       size_top_down{32,48},

@@ -5,6 +5,7 @@
 #include "../game/PlayerClassOne.h"
 #include "DeltaTimeMachine.h"
 #include "Cam.h"
+#include "../game/EnemyBaseSpawner.h"
 
 namespace game::scenes
 {
@@ -15,6 +16,8 @@ namespace game::scenes
         Collision_Manager* p_cm =new Collision_Manager(wb,objectManager.managed_objects);
         Player_Class_One mp{sp};
         DT::timemachine dtm;
+        std::vector<enemy::Enemy_Base_Class*> enemy_list;
+       /* EnemyBaseSpawner dummy{wb,{},enemy_list,{5.0},{10}};*/
     public:
         GameScene();
 

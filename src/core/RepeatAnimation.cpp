@@ -8,7 +8,7 @@ RepeatAnimation::RepeatAnimation(Vector2 sprite_size,const char* filename,int FC
     this->size=sprite_size;
     this->frame_Count=FC;
     this->sprites_per_line=spl;
-    this->target=(Rectangle){1,1, this->size.x, this->size.y};
+    this->target=Rectangle{1,1, this->size.x, this->size.y};
 }
 void RepeatAnimation::First_Frame() {
     target.x=1;
