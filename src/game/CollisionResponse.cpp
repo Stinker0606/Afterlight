@@ -9,7 +9,7 @@
 #include "EnemyBaseClass.h"
 #include "PlayerBaseClass.h"
 
-void CollisionResponse::Resolve_Overlap(Collidable* obj_A, const Collidable* obj_B)
+void CollisionResponse::Resolve_Overlap(std::shared_ptr<Collidable> obj_A, const std::shared_ptr<Collidable> obj_B)
 {
     // Hole die Hitboxen der beiden Objekte.
     Rectangle hitbox_A = obj_A->Get_Hitbox();
@@ -43,21 +43,21 @@ void CollisionResponse::Resolve_Overlap(Collidable* obj_A, const Collidable* obj
     }
 }
 
-void CollisionResponse::Apply_Damage(Collidable* target, int damage)
+void CollisionResponse::Apply_Damage(std::shared_ptr<Collidable> target, int damage)
 {
     if (!target) return;
 
-    if (auto* player = dynamic_cast<Player_Base_Class*>(target))
+    if (auto player = std::dynamic_pointer_cast<Player_Base_Class>(target))
     {
         player->Take_Damage(damage);
     }
-    else if (auto* enemy = dynamic_cast<enemy::Enemy_Base_Class*>(target))
+    else if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(target))
     {
         enemy->Take_Damage(damage);
     }
 }
 
-void CollisionResponse::Mark_For_Destruction(Collidable* obj_To_Destroy)
+void CollisionResponse::Mark_For_Destruction(std::shared_ptr<Collidable> obj_To_Destroy)
 {
     if (!obj_To_Destroy) return;
     obj_To_Destroy->Mark_For_Destruction();

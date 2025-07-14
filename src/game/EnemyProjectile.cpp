@@ -48,7 +48,7 @@ namespace game {
     }
 
     // On_Collision: Definiert die Kollisionsreaktion
-    void Enemy_Projectile::On_Collision(Collidable* other) {
+    void Enemy_Projectile::On_Collision(std::shared_ptr<Collidable> other) {
         // Wenn es eine Wand oder den Spieler trifft wird es inaktiv
         if (other->Get_Collision_Type() == Collision_Type::WALL || other->Get_Collision_Type() == Collision_Type::PLAYER) {
             is_active = false;

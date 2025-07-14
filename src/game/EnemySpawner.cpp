@@ -63,3 +63,6 @@ void Enemy_Spawner::Draw_Spawner_Area() const
 {
     DrawRectangleLinesEx(spawner_Area, 2, GREEN);
 }
+void Enemy_Spawner::On_Collision(std::shared_ptr<Collidable> other) {
+
+}

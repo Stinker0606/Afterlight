@@ -9,6 +9,7 @@
 
 #include "PlayerBaseClass.h"
 #include "Animations.h"
+#include "RepeatAnimation.h"
 
 class Player_Class_One : public Player_Base_Class
 {
@@ -17,8 +18,8 @@ private:
 
 
 public:
-    Animations test_animation{size,"assets/graphics/anim_sprite.png",9,3};
-    Player_Class_One(Vector2 start_Position);
+    RepeatAnimation test_animation{size,"assets/graphics/anim_sprite.png",9,3};
+    Player_Class_One(Vector2 start_Position,Object_Manager& om);
     ~Player_Class_One();
     void Draw() override;
 
