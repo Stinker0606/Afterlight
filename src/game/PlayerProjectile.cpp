@@ -6,10 +6,14 @@
 
 namespace game {
     // Konstruktor
-    Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, float projectile_speed, int damage, const char* sprite_path)
+    Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, float projectile_speed, int damage, const char* sprite_path, Object_Manager& om)
             : position(start_position),
+            velocity(0,0),
               is_active(true),
-              damage(damage) {
+              damage(damage),
+              sprite(Texture2D()),
+              hitbox(Rectangle()),
+              om(om){
 
         // Die endgültige Geschwindigkeit wird aus Richtung und Speed berechnet
         this->velocity.x = direction.x * projectile_speed;

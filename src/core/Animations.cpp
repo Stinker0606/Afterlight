@@ -9,7 +9,7 @@ Animations::Animations(Vector2 sprite_size,const char* filename,int FC,int spl) 
     this->size=sprite_size;
     this->frame_Count=FC;
     this->sprites_per_line=spl;
-    this->target=(Rectangle){1,1, this->size.x, this->size.y};
+    this->target=Rectangle{1,1, this->size.x, this->size.y};
 }
 void Animations::First_Frame() {
     target.x=1;

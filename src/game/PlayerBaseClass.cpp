@@ -7,11 +7,11 @@
 #include "Store.h"
 
 // Konstruktor
-Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position)
+Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position,Object_Manager& om)
     : player_Max_Health(max_Health), player_Health((float)max_Health), player_Movement_Speed(movement_Speed),
-      player_Damage(damage),
+      player_Damage(damage),player_Pos(start_Position),
       previous_Position(start_Position), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
-      inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false)
+      inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false), maintex(LoadTexture("assets/graphics/ball.png")),projectile_Speed(1),om(om)
 {
     hitbox={start_Position.x,start_Position.y,static_cast<float >(maintex.width),static_cast<float >(maintex.height)};
     // 2. Registriere Objekt beim Manager
@@ -65,8 +65,8 @@ void Player_Base_Class::Tick(float delta_time)
         move_Direction = Vector2Normalize(move_Direction);
     }
 
-    hitbox.x += floor(move_Direction.x * player_Movement_Speed * delta_time);
-    hitbox.y += floor(move_Direction.y * player_Movement_Speed * delta_time);
+    hitbox.x += (move_Direction.x * player_Movement_Speed * delta_time);
+    hitbox.y += (move_Direction.y * player_Movement_Speed * delta_time);
     player_Pos.x=hitbox.x;
     player_Pos.y=hitbox.y;
 
@@ -136,7 +136,8 @@ void Player_Base_Class::Ranged_Attack()
                 fire_direction,
                 this->projectile_Speed,
                 this->player_Damage,
-                game::Config::player_Projectile_Sprite_Path
+                game::Config::player_Projectile_Sprite_Path,
+                om
         ));
 
         // Setze den Cooldown zurück
@@ -188,5 +189,5 @@ void Player_Base_Class::Take_Damage(int damage_amount)
     player_Health -= damage_amount;
 }
 Vector2 Player_Base_Class::Get_Player_Center() {
-    return (Vector2){player_Pos.x+maintex.width/2,player_Pos.y+maintex.height/2};
+    return Vector2{player_Pos.x+maintex.width/2,player_Pos.y+maintex.height/2};
 }
