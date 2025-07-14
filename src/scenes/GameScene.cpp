@@ -23,7 +23,12 @@ game::scenes::GameScene::GameScene() {
 
 game::scenes::GameScene::~GameScene() {}
 
-void game::scenes::GameScene::Update() {
+void game::scenes::GameScene::Update() {{
+    if (IsKeyPressed(KEY_ESCAPE))
+        game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
+    if (IsKeyPressed(KEY_L)){
+        ToggleFullscreen();
+    }
     float dt = dtm.Get_Dt();
     Handle_Fog_Controls(dt);
     for (auto& obj : objectManager.managed_objects) { obj->Tick(dt); }
