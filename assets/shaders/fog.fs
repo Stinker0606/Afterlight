@@ -1,24 +1,20 @@
 #version 330
 
-// uniforms für die Position und Effekte
+// --- UNIFORMS (Von C++ steuerbar) ---
 uniform vec2 playerPos;
 uniform vec2 resolution;
 uniform float time;
-
-// Steuerbare uniforms für den Nebeleffekt
 uniform float innerRadius;
 uniform float outerRadius;
-uniform vec4 fogColorValue; // Farbe und Deckkraft des Nebels
+uniform vec4 fogColorValue; // Enthält die Farbe (RGB) und die maximale Stärke (A)
 
-// Output-Farbe
+// --- AUSGANG ---
 out vec4 finalColor;
 
-// Funktion zur Erzeugung von Zufallswerten (Rauschen)
+// --- RAUSCH-FUNKTIONEN (unverändert) ---
 float rand(vec2 co) {
     return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
 }
-
-// Funktion zur Erzeugung von prozeduralem Rauschen
 float noise(vec2 pos) {
     vec2 i = floor(pos);
     vec2 f = fract(pos);
@@ -32,21 +28,18 @@ float noise(vec2 pos) {
 
 void main()
 {
-    // Position des aktuellen Pixels berechnen
+    // 1. Nebelfaktor berechnen (bestimmt die Form und Textur des Nebels)
     vec2 pixelPos = vec2(gl_FragCoord.x, resolution.y - gl_FragCoord.y);
-
-    // Distanz des Pixels zum Spieler berechnen
     float dist = length(pixelPos - playerPos);
+    float fogFactor = smoothstep(innerRadius, outerRadius, dist);
 
-    // Deckkraft des Nebels basierend auf der Distanz berechnen (0.0 = klar, 1.0 = voller Nebel)
-    float fogOpacity = smoothstep(innerRadius, outerRadius, dist);
-
-    // Rauschen hinzufügen, um den Nebel organischer aussehen zu lassen
+    // Rauschen für organische Kanten hinzufügen
     float n = noise(pixelPos * 0.3 + vec2(time * 0.23, -time * 0.25));
+    fogFactor *= 0.9 + 0.1 * n; // Subtiles Rauschen, wie du es wolltest
 
-    // *** HIER IST DIE ÄNDERUNG: Die Intensität des Rauschens wurde von 0.5 auf 0.1 reduziert ***
-    fogOpacity *= 0.9 + 0.1 * n;
-
-    // Die endgültige Farbe ist die Nebelfarbe. Ihre Transparenz wird durch die berechnete Deckkraft bestimmt.
-    finalColor = vec4(fogColorValue.rgb, fogColorValue.a * fogOpacity);
+    // 2. Endgültige Farbe für das Overlay berechnen
+    // Die Farbe ist die Nebelfarbe aus der UI.
+    // Die Transparenz ist das Produkt aus der maximalen Stärke (aus der UI) und dem berechneten fogFactor.
+    // Das ist der entscheidende Punkt: Wir geben eine Farbe mit variabler Transparenz aus.
+    finalColor = vec4(fogColorValue.rgb, fogColorValue.a * fogFactor);
 }
