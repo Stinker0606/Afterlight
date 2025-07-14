@@ -30,7 +30,7 @@ public:
     void Draw_Spawner_Area() const;
 
     Collision_Type Get_Collision_Type() const override { return Collision_Type::ENEMY_SPAWNER; }
-    void On_Collision(Collidable* other) override;
+    void On_Collision(std::shared_ptr<Collidable> other) override;
 
 protected:
     Rectangle spawner_Area;                     // Spawnbereich

@@ -70,7 +70,7 @@ void Enemy_Base_Class::Tick(float delta_time)
     }
     // Wenn der Pathfinding die Position veränder dann this->is_Moving = true;
 }
-void Enemy_Base_Class::On_Collision(Collidable* other)
+void Enemy_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
 {
     Collision_Type other_Type = other->Get_Collision_Type();
 
@@ -82,7 +82,7 @@ void Enemy_Base_Class::On_Collision(Collidable* other)
         {
             if (this->is_Moving)
             {
-                CollisionResponse::Resolve_Overlap(this, other);
+                CollisionResponse::Resolve_Overlap(shared_from_this(), other);
             }
 
             if (other_Type == Collision_Type::PLAYER)
@@ -90,7 +90,7 @@ void Enemy_Base_Class::On_Collision(Collidable* other)
                 // 2. Prüfen, ob der Angriff bereit ist.
                 if (attack_Cooldown_Timer <= 0)
                 {
-                    if (auto* player = dynamic_cast<Player_Base_Class*>(other))
+                    if (auto player = std::dynamic_pointer_cast<Player_Base_Class>(other))
                     {
                         // 3. Schaden austeilen und Cooldown zurücksetzen.
                         player->Take_Damage(this->enemy_Damage);

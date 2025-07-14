@@ -30,7 +30,7 @@ Collision_Type Spawnpoints::Get_Collision_Type() const
 
 bool Spawnpoints::Is_Destroyed() const { return spawner_Hits <= 0; }
 
-void Spawnpoints::On_Collision(Collidable* other)
+void Spawnpoints::On_Collision(std::shared_ptr<Collidable> other)
 {
     Collision_Type type = other->Get_Collision_Type();
     if (type == Collision_Type::PLAYER_PROJECTILE || type == Collision_Type::PLAYER_MELEE_HITBOX)

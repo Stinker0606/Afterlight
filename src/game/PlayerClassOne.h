@@ -10,7 +10,6 @@
 #include "PlayerBaseClass.h"
 #include "Animations.h"
 #include "RepeatAnimation.h"
-#include "Object_Manager.h"
 
 class Player_Class_One : public Player_Base_Class
 {

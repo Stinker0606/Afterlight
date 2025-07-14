@@ -25,7 +25,7 @@ Collision_Type Walls::Get_Collision_Type() const
 void Walls::Tick(float delta_time) {
 
 }
-void Walls::On_Collision(Collidable* other)
+void Walls::On_Collision(std::shared_ptr<Collidable> other)
 {
 
 }

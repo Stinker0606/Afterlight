@@ -7,6 +7,7 @@
 
 #include "raylib.h"
 #include <string>
+#include <memory>
 
 enum class Collision_Type
 {
@@ -32,7 +33,7 @@ public:
     virtual Collision_Type Get_Collision_Type() const = 0;
     virtual void Tick(float delta_time) = 0;
     virtual void Draw()=0;
-    virtual void On_Collision(Collidable* other) = 0;
+    virtual void On_Collision(std::shared_ptr<Collidable> other) = 0;
     virtual void Set_Position(Vector2 position){}
 
 
