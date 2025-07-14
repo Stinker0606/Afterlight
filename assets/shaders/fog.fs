@@ -39,9 +39,7 @@ void main()
 
     vec2 pixelPos = vec2(gl_FragCoord.x, resolution.y - gl_FragCoord.y);
     float dist = length(pixelPos - playerPos);
-
     float fogFactor = smoothstep(innerRadius, outerRadius, dist);
-
     float n = noise(pixelPos * 0.3 + vec2(time * 0.23, -time * 0.25));
     fogFactor *= 0.9 + 0.5 * n;
 

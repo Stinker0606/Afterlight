@@ -1,6 +1,9 @@
 #include "Screen.h"
 #include <iostream>
-#include "../config.h.in"
+#include <nlohmann/json.hpp>
+#include <../../external/tileson/tileson.hpp>
+#include "config.h"
+#include "GameScene.h"
 
 Screen::Screen(int *level_Ptr) : Level_Nbr_Ptr(level_Ptr), loaded(false) {}
 
@@ -23,6 +26,7 @@ void Screen::Load_Levelmap() {
         tileatlas_Texture = LoadTexture(image_Path.c_str());
         break;
     }
+    fogManager.InitializeFog(levelmap_Path, {(float)game::Config::kStageWidth, (float)game::Config::kStageHeight});
     loaded = true;
 }
 
@@ -30,10 +34,14 @@ void Screen::UpdateFog(Vector2 playerPosition, float deltaTime) {
     fogManager.Update(playerPosition, deltaTime);
 }
 
+// Version, die den Nebel-Shader in der Schleife anwendet
 void Screen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
     if (map == nullptr) return;
+
+    BeginMode2D(kamera->cam);
     for (auto &layer: map->getLayers()) {
         if (!layer.isVisible() || layer.getType() != tson::LayerType::TileLayer) continue;
+
         bool isAbove = false;
         if (layer.getProperties().hasProperty("IsAboveObjects")) {
             auto *prop = layer.getProperties().getProperty("IsAboveObjects");
@@ -42,6 +50,9 @@ void Screen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
             }
         }
         if (isAbove != aboveObjects) continue;
+
+        fogManager.BeginFogMode(); // Shader wird für jede Ebene aktiviert
+
         auto &tile_Layer = layer.getTileData();
         for (const auto &pair: tile_Layer) {
             int x = std::get<0>(pair.first);
@@ -54,7 +65,10 @@ void Screen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
                 DrawTextureRec(tileatlas_Texture, srcRect, destPos, WHITE);
             }
         }
+
+        fogManager.EndFogMode(); // Shader wird für jede Ebene deaktiviert
     }
+    EndMode2D();
 }
 
 void Screen::LoadGameObjects(Object_Manager& g_objectManager) {

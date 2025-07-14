@@ -29,10 +29,9 @@ void game::scenes::GameScene::Update() {
     p_cm->Check_Collisions();
     cam->Cam_Movement(dt);
 
-    // DEINE BEWÄHRTE METHODE FÜR DEN NEBEL-OFFSET
     Vector2 player_world_pos = cam->cam.target;
     Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, cam->cam);
-    Vector2 fog_visual_offset = { -88.0f, -69.0f }; // Dein Offset für die Feinjustierung
+    Vector2 fog_visual_offset = { -88.0f, -69.0f };
     Vector2 final_fog_pos = Vector2Add(player_screen_pos, fog_visual_offset);
     screen.UpdateFog(final_fog_pos, dt);
 
@@ -40,30 +39,26 @@ void game::scenes::GameScene::Update() {
     dtm.Update();
 }
 
-// Die FINALE, KORREKTE Draw-Funktion, die deine Struktur respektiert
+// Draw-Funktion, die dem Stand entspricht, bei dem der Nebel sichtbar war
 void game::scenes::GameScene::Draw() {
     BeginDrawing();
-    ClearBackground(BLACK); // Schwarzer Rand außerhalb des Spielfensters
+    ClearBackground(BLACK);
 
-    // Wende den Nebel-Shader auf die gesamte Szene an
-    screen.fogManager.BeginFogMode();
+    // Diese Struktur zeichnet die Welt und wendet dabei den Nebel
+    // in der Screen::Draw_Level Funktion an.
+    screen.Draw_Level(this->cam, false);
 
-        BeginMode2D(cam->cam);
-            // Zeichne alle Spielwelt-Elemente
-            screen.Draw_Level(this->cam, false);
-
-            // KORREKTUR: Zeichne ALLE Objekte aus dem Manager
-            // Das macht deine Wände wieder sichtbar.
-            for (const auto& p_object : objectManager.managed_objects) {
-                if (p_object != nullptr) {
-                    p_object->Draw();
-                }
+    // Wir müssen den Spieler und die anderen Objekte separat zeichnen,
+    // da sie sonst vom Nebel-Shader der Screen-Funktion übermalt werden.
+    BeginMode2D(cam->cam);
+        for (const auto& p_object : objectManager.managed_objects) {
+            if (p_object != nullptr) {
+                p_object->Draw();
             }
+        }
+    EndMode2D();
 
-            screen.Draw_Level(this->cam, true);
-        EndMode2D();
-
-    screen.fogManager.EndFogMode();
+    screen.Draw_Level(this->cam, true);
 
     Draw_Fog_UI();
 }
@@ -74,20 +69,20 @@ void game::scenes::GameScene::Handle_Fog_Controls(float delta_time) {
     if (key_cooldown <= 0) {
         bool key_pressed = false;
         if (IsKeyPressed(KEY_F)) { screen.fogManager.fogEnabled = !screen.fogManager.fogEnabled; }
-        if (IsKeyDown(KEY_UP)) { screen.fogManager.outerRadius += 1.0f; key_pressed = true; }
-        if (IsKeyDown(KEY_DOWN)) { screen.fogManager.outerRadius -= 1.0f; key_pressed = true; }
-        if (IsKeyDown(KEY_RIGHT)) { screen.fogManager.innerRadius += 1.0f; key_pressed = true; }
-        if (IsKeyDown(KEY_LEFT)) { screen.fogManager.innerRadius -= 1.0f; key_pressed = true; }
+        if (IsKeyDown(KEY_UP)) { screen.fogManager.outerRadius += 5.0f; key_pressed = true; }
+        if (IsKeyDown(KEY_DOWN)) { screen.fogManager.outerRadius -= 5.0f; key_pressed = true; }
+        if (IsKeyDown(KEY_RIGHT)) { screen.fogManager.innerRadius += 5.0f; key_pressed = true; }
+        if (IsKeyDown(KEY_LEFT)) { screen.fogManager.innerRadius -= 5.0f; key_pressed = true; }
         if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_R)) { screen.fogManager.fogColor.r -= 1; key_pressed = true; } else if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_R)) { screen.fogManager.fogColor.r += 1; key_pressed = true; }
         if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_G)) { screen.fogManager.fogColor.g -= 1; key_pressed = true; } else if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_G)) { screen.fogManager.fogColor.g += 1; key_pressed = true; }
         if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_B)) { screen.fogManager.fogColor.b -= 1; key_pressed = true; } else if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_B)) { screen.fogManager.fogColor.b += 1; key_pressed = true; }
         if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_Q)) { screen.fogManager.fogColor.a -= 5; key_pressed = true; } else if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_Q)) { screen.fogManager.fogColor.a += 5; key_pressed = true; }
         screen.fogManager.outerRadius = Clamp(screen.fogManager.outerRadius, 0, 1000);
         screen.fogManager.innerRadius = Clamp(screen.fogManager.innerRadius, 0, screen.fogManager.outerRadius - 1);
-        screen.fogManager.fogColor.r = Clamp(screen.fogManager.fogColor.r, 0, 255);
-        screen.fogManager.fogColor.g = Clamp(screen.fogManager.fogColor.g, 0, 255);
-        screen.fogManager.fogColor.b = Clamp(screen.fogManager.fogColor.b, 0, 255);
-        screen.fogManager.fogColor.a = Clamp(screen.fogManager.fogColor.a, 140, 255);
+        screen.fogManager.fogColor.r = Clamp(screen.fogManager.fogColor.r, 0, 250);
+        screen.fogManager.fogColor.g = Clamp(screen.fogManager.fogColor.g, 0, 250);
+        screen.fogManager.fogColor.b = Clamp(screen.fogManager.fogColor.b, 0, 250);
+        screen.fogManager.fogColor.a = Clamp(screen.fogManager.fogColor.a, 140, 250);
         if(key_pressed) { key_cooldown = KEY_PRESS_DELAY; }
     }
 }

@@ -4,12 +4,13 @@
 #include <raymath.h>
 
 FogManager::FogManager()
-    : fogLoaded(false), fogActive(true), fogEnabled(true), timeAccumulator(0.0f)
+    : fogLoaded(false), fogActive(false), fogEnabled(true), timeAccumulator(0.0f)
 {
     // Dein gewünschtes Standard-Setup
     innerRadius = 90.0f;
     outerRadius = 250.0f;
-    fogColor = { 153, 153, 153, 190 }; // Dein ursprüngliches Grau
+    fogColor = { 153, 153, 153, 190 }; // Grau
+    fogMaps = {"Swamp_1", "Swamp_1.json"};
 }
 
 FogManager::~FogManager() {
@@ -23,9 +24,6 @@ void FogManager::InitializeFog(const std::string& mapName, Vector2 screenResolut
     if (fogActive && !fogLoaded) {
         LoadFogShader();
     }
-    else if (!fogActive && fogLoaded) {
-        UnloadFog();
-    }
 }
 
 void FogManager::LoadFogShader() {
@@ -37,7 +35,6 @@ void FogManager::LoadFogShader() {
         innerRadiusLocation = GetShaderLocation(fogShader, "innerRadius");
         outerRadiusLocation = GetShaderLocation(fogShader, "outerRadius");
         fogColorLocation = GetShaderLocation(fogShader, "fogColorValue");
-
         SetShaderValue(fogShader, resolutionLocation, &resolution, SHADER_UNIFORM_VEC2);
         fogLoaded = true;
     }
@@ -74,15 +71,9 @@ void FogManager::UnloadFog() {
     }
 }
 
-bool FogManager::ShouldUseFog(const std::string& mapName) const
-{
-    // Diese Funktion kann leer bleiben oder deine Logik enthalten,
-    // um zu entscheiden, auf welchen Karten Nebel aktiv sein soll.
-    // Fürs Erste ist er immer aktiv.
-    return true;
+bool FogManager::ShouldUseFog(const std::string& mapName) const {
+    return std::find_if(fogMaps.begin(), fogMaps.end(),
+                       [&mapName](const std::string& fogMap) {
+                           return mapName.find(fogMap) != std::string::npos;
+                       }) != fogMaps.end();
 }
-
-// KORREKTUR: Die leeren, fehlerhaften Funktionskörper werden hier entfernt.
-// bool FogManager::IsFogActive() const { ... }
-// void FogManager::SetFogStrength(float strength) { ... }
-// void FogManager::SetFogMaps(const std::vector<std::string>& maps) { ... }
