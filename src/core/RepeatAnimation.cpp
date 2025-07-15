@@ -31,5 +31,7 @@ void RepeatAnimation::Next_Frame() {
     }
 }
 void RepeatAnimation::Draw_Current_Frame(Vector2 pos) {
+    pos.x=pos.x-this->size.x/2;
+    pos.y=pos.y-this->size.y/2;
     DrawTextureRec(spritesheet,target,pos,WHITE);
 }

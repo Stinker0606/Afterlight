@@ -16,7 +16,7 @@ Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int d
       previous_Position(start_Position), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
       inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false),om(om)
 {
-    hitbox={start_Position.x,start_Position.y,static_cast<float >(maintex.width),static_cast<float >(maintex.height)};
+    hitbox={start_Position.x,start_Position.y,30,46};
     // 2. Registriere Objekt beim Manager
 
 }
@@ -193,5 +193,8 @@ void Player_Base_Class::Take_Damage(int damage_amount)
     player_Health -= damage_amount;
 }
 Vector2 Player_Base_Class::Get_Player_Center() {
-    return Vector2{player_Pos.x+hitbox.width/2,player_Pos.y+hitbox.height/2};
+    Vector2 player_Center;
+    player_Center.x = player_Pos.x+hitbox.width/2;
+    player_Center.y = player_Pos.y+hitbox.height/2;
+    return player_Center;
 }
