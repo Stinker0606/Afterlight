@@ -134,7 +134,7 @@ void Player_Base_Class::Ranged_Attack()
         };
 
         // Erstelle ein neues Projektil und füge es dem Vektor hinzu
-        sp_projectiles.push_back(std::make_unique<game::Player_Projectile>(
+        std::shared_ptr<game::Player_Projectile> sp_temp_projectile(new game::Player_Projectile(
                 Vector2{this->hitbox.x, this->hitbox.y},
                 fire_direction,
                 this->player_Damage,
