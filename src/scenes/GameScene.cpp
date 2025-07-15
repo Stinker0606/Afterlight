@@ -6,6 +6,9 @@
 #include "Screen.h"
 #include <Store.h>
 #include "PauseScene.h"
+#include "Renderer.h"
+#include "SpriteAnimated.h"
+
 #include "../game/PlayerClassOne.h"
 #include "../core/CollisionManager.h"
 #include "config.h"
@@ -16,8 +19,9 @@ using namespace std::string_literals;
 game::scenes::GameScene::GameScene()
 {
     dtm.Start();
-    objectManager.AddObject(&mp);
-    cam = std::make_shared<Cam>(this->mp);
+    this->sp_mp=std::make_shared<Player_Class_One>(sp,objectManager);
+    objectManager.AddObject(sp_mp);
+    cam=std::make_shared<Cam>(sp_mp);
     screen.LoadGameObjects(objectManager);
 
     cam->Cam_Movement(0.0f);
@@ -26,10 +30,14 @@ game::scenes::GameScene::GameScene()
     screen.UpdateFog(initial_player_screen_pos, 0.0f);
 }
 
-game::scenes::GameScene::~GameScene() {}
+game::scenes::GameScene::~GameScene()
+{
+    // Your scene cleanup code here...
+}
 
 void game::scenes::GameScene::Update()
 {
+    // Your process input and update game scene code here...
     if (IsKeyPressed(KEY_ESCAPE))
         game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
     if (IsKeyPressed(KEY_L)){
@@ -65,17 +73,10 @@ void game::scenes::GameScene::Draw()
     ClearBackground(WHITE);
     screen.Draw_Level(this->cam, false);
     BeginMode2D(cam->cam);
-    mp.Draw();
 
-    // HITBOX ANZEIGEN
-
-    //for (const auto& p_object : objectManager.managed_objects)
-    //{
-    //    if (p_object != nullptr)
-    //    {
-    //        DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
-    //    }
-    //}
+    for (int i = 0; i < objectManager.managed_objects.size(); ++i) {
+        objectManager.managed_objects[i]->Draw();
+    }
 
     screen.Draw_Level(this->cam, true);
 }

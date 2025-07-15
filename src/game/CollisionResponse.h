@@ -8,16 +8,17 @@
 
 
 #include "Collidable.h"
+#include <memory>
 
 class CollisionResponse
 {
 public:
 
-    static void Resolve_Overlap(Collidable* obj_A, const Collidable* obj_B);
+    static void Resolve_Overlap(std::shared_ptr<Collidable> obj_A, const std::shared_ptr<Collidable> obj_B);
 
-    static void Apply_Damage(Collidable* target, int damage);
+    static void Apply_Damage(std::shared_ptr<Collidable> target, int damage);
 
-    static void Mark_For_Destruction(Collidable* obj_To_Destroy);
+    static void Mark_For_Destruction(std::shared_ptr<Collidable> obj_To_Destroy);
 };
 
 

@@ -4,18 +4,14 @@
 #include <algorithm>
 
 #include "../game/Collidable.h"
-#include "../game/Walls.h"
-#include "../game/EnemyBaseClass.h"
-#include "../game/Consumables.h"
-#include "../game/PlayerProjectile.h"
-#include "../game/EnemyProjectile.h"
-#include "../game/PlayerClassOne.h"
+#include <memory>
+
 
 class Object_Manager
 {
 public:
     //öffentliche Vektor, der alle vom Manager verwalteten Collidable-Objekte speichert.
-    std::vector<Collidable*> managed_objects;
+    std::vector<std::shared_ptr<Collidable>> managed_objects;
 
 public:
     // Konstruktor des Object_Manager.
@@ -23,10 +19,10 @@ public:
 
     // Fügt ein Collidable-Objekt zur Liste Objekte hinzu.
 
-    void AddObject(Collidable* object);
+    void AddObject(std::shared_ptr<Collidable> object);
 
     // Entfernt ein bestimmtes Collidable-Objekt aus der Liste.
-    void RemoveObject(Collidable* object);
+    void RemoveObject(std::shared_ptr<Collidable> object);
 
     // Leert die gesamte Liste der verwalteten Objekte.
     void ClearAllObjects();

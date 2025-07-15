@@ -6,18 +6,14 @@
 
 namespace game {
     // Konstruktor
-    Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, float projectile_speed, int damage, const char* sprite_path, Object_Manager& om)
+    Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, int damage, const char* sprite_path)
             : position(start_position),
-            velocity(0,0),
               is_active(true),
-              damage(damage),
-              sprite(Texture2D()),
-              hitbox(Rectangle()),
-              om(om){
+              damage(damage) {
 
         // Die endgültige Geschwindigkeit wird aus Richtung und Speed berechnet
-        this->velocity.x = direction.x * projectile_speed;
-        this->velocity.y = direction.y * projectile_speed;
+        this->velocity.x = direction.x * game::Config::player_Class_One_Projectile_Speed;
+        this->velocity.y = direction.y * game::Config::player_Class_One_Projectile_Speed;
 
         // Lädt die Textur und erstellt die Hitbox basierend auf der Texturgröße
         this->sprite = LoadTexture(sprite_path);
@@ -58,7 +54,7 @@ namespace game {
     }
 
     // On_Collision: Definiert was passiert wenn das Projektil etwas trifft
-    void Player_Projectile::On_Collision(Collidable* other) {
+    void Player_Projectile::On_Collision(std::shared_ptr<Collidable> other) {
         // Wenn es eine Wand oder einen Gegner trifft wird es inaktiv
         if (other->Get_Collision_Type() == Collision_Type::WALL || other->Get_Collision_Type() == Collision_Type::ENEMY) {
             is_active = false;

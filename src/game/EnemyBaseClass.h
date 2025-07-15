@@ -11,8 +11,8 @@
 
 namespace enemy
 {
-    class Collision_Manager;
-    class Enemy_Base_Class : public Collidable
+    //class Collision_Manager;
+class Enemy_Base_Class : public Collidable , public std::enable_shared_from_this<Enemy_Base_Class>
     {
     protected:
 
@@ -46,7 +46,7 @@ namespace enemy
         Collision_Type Get_Collision_Type() const override { return Collision_Type::ENEMY; }
 
         void Tick(float delta_time) override;
-        void On_Collision(Collidable* other) override;
+        void On_Collision(std::shared_ptr<Collidable> other) override;
         void Draw() override;
     };
 }

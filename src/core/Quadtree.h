@@ -18,7 +18,7 @@ private:
 
     int level;
 
-    std::vector<Collidable*> objects;
+    std::vector<std::shared_ptr<Collidable>> objects;
 
     Rectangle bounds;
 
@@ -26,16 +26,16 @@ private:
 
     void Split();
 
-    int Get_Index(Collidable* object);
+    int Get_Index(std::shared_ptr<Collidable> object);
 
 public:
     Quadtree(int pLevel, Rectangle pBounds);
 
     void Clear();
 
-    void Insert(Collidable* object);
+    void Insert(std::shared_ptr<Collidable> object);
 
-    std::vector<Collidable*> Retrieve(Collidable* object);
+    std::vector<std::shared_ptr<Collidable>> Retrieve(std::shared_ptr<Collidable> object);
 };
 
 #endif //QUADTREE_H
