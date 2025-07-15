@@ -5,14 +5,11 @@
 #include "PlayerClassOne.h"
 #include "../config.h.in"
 
-Player_Class_One::Player_Class_One(Vector2 start_Position)
+Player_Class_One::Player_Class_One(Vector2 start_Position,Object_Manager& om)
     : Player_Base_Class(game::Config::player_Class_One_Max_Health, game::Config::player_Class_One_Movement_Speed,
-        game::Config::player_Class_One_Damage, start_Position)
-{
- // Player Hitbox Fix
-    this->hitbox.width = 28.0f;
-    this->hitbox.height = 46.0f;
-}
+        game::Config::player_Class_One_Damage, start_Position,om){}
+
+
 
 Player_Class_One::~Player_Class_One() {}
 

@@ -33,7 +33,7 @@ void Consumables::Tick(float delta_time)
 
 }
 
-void Consumables::On_Collision(Collidable* other)
+void Consumables::On_Collision(std::shared_ptr<Collidable> other)
 {
 
 }

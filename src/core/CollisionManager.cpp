@@ -5,17 +5,17 @@
 #include "CollisionManager.h"
 
 // Konstruktor
-Collision_Manager::Collision_Manager(Rectangle world_Bounds,std::vector<Collidable*>& collidables)
+Collision_Manager::Collision_Manager(Rectangle world_Bounds,std::vector<std::shared_ptr<Collidable>>& collidables)
     : quadtree(std::make_unique<Quadtree>(0, world_Bounds)),collidables(collidables){}
 
-/*void Collision_Manager::Regist_Object(Collidable* object)
+/*void Collision_Manager::Regist_Object(std::shared_ptr<Collidable> object)
 {
     // push_back nimmtdas Element "objecte" also einen Collidable zeiger (eine Adresse) und speichert diese
     // am Ende des collidables Vector. Vektor vergrößert bei Bedarf seinen Speicher automatisch.
     collidables.push_back(object);
 }
 
-void Collision_Manager::Unregist_Object(Collidable* object)
+void Collision_Manager::Unregist_Object(std::shared_ptr<Collidable> object)
 {
     // "begin" ist ein Iterator also ein Zeiger welcher auf das erste element im Vektor zeigt
     // "end" zeigt auf die Position nach dem letzten Element und sagt, dass it dort nicht sein darf
@@ -38,22 +38,22 @@ void Collision_Manager::Check_Collisions()
 
     // Range-based for loop. Für jedes Element aus dem Container "collidables" wird eine tomporäre Kopie namens obj erstellt
     // Jeder Zeiger ruft die Insert(obj) auf und befüllt den Quadtree für diesen Frame mit allen Objekten
-    for (Collidable* obj : collidables)
+    for (std::shared_ptr<Collidable> obj : collidables)
     {
         quadtree->Insert(obj);
     }
 
     // set ist ein spezieller Container welcher jeden Wert nur genau einmal in sich tragen darf
-    std::set<std::pair<Collidable*, Collidable*>> processed_pairs;
+    std::set<std::pair<std::shared_ptr<Collidable>, std::shared_ptr<Collidable>>> processed_pairs;
 
     // Doppeltschleide zur Kollisionsprüfung
-    for (Collidable* objA : collidables)
+    for (std::shared_ptr<Collidable> objA : collidables)
     {
         // Vector welcher mit der Quadtree Retrieve potenziele Objekte in die Liste ladet, mit welcher unser ObjA
         // Kollidieren könnte, also Objekte im eigenen Knoten oder einen Drüber weil diese auf der LInie liegen könnten
-        std::vector<Collidable*> candidates = quadtree->Retrieve(objA);
+        std::vector<std::shared_ptr<Collidable>> candidates = quadtree->Retrieve(objA);
 
-        for (Collidable* objB : candidates)
+        for (std::shared_ptr<Collidable> objB : candidates)
         {
             // Sicherstellung, dass ObjA und B nicht die Selbe Speicheradresse haben also ein Objekt mit sich selbst
             // Die Kollision prüft. Falls doch, springen wir durch continue zum nächsten Kandidaten

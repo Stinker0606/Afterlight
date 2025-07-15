@@ -24,7 +24,7 @@ public:
     bool Is_Destroyed() const;
 
     void Tick(float delta_time) override;
-    void On_Collision(Collidable* other) override;
+    void On_Collision(std::shared_ptr<Collidable> other) override;
     void Draw() override;
 };
 
