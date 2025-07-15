@@ -11,34 +11,24 @@ Player_Class_One::Player_Class_One(Vector2 start_Position,Object_Manager& om)
         game::Config::player_Class_One_Damage, start_Position,om),
       // --- START OF MEMBER INITIALIZER LIST ---
       // 1. Initialize the size Vector2 members first
-      size_top_down{32,48},
-      size_left_right{33, 48},
-      size_left_down_up{32,48},
-      size_right_down_up{32,48},
+      size_top_down{100,100},
+      size_left_right{100, 100},
       // 2. Then, initialize the RepeatAnimation members, using the now-initialized size members
       // Idle
-      Idle_Front{size_top_down, "assets/graphics/animations/player/idle/Maincharacter_Idle_Front_Spritesheet.png", 10, 10},
-      Idle_Back{size_top_down, "assets/graphics/animations/player/idle/Maincharacter_Idle_back_Spritesheet.png", 10, 10},
-      Idle_Left{size_left_right, "assets/graphics/animations/player/idle/Maincharacter_Idle_Left_Spritesheet.png", 10, 10},
-      Idle_Right{size_left_right, "assets/graphics/animations/player/idle/Maincharacter_Idle_Right_Spritesheet.png", 10, 10},
-      Idle_Top_Left{size_left_down_up, "assets/graphics/animations/player/idle/Maincharacter_Idle_Side3_Spritesheet.png", 10, 10},
-      Idle_Top_Right{size_right_down_up, "assets/graphics/animations/player/idle/Maincharacter_Idle_Side2_Spritesheet.png", 10, 10},
-      Idle_Front_Left{size_left_down_up, "assets/graphics/animations/player/idle/Maincharacter_Idle_Side4_Spritesheet.png", 10, 10},
-      Idle_Front_Right{size_right_down_up, "assets/graphics/animations/player/idle/Maincharacter_Idle_Side1_Spritesheet.png", 10, 10},
+      Idle_Front{size_top_down, "assets/graphics/animations/player/idle/MC_Idle_Front.png", 80, 80},
+      Idle_Back{size_top_down, "assets/graphics/animations/player/idle/MC_Idle_Back.png", 80, 80},
+      Idle_Left{size_left_right, "assets/graphics/animations/player/idle/MC_Idle_Left.png", 80, 80},
+      Idle_Right{size_left_right, "assets/graphics/animations/player/idle/MC_Idle_Right.png", 80, 80},
       // Moving
-      Run_Front{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Front.png", 10, 10},
-      Run_Back{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Back.png", 10, 10},
-      Run_Left{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Left.png", 10, 10},
-      Run_Right{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Right.png", 10, 10},
-      Run_Top_Left{size_left_down_up, "assets/graphics/animations/player/walk/MC_Walkcycle_BackLeft.png", 10, 10},
-      Run_Top_Right{size_right_down_up, "assets/graphics/animations/player/walk/MC_Walkcycle_BackRight.png", 10, 10},
-      Run_Front_Left{size_left_down_up, "assets/graphics/animations/player/walk/MC_Walkcycle_FrontLeft.png", 10, 10},
-      Run_Front_Right{size_right_down_up, "assets/graphics/animations/player/walk/MC_Walkcycle_FrontRight.png", 10, 10}
+      Run_Front{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Front-Sheet.png", 40, 40},
+      Run_Back{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Back-Sheet.png", 40, 40},
+      Run_Left{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Left-Sheet.png", 40, 40},
+      Run_Right{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Right-Sheet.png", 40, 40}
       // --- END OF MEMBER INITIALIZER LIST ---
 {
     // Hitbox Player
-    this->hitbox.width = 30.0f;
-    this->hitbox.height = 44.0f;
+    this->hitbox.width = 32.0f;
+    this->hitbox.height = 32.0f;
 
     // Set the initial animation
     current_animation = &Idle_Front;
@@ -61,10 +51,10 @@ void Player_Class_One::Draw() {
             case Facing_Direction::DOWN:       current_animation = &Run_Front; break;
             case Facing_Direction::LEFT:       current_animation = &Run_Left; break;
             case Facing_Direction::RIGHT:      current_animation = &Run_Right; break;
-            case Facing_Direction::UP_LEFT:    current_animation = &Run_Top_Left; break;
-            case Facing_Direction::UP_RIGHT:   current_animation = &Run_Top_Right; break;
-            case Facing_Direction::DOWN_LEFT:  current_animation = &Run_Front_Left; break;
-            case Facing_Direction::DOWN_RIGHT: current_animation = &Run_Front_Right; break;
+            //case Facing_Direction::UP_LEFT:    current_animation = &Run_Top_Left; break;
+            //case Facing_Direction::UP_RIGHT:   current_animation = &Run_Top_Right; break;
+            //case Facing_Direction::DOWN_LEFT:  current_animation = &Run_Front_Left; break;
+            //case Facing_Direction::DOWN_RIGHT: current_animation = &Run_Front_Right; break;
         }
     } else {
         // Wähle die IDLE-Animation für die letzte bekannte Richtung
@@ -73,10 +63,10 @@ void Player_Class_One::Draw() {
             case Facing_Direction::DOWN:       current_animation = &Idle_Front; break;
             case Facing_Direction::LEFT:       current_animation = &Idle_Left; break;
             case Facing_Direction::RIGHT:      current_animation = &Idle_Right; break;
-            case Facing_Direction::UP_LEFT:    current_animation = &Idle_Top_Left; break;
-            case Facing_Direction::UP_RIGHT:   current_animation = &Idle_Top_Right; break;
-            case Facing_Direction::DOWN_LEFT:  current_animation = &Idle_Front_Left; break;
-            case Facing_Direction::DOWN_RIGHT: current_animation = &Idle_Front_Right; break;
+            //case Facing_Direction::UP_LEFT:    current_animation = &Idle_Top_Left; break;
+            //case Facing_Direction::UP_RIGHT:   current_animation = &Idle_Top_Right; break;
+            //case Facing_Direction::DOWN_LEFT:  current_animation = &Idle_Front_Left; break;
+            //case Facing_Direction::DOWN_RIGHT: current_animation = &Idle_Front_Right; break;
         }
     }
 

@@ -19,32 +19,32 @@ private:
     // Sie werden im Konstruktor initialisiert.
     Vector2 size_top_down;
     Vector2 size_left_right;
-    Vector2 size_left_down_up;
-    Vector2 size_right_down_up;
+
 
     RepeatAnimation* current_animation;
 
 public:
     // Deklariere die RepeatAnimation Instanzen hier,
     // initialisiere sie aber NICHT direkt.
+
     // Idle
     RepeatAnimation Idle_Front;
     RepeatAnimation Idle_Back;
     RepeatAnimation Idle_Left;
     RepeatAnimation Idle_Right;
-    RepeatAnimation Idle_Top_Right;
-    RepeatAnimation Idle_Front_Right;
-    RepeatAnimation Idle_Top_Left;
-    RepeatAnimation Idle_Front_Left;
+    //RepeatAnimation Idle_Top_Right;
+    //RepeatAnimation Idle_Front_Right;
+    //RepeatAnimation Idle_Top_Left;
+    //RepeatAnimation Idle_Front_Left;
     // Moving
     RepeatAnimation Run_Front;
     RepeatAnimation Run_Back;
     RepeatAnimation Run_Left;
     RepeatAnimation Run_Right;
-    RepeatAnimation Run_Top_Right;
-    RepeatAnimation Run_Front_Right;
-    RepeatAnimation Run_Top_Left;
-    RepeatAnimation Run_Front_Left;
+    //RepeatAnimation Run_Top_Right;
+    //RepeatAnimation Run_Front_Right;
+    //RepeatAnimation Run_Top_Left;
+    //RepeatAnimation Run_Front_Left;
 
 
     Player_Class_One(Vector2 start_Position,Object_Manager& om);
