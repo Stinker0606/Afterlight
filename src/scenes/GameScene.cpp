@@ -55,6 +55,15 @@ void game::scenes::GameScene::Draw() {
             p_object->Draw();
         }
     }
+
+    for (const auto& p_object : objectManager.managed_objects)
+    {
+        if (p_object != nullptr)
+        {
+            DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+        }
+    }
+
     EndMode2D();
     screen.Draw_Level(this->cam, true);
 
@@ -94,7 +103,7 @@ void game::scenes::GameScene::Handle_Fog_Controls(float delta_time) {
         screen.fogManager.fogColor.r = Clamp(screen.fogManager.fogColor.r, 145, 165);
         screen.fogManager.fogColor.g = Clamp(screen.fogManager.fogColor.g, 145, 165);
         screen.fogManager.fogColor.b = Clamp(screen.fogManager.fogColor.b, 145, 165);
-        screen.fogManager.fogColor.a = Clamp(screen.fogManager.fogColor.a, 140, 210);
+        screen.fogManager.fogColor.a = Clamp(screen.fogManager.fogColor.a, 180, 240);
         if(key_pressed) { key_cooldown = KEY_PRESS_DELAY; }
     }
 }

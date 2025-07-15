@@ -9,7 +9,7 @@ FogManager::FogManager()
     // Dein gewünschtes Standard-Setup
     innerRadius = 90.0f;
     outerRadius = 250.0f;
-    fogColor = { 153, 153, 153, 190 }; // Grau
+    fogColor = { 153, 153, 153, 195 }; // Grau
     fogMaps = {"Swamp_1", "Vorhof_1_1"};
 }
 
