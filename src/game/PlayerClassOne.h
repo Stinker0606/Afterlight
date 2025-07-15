@@ -14,7 +14,7 @@
 class Player_Class_One : public Player_Base_Class
 {
 private:
-    Vector2 size{80,80};
+    Vector2 size{100,100};
 
 
     RepeatAnimation* current_animation;

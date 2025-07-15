@@ -35,9 +35,7 @@ protected:
 	Facing_Direction facing_Direction;
 	bool is_Moving;
 
-	Vector2 hitbox_offset;
-
-    Texture2D maintex= LoadTexture("assets/graphics/ball.png");
+    Texture2D maintex= LoadTexture("assets/graphics/animations/player/turnaround/Maincharacter_turnaround_Front.png");
 
     float projectile_Speed;
     std::vector<std::shared_ptr<game::Player_Projectile>> sp_projectiles;

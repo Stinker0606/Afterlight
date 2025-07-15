@@ -55,7 +55,7 @@ void game::scenes::GameScene::Update()
     Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, cam->cam);
 
     // 1. Definiere hier einen visuellen Offset.
-    Vector2 fog_visual_offset = { -0.0f, -0.0f };
+    Vector2 fog_visual_offset = { -20.0f, -15.0f };
 
     // 2. Addiere den Offset zur berechneten Bildschirm-Position.
     Vector2 final_fog_pos = Vector2Add(player_screen_pos, fog_visual_offset);
@@ -76,6 +76,14 @@ void game::scenes::GameScene::Draw()
 
     for (int i = 0; i < objectManager.managed_objects.size(); ++i) {
         objectManager.managed_objects[i]->Draw();
+    }
+
+    for (const auto& p_object : objectManager.managed_objects)
+    {
+        if (p_object != nullptr)
+        {
+            DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+        }
     }
 
     screen.Draw_Level(this->cam, true);

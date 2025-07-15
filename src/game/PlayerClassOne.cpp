@@ -9,21 +9,18 @@
 Player_Class_One::Player_Class_One(Vector2 start_Position,Object_Manager& om)
     : Player_Base_Class(game::Config::player_Class_One_Max_Health, game::Config::player_Class_One_Movement_Speed,
         game::Config::player_Class_One_Damage, start_Position,om),
-      // --- START OF MEMBER INITIALIZER LIST ---
-      // 1. Initialize the size Vector2 members first
-      size_top_down{100,100},
-      size_left_right{100, 100},
-      // 2. Then, initialize the RepeatAnimation members, using the now-initialized size members
+
       // Idle
-      Idle_Front{size_top_down, "assets/graphics/animations/player/idle/MC_Idle_Front.png", 80, 80},
-      Idle_Back{size_top_down, "assets/graphics/animations/player/idle/MC_Idle_Back.png", 80, 80},
-      Idle_Left{size_left_right, "assets/graphics/animations/player/idle/MC_Idle_Left.png", 80, 80},
-      Idle_Right{size_left_right, "assets/graphics/animations/player/idle/MC_Idle_Right.png", 80, 80},
+      Idle_Front{size, "assets/graphics/animations/player/idle/MC_Idle_Front.png", 80, 80},
+      Idle_Back{size, "assets/graphics/animations/player/idle/MC_Idle_Back.png", 80, 80},
+      Idle_Left{size, "assets/graphics/animations/player/idle/MC_Idle_Left.png", 80, 80},
+      Idle_Right{size, "assets/graphics/animations/player/idle/MC_Idle_Right.png", 80, 80},
+
       // Moving
-      Run_Front{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Front-Sheet.png", 40, 40},
-      Run_Back{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Back-Sheet.png", 40, 40},
-      Run_Left{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Left-Sheet.png", 40, 40},
-      Run_Right{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Right-Sheet.png", 40, 40}
+      Run_Front{size, "assets/graphics/animations/player/walk/MC_Walkcycle_Front-Sheet.png", 40, 40},
+      Run_Back{size, "assets/graphics/animations/player/walk/MC_Walkcycle_Back-Sheet.png", 40, 40},
+      Run_Left{size, "assets/graphics/animations/player/walk/MC_Walkcycle_Left-Sheet.png", 40, 40},
+      Run_Right{size, "assets/graphics/animations/player/walk/MC_Walkcycle_Right-Sheet.png", 40, 40}
       // --- END OF MEMBER INITIALIZER LIST ---
 {
 
