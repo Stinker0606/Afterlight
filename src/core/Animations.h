@@ -15,7 +15,7 @@ private:
     int frame_Count;
     int sprites_per_line;
     Vector2 size;
-    Rectangle target{0,0,size.x,size.y};
+    Rectangle target;
     Texture2D spritesheet;
 public:
     Animations(Vector2,const char*,int,int);

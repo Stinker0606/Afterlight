@@ -21,13 +21,16 @@ public:
     virtual ~Enemy_Spawner() = default;
 
     // Wird jede Frame aufgerufen, steuert automatisches Spawnen
-    void Tick(float delta_Time);
+    void Tick(float delta_Time) override;
 
     // Versucht einen Gegner an spawn_Position zu spawnen
     void Try_Spawn(Vector2 spawn_Position);
 
     // Zeichnet optional den Spawnerbereich
     void Draw_Spawner_Area() const;
+
+    Collision_Type Get_Collision_Type() const override { return Collision_Type::ENEMY_SPAWNER; }
+    void On_Collision(std::shared_ptr<Collidable> other) override;
 
 protected:
     Rectangle spawner_Area;                     // Spawnbereich
