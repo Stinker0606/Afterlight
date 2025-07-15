@@ -84,7 +84,7 @@ namespace game {
                 inline static std::string GetLevelMapPath(int Lvl_Nbr) {
                     switch (Lvl_Nbr) {
                         case 1:
-                            return "../../assets/Tiled/Levelmaps/Swamp_1.json";
+                            return "../../assets/Tiled/Levelmaps/Vorhof_1_1.json";
                         case 2:
                             return "../../assets/Tiled/Levelmaps/lvl2.json";
                         case 3:

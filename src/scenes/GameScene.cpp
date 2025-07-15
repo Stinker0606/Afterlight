@@ -42,7 +42,7 @@ void game::scenes::GameScene::Update() {
 // Draw-Funktion, die dem Stand entspricht, bei dem der Nebel sichtbar war
 void game::scenes::GameScene::Draw() {
     BeginDrawing();
-    ClearBackground(BLACK);
+    ClearBackground(WHITE);
 
     // --- 1. Zeichne die gesamte Spielwelt normal (ohne Nebel) ---
     bool originalFogState = screen.fogManager.fogEnabled;
@@ -88,12 +88,12 @@ void game::scenes::GameScene::Handle_Fog_Controls(float delta_time) {
         if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_G)) { screen.fogManager.fogColor.g -= 1; key_pressed = true; } else if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_G)) { screen.fogManager.fogColor.g += 1; key_pressed = true; }
         if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_B)) { screen.fogManager.fogColor.b -= 1; key_pressed = true; } else if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_B)) { screen.fogManager.fogColor.b += 1; key_pressed = true; }
         if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_Q)) { screen.fogManager.fogColor.a -= 5; key_pressed = true; } else if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_Q)) { screen.fogManager.fogColor.a += 5; key_pressed = true; }
-        screen.fogManager.outerRadius = Clamp(screen.fogManager.outerRadius, 0, 1000);
-        screen.fogManager.innerRadius = Clamp(screen.fogManager.innerRadius, 0, screen.fogManager.outerRadius - 1);
-        screen.fogManager.fogColor.r = Clamp(screen.fogManager.fogColor.r, 0, 250);
-        screen.fogManager.fogColor.g = Clamp(screen.fogManager.fogColor.g, 0, 250);
-        screen.fogManager.fogColor.b = Clamp(screen.fogManager.fogColor.b, 0, 250);
-        screen.fogManager.fogColor.a = Clamp(screen.fogManager.fogColor.a, 140, 250);
+        screen.fogManager.outerRadius = Clamp(screen.fogManager.outerRadius, 150, 300);
+        screen.fogManager.innerRadius = Clamp(screen.fogManager.innerRadius, 40, screen.fogManager.outerRadius - 100);
+        screen.fogManager.fogColor.r = Clamp(screen.fogManager.fogColor.r, 145, 165);
+        screen.fogManager.fogColor.g = Clamp(screen.fogManager.fogColor.g, 145, 165);
+        screen.fogManager.fogColor.b = Clamp(screen.fogManager.fogColor.b, 145, 165);
+        screen.fogManager.fogColor.a = Clamp(screen.fogManager.fogColor.a, 140, 210);
         if(key_pressed) { key_cooldown = KEY_PRESS_DELAY; }
     }
 }
@@ -104,9 +104,9 @@ void game::scenes::GameScene::Draw_Fog_UI() {
     int line_height = 25;
     DrawText("--- Nebel-Steuerung ---", 10, y_pos, 20, RAYWHITE); y_pos += line_height;
     DrawText("F: Nebel An/Aus", 10, y_pos, 20, (screen.fogManager.fogEnabled ? GREEN : RED)); y_pos += line_height;
-    sprintf(text_buffer, "Pfeiltasten: Radius (Inner: %.0f, Outer: %.0f)", screen.fogManager.innerRadius, screen.fogManager.outerRadius);
+    sprintf(text_buffer, "Pfeiltasten: L/R Inner Radius | U/D Outer Radius (Inner: %.0f, Outer: %.0f)", screen.fogManager.innerRadius, screen.fogManager.outerRadius);
     DrawText(text_buffer, 10, y_pos, 20, SKYBLUE); y_pos += line_height;
-    sprintf(text_buffer, "R/G/B/Q (+Shift) oder (+CTL): Farbe & Stärke");
+    sprintf(text_buffer, "R/G/B/Q (-Shift) oder (+CTL): Farbe (RGB) & Stärke(Q)");
     DrawText(text_buffer, 10, y_pos, 20, SKYBLUE); y_pos += line_height;
     sprintf(text_buffer, "Werte (RGBA): %d, %d, %d, %d", screen.fogManager.fogColor.r, screen.fogManager.fogColor.g, screen.fogManager.fogColor.b, screen.fogManager.fogColor.a);
     DrawText(text_buffer, 10, y_pos, 20, LIME);
