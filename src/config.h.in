@@ -12,8 +12,8 @@ namespace game {
         inline static constexpr const char* kProjectVersionPatch = "@PROJECT_VERSION_PATCH@";
 
         // Width and Height of the game stage. The stage will be scaled with the window size
-        inline static constexpr int kStageWidth = 928;
-        inline static constexpr int kStageHeight = 480;
+        inline static constexpr int kStageWidth = 1920;
+        inline static constexpr int kStageHeight = 1080;
 
         // Target FPS, default is 60 fps
         inline static constexpr int kTargetFps = 60;
@@ -48,7 +48,7 @@ namespace game {
         // Player_Class_One
         inline static constexpr const char* player_Class_One_Sprite_Path = "assets/graphics/player/class1_sheet.png";
         inline static constexpr int player_Class_One_Max_Health = 600;
-        inline static constexpr float player_Class_One_Movement_Speed = 30.0f;
+        inline static constexpr float player_Class_One_Movement_Speed = 20.0f;
         inline static constexpr int player_Class_One_Damage = 50;
         inline static constexpr float player_Class_One_Projectile_Speed = 100.0f;
         inline static constexpr const char* player_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER Pfad für Player-Projectile
@@ -76,7 +76,7 @@ namespace game {
         //Cam stuff
         inline static constexpr const int cam_start_pos_x = 0;
         inline static constexpr const int cam_start_pos_y = 0;
-        inline static constexpr const float cam_zoom = 2;
+        inline static constexpr const float cam_zoom = 3;
 
          // Levelmap-file paths
                 // Lvl_Nbr gets changed on level transition, thus also altering the path where Screen.Draw_Level() loads the

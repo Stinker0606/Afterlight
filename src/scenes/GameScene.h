@@ -26,6 +26,8 @@ namespace game::scenes
         void Handle_Fog_Controls(float delta_time);
         void Draw_Fog_UI();
 
+        Sound background_music;
+
     public:
         GameScene();
         ~GameScene() override;

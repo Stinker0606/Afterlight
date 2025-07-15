@@ -40,6 +40,8 @@ protected:
 	const std::vector<Collidable*>& collidables_in_scene;
 
 	Vector2 hitbox_offset;
+	Sound walking_sound;
+
 
 public:
 	// Konstruktor

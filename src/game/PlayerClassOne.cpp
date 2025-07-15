@@ -11,27 +11,27 @@
       game::Config::player_Class_One_Damage, start_Position, collidables),
       // --- START OF MEMBER INITIALIZER LIST ---
       // 1. Initialize the size Vector2 members first
-      size_top_down{32,48},
-      size_left_right{32, 48},
+      size_top_down{100,100},
+      size_left_right{100, 100},
 
       // 2. Then, initialize the RepeatAnimation members, using the now-initialized size members
       // Idle
-      Idle_Front{size_top_down, "assets/graphics/animations/player/idle/Maincharacter_Idle_Front_Spritesheet.png", 10, 10},
-      Idle_Back{size_top_down, "assets/graphics/animations/player/idle/Maincharacter_Idle_back_Spritesheet.png", 10, 10},
-      Idle_Left{size_left_right, "assets/graphics/animations/player/idle/Maincharacter_Idle_Left_Spritesheet.png", 10, 10},
-      Idle_Right{size_left_right, "assets/graphics/animations/player/idle/Maincharacter_Idle_Right_Spritesheet.png", 10, 10},
+      Idle_Front{size_top_down, "assets/graphics/animations/player/idle/MC_Idle_Front.png", 80, 80},
+      Idle_Back{size_top_down, "assets/graphics/animations/player/idle/MC_Idle_Back.png", 80, 80},
+      Idle_Left{size_left_right, "assets/graphics/animations/player/idle/MC_Idle_Left.png", 80, 80},
+      Idle_Right{size_left_right, "assets/graphics/animations/player/idle/MC_Idle_Right.png", 80, 80},
       // Moving
-      Run_Front{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Front.png", 10, 10},
-      Run_Back{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Back.png", 10, 10},
-      Run_Left{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Left.png", 10, 10},
-      Run_Right{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Right.png", 10, 10}
+      Run_Front{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Front-Sheet.png", 40, 40},
+      Run_Back{size_top_down, "assets/graphics/animations/player/walk/MC_Walkcycle_Back-Sheet.png", 40, 40},
+      Run_Left{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Left-Sheet.png", 40, 40},
+      Run_Right{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Right-Sheet.png", 40, 40}
       // --- END OF MEMBER INITIALIZER LIST ---
 {
-    this->hitbox_offset = { 4.0f, 8.0f }; // Experimentiere mit diesen Werten!
+    this->hitbox_offset = { 40.0f, 40.0f }; // Experimentiere mit diesen Werten!
 
     // Hitbox Player
     this->hitbox.width = 24.0f;
-    this->hitbox.height = 40.0f;
+    this->hitbox.height = 30.0f;
 
     // Set the initial animation
     current_animation = &Idle_Front;

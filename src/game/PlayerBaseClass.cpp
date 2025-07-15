@@ -23,6 +23,7 @@ Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int d
       inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false)
 {
     hitbox={start_Position.x,start_Position.y,static_cast<float >(maintex.width),static_cast<float >(maintex.height)};
+    walking_sound = LoadSound("assets/audio/sfx/foot-steps_2.mp3");
 }
 
 // Destruktor
@@ -68,6 +69,24 @@ void Player_Base_Class::Tick(float delta_time)
         move_intent.x *= (player_Movement_Speed * delta_time);
         move_intent.y *= (player_Movement_Speed * delta_time);
     }
+
+    // ====================================================================
+    // HIER KOMMT DER SOUND-CODE HIN
+    // ====================================================================
+    if (is_Moving)
+    {
+        // Spiele den Sound nur ab, wenn er nicht bereits läuft.
+        if (!IsSoundPlaying(walking_sound))
+        {
+            PlaySound(walking_sound);
+        }
+    }
+    else
+    {
+        // Wenn der Spieler stehen bleibt, stoppe das Geräusch.
+        StopSound(walking_sound);
+    }
+    // ====================================================================
 
     // --- Schritt 2: Vorausschauende Kollisionsprüfung (dein Code, unverändert) ---
     Rectangle future_hitbox = { hitbox.x + move_intent.x, hitbox.y + move_intent.y, hitbox.width, hitbox.height };
