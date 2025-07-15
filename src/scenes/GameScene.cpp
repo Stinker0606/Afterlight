@@ -79,6 +79,7 @@ void game::scenes::GameScene::Handle_Fog_Controls(float delta_time) {
     if (key_cooldown > 0) { key_cooldown -= delta_time; }
     if (key_cooldown <= 0) {
         bool key_pressed = false;
+        if (IsKeyPressed(KEY_L)) { ToggleFullscreen(); }
         if (IsKeyPressed(KEY_F)) { screen.fogManager.fogEnabled = !screen.fogManager.fogEnabled; }
         if (IsKeyDown(KEY_UP)) { screen.fogManager.outerRadius += 5.0f; key_pressed = true; }
         if (IsKeyDown(KEY_DOWN)) { screen.fogManager.outerRadius -= 5.0f; key_pressed = true; }
