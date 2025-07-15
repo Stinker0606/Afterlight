@@ -35,6 +35,7 @@ protected:
 	Facing_Direction facing_Direction;
 	bool is_Moving;
 
+	Vector2 hitbox_offset;
 
     Texture2D maintex= LoadTexture("assets/graphics/ball.png");
 
