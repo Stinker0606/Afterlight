@@ -42,7 +42,7 @@ void game::scenes::GameScene::Update() {
 // Draw-Funktion, die dem Stand entspricht, bei dem der Nebel sichtbar war
 void game::scenes::GameScene::Draw() {
     BeginDrawing();
-    ClearBackground(WHITE);
+    ClearBackground(BLACK);
 
     // --- 1. Zeichne die gesamte Spielwelt normal (ohne Nebel) ---
     bool originalFogState = screen.fogManager.fogEnabled;
