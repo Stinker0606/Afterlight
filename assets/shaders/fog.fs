@@ -43,3 +43,4 @@ void main()
     // Das ist der entscheidende Punkt: Wir geben eine Farbe mit variabler Transparenz aus.
     finalColor = vec4(fogColorValue.rgb, fogColorValue.a * fogFactor);
 }
+
