@@ -46,6 +46,7 @@ public:
     //RepeatAnimation Run_Top_Left;
     //RepeatAnimation Run_Front_Left;
 
+    Vector2 hitbox_offset;
 
     Player_Class_One(Vector2 start_Position,Object_Manager& om);
     ~Player_Class_One();

@@ -26,6 +26,9 @@ Player_Class_One::Player_Class_One(Vector2 start_Position,Object_Manager& om)
       Run_Right{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Right-Sheet.png", 40, 40}
       // --- END OF MEMBER INITIALIZER LIST ---
 {
+
+    this->hitbox_offset = { 40.0f, 40.0f }; // Experimentiere mit diesen Werten!
+
     // Hitbox Player
     this->hitbox.width = 32.0f;
     this->hitbox.height = 32.0f;

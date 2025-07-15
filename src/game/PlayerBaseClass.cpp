@@ -149,8 +149,8 @@ void Player_Base_Class::Ranged_Attack()
 // Funktion für die Tick Methode welche die aktuelle Position speichert, falls das Objekt zurück gesetzt werden soll
 void Player_Base_Class::Update_Previous_Position()
 {
-    previous_Position.x = hitbox.x;
-    previous_Position.y = hitbox.y;
+    player_Pos.x = hitbox.x - hitbox_offset.x;
+    player_Pos.y = hitbox.y - hitbox_offset.y;
 }
 
 // Methode aus der Tick welche die aktuelle Blickrichtung zurück geben soll. Wird später fürs Zeichnen und für die

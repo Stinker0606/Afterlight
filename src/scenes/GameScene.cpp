@@ -70,7 +70,7 @@ void game::scenes::GameScene::Update()
 void game::scenes::GameScene::Draw()
 {
     BeginDrawing();
-    ClearBackground(WHITE);
+    ClearBackground((Color){ 0, 32, 36, 255 });
     screen.Draw_Level(this->cam, false);
     BeginMode2D(cam->cam);
 
