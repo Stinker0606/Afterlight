@@ -11,7 +11,7 @@ namespace game::scenes
 {
     class GameScene final : public game::core::Scene
     {private:
-        Vector2 sp{1000,1000};
+        Vector2 sp{730,150};
         Rectangle wb{0,0,game::Config::kStageWidth*2,game::Config::kStageHeight*2};
         Collision_Manager* p_cm =new Collision_Manager(wb,objectManager.managed_objects);
         std::shared_ptr<Player_Class_One> sp_mp;
