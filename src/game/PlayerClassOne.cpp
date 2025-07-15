@@ -27,7 +27,6 @@ Player_Class_One::Player_Class_One(Vector2 start_Position,Object_Manager& om)
       // --- END OF MEMBER INITIALIZER LIST ---
 {
 
-    this->hitbox_offset = { 40.0f, 40.0f }; // Experimentiere mit diesen Werten!
 
     // Hitbox Player
     this->hitbox.width = 32.0f;

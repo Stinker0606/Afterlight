@@ -78,13 +78,5 @@ void game::scenes::GameScene::Draw()
         objectManager.managed_objects[i]->Draw();
     }
 
-    for (const auto& p_object : objectManager.managed_objects)
-    {
-        if (p_object != nullptr)
-        {
-            DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
-        }
-    }
-
     screen.Draw_Level(this->cam, true);
 }
