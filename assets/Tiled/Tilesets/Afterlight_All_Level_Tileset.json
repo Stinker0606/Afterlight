@@ -1,0 +1,14 @@
+{ "columns":15,
+ "image":"Tileset\/Afterlight_All_Level_Tileset.png",
+ "imageheight":928,
+ "imagewidth":480,
+ "margin":0,
+ "name":"Afterlight_All_Level_Tileset",
+ "spacing":0,
+ "tilecount":435,
+ "tiledversion":"1.11.2",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.10"
+}
