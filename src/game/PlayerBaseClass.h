@@ -37,10 +37,13 @@ protected:
 
     float projectile_Speed;
     std::vector<std::unique_ptr<game::Player_Projectile>> sp_projectiles;
+	const std::vector<Collidable*>& collidables_in_scene;
+
+	Vector2 hitbox_offset;
 
 public:
 	// Konstruktor
-	Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position);
+	Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position, const std::vector<Collidable*>& collidables);
 
 	// Destruktor
 	~Player_Base_Class() override;

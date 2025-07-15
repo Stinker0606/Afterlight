@@ -6,9 +6,9 @@
 #include "../config.h.in"
 #include "raylib.h" // For IsKeyDown
 
-Player_Class_One::Player_Class_One(Vector2 start_Position)
+    Player_Class_One::Player_Class_One(Vector2 start_Position, const std::vector<Collidable*>& collidables)
     : Player_Base_Class(game::Config::player_Class_One_Max_Health, game::Config::player_Class_One_Movement_Speed,
-        game::Config::player_Class_One_Damage, start_Position),
+      game::Config::player_Class_One_Damage, start_Position, collidables),
       // --- START OF MEMBER INITIALIZER LIST ---
       // 1. Initialize the size Vector2 members first
       size_top_down{32,48},
@@ -27,9 +27,11 @@ Player_Class_One::Player_Class_One(Vector2 start_Position)
       Run_Right{size_left_right, "assets/graphics/animations/player/walk/MC_Walkcycle_Right.png", 10, 10}
       // --- END OF MEMBER INITIALIZER LIST ---
 {
+    this->hitbox_offset = { 4.0f, 8.0f }; // Experimentiere mit diesen Werten!
+
     // Hitbox Player
-    this->hitbox.width = 28.0f;
-    this->hitbox.height = 45.0f;
+    this->hitbox.width = 24.0f;
+    this->hitbox.height = 40.0f;
 
     // Set the initial animation
     current_animation = &Idle_Front;

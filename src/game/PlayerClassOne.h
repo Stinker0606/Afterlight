@@ -6,6 +6,7 @@
 #define PLAYERCLASSONE_H
 
 #include "PlayerBaseClass.h"
+#include <vector>
 #include "Animations.h"
 #include "RepeatAnimation.h"
 #include "raylib.h" // Für Vector2
@@ -38,7 +39,7 @@ public:
 
 
 
-    Player_Class_One(Vector2 start_Position);
+    Player_Class_One(Vector2 start_Position, const std::vector<Collidable*>& collidables);
     ~Player_Class_One();
     void Draw() override;
 

@@ -25,7 +25,13 @@ game::scenes::GameScene::~GameScene() {}
 void game::scenes::GameScene::Update() {
     float dt = dtm.Get_Dt();
     Handle_Fog_Controls(dt);
-    for (auto& obj : objectManager.managed_objects) { obj->Tick(dt); }
+
+    for (auto& obj : objectManager.managed_objects) {
+        obj->Tick(dt);
+    }
+
+
+
     p_cm->Check_Collisions();
     cam->Cam_Movement(dt);
 

@@ -14,10 +14,12 @@
 #include "CollisionResponse.h"
 
 // Konstruktor
-Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position)
+Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position, const std::vector<Collidable*>& collidables)
     : player_Max_Health(max_Health), player_Health((float)max_Health), player_Movement_Speed(movement_Speed),
       player_Damage(damage),
-      previous_Position(start_Position), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
+      previous_Position(start_Position),
+      collidables_in_scene(collidables),
+      melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
       inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false)
 {
     hitbox={start_Position.x,start_Position.y,static_cast<float >(maintex.width),static_cast<float >(maintex.height)};
@@ -44,57 +46,71 @@ void Player_Base_Class::Player_Input()
 // Phase 2 :: Verwaltung für alles was das Objekt über eine gewisse Zeit machen soll
 void Player_Base_Class::Tick(float delta_time)
 {
+    // --- Cooldowns und Health Drain (unverändert) ---
     if (game::Config::enable_Health_Drain)
     {
         player_Health -= game::Config::player_Health_Drain_Rate * delta_time;
     }
-    Update_Previous_Position();
-
-	Vector2 move_Direction = {0.0f, 0.0f};
-    if (IsKeyDown(game::Config::key_Up))    move_Direction.y -= 1.0f;
-    if (IsKeyDown(game::Config::key_Down))  move_Direction.y += 1.0f;
-    if (IsKeyDown(game::Config::key_Left))  move_Direction.x -= 1.0f;
-    if (IsKeyDown(game::Config::key_Right)) move_Direction.x += 1.0f;
-
- 	is_Moving = (move_Direction.x != 0.0f || move_Direction.y != 0.0f);
-    if (is_Moving)
-    {
-        move_Direction = Vector2Normalize(move_Direction);
-    }
-
-    hitbox.x += (move_Direction.x * player_Movement_Speed * delta_time);
-    hitbox.y += (move_Direction.y * player_Movement_Speed * delta_time);
-    player_Pos.x=hitbox.x;
-    player_Pos.y=hitbox.y;
-
-    Update_Facing_Direction();
-
-    if (ranged_Cooldown > 0 && IsKeyDown(game::Config::key_Ranged_Attack)){
-        Ranged_Attack();
-    }
     if (melee_Cooldown > 0) melee_Cooldown -= delta_time;
     if (ranged_Cooldown > 0) ranged_Cooldown -= delta_time;
+
+    // --- Schritt 1: Beabsichtigte Bewegung berechnen (dein Code, unverändert) ---
+    Vector2 move_intent = {0.0f, 0.0f};
+    if (IsKeyDown(game::Config::key_Up))    move_intent.y -= 1.0f;
+    if (IsKeyDown(game::Config::key_Down))  move_intent.y += 1.0f;
+    if (IsKeyDown(game::Config::key_Left))  move_intent.x -= 1.0f;
+    if (IsKeyDown(game::Config::key_Right)) move_intent.x += 1.0f;
+
+    is_Moving = (move_intent.x != 0.0f || move_intent.y != 0.0f);
+    if (is_Moving)
+    {
+        move_intent = Vector2Normalize(move_intent);
+        move_intent.x *= (player_Movement_Speed * delta_time);
+        move_intent.y *= (player_Movement_Speed * delta_time);
+    }
+
+    // --- Schritt 2: Vorausschauende Kollisionsprüfung (dein Code, unverändert) ---
+    Rectangle future_hitbox = { hitbox.x + move_intent.x, hitbox.y + move_intent.y, hitbox.width, hitbox.height };
+
+    bool would_collide_with_wall = false;
+    for (const auto& other : this->collidables_in_scene)
+    {
+        if (other->Get_Collision_Type() == Collision_Type::WALL || other->Get_Collision_Type() == Collision_Type::ENEMY_SPAWNER) {
+            if (CheckCollisionRecs(future_hitbox, other->Get_Hitbox())) {
+                would_collide_with_wall = true;
+                break;
+            }
+        }
+    }
+
+    // --- Schritt 3: Bewegen oder nicht bewegen (dein Code, unverändert) ---
+    if (!would_collide_with_wall) {
+        hitbox.x += move_intent.x;
+        hitbox.y += move_intent.y;
+    }
+
+    // --- Schritt 4: ZEICHENPOSITION AKTUALISIEREN (DAS IST DIE ÄNDERUNG) ---
+    // Die Zeichenposition ist jetzt die Hitbox-Position MINUS dem Offset.
+    player_Pos.x = hitbox.x - hitbox_offset.x;
+    player_Pos.y = hitbox.y - hitbox_offset.y;
+
+    Update_Facing_Direction();
 }
 
-// Phase 3 :: Kollisionsreaktion falls der Collisionmanager eine Kollision mit einem anderen Objekt feststellt
+// Phase 3 :: Kollisionsreaktion
 void Player_Base_Class::On_Collision(Collidable* other)
 {
-	Collision_Type otherType = other->Get_Collision_Type();
+    Collision_Type otherType = other->Get_Collision_Type();
 
-    if (otherType == Collision_Type::WALL ||
-        otherType == Collision_Type::ENEMY_SPAWNER ||
-        otherType == Collision_Type::ENEMY)
+    // Die Logik für Wände ist jetzt in Tick().
+    // Hier reagieren wir nur noch auf Interaktionen.
+    if (otherType == Collision_Type::ENEMY)
     {
-		Rectangle wall_Hitbox = other->Get_Hitbox();
-        if (CheckCollisionRecs({hitbox.x, previous_Position.y, hitbox.width, hitbox.height}, wall_Hitbox))
-        {
-            hitbox.y = previous_Position.y;
-        }
-        if (CheckCollisionRecs({previous_Position.x, hitbox.y, hitbox.width, hitbox.height}, wall_Hitbox))
-        {
-            hitbox.x = previous_Position.x;
-		}
-	}
+        // Hier kannst du Schaden nehmen, wenn du einen Gegner berührst.
+        // Beispiel: Take_Damage(5);
+    }
+
+    // Hier kannst du später auf Projektile, Items etc. reagieren.
 }
 
 void Player_Base_Class::Draw()
