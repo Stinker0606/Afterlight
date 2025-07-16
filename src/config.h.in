@@ -76,7 +76,7 @@ namespace game {
         //Cam stuff
         inline static constexpr const int cam_start_pos_x = 0;
         inline static constexpr const int cam_start_pos_y = 0;
-        inline static constexpr const float cam_zoom = 2;
+        inline static constexpr const float cam_zoom = 0.2;
 
          // Levelmap-file paths
                 // Lvl_Nbr gets changed on level transition, thus also altering the path where Screen.Draw_Level() loads the
@@ -84,9 +84,9 @@ namespace game {
                 inline static std::string GetLevelMapPath(int Lvl_Nbr) {
                     switch (Lvl_Nbr) {
                         case 1:
-                            return "../../assets/Tiled/Levelmaps/Swamp_1.json";
+                            return "../../assets/Tiled/Swamp_1.json";
                         case 2:
-                            return "../../assets/Tiled/Levelmaps/lvl2.json";
+                            return "../../assets/Tiled/Swamp_.json";
                         case 3:
                             return "assets/maps/level3.json";
                         default:

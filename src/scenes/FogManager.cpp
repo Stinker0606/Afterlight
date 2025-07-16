@@ -12,7 +12,7 @@ FogManager::FogManager()
       timeLocation(-1), fogStrengthLocation(-1)
 {
     // Default fog maps
-    fogMaps = {"Swamp_1", "Swamp_1.json"};
+    fogMaps = {"Swamp_1", "Swamp_0.json"};
 }
 
 FogManager::~FogManager()
