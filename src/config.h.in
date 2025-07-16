@@ -48,7 +48,7 @@ namespace game {
         // Player_Class_One
         inline static constexpr const char* player_Class_One_Sprite_Path = "assets/graphics/player/class1_sheet.png";
         inline static constexpr int player_Class_One_Max_Health = 600;
-        inline static constexpr float player_Class_One_Movement_Speed = 40.0f;
+        inline static constexpr float player_Class_One_Movement_Speed = 30.0f;
         inline static constexpr int player_Class_One_Damage = 50;
         inline static constexpr float player_Class_One_Projectile_Speed = 100.0f;
         inline static constexpr const char* player_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER Pfad für Player-Projectile
@@ -76,7 +76,7 @@ namespace game {
         //Cam stuff
         inline static constexpr const int cam_start_pos_x = 0;
         inline static constexpr const int cam_start_pos_y = 0;
-        inline static constexpr const float cam_zoom = 0.2;
+        inline static constexpr const float cam_zoom = 2;
 
          // Levelmap-file paths
                 // Lvl_Nbr gets changed on level transition, thus also altering the path where Screen.Draw_Level() loads the
@@ -84,9 +84,9 @@ namespace game {
                 inline static std::string GetLevelMapPath(int Lvl_Nbr) {
                     switch (Lvl_Nbr) {
                         case 1:
-                            return "../../assets/Tiled/Swamp_1.json";
+                            return "../../assets/Tiled/Levelmaps/Swamp_0.json";
                         case 2:
-                            return "../../assets/Tiled/Swamp_.json";
+                            return "../../assets/Tiled/Levelmaps/Swamp_1.json";
                         case 3:
                             return "assets/maps/level3.json";
                         default:
