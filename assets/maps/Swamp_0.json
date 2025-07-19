@@ -428,7 +428,7 @@
                  "y":255.75
                 }, 
                 {
-                 "height":256.5,
+                 "height":288.5,
                  "id":31,
                  "name":"wall_18",
                  "rotation":0,
@@ -436,7 +436,7 @@
                  "visible":true,
                  "width":32,
                  "x":928,
-                 "y":-0.5
+                 "y":-32.5
                 }, 
                 {
                  "height":95.6667,
@@ -544,7 +544,7 @@
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":117.333333333333,
+                 "width":560,
                  "x":399,
                  "y":-43.6666666666667
                 }, 
@@ -627,7 +627,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":46,
+ "nextobjectid":47,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
