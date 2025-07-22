@@ -12,8 +12,8 @@ namespace game {
         inline static constexpr const char* kProjectVersionPatch = "@PROJECT_VERSION_PATCH@";
 
         // Width and Height of the game stage. The stage will be scaled with the window size
-        inline static constexpr int kStageWidth = 960;
-        inline static constexpr int kStageHeight = 540;
+        inline static constexpr int kStageWidth = 1920;
+        inline static constexpr int kStageHeight = 1080;
 
         // Target FPS, default is 60 fps
         inline static constexpr int kTargetFps = 60;
@@ -41,17 +41,20 @@ namespace game {
         // Defines if Raylib audio should be enabled
         inline static constexpr const bool kAudio = true;
 
-        // Player Settings
+        // Player General Settings
         inline static constexpr bool enable_Health_Drain = true; // HP-Drain durch Zeit an/aus
         inline static constexpr float player_Health_Drain_Rate = 1.0f; // HP-Verlust pro Sekunde
+        inline static constexpr int Player_Hitbox_Width = 30;
+        inline static constexpr int Player_Hitbox_Height = 46;
 
-        // Player_Class_One
+        // Player Stats + Settings
         inline static constexpr const char* player_Class_One_Sprite_Path = "assets/graphics/player/class1_sheet.png";
-        inline static constexpr int player_Class_One_Max_Health = 120;
-        inline static constexpr float player_Class_One_Movement_Speed = 100.0f;
-        inline static constexpr int player_Class_One_Damage = 12;
-        inline static constexpr float player_Class_One_Projectile_Speed = 300.0f;
+        inline static constexpr int player_Class_One_Max_Health = 600;
+        inline static constexpr float player_Class_One_Movement_Speed = 30.0f;
+        inline static constexpr int player_Class_One_Damage = 50;
+        inline static constexpr float player_Class_One_Projectile_Speed = 100.0f;
         inline static constexpr const char* player_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER Pfad für Player-Projectile
+
 
         // Enemy_Class_One
         inline static constexpr int enemy_Class_1_Health = 50;
@@ -76,7 +79,10 @@ namespace game {
         //Cam stuff
         inline static constexpr const int cam_start_pos_x = 0;
         inline static constexpr const int cam_start_pos_y = 0;
-        inline static constexpr const float cam_zoom = 1;
+        inline static constexpr const float cam_zoom = 2;
+
+        // -- DEBUG SETTINGS --
+        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
 
          // Levelmap-file paths
                 // Lvl_Nbr gets changed on level transition, thus also altering the path where Screen.Draw_Level() loads the
@@ -84,9 +90,9 @@ namespace game {
                 inline static std::string GetLevelMapPath(int Lvl_Nbr) {
                     switch (Lvl_Nbr) {
                         case 1:
-                            return "../../assets/Tiled/Levelmaps/Testmap.json";
+                            return "../../assets/Tiled/Levelmaps/Swamp_0.json";
                         case 2:
-                            return "../../assets/Tiled/Levelmaps/lvl2.json";
+                            return "../../assets/Tiled/Levelmaps/Swamp_1.json";
                         case 3:
                             return "assets/maps/level3.json";
                         default:

@@ -53,12 +53,23 @@ void game::scenes::GameScene::Update()
 void game::scenes::GameScene::Draw()
 {
     BeginDrawing();
-    ClearBackground(WHITE);
+    ClearBackground((Color){ 0, 32, 36, 255 });
     screen.Draw_Level(this->cam, false);
     BeginMode2D(cam->cam);
 
     for (int i = 0; i < objectManager.managed_objects.size(); ++i) {
         objectManager.managed_objects[i]->Draw();
+    }
+
+    if (game::Config::kDebugShowHitboxes)
+    {
+        for (const auto& p_object : objectManager.managed_objects)
+        {
+            if (p_object != nullptr)
+            {
+                DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+            }
+        }
     }
 
     screen.Draw_Level(this->cam, true);
