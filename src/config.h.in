@@ -78,6 +78,9 @@ namespace game {
         inline static constexpr const int cam_start_pos_y = 0;
         inline static constexpr const float cam_zoom = 2;
 
+        // -- DEBUG SETTINGS --
+        inline static constexpr bool kDebugShowHitboxes = true; // Set to 'true' to show all hitboxes
+
          // Levelmap-file paths
                 // Lvl_Nbr gets changed on level transition, thus also altering the path where Screen.Draw_Level() loads the
                 // levelmap from

@@ -78,11 +78,14 @@ void game::scenes::GameScene::Draw()
         objectManager.managed_objects[i]->Draw();
     }
 
-    for (const auto& p_object : objectManager.managed_objects)
+    if (game::Config::kDebugShowHitboxes)
     {
-        if (p_object != nullptr)
+        for (const auto& p_object : objectManager.managed_objects)
         {
-            DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+            if (p_object != nullptr)
+            {
+                DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+            }
         }
     }
 
