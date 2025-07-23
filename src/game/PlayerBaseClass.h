@@ -35,12 +35,18 @@ protected:
 	Facing_Direction facing_Direction;
 	bool is_Moving;
 
-
-	Texture2D maintex= LoadTexture("assets/graphics/animations/player/turnaround/Maincharacter_turnaround_Front.png");
+	Texture2D maintex= LoadTexture("PLACEHOLDER");
 
     float projectile_Speed;
     std::vector<std::shared_ptr<game::Player_Projectile>> sp_projectiles;
     Object_Manager& om;
+
+	// Ein Enum für klare Spieler-Zustände
+	enum class PlayerState { IDLE, MOVING, ATTACKING_RANGED, ATTACKING_MELEE, PUSHING, DYING };
+	PlayerState player_state;
+
+	// Ein Timer der steuert wann nach der Animation der Schuss ausgelöst wird
+	float attack_animation_timer;
 
 public:
 	// Konstruktor

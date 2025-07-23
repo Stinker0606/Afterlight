@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.11)
 
 add_library(scenes STATIC MenuScene.h MenuScene.cpp GameScene.h GameScene.cpp PauseScene.cpp PauseScene.h screen.h screen.cpp
-        screen.cpp
-        screen.h
         FogManager.cpp
-        FogManager.h)
+        FogManager.h
+        LevelScreen.h
+        LevelScreen.cpp
+        Level1Scene.cpp
+        Level1Scene.h)
 
 target_include_directories(scenes PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 

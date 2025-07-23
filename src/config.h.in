@@ -41,6 +41,13 @@ namespace game {
         // Defines if Raylib audio should be enabled
         inline static constexpr const bool kAudio = true;
 
+        //Cam stuff
+        inline static constexpr const int cam_start_pos_x = 0;
+        inline static constexpr const int cam_start_pos_y = 0;
+        inline static constexpr const float cam_zoom = 2;
+
+        // -- PLAYER --
+
         // Player General Settings
         inline static constexpr bool enable_Health_Drain = true; // HP-Drain durch Zeit an/aus
         inline static constexpr float player_Health_Drain_Rate = 1.0f; // HP-Verlust pro Sekunde
@@ -55,34 +62,46 @@ namespace game {
         inline static constexpr float player_Class_One_Projectile_Speed = 100.0f;
         inline static constexpr const char* player_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER Pfad für Player-Projectile
 
-
-        // Enemy_Class_One
-        inline static constexpr int enemy_Class_1_Health = 50;
-        inline static constexpr float enemy_Class_1_Movement_Speed = 100.0f;
-        inline static constexpr int enemy_Class_1_Damage = 5;
-        inline static constexpr int enemy_Class_1_Value = 10; // Punkte für den Kill
-        inline static constexpr const char* enemy_Class_1_Sprite_Path = "assets/graphics/enemy_Class_1.png";
-        inline static constexpr int enemy_Class_1_Hitbox_Width = 32;
-        inline static constexpr int enemy_Class_1_Hitbox_Height = 32;
-        inline static constexpr const char* enemy_Class_1_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER Pfad für Gegner-Projectile
-
         // Control Settings
         inline static constexpr const int key_Up = KEY_W;
         inline static constexpr const int key_Down = KEY_S;
         inline static constexpr const int key_Left = KEY_A;
         inline static constexpr const int key_Right = KEY_D;
 
-        inline static constexpr const int key_Melee_Attack = KEY_J;
-        inline static constexpr const int key_Ranged_Attack = KEY_K;
-        inline static constexpr const int key_Use_Item = KEY_L;
+        inline static constexpr const int key_Melee_Attack = KEY_J; //PLACEHOLDER
+        inline static constexpr const int key_Ranged_Attack = KEY_K; //PLACEHOLDER
+        inline static constexpr const int key_Interact = KEY_L; //PLACEHOLDER
+        inline static constexpr const int key_Place_Bomb = KEY_G; //PLACEHOLDER
 
-        //Cam stuff
-        inline static constexpr const int cam_start_pos_x = 0;
-        inline static constexpr const int cam_start_pos_y = 0;
-        inline static constexpr const float cam_zoom = 2;
+        // Enemy_Class_One - PLACEHOLDER
+        inline static constexpr int enemy_Class_1_Health = 50; //PLACEHOLDER
+        inline static constexpr float enemy_Class_1_Movement_Speed = 100.0f; //PLACEHOLDER
+        inline static constexpr int enemy_Class_1_Damage = 5; //PLACEHOLDER
+        inline static constexpr int enemy_Class_1_Value = 10; // Punkte für den Kill + PLACEHOLDER
+        inline static constexpr const char* enemy_Class_1_Sprite_Path = "assets/graphics/enemy_Class_1.png"; //PLACEHOLDER
+        inline static constexpr int enemy_Class_1_Hitbox_Width = 32; //PLACEHOLDER
+        inline static constexpr int enemy_Class_1_Hitbox_Height = 32; //PLACEHOLDER
+        inline static constexpr const char* enemy_Class_1_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER
+
+        // -- ENEMIES --
+
+        // -- LEVEL 1 ENEMIES --
+
+        // Insect_Monster
+        inline static constexpr int kInsectMonsterHealth = 50;
+        inline static constexpr float kInsectMonsterMovementSpeed = 64.0f; // Entspricht 2 Tiles/Sekunde
+        inline static constexpr int kInsectMonsterDamage = 20;
+        inline static constexpr float kInsectMonsterAttackCooldown = 1.0f; // 1 Angriff pro Sekunde
+        inline static constexpr float kInsectMonsterAttackRange = 48.0f; // Entspricht 1.5 Tiles
+        inline static constexpr int kInsectMonsterValue = 15; // Punkte für den Kill
+        inline static constexpr const char* kInsectMonsterSpritePath = "assets/graphics/enemies/insect_monster.png"; // PLATZHALTER-Pfad
+        inline static constexpr int kInsectMonsterHitboxWidth = 32; // Platzhalter
+        inline static constexpr int kInsectMonsterHitboxHeight = 48; // Platzhalter
 
         // -- DEBUG SETTINGS --
-        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
+
+            // Show all hitboxes
+            inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
 
          // Levelmap-file paths
                 // Lvl_Nbr gets changed on level transition, thus also altering the path where Screen.Draw_Level() loads the

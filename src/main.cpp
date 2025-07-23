@@ -8,8 +8,7 @@
 #include <Game.h>
 #include "scenes/Screen.h"
 #include "config.h.in"
-#include "MenuScene.h"
-
+#include "scenes/Level1Scene.h"
 
 /* Aktiviert "String-Literalen erlaubt "menu"s Daraus wird dann direkt ein std::string
  * also "menu"s == std::string ("menu")
@@ -25,7 +24,7 @@ int main()
                           game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio,
                           game::Config::kProjectName);
 
-    game.Run("menu"s, std::make_unique<game::scenes::MenuScene>());
+    game.Run("level1"s, std::make_unique<game::scenes::Level1Scene>());
 
     return EXIT_SUCCESS;
 }

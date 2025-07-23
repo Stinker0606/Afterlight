@@ -37,7 +37,7 @@ void Player_Base_Class::Player_Input()
         Ranged_Attack();
     }
 
-    /*if (IsKeyPressed(game::Config::key_Use_Item) && inventory_Is_Full)
+    /*if (IsKeyPressed(game::Config::key_Interact) && inventory_Is_Full)
     {
         Use_Item();
     }*/
