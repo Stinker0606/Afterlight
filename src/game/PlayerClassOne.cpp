@@ -2,6 +2,8 @@
 // Created by $Will on 22.06.2025.
 //
 
+/*
+
 #include "PlayerClassOne.h"
 #include "../config.h.in"
 #include "raylib.h"
@@ -89,3 +91,4 @@ void Player_Class_One::Draw() {
     // 3. Spiele IMMER die Animation ab (egal ob Idle oder Run).
     current_animation->Next_Frame();
 }
+*/

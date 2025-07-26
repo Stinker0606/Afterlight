@@ -26,6 +26,18 @@ class Collidable
 protected:
     Rectangle hitbox;
     bool is_Marked_For_Destruction = false;
+
+    // NEU: Eigenschaften für die "Nebel"-Mechanik
+    // ---------------------------------------------------------------------
+    // Bestimmt, ob dieses Objekt von der Nebel-Mechanik betroffen ist.
+    // Wird in Tiled über die Custom Property "useFog" gesteuert.
+    bool use_fog = false;
+
+    // Bestimmt die aktuelle Sichtbarkeit (Transparenz) des Objekts.
+    // 1.0f = voll sichtbar, 0.0f = komplett unsichtbar.
+    float visibility_alpha = 1.0f;
+    // ---------------------------------------------------------------------
+
 public:
     virtual ~Collidable() = default;
 
@@ -39,5 +51,25 @@ public:
 
     virtual void Mark_For_Destruction() { this->is_Marked_For_Destruction = true; }
     bool Is_Marked_For_Destruction() const { return this->is_Marked_For_Destruction; }
+
+    // NEU: Öffentliche Methoden um die Nebel-Eigenschaften zu steuern
+    // ---------------------------------------------------------------------
+    /**
+     * @brief Setzt ob dieses Objekt vom Nebel betroffen sein soll.
+     * @param use_fog True, wenn es betroffen sein soll, sonst false.
+     */
+    void Set_Use_Fog(bool use_fog) { this->use_fog = use_fog; }
+
+    /**
+     * @brief Setzt die aktuelle Sichtbarkeit (Transparenz) des Objekts.
+     * @param alpha Ein Wert zwischen 0.0 (unsichtbar) und 1.0 (sichtbar).
+     */
+    void Set_Visibility_Alpha(float alpha) { this->visibility_alpha = alpha; }
+
+    /**
+     * @brief Gibt zurück ob dieses Objekt vom Nebel betroffen ist.
+     */
+    bool Get_Use_Fog() const { return this->use_fog; }
+    // ---------------------------------------------------------------------
 };
 #endif //COLLIDABLE_H

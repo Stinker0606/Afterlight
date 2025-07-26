@@ -30,8 +30,8 @@ void RepeatAnimation::Next_Frame() {
         First_Frame();
     }
 }
-void RepeatAnimation::Draw_Current_Frame(Vector2 pos) {
+void RepeatAnimation::Draw_Current_Frame(Vector2 pos, Color tint) {
     pos.x=pos.x-this->size.x/2;
     pos.y=pos.y-this->size.y/2;
-    DrawTextureRec(spritesheet,target,pos,WHITE);
+    DrawTextureRec(spritesheet, target, pos, tint);
 }

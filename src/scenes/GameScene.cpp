@@ -9,7 +9,7 @@
 #include "Renderer.h"
 #include "SpriteAnimated.h"
 
-#include "../game/PlayerClassOne.h"
+#include "../game/PlayerClass.h"
 #include "../core/CollisionManager.h"
 
 using namespace std::string_literals;
@@ -17,7 +17,7 @@ using namespace std::string_literals;
 game::scenes::GameScene::GameScene()
 {
     dtm.Start();
-    this->sp_mp=std::make_shared<Player_Class_One>(sp,objectManager);
+    this->sp_mp=std::make_shared<PlayerClass>(sp,objectManager);
     objectManager.AddObject(sp_mp);
     cam=std::make_shared<Cam>(sp_mp);
     screen.LoadGameObjects(objectManager);

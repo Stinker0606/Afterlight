@@ -1,87 +1,204 @@
 #include "PlayerClass.h"
-#include "../config.h.in"
-#include "raylib.h"
+#include "Store.h" // Für die Mausposition
 
-Player_Class::Player_Class(Vector2 start_Position,Object_Manager& om)
-    : Player_Base_Class(game::Config::player_Class_One_Max_Health, game::Config::player_Class_One_Movement_Speed,
-    game::Config::player_Class_One_Damage, start_Position,om),
+PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
+    // 1. Rufe den Konstruktor der Basisklasse mit den Werten aus der Config auf
+    : Player_Base_Class(
+        game::Config::player_Max_Health,
+        game::Config::player_Movement_Speed,
+        game::Config::player_Damage,
+        start_Position,
+        om
+      ),
+      // 2. Initialisiere alle Zustandsvariablen
+      player_state(PlayerState::IDLE),
+      attack_animation_timer(0.0f),
+      hit_feedback_timer(0.0f),
+      tint_color(WHITE),
 
-    // Idle
-        Idle_Front{size, "assets/graphics/animations/player/idle/MC_Idle_Front.png", 80, 80},
-        Idle_Back{size, "assets/graphics/animations/player/idle/MC_Idle_Back.png", 80, 80},
-        Idle_Left{size, "assets/graphics/animations/player/idle/MC_Idle_Left.png", 80, 80},
-        Idle_Right{size, "assets/graphics/animations/player/idle/MC_Idle_Right.png", 80, 80},
-        //Idle_Top_Right{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Idle_Front_Right{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Idle_Top_Left{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Idle_Front_Left{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER}
-
-    // Moving
-        Run_Front{size, "assets/graphics/animations/player/walk/MC_Walkcycle_Front-Sheet.png", 40, 40},
-        Run_Back{size, "assets/graphics/animations/player/walk/MC_Walkcycle_Back-Sheet.png", 40, 40},
-        Run_Left{size, "assets/graphics/animations/player/walk/MC_Walkcycle_Left-Sheet.png", 40, 40},
-        Run_Right{size, "assets/graphics/animations/player/walk/MC_Walkcycle_Right-Sheet.png", 40, 40}
-        //Run_Top_Right{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Run_Front_Right{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Run_Top_Left{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Run_Front_Left{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER}
-
-    //Attack Throw
-        //Throw_Front{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Throw_Back{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Throw_Left{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Throw_Right{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Throw_Top_Right{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Throw_Front_Right{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Throw_Top_Left{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER},
-        //Throw_Front_Left{size, "PLACEHOLDER", PLACEHOLDER, PLACEHOLDER}
+      // 3. Initialisiere ALLE Animationen mit den Werten aus der Config
+      // Idle
+      anim_Idle_Front(game::Config::player_animation_size, game::Config::player_Idle_Front_Path, game::Config::player_Idle_Front_Frames, game::Config::player_Idle_Front_Frames_Per_Line),
+      anim_Idle_Back(game::Config::player_animation_size, game::Config::player_Idle_Back_Path, game::Config::player_Idle_Back_Frames, game::Config::player_Idle_Back_Frames_Per_Line),
+      anim_Idle_Left(game::Config::player_animation_size, game::Config::player_Idle_Left_Path, game::Config::player_Idle_Left_Frames, game::Config::player_Idle_Left_Frames_Per_Line),
+      anim_Idle_Right(game::Config::player_animation_size, game::Config::player_Idle_Right_Path, game::Config::player_Idle_Right_Frames, game::Config::player_Idle_Right_Frames_Per_Line),
+      anim_Idle_Front_Right(game::Config::player_animation_size, game::Config::player_Idle_Front_Right_Path, game::Config::player_Idle_Front_Right_Frames, game::Config::player_Idle_Front_Right_Frames_Per_Line),
+      anim_Idle_Back_Right(game::Config::player_animation_size, game::Config::player_Idle_Back_Right_Path, game::Config::player_Idle_Back_Right_Frames, game::Config::player_Idle_Back_Right_Frames_Per_Line),
+      anim_Idle_Front_Left(game::Config::player_animation_size, game::Config::player_Idle_Front_Left_Path, game::Config::player_Idle_Front_Left_Frames, game::Config::player_Idle_Front_Left_Frames_Per_Line),
+      anim_Idle_Back_Left(game::Config::player_animation_size, game::Config::player_Idle_Back_Left_Path, game::Config::player_Idle_Back_Left_Frames, game::Config::player_Idle_Back_Left_Frames_Per_Line),
+      // Run
+      anim_Run_Front(game::Config::player_animation_size, game::Config::player_Run_Front_Path, game::Config::player_Run_Front_Frames, game::Config::player_Run_Front_Frames_Per_Line),
+      anim_Run_Back(game::Config::player_animation_size, game::Config::player_Run_Back_Path, game::Config::player_Run_Back_Frames, game::Config::player_Run_Back_Frames_Per_Line),
+      anim_Run_Left(game::Config::player_animation_size, game::Config::player_Run_Left_Path, game::Config::player_Run_Left_Frames, game::Config::player_Run_Left_Frames_Per_Line),
+      anim_Run_Right(game::Config::player_animation_size, game::Config::player_Run_Right_Path, game::Config::player_Run_Right_Frames, game::Config::player_Run_Right_Frames_Per_Line),
+      anim_Run_Front_Right(game::Config::player_animation_size, game::Config::player_Run_Front_Right_Path, game::Config::player_Run_Front_Right_Frames, game::Config::player_Run_Front_Right_Frames_Per_Line),
+      anim_Run_Back_Right(game::Config::player_animation_size, game::Config::player_Run_Back_Right_Path, game::Config::player_Run_Back_Right_Frames, game::Config::player_Run_Back_Right_Frames_Per_Line),
+      anim_Run_Front_Left(game::Config::player_animation_size, game::Config::player_Run_Front_Left_Path, game::Config::player_Run_Front_Left_Frames, game::Config::player_Run_Front_Left_Frames_Per_Line),
+      anim_Run_Back_Left(game::Config::player_animation_size, game::Config::player_Run_Back_Left_Path, game::Config::player_Run_Back_Left_Frames, game::Config::player_Run_Back_Left_Frames_Per_Line),
+      // Attack Throw
+      anim_Throw_Front(game::Config::player_animation_size, game::Config::player_Throw_Front_Path, game::Config::player_Throw_Front_Frames, game::Config::player_Throw_Front_Frames_Per_Line),
+      anim_Throw_Back(game::Config::player_animation_size, game::Config::player_Throw_Back_Path, game::Config::player_Throw_Back_Frames, game::Config::player_Throw_Back_Frames_Per_Line),
+      anim_Throw_Left(game::Config::player_animation_size, game::Config::player_Throw_Left_Path, game::Config::player_Throw_Left_Frames, game::Config::player_Throw_Left_Frames_Per_Line),
+      anim_Throw_Right(game::Config::player_animation_size, game::Config::player_Throw_Right_Path, game::Config::player_Throw_Right_Frames, game::Config::player_Throw_Right_Frames_Per_Line),
+      // Attack Sweep
+      anim_Sweep_Front(game::Config::player_animation_size, game::Config::player_Sweep_Front_Path, game::Config::player_Sweep_Front_Frames, game::Config::player_Sweep_Front_Frames_Per_Line),
+      anim_Sweep_Back(game::Config::player_animation_size, game::Config::player_Sweep_Back_Path, game::Config::player_Sweep_Back_Frames, game::Config::player_Sweep_Back_Frames_Per_Line),
+      anim_Sweep_Left(game::Config::player_animation_size, game::Config::player_Sweep_Left_Path, game::Config::player_Sweep_Left_Frames, game::Config::player_Sweep_Left_Frames_Per_Line),
+      anim_Sweep_Right(game::Config::player_animation_size, game::Config::player_Sweep_Right_Path, game::Config::player_Sweep_Right_Frames, game::Config::player_Sweep_Right_Frames_Per_Line),
+      // Pushing
+      anim_Push_Front(game::Config::player_animation_size, game::Config::player_Push_Front_Path, game::Config::player_Push_Front_Frames, game::Config::player_Push_Front_Frames_Per_Line),
+      anim_Push_Back(game::Config::player_animation_size, game::Config::player_Push_Back_Path, game::Config::player_Push_Back_Frames, game::Config::player_Push_Back_Frames_Per_Line),
+      anim_Push_Left(game::Config::player_animation_size, game::Config::player_Push_Left_Path, game::Config::player_Push_Left_Frames, game::Config::player_Push_Left_Frames_Per_Line),
+      anim_Push_Right(game::Config::player_animation_size, game::Config::player_Push_Right_Path, game::Config::player_Push_Right_Frames, game::Config::player_Push_Right_Frames_Per_Line),
+      // Dying
+      anim_Dying(game::Config::player_animation_size, game::Config::player_Dying_Path, game::Config::player_Dying_Frames, game::Config::player_Dying_Frames_Per_Line)
 {
-
-
-
-    // Set the initial animation
-    current_animation = &Idle_Front;
+    // 4. Setze die Standard-Animation beim Start
+    p_current_animation = &anim_Idle_Front;
 }
 
-Player_Class::~Player_Class() {
-    // If RepeatAnimation handles LoadTexture/UnloadTexture internally,
-    // its destructors will be called automatically when Player_Class_One is destroyed.
-    // No explicit UnloadTexture calls needed here unless RepeatAnimation *doesn't*
-    // handle resource cleanup in its destructor.
-}
+void PlayerClass::Tick(float delta_time)
+{
+    // 1. Rufe die Tick-Methode der Basisklasse auf.
+    // Diese kümmert sich um die Bewegung und setzt die `is_Moving` und `facing_Direction` Variablen.
+    Player_Base_Class::Tick(delta_time);
 
-void Player_Class::Draw() {
-    // 1. Wähle die Animation basierend auf dem Zustand aus der Basisklasse.
-    // Die Basisklasse `PlayerBaseClass` aktualisiert `is_Moving` und `facing_Direction` in ihrer `Tick`-Methode.
-    if (this->is_Moving) {
-        // Wähle die LAUF-Animation für die aktuelle Richtung
-        switch (this->facing_Direction) {
-            case Facing_Direction::UP:         current_animation = &Run_Back; break;
-            case Facing_Direction::DOWN:       current_animation = &Run_Front; break;
-            case Facing_Direction::LEFT:       current_animation = &Run_Left; break;
-            case Facing_Direction::RIGHT:      current_animation = &Run_Right; break;
-            //case Facing_Direction::UP_LEFT:    current_animation = &Run_Top_Left; break;
-            //case Facing_Direction::UP_RIGHT:   current_animation = &Run_Top_Right; break;
-            //case Facing_Direction::DOWN_LEFT:  current_animation = &Run_Front_Left; break;
-            //case Facing_Direction::DOWN_RIGHT: current_animation = &Run_Front_Right; break;
-        }
-    } else {
-        // Wähle die IDLE-Animation für die letzte bekannte Richtung
-        switch (this->facing_Direction) {
-            case Facing_Direction::UP:         current_animation = &Idle_Back; break;
-            case Facing_Direction::DOWN:       current_animation = &Idle_Front; break;
-            case Facing_Direction::LEFT:       current_animation = &Idle_Left; break;
-            case Facing_Direction::RIGHT:      current_animation = &Idle_Right; break;
-            //case Facing_Direction::UP_LEFT:    current_animation = &Idle_Top_Left; break;
-            //case Facing_Direction::UP_RIGHT:   current_animation = &Idle_Top_Right; break;
-            //case Facing_Direction::DOWN_LEFT:  current_animation = &Idle_Front_Left; break;
-            //case Facing_Direction::DOWN_RIGHT: current_animation = &Idle_Front_Right; break;
+    // 2. Aktualisiere unsere Timer
+    if (hit_feedback_timer > 0.0f)
+    {
+        hit_feedback_timer -= delta_time;
+        if (hit_feedback_timer <= 0.0f)
+        {
+            tint_color = WHITE; // Setze die Farbe zurück, wenn der Timer abgelaufen ist
         }
     }
 
-    // 2. Zeichne den aktuellen Frame.
-    current_animation->Draw_Current_Frame(this->Get_Player_Center());
+    // 3. Unsere eigene Zustands-Logik, die die Basisklasse erweitert
+    // Nur wenn der Spieler nicht gerade eine andere Aktion ausführt...
+    if (player_state != PlayerState::ATTACKING_RANGED && player_state != PlayerState::ATTACKING_MELEE)
+    {
+        // ...aktualisieren wir den Zustand basierend auf der Bewegung.
+        player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
 
-    // 3. Spiele IMMER die Animation ab (egal ob Idle oder Run).
-    current_animation->Next_Frame();
+        // Prüfe, ob ein Angriff gestartet werden soll
+        if (IsKeyPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f)
+        {
+            player_state = PlayerState::ATTACKING_RANGED;
+            attack_animation_timer = game::Config::player_Ranged_Attack_Anim_Duration;
+            ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
+        }
+    }
+        else if (IsKeyPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f)
+    	{
+            player_state = PlayerState::ATTACKING_MELEE;
+            attack_animation_timer = game::Config::player_Melee_Attack_Anim_Duration;
+            melee_Cooldown = game::Config::player_Melee_Attack_Cooldown;
+        }
+    // Logik für den Fernkampf-Angriff
+    else if (player_state == PlayerState::ATTACKING_RANGED)
+    {
+        attack_animation_timer -= delta_time;
+        if (attack_animation_timer <= 0.0f)
+        {
+            Player_Base_Class::Ranged_Attack();
+            player_state = PlayerState::IDLE;
+        }
+    }
+    // Logik für den Nahkampf-Angriff
+    else if (player_state == PlayerState::ATTACKING_MELEE)
+    {
+        attack_animation_timer -= delta_time;
+        if (attack_animation_timer <= 0.0f)
+        {
+            Player_Base_Class::Melee_Attack();
+            player_state = PlayerState::IDLE;
+        }
+    }
+}
+
+void PlayerClass::Draw()
+{
+	switch (player_state)
+	{
+    // 1. Wähle die korrekte Animation basierend auf unserem Zustand.
+    case PlayerState::ATTACKING_RANGED:
+            switch (facing_Direction) {
+                case Facing_Direction::UP:    		p_current_animation = &anim_Throw_Back; break;
+                case Facing_Direction::DOWN:  		p_current_animation = &anim_Throw_Front; break;
+                case Facing_Direction::LEFT:  		p_current_animation = &anim_Throw_Left; break;
+                case Facing_Direction::RIGHT: 		p_current_animation = &anim_Throw_Right; break;
+                default:                      		p_current_animation = &anim_Throw_Front; break;
+            }
+            break;
+
+        case PlayerState::ATTACKING_MELEE:
+            switch (facing_Direction) {
+                case Facing_Direction::UP:    p_current_animation = &anim_Sweep_Back; break;
+                case Facing_Direction::DOWN:  p_current_animation = &anim_Sweep_Front; break;
+                case Facing_Direction::LEFT:  p_current_animation = &anim_Sweep_Left; break;
+                case Facing_Direction::RIGHT: p_current_animation = &anim_Sweep_Right; break;
+                default:                      p_current_animation = &anim_Sweep_Front; break;
+            }
+            break;
+
+        case PlayerState::PUSHING:
+            switch (facing_Direction) {
+                case Facing_Direction::UP:    p_current_animation = &anim_Push_Back; break;
+                case Facing_Direction::DOWN:  p_current_animation = &anim_Push_Front; break;
+                case Facing_Direction::LEFT:  p_current_animation = &anim_Push_Left; break;
+                case Facing_Direction::RIGHT: p_current_animation = &anim_Push_Right; break;
+                default:                      p_current_animation = &anim_Push_Front; break;
+            }
+            break;
+
+        case PlayerState::MOVING:
+            switch (facing_Direction) {
+                case Facing_Direction::UP:   		p_current_animation = &anim_Run_Back; break;
+                case Facing_Direction::DOWN: 		p_current_animation = &anim_Run_Front; break;
+                case Facing_Direction::LEFT: 		p_current_animation = &anim_Run_Left; break;
+                case Facing_Direction::RIGHT:	 	p_current_animation = &anim_Run_Right; break;
+                case Facing_Direction::UP_RIGHT:    p_current_animation = &anim_Run_Back_Right; break;
+                case Facing_Direction::DOWN_RIGHT:  p_current_animation = &anim_Run_Front_Right; break;
+                case Facing_Direction::UP_LEFT:  	p_current_animation = &anim_Run_Back_Left; break;
+                case Facing_Direction::DOWN_LEFT: 	p_current_animation = &anim_Run_Front_Left; break;
+                default:                      		p_current_animation = &anim_Run_Front; break;
+            }
+            break;
+
+        case PlayerState::IDLE:
+        default:
+            switch (facing_Direction) {
+                case Facing_Direction::UP:    		p_current_animation = &anim_Idle_Back; break;
+                case Facing_Direction::DOWN:  		p_current_animation = &anim_Idle_Front; break;
+                case Facing_Direction::LEFT:  		p_current_animation = &anim_Idle_Left; break;
+                case Facing_Direction::RIGHT: 		p_current_animation = &anim_Idle_Right; break;
+                case Facing_Direction::UP_RIGHT:    p_current_animation = &anim_Idle_Back_Right; break;
+                case Facing_Direction::DOWN_RIGHT:  p_current_animation = &anim_Idle_Front_Right; break;
+                case Facing_Direction::UP_LEFT:  	p_current_animation = &anim_Idle_Back_Left; break;
+                case Facing_Direction::DOWN_LEFT: 	p_current_animation = &anim_Idle_Front_Left; break;
+                default:                      		p_current_animation = &anim_Idle_Front; break;
+            }
+            break;
+
+        case PlayerState::DYING:
+            p_current_animation = &anim_Dying;
+            break;
+    }
+
+    // 2. Zeichne den aktuellen Frame mit der aktuellen Tönungsfarbe.
+    if (p_current_animation)
+    {
+        p_current_animation->Draw_Current_Frame(player_Pos, tint_color);
+        p_current_animation->Next_Frame();
+    }
+}
+
+void PlayerClass::Take_Damage(int damage)
+{
+    // 1. Rufe die Logik der Basisklasse auf, um die HP zu reduzieren.
+    this->player_Health -= damage;
+
+    // 2. Starte unser visuelles Hit-Feedback.
+    hit_feedback_timer = 0.2f; // Für 0.2 Sekunden aufleuchten
+    tint_color = (Color){ 88, 60, 72, 255 }; // Hex-Code #583c48
 }

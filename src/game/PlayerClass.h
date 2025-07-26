@@ -1,58 +1,95 @@
-#ifndef PLAYERCLASSONE_H
-#define PLAYERCLASSONE_H
-
-
+#pragma once
 
 #include "PlayerBaseClass.h"
-#include "Animations.h"
-#include "RepeatAnimation.h"
+#include "../core/RepeatAnimation.h"
 
-class Player_Class : public Player_Base_Class
+/**
+ * @brief Unsere spezifische, spielbare Charakter-Klasse.
+ * Erbt die grundlegende Logik von PlayerBaseClass und erweitert sie
+ * um eine komplexe Animations- und Zustandslogik.
+ */
+class PlayerClass : public Player_Base_Class
 {
 private:
-    Vector2 size{100,100};
+    // Ein Enum für klare Spieler-Zustände. Lebt jetzt hier, nicht in der Basisklasse.
+    enum class PlayerState { IDLE, MOVING, ATTACKING_RANGED, ATTACKING_MELEE, PUSHING, DYING };
+    PlayerState player_state;
 
-    RepeatAnimation* current_animation;
+    // Ein Zeiger, der immer auf die gerade aktive Animation zeigt.
+    RepeatAnimation* p_current_animation;
+
+    // --- Timer für Zustände ---
+    float attack_animation_timer; // Timer für die Dauer von Angriffs-Animationen
+    float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens
+
+    // --- Visuelle Effekte ---
+    Color tint_color; // Die aktuelle Tönung des Spielers (normalerweise WEISS)
+
+    // --- Animationen ---
+    // Idle
+    RepeatAnimation anim_Idle_Front;
+    RepeatAnimation anim_Idle_Back;
+    RepeatAnimation anim_Idle_Left;
+    RepeatAnimation anim_Idle_Right;
+    RepeatAnimation anim_Idle_Front_Right;
+    RepeatAnimation anim_Idle_Back_Right;
+    RepeatAnimation anim_Idle_Front_Left;
+    RepeatAnimation anim_Idle_Back_Left;
+
+    // Run
+    RepeatAnimation anim_Run_Front;
+    RepeatAnimation anim_Run_Back;
+    RepeatAnimation anim_Run_Left;
+    RepeatAnimation anim_Run_Right;
+    RepeatAnimation anim_Run_Front_Right;
+    RepeatAnimation anim_Run_Back_Right;
+    RepeatAnimation anim_Run_Front_Left;
+    RepeatAnimation anim_Run_Back_Left;
+
+    // Attack Throw
+    RepeatAnimation anim_Throw_Front;
+    RepeatAnimation anim_Throw_Back;
+    RepeatAnimation anim_Throw_Left;
+    RepeatAnimation anim_Throw_Right;
+
+    // Attack Sweep
+    RepeatAnimation anim_Sweep_Front;
+    RepeatAnimation anim_Sweep_Back;
+    RepeatAnimation anim_Sweep_Left;
+    RepeatAnimation anim_Sweep_Right;
+
+    // Pushing
+    RepeatAnimation anim_Push_Front;
+    RepeatAnimation anim_Push_Back;
+    RepeatAnimation anim_Push_Left;
+    RepeatAnimation anim_Push_Right;
+
+    // Dying
+    RepeatAnimation anim_Dying;
 
 public:
-    // Deklariere die RepeatAnimation Instanzen hier,
-    // initialisiere sie aber NICHT direkt.
+    /**
+     * @brief Konstruktor für unseren Spieler.
+     * @param start_Position Die Startposition in der Welt.
+     * @param om Referenz zum Object_Manager, um Projektile zu spawnen.
+     */
+    PlayerClass(Vector2 start_Position, Object_Manager& om);
+    ~PlayerClass() override = default;
 
-    // Idle
-    RepeatAnimation Idle_Front;
-    RepeatAnimation Idle_Back;
-    RepeatAnimation Idle_Left;
-    RepeatAnimation Idle_Right;
-    //RepeatAnimation Idle_Top_Right;
-    //RepeatAnimation Idle_Front_Right;
-    //RepeatAnimation Idle_Top_Left;
-    //RepeatAnimation Idle_Front_Left;
+    /**
+     * @brief Überschreibt die Tick-Methode der Basisklasse, um unsere Zustandslogik hinzuzufügen.
+     * @param delta_time Die Zeit seit dem letzten Frame.
+     */
+    void Tick(float delta_time) override;
 
-    // Moving
-    RepeatAnimation Run_Front;
-    RepeatAnimation Run_Back;
-    RepeatAnimation Run_Left;
-    RepeatAnimation Run_Right;
-    //RepeatAnimation Run_Top_Right;
-    //RepeatAnimation Run_Front_Right;
-    //RepeatAnimation Run_Top_Left;
-    //RepeatAnimation Run_Front_Left;
-
-    // Attack-Throw
-    //RepeatAnimation Throw_Front;
-    //RepeatAnimation Throw_Back;
-    //RepeatAnimation Throw_Left;
-    //RepeatAnimation Throw_Right;
-    //RepeatAnimation Throw_Top_Right;
-    //RepeatAnimation Throw_Front_Right;
-    //RepeatAnimation Throw_Top_Left;
-    //RepeatAnimation Throw_Front_Left;
-
-    Player_Class(Vector2 start_Position,Object_Manager& om);
-    ~Player_Class();
+    /**
+     * @brief Überschreibt die Draw-Methode, um die korrekte Animation zu zeichnen.
+     */
     void Draw() override;
 
+    /**
+     * @brief Überschreibt die Take_Damage-Methode, um das Hit-Feedback auszulösen.
+     * @param damage Die Höhe des Schadens.
+     */
+    void Take_Damage(int damage);
 };
-
-
-#endif //PLAYERCLASSONE_H

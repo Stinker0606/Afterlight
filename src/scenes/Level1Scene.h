@@ -6,11 +6,11 @@
 #include "CollisionManager.h"
 #include "../core/DeltaTimeMachine.h"
 #include "Cam.h"
-#include "../game/PlayerClassOne.h"
 #include "FogManager.h"
-
+#include "../game/PlayerClass.h"
 #include <memory>
 #include <vector>
+#include "../game/spawner/Level1Spawner.h"
 
 namespace game::scenes
 {
@@ -28,7 +28,7 @@ namespace game::scenes
         std::unique_ptr<Collision_Manager> p_cm;
 
         // --- Spiel-Objekte ---
-        std::shared_ptr<Player_Class_One> sp_player;
+        std::shared_ptr<PlayerClass> sp_player;
         std::shared_ptr<Cam> sp_cam;
 
         // --- Deine eigenen Systeme für diesen Level ---
@@ -37,6 +37,18 @@ namespace game::scenes
         // --- Level-spezifische Daten ---
         int level_Nbr = 1;
         LevelScreen levelScreen{&level_Nbr}; // Wir benutzen unsere erweiterbare LevelScreen
+
+        // Listen, die der EnemySpawner aus der Basis-Engine benötigt
+        // ---------------------------------------------------------------------
+        // Eine Liste, die alle Hindernisse für die Spawner enthält (vorerst leer).
+        std::vector<Rectangle> obstacle_list_for_spawner;
+
+        // Eine temporäre Liste, in der der Spawner seine neu erstellten Gegner (als rohe Pointer) ablegt.
+        std::vector<enemy::Enemy_Base_Class*> raw_enemy_list_for_spawner;
+
+        // Eine Liste, die alle unsere Spawner-Objekte verwaltet.
+        std::vector<std::unique_ptr<Enemy_Spawner>> spawner_list;
+        // ---------------------------------------------------------------------
 
     public:
         /**

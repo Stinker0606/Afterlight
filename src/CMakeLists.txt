@@ -20,6 +20,10 @@ add_subdirectory(scenes)
 add_executable(${PROJECT_NAME} main.cpp
         Vectors.h
         game/PlayerBaseClass.cpp
+        game/Enemys/InsectMonster.cpp
+        game/Enemys/InsectMonster.h
+        game/Spawner/Level1Spawner.cpp
+        game/Spawner/Level1Spawner.h
 )
 
 # Add config.h.in file

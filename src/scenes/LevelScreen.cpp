@@ -4,6 +4,7 @@
 #include <vector>
 #include "../config.h.in"
 #include "../game/Walls.h"
+#include "../game/Spawner/Level1Spawner.h"
 
 // Konstruktor ist identisch zur originalen Screen-Klasse
 LevelScreen::LevelScreen(int *level_Ptr) : Level_Nbr_Ptr(level_Ptr) {
@@ -108,10 +109,17 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
         return;
     }
 
-    // Verarbeite alle Objekt-Layer
-    for (auto &layer: map->getLayers()) {
-        if (layer.getType() == tson::LayerType::ObjectGroup) {
+    // Temporäre Listen für das alte Spawner-System.
+    // Wir müssen sie erstellen, auch wenn wir sie nicht direkt benutzen,
+    // weil der `EnemySpawner`-Konstruktor sie erwartet.
+    static std::vector<Rectangle> temp_obstacle_list;
+    static std::vector<enemy::Enemy_Base_Class*> temp_raw_enemy_list;
 
+    // Verarbeite alle Objekt-Layer
+    for (auto &layer: map->getLayers())
+    {
+        if (layer.getType() == tson::LayerType::ObjectGroup)
+        {
             // Lade Standard-Objekte, die die Engine bereits kennt
             if (layer.getName() == "walls") {
                 for (auto &object: layer.getObjects()) {
@@ -124,8 +132,44 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     // HIER werden wir später `else if (object.getName() == "movWall")` etc. hinzufügen
                 }
             }
-            // HIER werden wir später `else if (layer.getName() == "consumables")` etc. hinzufügen
-            // HIER werden wir später `else if (layer.getName() == "spawner")` etc. hinzufügen
+            // ---------------------------------------------------------------------
+            else if (layer.getName() == "spawner")
+            {
+                for (auto &object: layer.getObjects())
+                {
+                    if (object.getName() == "spawn1") {
+
+                        Rectangle spawner_area = {
+                            (float)object.getPosition().x,
+                            (float)object.getPosition().y,
+                            (float)object.getSize().x,
+                            (float)object.getSize().y
+                        };
+
+                        float spawn_rate = 0.5f;
+                        int max_enemies = 5;
+
+                        if(object.getProperties().hasProperty("spawn_rate"))
+                            spawn_rate = object.getProperties().getValue<float>("spawn_rate");
+                        if(object.getProperties().hasProperty("max_enemies"))
+                            max_enemies = object.getProperties().getValue<int>("max_enemies");
+
+                        // KORREKTE ERSTELLUNG:
+                        // Wir erstellen den Spawner mit `new` und übergeben ihn dann an einen `std::shared_ptr`.
+                        // Das stellt sicher, dass der korrekte 5-Argumente-Konstruktor aufgerufen wird.
+                        std::shared_ptr<Level1_Spawner> spawner_obj(new Level1_Spawner(
+                            spawner_area,
+                            temp_obstacle_list,
+                            temp_raw_enemy_list,
+                            spawn_rate,
+                            max_enemies
+                        ));
+
+                        // Füge den Spawner als `Collidable` zum ObjectManager hinzu.
+                        g_objectManager.AddObject(spawner_obj);
+                    }
+                }
+            }
         }
     }
 }

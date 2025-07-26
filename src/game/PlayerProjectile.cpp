@@ -12,8 +12,8 @@ namespace game {
               damage(damage) {
 
         // Die endgültige Geschwindigkeit wird aus Richtung und Speed berechnet
-        this->velocity.x = direction.x * game::Config::player_Class_One_Projectile_Speed;
-        this->velocity.y = direction.y * game::Config::player_Class_One_Projectile_Speed;
+        this->velocity.x = direction.x * game::Config::player_Projectile_Speed;
+        this->velocity.y = direction.y * game::Config::player_Projectile_Speed;
 
         // Lädt die Textur und erstellt die Hitbox basierend auf der Texturgröße
         this->sprite = LoadTexture(sprite_path);
