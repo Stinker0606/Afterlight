@@ -90,58 +90,47 @@ namespace game::scenes
             game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
         }
 
-        // Rufe die Tick-Methode für ALLE Objekte im Spiel auf (Spieler, Spawner, Gegner, Projektile...).
-        for (const auto& obj : objectManager.managed_objects)
-        {
+        // Rufe die Tick-Methode für ALLE Objekte im Spiel auf
+        for (const auto& obj : objectManager.managed_objects) {
             if (obj) obj->Tick(dtm.Get_Dt());
         }
 
-        // Aktualisiere deine Level-spezifischen Systeme
+        // Aktualisiere Kamera und Kollisionen
+        p_cm->Check_Collisions();
         sp_cam->Cam_Movement(dtm.Get_Dt());
-        if (fogManager.IsFogActive())
-        {
-            fogManager.Update(sp_player->Get_Player_Center(), dtm.Get_Dt());
+
+        // --- NEBEL-UPDATE (aus deinem funktionierenden Code übernommen) ---
+        // Wir müssen die WELT-Position des Spielers in BILDSCHIRM-Koordinaten umrechnen.
+        Vector2 player_world_pos = sp_player->Get_Player_Center();
+        Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, sp_cam->cam);
+
+        // Übergib die korrekten Bildschirm-Koordinaten an den FogManager.
+        if (fogManager.IsFogActive()) {
+            fogManager.Update(player_screen_pos, dtm.Get_Dt());
         }
 
-        // Prüfe alle Kollisionen für diesen Frame
-        p_cm->Check_Collisions();
-
-        // Entferne alle Objekte, die zur Zerstörung markiert wurden
+        // Aufräumen und Zeit aktualisieren
         objectManager.Cleanup_Objects();
-
-        // Aktualisiere den DeltaTime-Timer für den nächsten Frame
         dtm.Update();
     }
 
     void Level1Scene::Draw()
     {
-        // Die Engine startet das Zeichnen. Wir setzen als Erstes unsere Hintergrundfarbe.
-        ClearBackground((Color){ 0, 32, 36, 255});
+        // Die Draw-Funktion wird jetzt extrem einfach und folgt der Logik der originalen GameScene.
+        BeginDrawing();
+        ClearBackground((Color){ 0, 32, 36, 255}); // Deine Hintergrundfarbe
 
-        // Starte den 2D-Kameramodus. Ab jetzt wird alles von der Kamera beeinflusst.
+        // Zeichne die unteren Tile-Layer (der Nebel wird intern angewendet)
+        levelScreen.Draw_Level(sp_cam, false, fogManager);
+
+        // Starte einen separaten Kamera-Modus NUR für die Spiel-Objekte
         BeginMode2D(sp_cam->cam);
-
-        // Zeichne die unteren Tile-Layer.
-        levelScreen.Draw_Level(sp_cam, false);
-
-        // Zeichne alle unsere Spiel-Objekte (Spieler, Gegner, etc.).
-        for (const auto& obj : objectManager.managed_objects)
-        {
+        for (const auto& obj : objectManager.managed_objects) {
             if (obj) obj->Draw();
         }
-
-        // Zeichne die oberen Tile-Layer.
-        levelScreen.Draw_Level(sp_cam, true);
-
-        // Beende den 2D-Kameramodus.
         EndMode2D();
 
-        // Zeichne das UI und den Nebel NACH dem Kamera-Modus, damit sie am Bildschirm kleben bleiben.
-        if (fogManager.IsFogActive())
-        {
-            fogManager.BeginFogMode();
-            DrawRectangle(0, 0, game::Config::kStageWidth, game::Config::kStageHeight, BLANK);
-            fogManager.EndFogMode();
-        }
+        // Zeichne die oberen Tile-Layer (der Nebel wird intern angewendet)
+        levelScreen.Draw_Level(sp_cam, true, fogManager);
     }
 }

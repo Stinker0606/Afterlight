@@ -8,6 +8,7 @@
 #include "Cam.h"
 #include "Object_Manager.h"
 #include "CollisionManager.h"
+#include "FogManager.h"
 
 /**
  * @brief Eine erweiterte Version der Screen-Klasse der Engine.
@@ -33,7 +34,7 @@ public:
      * @param kamera Ein Shared Pointer auf das Kamera-Objekt.
      * @param aboveObjects Ein Boolean, der steuert, ob die Layer über (`true`) oder unter (`false`) den Spielobjekten gezeichnet werden.
      */
-    void Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects);
+    void Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects, FogManager& fogManager);
 
     /**
      * @brief Lädt alle Spielobjekte aus den Objekt-Layern der Tiled-Map.

@@ -46,13 +46,14 @@ void LevelScreen::Load_Levelmap() {
     }
 }
 
-// Draw_Level ist identisch
-void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
+void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects, FogManager& fogManager) {
     if (map == nullptr) {
         return;
     }
 
-    //BeginMode2D(kamera->cam);
+    // Die Kamera wird hier gestartet, genau wie im Original
+    BeginMode2D(kamera->cam);
+
     for (auto &layer: map->getLayers()) {
         if (!layer.isVisible() || layer.getType() != tson::LayerType::TileLayer) {
             continue;
@@ -67,34 +68,34 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
         if (isAbove != aboveObjects)
             continue;
 
+        // --- NEBEL-LOGIK (aus deinem funktionierenden Code übernommen) ---
+        // Starte den Nebel-Shader, BEVOR die Kacheln gezeichnet werden.
+        fogManager.BeginFogMode();
+        BeginBlendMode(BLEND_ALPHA); // Wichtig für Transparenz-Effekte
+
         auto &tile_Layer = layer.getTileData();
         for (const auto &pair: tile_Layer)
         {
+            // ... (die innere Schleife zum Zeichnen der Kacheln mit DrawTextureRec bleibt exakt gleich)
             int x = std::get<0>(pair.first);
             int y = std::get<1>(pair.first);
             tson::Tile *tile = pair.second;
-
             if (tile != nullptr) {
                 tson::Rect drawingRect = tile->getDrawingRect();
-                tson::Vector2f worldPos = {
-                        static_cast<float>(x * map->getTileSize().x),
-                        static_cast<float>(y * map->getTileSize().y)
-                };
-                Rectangle srcRect = {
-                        static_cast<float>(drawingRect.x),
-                        static_cast<float>(drawingRect.y),
-                        static_cast<float>(drawingRect.width),
-                        static_cast<float>(drawingRect.height)
-                };
-                Vector2 destPos = {
-                        static_cast<float>(worldPos.x),
-                        static_cast<float>(worldPos.y)
-                };
+                tson::Vector2f worldPos = { (float)(x * map->getTileSize().x), (float)(y * map->getTileSize().y) };
+                Rectangle srcRect = { (float)drawingRect.x, (float)drawingRect.y, (float)drawingRect.width, (float)drawingRect.height };
+                Vector2 destPos = { (float)worldPos.x, (float)worldPos.y };
                 DrawTextureRec(tileatlas_Texture, srcRect, destPos, WHITE);
             }
         }
+
+        // Beende den Nebel-Shader, NACHDEM die Kacheln gezeichnet wurden.
+        EndBlendMode();
+        fogManager.EndFogMode();
+        // --- ENDE NEBEL-LOGIK ---
     }
-    //EndMode2D();
+
+    EndMode2D();
 }
 
 // LoadGameObjects ist vorerst eine saubere Basis.
