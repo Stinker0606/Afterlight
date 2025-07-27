@@ -136,7 +136,12 @@ namespace game::scenes
         // Beende den 2D-Kameramodus.
         EndMode2D();
 
-        // HINWEIS: Der Nebel-Code ist für diesen Test komplett entfernt.
-        // Das UI würden wir hier zeichnen.
+        // Zeichne das UI und den Nebel NACH dem Kamera-Modus, damit sie am Bildschirm kleben bleiben.
+        if (fogManager.IsFogActive())
+        {
+            fogManager.BeginFogMode();
+            DrawRectangle(0, 0, game::Config::kStageWidth, game::Config::kStageHeight, BLANK);
+            fogManager.EndFogMode();
+        }
     }
 }
