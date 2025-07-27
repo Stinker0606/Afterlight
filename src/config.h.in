@@ -58,6 +58,7 @@ namespace game {
         inline static constexpr const int key_Place_Bomb = KEY_G; //PLACEHOLDER
 
         // ----------------------------------------------- PLAYER ------------------------------------------------------
+        inline static constexpr Vector2 player_visual_offset = {14, 20}; // PASSE DIESE WERTE NICHT AN!
 
         // Player General Settings
         inline static constexpr bool enable_Health_Drain = true; // HP-Drain durch Zeit an/aus
@@ -65,7 +66,6 @@ namespace game {
         inline static constexpr int Player_Hitbox_Width = 30; // Player Hitbox
         inline static constexpr int Player_Hitbox_Height = 46; // Player Hitbox
         inline static constexpr Vector2 player_animation_size = {100, 100};
-        inline static constexpr Vector2 player_visual_offset = {-34, -52}; // PASSE DIESE WERTE NICHT AN!
 
         // Player Stats
         inline static constexpr int player_Max_Health = 600;
@@ -244,7 +244,7 @@ namespace game {
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
         // Show all hitboxes
-        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
+        inline static constexpr bool kDebugShowHitboxes = true; // Set to 'true' to show all hitboxes
 
         // ------------------------------------------- LEVEL SETTINGS --------------------------------------------------
 

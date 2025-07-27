@@ -185,17 +185,14 @@ void PlayerClass::Draw()
             break;
     }
 
-    // 2. Zeichne den aktuellen Frame, korrekt zentriert auf die Hitbox.
+    // 2. Zeichne den aktuellen Frame mit der KORREKTEN Offset-Berechnung.
     if (p_current_animation)
     {
-        // Berechne die Position, an der der Sprite gezeichnet werden muss,
-        // damit die Figur korrekt in der Hitbox steht.
-
         // a) Hole die obere linke Ecke der Hitbox (unsere logische Position).
         Vector2 hitbox_position = Get_Player_Pos();
 
         // b) Addiere den visuellen Offset aus der Config.
-        // Diese Werte musst du eventuell anpassen, bis es perfekt aussieht.
+        // DIES IST DIE ENTSCHEIDENDE ZEILE, DIE GEFEHLT HAT.
         Vector2 draw_position = {
             hitbox_position.x + game::Config::player_visual_offset.x,
             hitbox_position.y + game::Config::player_visual_offset.y

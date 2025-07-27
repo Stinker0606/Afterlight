@@ -101,6 +101,59 @@ void Player_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
 	}
 }
 
+/*
+void Player_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
+{
+    Collision_Type otherType = other->Get_Collision_Type();
+
+    if (otherType == Collision_Type::WALL ||
+        otherType == Collision_Type::ENEMY_SPAWNER ||
+        otherType == Collision_Type::ENEMY)
+    {
+        // --- NEUE, ROBUSTERE KOLLISIONSLOGIK ---
+        Rectangle other_hitbox = other->Get_Hitbox();
+
+        // Berechne, wie tief die Hitboxen auf jeder Achse ineinander stecken
+        float overlap_x = std::min(hitbox.x + hitbox.width, other_hitbox.x + other_hitbox.width) - std::max(hitbox.x, other_hitbox.x);
+        float overlap_y = std::min(hitbox.y + hitbox.height, other_hitbox.y + other_hitbox.height) - std::max(hitbox.y, other_hitbox.y);
+
+        // Die Kollision fand auf der Achse mit der GERINGEREN Überlappung statt
+        if (overlap_x < overlap_y)
+        {
+            // Kollision auf der X-Achse
+            if (hitbox.x < other_hitbox.x)
+            {
+                // Spieler kam von links, also schiebe ihn nach links zurück
+                hitbox.x -= overlap_x;
+            }
+            else
+            {
+                // Spieler kam von rechts, also schiebe ihn nach rechts zurück
+                hitbox.x += overlap_x;
+            }
+        }
+        else
+        {
+            // Kollision auf der Y-Achse
+            if (hitbox.y < other_hitbox.y)
+            {
+                // Spieler kam von oben, also schiebe ihn nach oben zurück
+                hitbox.y -= overlap_y;
+            }
+            else
+            {
+                // Spieler kam von unten, also schiebe ihn nach unten zurück
+                hitbox.y += overlap_y;
+            }
+        }
+
+        // Aktualisiere die visuelle Position des Spielers, damit sie zur korrigierten Hitbox-Position passt
+        player_Pos.x = hitbox.x;
+        player_Pos.y = hitbox.y;
+    }
+}
+*/
+
 // Draw Methode ist noch nicht klar, wie das mit der Visualisierung laufen wird
 void Player_Base_Class::Draw()
 {
