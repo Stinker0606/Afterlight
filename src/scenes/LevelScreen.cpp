@@ -52,7 +52,7 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
         return;
     }
 
-    BeginMode2D(kamera->cam);
+    //BeginMode2D(kamera->cam);
     for (auto &layer: map->getLayers()) {
         if (!layer.isVisible() || layer.getType() != tson::LayerType::TileLayer) {
             continue;
@@ -94,7 +94,7 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
             }
         }
     }
-    EndMode2D();
+    //EndMode2D();
 }
 
 // LoadGameObjects ist vorerst eine saubere Basis.

@@ -100,7 +100,7 @@ namespace game::scenes
         sp_cam->Cam_Movement(dtm.Get_Dt());
         if (fogManager.IsFogActive())
         {
-           fogManager.Update(sp_player->Get_Player_Center(), dtm.Get_Dt());
+            fogManager.Update(sp_player->Get_Player_Center(), dtm.Get_Dt());
         }
 
         // Prüfe alle Kollisionen für diesen Frame
@@ -115,47 +115,28 @@ namespace game::scenes
 
     void Level1Scene::Draw()
     {
-        BeginDrawing();
-        ClearBackground((Color){ 0, 32, 36, 255}); // Deine Hintergrundfarbe
+        // Die Engine startet das Zeichnen. Wir setzen als Erstes unsere Hintergrundfarbe.
+        ClearBackground((Color){ 0, 32, 36, 255});
 
-        // Zeichne die unteren Tile-Layer
-        levelScreen.Draw_Level(sp_cam, false);
-
-        // Starte den 2D-Kameramodus
+        // Starte den 2D-Kameramodus. Ab jetzt wird alles von der Kamera beeinflusst.
         BeginMode2D(sp_cam->cam);
 
-        // Zeichne alle Spiel-Objekte
+        // Zeichne die unteren Tile-Layer.
+        levelScreen.Draw_Level(sp_cam, false);
+
+        // Zeichne alle unsere Spiel-Objekte (Spieler, Gegner, etc.).
         for (const auto& obj : objectManager.managed_objects)
         {
             if (obj) obj->Draw();
         }
 
-        // HINWEIS: Wir rufen EndMode2D() und EndDrawing() NICHT explizit auf,
-        // da die Engine dies im Hintergrund zu tun scheint.
-        // Stattdessen zeichnen wir die oberen Layer und den Nebel.
-
-        // Zeichne die oberen Tile-Layer
+        // Zeichne die oberen Tile-Layer.
         levelScreen.Draw_Level(sp_cam, true);
 
-        // Zeichne den Nebel-Shader als letzten Schritt über das gesamte Bild
-        if (fogManager.IsFogActive())
-        {
-            fogManager.BeginFogMode();
-            // Wir zeichnen ein leeres Rechteck über den Bildschirm, damit der Shader-Effekt greift
-            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLANK);
-            fogManager.EndFogMode();
+        // Beende den 2D-Kameramodus.
+        EndMode2D();
 
-        // Debug Hitboxen
-        if (game::Config::kDebugShowHitboxes)
-        {
-            for (const auto& p_object : objectManager.managed_objects)
-            {
-                if (p_object != nullptr)
-                {
-                    DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
-                }
-            }
-        }
-        }
+        // HINWEIS: Der Nebel-Code ist für diesen Test komplett entfernt.
+        // Das UI würden wir hier zeichnen.
     }
 }
