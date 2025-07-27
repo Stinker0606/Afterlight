@@ -121,6 +121,7 @@ namespace game::scenes
         ClearBackground((Color){ 0, 32, 36, 255}); // Deine Hintergrundfarbe
 
         // Zeichne die unteren Tile-Layer (der Nebel wird intern angewendet)
+        // KORREKTUR: Wir übergeben den fogManager als drittes Argument.
         levelScreen.Draw_Level(sp_cam, false, fogManager);
 
         // Starte einen separaten Kamera-Modus NUR für die Spiel-Objekte
@@ -128,9 +129,22 @@ namespace game::scenes
         for (const auto& obj : objectManager.managed_objects) {
             if (obj) obj->Draw();
         }
+
+        // DEBUG: Zeichne die Hitboxen, falls aktiviert
+        if (game::Config::kDebugShowHitboxes)
+        {
+            for (const auto& p_object : objectManager.managed_objects)
+            {
+                if (p_object != nullptr)
+                {
+                    DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+                }
+            }
+        }
         EndMode2D();
 
         // Zeichne die oberen Tile-Layer (der Nebel wird intern angewendet)
+        // KORREKTUR: Wir übergeben den fogManager als drittes Argument.
         levelScreen.Draw_Level(sp_cam, true, fogManager);
     }
 }
