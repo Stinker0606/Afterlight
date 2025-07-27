@@ -12,29 +12,22 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-
+# Füge die Unterverzeichnisse hinzu, die gebaut werden sollen
 add_subdirectory(core)
 add_subdirectory(scenes)
 
-add_executable(${PROJECT_NAME} main.cpp
-        Vectors.h
-        game/PlayerBaseClass.cpp
-        game/Enemys/InsectMonster.cpp
-        game/Enemys/InsectMonster.h
-        game/Spawner/Level1Spawner.cpp
-        game/Spawner/Level1Spawner.h
-)
+# Erstelle die finale .exe-Datei NUR aus main.cpp
+add_executable(${PROJECT_NAME} main.cpp)
 
-# Add config.h.in file
+# Füge die config.h.in Datei hinzu
 configure_file(config.h.in config.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-"${PROJECT_BINARY_DIR}"
+        "${PROJECT_BINARY_DIR}"
 )
 
-# Link to libraries
-target_link_libraries(${PROJECT_NAME} core scenes nlohmann_json::nlohmann_json)
+# Verlinke die .exe-Datei mit unseren beiden Bibliotheken
+target_link_libraries(${PROJECT_NAME} scenes)
 
 # Copy assets to assets path
 add_custom_target(copy_assets

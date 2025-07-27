@@ -116,10 +116,22 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
     static std::vector<enemy::Enemy_Base_Class*> temp_raw_enemy_list;
 
     // Verarbeite alle Objekt-Layer
-    for (auto &layer: map->getLayers())
-    {
-        if (layer.getType() == tson::LayerType::ObjectGroup)
-        {
+    for (auto &layer: map->getLayers()) {
+        if (layer.getType() == tson::LayerType::ObjectGroup) {
+
+            const std::string& layer_name = layer.getName();
+
+            // Lade den Spieler-Startpunkt
+            if (layer_name == "interactibles") {
+                for (auto &object : layer.getObjects()) {
+                    if (object.getName() == "player_start") {
+                        // HINWEIS: Wir können hier das Spielerobjekt nicht direkt erstellen,
+                        // aber wir können die Position speichern. Für den Moment ist es
+                        // wichtig, dass er überhaupt geladen wird.
+                        std::cout << "Spieler-Startpunkt gefunden bei: " << object.getPosition().x << ", " << object.getPosition().y << std::endl;
+                    }
+                }
+            }
             // Lade Standard-Objekte, die die Engine bereits kennt
             if (layer.getName() == "walls") {
                 for (auto &object: layer.getObjects()) {

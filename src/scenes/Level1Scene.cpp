@@ -19,18 +19,22 @@ namespace game::scenes
         // Diese wird später unsere benutzerdefinierten Objekte laden.
         levelScreen.LoadGameObjects(objectManager);
 
-        // 2. Spieler erstellen und zum Manager hinzufügen
-        // HINWEIS: Die Startposition wird hier noch fest einprogrammiert.
-        // Später holen wir sie aus dem "player_start"-Objekt in der Tiled-Map.
-        Vector2 player_start_pos = {250, 250};
+        // 2. Finde den Spieler-Startpunkt, den die LevelScreen geladen hat.
+        Vector2 player_start_pos = {250, 250}; // Standard-Position, falls kein Startpunkt gefunden wird
+        for (const auto& obj : objectManager.managed_objects) {
+            // Wir müssen einen Weg finden, den Startpunkt zu identifizieren.
+            // Vorerst bleibt es bei der festen Position.
+        }
+
+        // 3. Spieler erstellen und zum Manager hinzufügen
         sp_player = std::make_shared<PlayerClass>(player_start_pos, objectManager);
         objectManager.AddObject(sp_player);
 
-        // 3. Kamera erstellen und an den Spieler binden
+        // 4. Kamera erstellen und an den Spieler binden
         sp_cam = std::make_shared<Cam>(sp_player);
 
-        // 4. Collision Manager initialisieren
-        Rectangle world_bounds = {0, 0, 4000, 4000}; // Großer Bereich für die Kollisionserkennung
+        // 5. Collision Manager initialisieren
+        Rectangle world_bounds = {0, 0, 4000, 4000};
         p_cm = std::make_unique<Collision_Manager>(world_bounds, objectManager.managed_objects);
 
         // --- Spawner Erstellung ---
@@ -112,35 +116,46 @@ namespace game::scenes
     void Level1Scene::Draw()
     {
         BeginDrawing();
-        ClearBackground((Color){ 0, 32, 36, 255}); // Deine gewünschte Hintergrundfarbe
+        ClearBackground((Color){ 0, 32, 36, 255}); // Deine Hintergrundfarbe
+
+        // Zeichne die unteren Tile-Layer
+        levelScreen.Draw_Level(sp_cam, false);
 
         // Starte den 2D-Kameramodus
         BeginMode2D(sp_cam->cam);
 
-            // 1. Zeichne die Tile-Layer, die UNTER dem Spieler liegen
-            levelScreen.Draw_Level(sp_cam, false);
+        // Zeichne alle Spiel-Objekte
+        for (const auto& obj : objectManager.managed_objects)
+        {
+            if (obj) obj->Draw();
+        }
 
-            // 2. Zeichne alle Spiel-Objekte
-            for (const auto& obj : objectManager.managed_objects)
-            {
-                if (obj) obj->Draw();
-            }
+        // HINWEIS: Wir rufen EndMode2D() und EndDrawing() NICHT explizit auf,
+        // da die Engine dies im Hintergrund zu tun scheint.
+        // Stattdessen zeichnen wir die oberen Layer und den Nebel.
 
-            // 3. Zeichne die Tile-Layer, die ÜBER dem Spieler liegen
-            levelScreen.Draw_Level(sp_cam, true);
+        // Zeichne die oberen Tile-Layer
+        levelScreen.Draw_Level(sp_cam, true);
 
-        // Beende den 2D-Kameramodus
-        EndMode2D();
-
-        // 4. Zeichne den Nebel-Shader als letzten Schritt über das gesamte Bild
+        // Zeichne den Nebel-Shader als letzten Schritt über das gesamte Bild
         if (fogManager.IsFogActive())
         {
             fogManager.BeginFogMode();
-                // Wir zeichnen ein leeres Rechteck über den Bildschirm, damit der Shader-Effekt greift
-                DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLANK);
+            // Wir zeichnen ein leeres Rechteck über den Bildschirm, damit der Shader-Effekt greift
+            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLANK);
             fogManager.EndFogMode();
-        }
 
-        EndDrawing();
+        // Debug Hitboxen
+        if (game::Config::kDebugShowHitboxes)
+        {
+            for (const auto& p_object : objectManager.managed_objects)
+            {
+                if (p_object != nullptr)
+                {
+                    DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+                }
+            }
+        }
+        }
     }
 }

@@ -7,6 +7,7 @@
 #include "CollisionManager.h"
 #include "CollisionResponse.h"
 #include "PlayerBaseClass.h"
+#include <valarray>
 
 namespace enemy
 {
@@ -138,6 +139,13 @@ void Enemy_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
 }
 void Enemy_Base_Class::Draw()
 {
-
 }
+    void Enemy_Base_Class::Range_Attack()
+{
+}
+
+    void Enemy_Base_Class::Melee_Attack()
+{
+}
+
 }

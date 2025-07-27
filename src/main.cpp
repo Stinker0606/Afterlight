@@ -24,7 +24,7 @@ int main()
                           game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio,
                           game::Config::kProjectName);
 
-    game.Run("level1"s, std::make_unique<game::scenes::Level1Scene>());
+    game.Run("Test1"s, std::make_unique<game::scenes::Level1Scene>());
 
     return EXIT_SUCCESS;
 }

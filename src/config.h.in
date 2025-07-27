@@ -225,7 +225,7 @@ namespace game {
         // ------------------------------------------------ SUMPF ------------------------------------------------------
 
         // -- SPAWNERS --
-        inline static constexpr const char* kSpawnerLevel1SpritePath = "assets/graphics/spawner/spawner_outside_placeholder.png"; //PLACEHOLDER
+        inline static constexpr const char* kSpawnerLevel1SpritePath = "assets/graphics/spawner/Spawner_outside.png"; //PLACEHOLDER
 
         // Insect_Monster
         inline static constexpr int kInsectMonsterHealth = 50;
@@ -253,7 +253,7 @@ namespace game {
                 inline static std::string GetLevelMapPath(int Lvl_Nbr) {
                     switch (Lvl_Nbr) {
                         case 1:
-                            return "../../assets/Tiled/Levelmaps/Swamp_0.json";
+                            return "../../assets/Tiled/Levelmaps/Test1.json";
                         case 2:
                             return "../../assets/Tiled/Levelmaps/Swamp_1.json";
                         case 3:
