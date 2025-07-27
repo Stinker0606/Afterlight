@@ -185,13 +185,29 @@ void PlayerClass::Draw()
             break;
     }
 
-    // 2. Zeichne den aktuellen Frame mit der aktuellen Tönungsfarbe.
+    // 2. Zeichne den aktuellen Frame, korrekt zentriert auf die Hitbox.
     if (p_current_animation)
     {
-        p_current_animation->Draw_Current_Frame(player_Pos, tint_color);
+        // Berechne die Position, an der der Sprite gezeichnet werden muss,
+        // damit die Figur korrekt in der Hitbox steht.
+
+        // a) Hole die obere linke Ecke der Hitbox (unsere logische Position).
+        Vector2 hitbox_position = Get_Player_Pos();
+
+        // b) Addiere den visuellen Offset aus der Config.
+        // Diese Werte musst du eventuell anpassen, bis es perfekt aussieht.
+        Vector2 draw_position = {
+            hitbox_position.x + game::Config::player_visual_offset.x,
+            hitbox_position.y + game::Config::player_visual_offset.y
+        };
+
+        // c) Zeichne die Animation an der korrigierten Position.
+        p_current_animation->Draw_Current_Frame(draw_position, tint_color);
         p_current_animation->Next_Frame();
     }
 }
+
+
 
 void PlayerClass::Take_Damage(int damage)
 {

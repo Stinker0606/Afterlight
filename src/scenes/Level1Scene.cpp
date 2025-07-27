@@ -89,6 +89,9 @@ namespace game::scenes
         {
             game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
         }
+        if (IsKeyPressed(KEY_L)){
+            ToggleFullscreen();
+        }
 
         // Rufe die Tick-Methode für ALLE Objekte im Spiel auf
         for (const auto& obj : objectManager.managed_objects) {

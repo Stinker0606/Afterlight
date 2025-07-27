@@ -65,6 +65,7 @@ namespace game {
         inline static constexpr int Player_Hitbox_Width = 30; // Player Hitbox
         inline static constexpr int Player_Hitbox_Height = 46; // Player Hitbox
         inline static constexpr Vector2 player_animation_size = {100, 100};
+        inline static constexpr Vector2 player_visual_offset = {-34, -52}; // PASSE DIESE WERTE NICHT AN!
 
         // Player Stats
         inline static constexpr int player_Max_Health = 600;
