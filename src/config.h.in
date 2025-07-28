@@ -24,7 +24,7 @@ namespace game {
         // Define if the game uses a mouse/mouse pointer
         // The mouse position is then accessible in game::core::Store in the mouse_position attribute
         // Please do not use the Raylib function GetMousePosition()
-        inline static constexpr const bool kUseMouse = false;
+        inline static constexpr const bool kUseMouse = true;
 
         // Raylib window config flags, e.g. for resizable window and vertical synchronisation
         // Default: GAME_CONFIG_FLAGS FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT | FLAG_MSAA_4X_HINT
@@ -244,7 +244,7 @@ namespace game {
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
         // Show all hitboxes
-        inline static constexpr bool kDebugShowHitboxes = true; // Set to 'true' to show all hitboxes
+        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
 
         // ------------------------------------------- LEVEL SETTINGS --------------------------------------------------
 
