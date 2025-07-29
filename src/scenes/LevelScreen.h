@@ -34,7 +34,7 @@ public:
      * @param kamera Ein Shared Pointer auf das Kamera-Objekt.
      * @param aboveObjects Ein Boolean, der steuert, ob die Layer über (`true`) oder unter (`false`) den Spielobjekten gezeichnet werden.
      */
-    void Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects, FogManager& fogManager);
+    void Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects);
 
     /**
      * @brief Lädt alle Spielobjekte aus den Objekt-Layern der Tiled-Map.

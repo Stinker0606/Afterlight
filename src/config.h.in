@@ -5,7 +5,7 @@
 namespace game {
     class Config final {
     public:
-        inline static constexpr const char* kProjectName = "@PROJECT_NAME@";
+        inline static constexpr const char* kProjectName = "Afterlight";
         inline static constexpr const char* kProjectVersion = "@PROJECT_VERSION@";
         inline static constexpr const char* kProjectVersionMajor = "@PROJECT_VERSION_MAJOR@";
         inline static constexpr const char* kProjectVersionMinor = "@PROJECT_VERSION_MINOR@";
@@ -41,10 +41,16 @@ namespace game {
         // Defines if Raylib audio should be enabled
         inline static constexpr const bool kAudio = true;
 
-        //Cam stuff
+// ----------------------------------------------- IMPORTANT SETTINGS --------------------------------------------------
+
+        // NEBEL SETTINGS - NICHT ÄNDERN
+        inline static constexpr float kFogFullVisibilityRadius = 100.0f; // Innerhalb dieses Radius ist alles 100% sichtbar
+        inline static constexpr float kFogNoVisibilityRadius = 300.0f;   // Außerhalb dieses Radius ist alles 0% sichtbar
+
+        // Cam Settings
         inline static constexpr const int cam_start_pos_x = 0;
         inline static constexpr const int cam_start_pos_y = 0;
-        inline static constexpr const float cam_zoom = 2;
+        inline static constexpr const float cam_zoom = 2; // Nur das ändern.
 
         // Control Settings
         inline static constexpr const int key_Up = KEY_W;

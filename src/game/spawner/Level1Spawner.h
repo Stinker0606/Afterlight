@@ -1,8 +1,7 @@
 #pragma once
 
 #include "../EnemySpawner.h"
-#include <vector>
-#include <string>
+#include <raylib.h>
 
 /**
  * @brief Der Standard-Spawner für Level 1 (Sumpf).
@@ -24,19 +23,25 @@ public:
     Level1_Spawner(Rectangle spawner_Area,
                    const std::vector<Rectangle>& obstacle_List,
                    std::vector<enemy::Enemy_Base_Class*>& enemy_List,
-                   float spawn_rate,
-                   int max_enemies);
+                   float spawn_Rate,
+                   int max_Enemies);
 
     ~Level1_Spawner() override;
 
-private:
-    Texture2D spawner_sprite;
+    /**
+     * @brief Überschreibt die Tick-Methode von Collidable, um die Spawner-Logik aufzurufen.
+     * @param delta_time Die Zeit seit dem letzten Frame.
+     */
+    void Tick(float delta_time) override;
 
     /**
      * @brief Zeichnet den Spawner. Ist leer, da Spawner unsichtbar sind.
      * Erfüllt den "Vertrag" der Collidable-Basisklasse.
      */
     void Draw() override;
+
+private:
+    Texture2D spawner_sprite; // Variable für das Spawner-Sprite
 
 protected:
     /**

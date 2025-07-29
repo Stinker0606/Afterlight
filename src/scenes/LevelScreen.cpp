@@ -5,6 +5,7 @@
 #include "../config.h.in"
 #include "../game/Walls.h"
 #include "../game/Spawner/Level1Spawner.h"
+#include "../game/PushBlock.h"
 
 // Konstruktor ist identisch zur originalen Screen-Klasse
 LevelScreen::LevelScreen(int *level_Ptr) : Level_Nbr_Ptr(level_Ptr) {
@@ -46,14 +47,12 @@ void LevelScreen::Load_Levelmap() {
     }
 }
 
-void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects, FogManager& fogManager) {
+void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
     if (map == nullptr) {
         return;
     }
 
-    // Die Kamera wird hier gestartet, genau wie im Original
-    BeginMode2D(kamera->cam);
-
+    // Die Funktion kümmert sich NUR noch um das Zeichnen der Kacheln.
     for (auto &layer: map->getLayers()) {
         if (!layer.isVisible() || layer.getType() != tson::LayerType::TileLayer) {
             continue;
@@ -68,15 +67,8 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects, Fog
         if (isAbove != aboveObjects)
             continue;
 
-        // --- NEBEL-LOGIK (aus deinem funktionierenden Code übernommen) ---
-        // Starte den Nebel-Shader, BEVOR die Kacheln gezeichnet werden.
-        fogManager.BeginFogMode();
-        BeginBlendMode(BLEND_ALPHA); // Wichtig für Transparenz-Effekte
-
         auto &tile_Layer = layer.getTileData();
-        for (const auto &pair: tile_Layer)
-        {
-            // ... (die innere Schleife zum Zeichnen der Kacheln mit DrawTextureRec bleibt exakt gleich)
+        for (const auto &pair: tile_Layer) {
             int x = std::get<0>(pair.first);
             int y = std::get<1>(pair.first);
             tson::Tile *tile = pair.second;
@@ -88,14 +80,7 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects, Fog
                 DrawTextureRec(tileatlas_Texture, srcRect, destPos, WHITE);
             }
         }
-
-        // Beende den Nebel-Shader, NACHDEM die Kacheln gezeichnet wurden.
-        EndBlendMode();
-        fogManager.EndFogMode();
-        // --- ENDE NEBEL-LOGIK ---
     }
-
-    EndMode2D();
 }
 
 // LoadGameObjects ist vorerst eine saubere Basis.
@@ -122,65 +107,61 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
 
             const std::string& layer_name = layer.getName();
 
-            // Lade den Spieler-Startpunkt
-            if (layer_name == "interactibles") {
-                for (auto &object : layer.getObjects()) {
-                    if (object.getName() == "player_start") {
-                        // HINWEIS: Wir können hier das Spielerobjekt nicht direkt erstellen,
-                        // aber wir können die Position speichern. Für den Moment ist es
-                        // wichtig, dass er überhaupt geladen wird.
-                        std::cout << "Spieler-Startpunkt gefunden bei: " << object.getPosition().x << ", " << object.getPosition().y << std::endl;
+            // Gehe durch jedes einzelne Objekt auf dem aktuellen Layer
+            for (auto &object: layer.getObjects()) {
+
+                // 1. Erstelle einen leeren "Behälter", der unser neues Objekt aufnehmen wird.
+                std::shared_ptr<Collidable> new_object = nullptr;
+
+                // 2. Finde heraus, welches Objekt wir erstellen sollen, basierend auf seinem Namen in Tiled.
+                const std::string& object_name = object.getName();
+
+                // --- Logik für die verschiedenen Objekt-Typen ---
+                if (object_name == "walls") {
+                    Vector2 temp_pos = { (float)object.getPosition().x, (float)object.getPosition().y };
+                    Vector2 temp_size = { (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<Walls>(temp_pos, temp_size);
+                }
+                else if (object_name == "movWall") {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
+                        if (tile) {
+                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+                            new_object = std::make_shared<Push_Block>(pos, this->tileatlas_Texture, source_rect);
+                        }
                     }
                 }
-            }
-            // Lade Standard-Objekte, die die Engine bereits kennt
-            if (layer.getName() == "walls") {
-                for (auto &object: layer.getObjects()) {
-                    // Wir prüfen hier den OBJEKT-NAMEN, nicht den Layer-Namen!
-                    if (object.getName() == "walls") {
-                        Vector2 temp_pos = { (float)object.getPosition().x, (float)object.getPosition().y };
-                        Vector2 temp_size = { (float)object.getSize().x, (float)object.getSize().y };
-                        g_objectManager.AddObject(std::make_shared<Walls>(temp_pos, temp_size));
-                    }
-                    // HIER werden wir später `else if (object.getName() == "movWall")` etc. hinzufügen
+                else if (object_name == "spawn1") {
+                    Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    float spawn_rate = 0.5f;
+                    int max_enemies = 5;
+                    if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
+                    if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
+                    new_object = std::shared_ptr<Level1_Spawner>(new Level1_Spawner(spawner_area, temp_obstacle_list, temp_raw_enemy_list, spawn_rate, max_enemies));
                 }
-            }
-            // ---------------------------------------------------------------------
-            else if (layer.getName() == "spawner")
-            {
-                for (auto &object: layer.getObjects())
-                {
-                    if (object.getName() == "spawn1") {
+                else if (object_name == "player_start") {
+                    // Der Spieler-Startpunkt ist ein spezieller Fall. Er ist kein 'Collidable'-Objekt,
+                    // das wir dem ObjectManager hinzufügen. Wir lesen hier nur seine Position.
+                    // Die eigentliche Logik, den Spieler dort zu platzieren, kommt später in die Level1Scene.
+                    std::cout << "Spieler-Startpunkt gefunden bei: " << object.getPosition().x << ", " << object.getPosition().y << std::endl;
+                }
 
-                        Rectangle spawner_area = {
-                            (float)object.getPosition().x,
-                            (float)object.getPosition().y,
-                            (float)object.getSize().x,
-                            (float)object.getSize().y
-                        };
-
-                        float spawn_rate = 0.5f;
-                        int max_enemies = 5;
-
-                        if(object.getProperties().hasProperty("spawn_rate"))
-                            spawn_rate = object.getProperties().getValue<float>("spawn_rate");
-                        if(object.getProperties().hasProperty("max_enemies"))
-                            max_enemies = object.getProperties().getValue<int>("max_enemies");
-
-                        // KORREKTE ERSTELLUNG:
-                        // Wir erstellen den Spawner mit `new` und übergeben ihn dann an einen `std::shared_ptr`.
-                        // Das stellt sicher, dass der korrekte 5-Argumente-Konstruktor aufgerufen wird.
-                        std::shared_ptr<Level1_Spawner> spawner_obj(new Level1_Spawner(
-                            spawner_area,
-                            temp_obstacle_list,
-                            temp_raw_enemy_list,
-                            spawn_rate,
-                            max_enemies
-                        ));
-
-                        // Füge den Spawner als `Collidable` zum ObjectManager hinzu.
-                        g_objectManager.AddObject(spawner_obj);
+                // 3. Wenn ein Objekt erfolgreich erstellt wurde (also kein player_start war)...
+                if (new_object != nullptr) {
+                    // ...prüfen wir, ob es die "useFog"-Eigenschaft in Tiled hat.
+                    if (object.getProperties().hasProperty("useFog")) {
+                        bool use_fog_property = object.getProperties().getValue<bool>("useFog");
+                        // Wir geben diese Information an das Spiel-Objekt weiter.
+                        new_object->Set_Use_Fog(use_fog_property);
                     }
+                    // 4. Erst jetzt, nachdem alles konfiguriert ist, fügen wir das fertige Objekt zum Spiel hinzu.
+                    g_objectManager.AddObject(new_object);
                 }
             }
         }

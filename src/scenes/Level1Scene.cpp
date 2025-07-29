@@ -123,12 +123,16 @@ namespace game::scenes
         BeginDrawing();
         ClearBackground((Color){ 0, 32, 36, 255}); // Deine Hintergrundfarbe
 
-        // Zeichne die unteren Tile-Layer (der Nebel wird intern angewendet)
-        // KORREKTUR: Wir übergeben den fogManager als drittes Argument.
-        levelScreen.Draw_Level(sp_cam, false, fogManager);
-
-        // Starte einen separaten Kamera-Modus NUR für die Spiel-Objekte
+        /// 1. Starte den Kamera-Modus
         BeginMode2D(sp_cam->cam);
+
+        // 2. Starte den Nebel-Shader
+        fogManager.BeginFogMode();
+
+        // 3. Zeichne die unteren Tile-Layer
+        levelScreen.Draw_Level(sp_cam, false);
+
+        // 4. Zeichne alle Spiel-Objekte (Spieler, Spawner, movWall, etc.)
         for (const auto& obj : objectManager.managed_objects) {
             if (obj) obj->Draw();
         }
@@ -144,10 +148,17 @@ namespace game::scenes
                 }
             }
         }
+
+        // 5. Zeichne die oberen Tile-Layer
+        levelScreen.Draw_Level(sp_cam, true);
+
+        // 6. Beende den Nebel-Shader
+        fogManager.EndFogMode();
+
+        // 7. Beende den Kamera-Modus
         EndMode2D();
 
-        // Zeichne die oberen Tile-Layer (der Nebel wird intern angewendet)
-        // KORREKTUR: Wir übergeben den fogManager als drittes Argument.
-        levelScreen.Draw_Level(sp_cam, true, fogManager);
+        // Hier würde später das UI gezeichnet werden, das nicht vom Nebel betroffen sein soll.
+
     }
 }
