@@ -20,18 +20,23 @@ namespace enemy
         ~Insect_Monster() override = default;
 
         /**
-         * @brief Die Tick-Methode wird jeden Frame aufgerufen.
+         * @brief Die Update-Methode wird jeden Frame aufgerufen.
          * Hier wird die KI gesteuert (z.B. wann der Gegner angreift).
          * @param delta_time Die Zeit seit dem letzten Frame.
          * @param player_position Die aktuelle Position des Spielers.
          */
-        void Tick(float delta_time, Vector2 player_position);
+        void Update_AI(float delta_time, Vector2 player_position) override;
+
+        //  Wir implementieren die Angriffsfunktionen
+        void Melee_Attack() override;
+        void Range_Attack() override;
 
         /**
          * @brief Erfüllt den Vertrag der Collidable-Klasse.
          * Leitet den Aufruf an die KI-Tick-Methode weiter.
          */
         void Tick(float delta_time) override;
+
 
         /**
          * @brief Zeichnet das Insektenmonster.

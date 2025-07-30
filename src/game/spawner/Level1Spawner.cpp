@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../enemys/InsectMonster.h"
+#include "../enemys/enemies_list.h"
 #include "../../config.h.in"
 
 Level1_Spawner::Level1_Spawner(Rectangle spawner_Area,

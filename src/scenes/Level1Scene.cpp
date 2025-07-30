@@ -7,6 +7,8 @@
 #include "../config.h.in"
 #include "../game/Walls.h"
 #include "../game/spawner/Level1Spawner.h"
+#include "../game/enemys/enemies_list.h"
+
 
 using namespace std::string_literals;
 
@@ -94,9 +96,25 @@ namespace game::scenes
             ToggleFullscreen();
         }
 
-        // Rufe die Tick-Methode für ALLE Objekte im Spiel auf
-        for (const auto& obj : objectManager.managed_objects) {
-            if (obj) obj->Tick(dtm.Get_Dt());
+        // Hole die Spielerposition EINMAL am Anfang des Frames.
+        Vector2 player_position = sp_player->Get_Player_Center();
+
+        // --- INTELLIGENTE UPDATE-SCHLEIFE ---
+        for (const auto& obj : objectManager.managed_objects)
+        {
+            if (!obj) continue;
+
+            // 1. Versuche, das Objekt in einen Gegner umzuwandeln
+            if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(obj))
+            {
+                // 2. Rufe die spezifische KI jedes Gegners auf, ohne seinen Typ zu kennen!
+                enemy->Update_AI(dtm.Get_Dt(), player_position);
+            }
+            else
+            {
+                // 3. WENN es KEIN Gegner ist, rufe die normale Tick-Methode auf.
+                obj->Tick(dtm.Get_Dt());
+            }
         }
 
         // --- "Nebel -> useFog "-Logik ---

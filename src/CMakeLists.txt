@@ -21,6 +21,7 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 # Füge die config.h.in Datei hinzu
 configure_file(config.h.in config.h)
+configure_file(config_enemies.h.in config_enemies.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         "${PROJECT_BINARY_DIR}"

@@ -1,3 +1,4 @@
+/*
 #include "GameScene.h"
 #include <memory>
 #include <string>
@@ -62,3 +63,4 @@ void game::scenes::GameScene::Draw()
     }
     screen.Draw_Level(this->cam, true);
 }
+*/

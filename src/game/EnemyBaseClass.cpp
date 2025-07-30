@@ -4,6 +4,9 @@
 
 #include <valarray>
 #include "EnemyBaseClass.h"
+
+#include <iostream>
+
 #include "CollisionManager.h"
 #include "CollisionResponse.h"
 #include "PlayerBaseClass.h"
@@ -39,10 +42,14 @@ void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Positio
     // Berechnet die exakte Distanz zum Ziel.
     float distance_To_Target = std::sqrt(delta_Vector_X * delta_Vector_X + delta_Vector_Y * delta_Vector_Y);
 
+    // Wir holen uns die Angriffsreichweite.
+    float attack_Range = 42.0; // 1,25 Tiles +-
+
     // Sicherheitscheck, um eine Division durch Null (Fehler den ich bei meinem Test oft hatte) zu verhindern.
     // Die Bewegung wird nur ausgeführt, wenn der Gegner sein Ziel noch nicht erreicht hat.
-    if (distance_To_Target > 0.01f)
+    if (distance_To_Target > attack_Range)
     {
+        is_Moving = true; // Der Gegner will sich bewegen
         // Normalisiert den Vektor: Macht den Pfeil zur reinen Richtung, indem seine Länge auf 1 gekürzt wird.
         // Dies ist der entscheidende Schritt für eine konstante Geschwindigkeit.
         float normalized_Direction_X = delta_Vector_X / distance_To_Target;
@@ -59,7 +66,11 @@ void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Positio
         this->hitbox.y += normalized_Direction_Y * movement_Step_Size;
 
     }
-    is_Moving= true;
+    else
+    {
+        // Wenn du in Reichweite bist, bewege dich nicht.
+        is_Moving = false;
+    }
 }
 
 //Core Methoden
@@ -146,6 +157,11 @@ void Enemy_Base_Class::Draw()
 
     void Enemy_Base_Class::Melee_Attack()
 {
+    // Hier wird später die Logik für den Sweep-Angriff implementiert
+    // (z.B. eine temporäre Hitbox vor dem Gegner erstellen).
+
+    // Setze den Cooldown zurück, damit der Gegner nicht sofort wieder angreift.
+    this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
 }
 
 }

@@ -56,6 +56,7 @@ add_library(core STATIC
         ../game/CollisionResponse.cpp
         ../game/PushBlock.cpp
         ../game/PushBlock.h
+        ../game/enemys/enemies_list.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
