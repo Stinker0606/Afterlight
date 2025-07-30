@@ -1,40 +1,48 @@
 #include "InsectMonster.h"
-#include "../config.h.in"
+#include "../../config.h.in"
 
 namespace enemy
 {
-    // Der Konstruktor ruft den Konstruktor der Basisklasse mit den Werten aus der Config auf.
     Insect_Monster::Insect_Monster(Vector2 start_position)
         : Enemy_Base_Class(
-            "Insect Monster", // Name
+            "Insect Monster",
             game::Config::kInsectMonsterHealth,
             game::Config::kInsectMonsterMovementSpeed,
             game::Config::kInsectMonsterDamage,
             game::Config::kInsectMonsterValue,
             game::Config::kInsectMonsterSpritePath,
-            nullptr, // Kein Projektil-Sprite, da Nahkämpfer
+            nullptr,
             start_position,
             game::Config::kInsectMonsterHitboxWidth,
             game::Config::kInsectMonsterHitboxHeight,
             game::Config::kInsectMonsterAttackCooldown
           )
-    {
-        // Hier können später noch spezifische Initialisierungen für das Insektenmonster hin.
-    }
+    {}
 
     void Insect_Monster::Tick(float delta_time, Vector2 player_position)
     {
-        // Rufe die Standard-Tick-Methode der Basisklasse auf (z.B. für Cooldowns)
+        // Rufe zuerst die Basis-Tick-Funktion auf (z.B. für Cooldowns)
         Enemy_Base_Class::Tick(delta_time);
 
-        // Nutze die Pathfinding-Methode der Basisklasse, um dem Spieler zu folgen.
+        // Führe dann die Pathfinding-Logik aus, um dem Spieler zu folgen.
         Pathfinding(player_position.x, player_position.y, delta_time);
+    }
+
+    // NEU: Implementierung der fehlenden Tick-Funktion
+    void Insect_Monster::Tick(float delta_time)
+    {
+        // Die allgemeine Update-Schleife ruft diese Funktion auf.
+        // Da wir hier die Spielerposition nicht kennen, rufen wir unsere KI-Tick-Funktion
+        // mit einer Platzhalter-Position auf. Die eigentliche Verfolgung wird von der
+        // Level1Scene gesteuert, die die detailliertere Tick-Funktion aufruft.
+        Tick(delta_time, Vector2{0, 0});
     }
 
     void Insect_Monster::Draw()
     {
-        // Vorerst zeichnen wir nur ein einfaches Rechteck als Platzhalter.
-        // Später kommt hier die Animationslogik hin.
-        DrawRectangleRec(this->hitbox, VIOLET);
+        if (sprite.id > 0)
+        {
+            DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
+        }
     }
 }

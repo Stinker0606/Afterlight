@@ -84,39 +84,24 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
 }
 
 // LoadGameObjects ist vorerst eine saubere Basis.
-// HIER werden wir in Phase 1.3 unsere Erweiterungen für Spawner, Items etc. einfügen.
 void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
     if (!this->loaded){
         Load_Levelmap();
-        this->loaded = true; // Sicherstellen, dass die Map nur einmal geladen wird
+        this->loaded = true;
     }
-    if (map == nullptr) {
-        std::cerr << "Kann Spielobjekte nicht laden: Karte ist nicht geladen" << std::endl;
-        return;
-    }
+    if (map == nullptr) { return; }
 
-    // Temporäre Listen für das alte Spawner-System.
-    // Wir müssen sie erstellen, auch wenn wir sie nicht direkt benutzen,
-    // weil der `EnemySpawner`-Konstruktor sie erwartet.
     static std::vector<Rectangle> temp_obstacle_list;
     static std::vector<enemy::Enemy_Base_Class*> temp_raw_enemy_list;
 
-    // Verarbeite alle Objekt-Layer
     for (auto &layer: map->getLayers()) {
         if (layer.getType() == tson::LayerType::ObjectGroup) {
 
-            const std::string& layer_name = layer.getName();
-
-            // Gehe durch jedes einzelne Objekt auf dem aktuellen Layer
             for (auto &object: layer.getObjects()) {
 
-                // 1. Erstelle einen leeren "Behälter", der unser neues Objekt aufnehmen wird.
                 std::shared_ptr<Collidable> new_object = nullptr;
-
-                // 2. Finde heraus, welches Objekt wir erstellen sollen, basierend auf seinem Namen in Tiled.
                 const std::string& object_name = object.getName();
 
-                // --- Logik für die verschiedenen Objekt-Typen ---
                 if (object_name == "walls") {
                     Vector2 temp_pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                     Vector2 temp_size = { (float)object.getSize().x, (float)object.getSize().y };
@@ -139,28 +124,20 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                 }
                 else if (object_name == "spawn1") {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
-                    float spawn_rate = 0.5f;
-                    int max_enemies = 5;
+                    float spawn_rate = game::Config::kSpawnRateSpawn1;
+                    int max_enemies = game::Config::kMaxEnemiesSpawn1;
                     if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
                     if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
-                    new_object = std::shared_ptr<Level1_Spawner>(new Level1_Spawner(spawner_area, temp_obstacle_list, temp_raw_enemy_list, spawn_rate, max_enemies));
+                    new_object = std::shared_ptr<Level1_Spawner>(new Level1_Spawner(spawner_area, temp_obstacle_list, temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager));
                 }
                 else if (object_name == "player_start") {
-                    // Der Spieler-Startpunkt ist ein spezieller Fall. Er ist kein 'Collidable'-Objekt,
-                    // das wir dem ObjectManager hinzufügen. Wir lesen hier nur seine Position.
-                    // Die eigentliche Logik, den Spieler dort zu platzieren, kommt später in die Level1Scene.
                     std::cout << "Spieler-Startpunkt gefunden bei: " << object.getPosition().x << ", " << object.getPosition().y << std::endl;
                 }
 
-                // 3. Wenn ein Objekt erfolgreich erstellt wurde (also kein player_start war)...
                 if (new_object != nullptr) {
-                    // ...prüfen wir, ob es die "useFog"-Eigenschaft in Tiled hat.
                     if (object.getProperties().hasProperty("useFog")) {
-                        bool use_fog_property = object.getProperties().getValue<bool>("useFog");
-                        // Wir geben diese Information an das Spiel-Objekt weiter.
-                        new_object->Set_Use_Fog(use_fog_property);
+                        new_object->Set_Use_Fog(object.getProperties().getValue<bool>("useFog"));
                     }
-                    // 4. Erst jetzt, nachdem alles konfiguriert ist, fügen wir das fertige Objekt zum Spiel hinzu.
                     g_objectManager.AddObject(new_object);
                 }
             }

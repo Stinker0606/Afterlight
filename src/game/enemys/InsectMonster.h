@@ -28,6 +28,12 @@ namespace enemy
         void Tick(float delta_time, Vector2 player_position);
 
         /**
+         * @brief Erfüllt den Vertrag der Collidable-Klasse.
+         * Leitet den Aufruf an die KI-Tick-Methode weiter.
+         */
+        void Tick(float delta_time) override;
+
+        /**
          * @brief Zeichnet das Insektenmonster.
          * Hier wird später die Animationslogik implementiert.
          */

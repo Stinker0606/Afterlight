@@ -27,11 +27,11 @@ protected:
     Rectangle hitbox;
     bool is_Marked_For_Destruction = false;
 
-    // NEU: Eigenschaften für die "Nebel"-Mechanik
+    // Eigenschaften für die "Nebel"-Mechanik
     // ---------------------------------------------------------------------
     // Bestimmt, ob dieses Objekt von der Nebel-Mechanik betroffen ist.
     // Wird in Tiled über die Custom Property "useFog" gesteuert.
-    bool use_fog = false;
+    bool useFog = false;
 
     // Bestimmt die aktuelle Sichtbarkeit (Transparenz) des Objekts.
     // 1.0f = voll sichtbar, 0.0f = komplett unsichtbar.
@@ -55,9 +55,9 @@ public:
     // ---------------------------------------------------------------------
     /**
      * @brief Setzt ob dieses Objekt vom Nebel betroffen sein soll.
-     * @param use_fog True, wenn es betroffen sein soll, sonst false.
+     * @param usefog True, wenn es betroffen sein soll, sonst false.
      */
-    void Set_Use_Fog(bool use_fog) { this->use_fog = use_fog; }
+    void Set_Use_Fog(bool use_fog_value) { this->useFog = use_fog_value; }
 
     /**
      * @brief Setzt die aktuelle Sichtbarkeit (Transparenz) des Objekts.
@@ -68,7 +68,7 @@ public:
     /**
      * @brief Gibt zurück ob dieses Objekt vom Nebel betroffen ist.
      */
-    bool Get_Use_Fog() const { return this->use_fog; }
+    bool Get_Use_Fog() const { return this->useFog; }
     // ---------------------------------------------------------------------
 };
 #endif //COLLIDABLE_H

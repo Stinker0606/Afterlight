@@ -232,7 +232,11 @@ namespace game {
         // ------------------------------------------------ SUMPF ------------------------------------------------------
 
         // -- SPAWNERS --
+
+        // Spawn1
         inline static constexpr const char* kSpawnerLevel1SpritePath = "assets/graphics/spawner/Spawner_outside.png"; //PLACEHOLDER
+        inline static constexpr int kMaxEnemiesSpawn1 = 5;
+        inline static constexpr float kSpawnRateSpawn1 = 300.0f;
 
         // Insect_Monster
         inline static constexpr int kInsectMonsterHealth = 50;
@@ -241,9 +245,9 @@ namespace game {
         inline static constexpr float kInsectMonsterAttackCooldown = 1.0f; // 1 Angriff pro Sekunde
         inline static constexpr float kInsectMonsterAttackRange = 48.0f; // Entspricht 1.5 Tiles
         inline static constexpr int kInsectMonsterValue = 15; // Punkte für den Kill
-        inline static constexpr const char* kInsectMonsterSpritePath = "assets/graphics/enemies/insect_monster.png"; //PLACEHOLDER
+        inline static constexpr const char* kInsectMonsterSpritePath = "assets/graphics/kRaoKr_imresizer.png"; //PLACEHOLDER
         inline static constexpr int kInsectMonsterHitboxWidth = 32; // Platzhalter
-        inline static constexpr int kInsectMonsterHitboxHeight = 48; // Platzhalter
+        inline static constexpr int kInsectMonsterHitboxHeight = 32; // Platzhalter
 
 
 

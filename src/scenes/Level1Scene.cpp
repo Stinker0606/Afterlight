@@ -57,7 +57,8 @@ namespace game::scenes
             obstacle_list_for_spawner,
             raw_enemy_list_for_spawner,
             spawn_rate,
-            max_enemies
+            max_enemies,
+            objectManager
         ));
 
         // --- NEBEL-INITIALISIERUNG ---
@@ -96,6 +97,22 @@ namespace game::scenes
         // Rufe die Tick-Methode für ALLE Objekte im Spiel auf
         for (const auto& obj : objectManager.managed_objects) {
             if (obj) obj->Tick(dtm.Get_Dt());
+        }
+
+        // --- "Nebel -> useFog "-Logik ---
+        Vector2 player_center = sp_player->Get_Player_Center();
+        for (const auto& obj : objectManager.managed_objects) {
+            if (obj && obj->Get_Use_Fog()) { // Prüfe, ob das Objekt betroffen sein soll
+                Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                float distance = Vector2Distance(player_center, obj_center);
+                float alpha = 1.0f;
+                if (distance > game::Config::kFogFullVisibilityRadius) {
+                    alpha = 1.0f - (distance - game::Config::kFogFullVisibilityRadius) / (game::Config::kFogNoVisibilityRadius - game::Config::kFogFullVisibilityRadius);
+                }
+                obj->Set_Visibility_Alpha(Clamp(alpha, 0.0f, 1.0f));
+            } else if (obj) {
+                obj->Set_Visibility_Alpha(1.0f); // Setze alle anderen Objekte auf voll sichtbar
+            }
         }
 
         // Aktualisiere Kamera und Kollisionen
@@ -137,7 +154,13 @@ namespace game::scenes
             if (obj) obj->Draw();
         }
 
-        // DEBUG: Zeichne die Hitboxen, falls aktiviert
+        // 5. Zeichne die oberen Tile-Layer
+        levelScreen.Draw_Level(sp_cam, true);
+
+        // 6. Beende den Nebel-Shader
+        fogManager.EndFogMode();
+
+        // 7. DEBUG: Zeichne die Hitboxen, falls aktiviert
         if (game::Config::kDebugShowHitboxes)
         {
             for (const auto& p_object : objectManager.managed_objects)
@@ -149,13 +172,7 @@ namespace game::scenes
             }
         }
 
-        // 5. Zeichne die oberen Tile-Layer
-        levelScreen.Draw_Level(sp_cam, true);
-
-        // 6. Beende den Nebel-Shader
-        fogManager.EndFogMode();
-
-        // 7. Beende den Kamera-Modus
+        // 8. Beende den Kamera-Modus
         EndMode2D();
 
         // Hier würde später das UI gezeichnet werden, das nicht vom Nebel betroffen sein soll.
