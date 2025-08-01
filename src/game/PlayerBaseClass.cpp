@@ -67,6 +67,14 @@ void Player_Base_Class::Tick(float delta_time)
 
     hitbox.x += (move_Direction.x * player_Movement_Speed * delta_time);
     hitbox.y += (move_Direction.y * player_Movement_Speed * delta_time);
+
+    // --- Spieler an die Weltgrenzen klemmen ---
+    if (hitbox.x < game::Config::kWorldBoundsMinX) hitbox.x = game::Config::kWorldBoundsMinX;
+    if (hitbox.y < game::Config::kWorldBoundsMinY) hitbox.y = game::Config::kWorldBoundsMinY;
+    if (hitbox.x + hitbox.width > game::Config::kWorldBoundsMaxX) hitbox.x = game::Config::kWorldBoundsMaxX - hitbox.width;
+    if (hitbox.y + hitbox.height > game::Config::kWorldBoundsMaxY) hitbox.y = game::Config::kWorldBoundsMaxY - hitbox.height;
+
+
     player_Pos.x=hitbox.x;
     player_Pos.y=hitbox.y;
 

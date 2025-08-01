@@ -117,25 +117,30 @@ namespace game::scenes
             }
         }
 
-        // --- "Nebel -> useFog "-Logik ---
-        Vector2 player_center = sp_player->Get_Player_Center();
-        for (const auto& obj : objectManager.managed_objects) {
-            if (obj && obj->Get_Use_Fog()) { // Prüfe, ob das Objekt betroffen sein soll
-                Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
-                float distance = Vector2Distance(player_center, obj_center);
-                float alpha = 1.0f;
-                if (distance > game::Config::kFogFullVisibilityRadius) {
-                    alpha = 1.0f - (distance - game::Config::kFogFullVisibilityRadius) / (game::Config::kFogNoVisibilityRadius - game::Config::kFogFullVisibilityRadius);
-                }
-                obj->Set_Visibility_Alpha(Clamp(alpha, 0.0f, 1.0f));
-            } else if (obj) {
-                obj->Set_Visibility_Alpha(1.0f); // Setze alle anderen Objekte auf voll sichtbar
-            }
-        }
-
         // Aktualisiere Kamera und Kollisionen
         p_cm->Check_Collisions();
         sp_cam->Cam_Movement(dtm.Get_Dt());
+
+        // --- KAMERA-BEGRENZUNG ---
+        {
+            // 1. Hole die halbe Bildschirmgröße. Die Kamera schaut von der Mitte aus.
+            float screen_half_width = game::Config::kStageWidth / 2.0f;
+            float screen_half_height = game::Config::kStageHeight / 2.0f;
+
+            // 2. Berücksichtige den Zoom-Faktor. Bei Zoom 2.0 ist das Sichtfeld halb so groß.
+            float zoomed_half_width = screen_half_width / sp_cam->cam.zoom;
+            float zoomed_half_height = screen_half_height / sp_cam->cam.zoom;
+
+            // 3. Berechne die minimal und maximal erlaubten Koordinaten für das KAMERA-ZIEL.
+            float min_cam_x = game::Config::kWorldBoundsMinX + zoomed_half_width;
+            float max_cam_x = game::Config::kWorldBoundsMaxX - zoomed_half_width;
+            float min_cam_y = game::Config::kWorldBoundsMinY + zoomed_half_height;
+            float max_cam_y = game::Config::kWorldBoundsMaxY - zoomed_half_height;
+
+            // 4. "Klemme" die aktuelle Zielposition der Kamera an diese Grenzen.
+            sp_cam->cam.target.x = Clamp(sp_cam->cam.target.x, min_cam_x, max_cam_x);
+            sp_cam->cam.target.y = Clamp(sp_cam->cam.target.y, min_cam_y, max_cam_y);
+        }
 
         // --- NEBEL-UPDATE (aus deinem funktionierenden Code übernommen) ---
         // Wir müssen die WELT-Position des Spielers in BILDSCHIRM-Koordinaten umrechnen.
