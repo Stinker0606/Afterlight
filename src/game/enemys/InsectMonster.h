@@ -16,7 +16,7 @@ namespace enemy
          * @brief Konstruktor für das Insektenmonster.
          * @param start_position Die Position, an der der Gegner gespawnt wird.
          */
-        Insect_Monster(Vector2 start_position);
+        Insect_Monster(Vector2 start_position, bool use_fog = true);
         ~Insect_Monster() override = default;
 
         /**

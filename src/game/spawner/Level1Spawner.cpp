@@ -63,5 +63,5 @@ void Level1_Spawner::Draw()
 
 enemy::Enemy_Base_Class* Level1_Spawner::createEnemy(Vector2 position)
 {
-    return new enemy::Insect_Monster(position);
+    return new enemy::Insect_Monster(position, true);
 }

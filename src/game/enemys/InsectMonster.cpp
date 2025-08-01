@@ -7,7 +7,7 @@
 
 namespace enemy
 {
-    Insect_Monster::Insect_Monster(Vector2 start_position)
+    Insect_Monster::Insect_Monster(Vector2 start_position, bool use_fog)
         : Enemy_Base_Class(
             "Insect Monster",
             game::Config::kInsectMonsterHealth,
@@ -21,7 +21,9 @@ namespace enemy
             game::Config::kInsectMonsterHitboxHeight,
             game::Config::kInsectMonsterAttackCooldown
           )
-    {}
+    {
+        this->useFog = true;
+    }
 
     void Insect_Monster::Update_AI(float delta_time, Vector2 player_position)
     {

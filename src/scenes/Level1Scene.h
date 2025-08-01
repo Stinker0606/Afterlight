@@ -34,6 +34,9 @@ namespace game::scenes
         // --- Deine eigenen Systeme für diesen Level ---
         FogManager fogManager;
 
+        // Eine RenderTexture, die als unsere "Nebel-Maske" dient.
+        RenderTexture2D fogMaskTexture;
+
         // --- Level-spezifische Daten ---
         int level_Nbr = 1;
         LevelScreen levelScreen{&level_Nbr}; // Wir benutzen unsere erweiterbare LevelScreen

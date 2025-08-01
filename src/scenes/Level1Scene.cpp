@@ -65,24 +65,28 @@ namespace game::scenes
 
         // --- NEBEL-INITIALISIERUNG ---
 
-        // 1. Hole den vollständigen Pfad der aktuellen Level-Map aus der Config.
+        // 6.1 Initialisiere die fogMaskTexture
+        this->fogMaskTexture = LoadRenderTexture(game::Config::kStageWidth, game::Config::kStageHeight);
+
+        // 6.2 Hole den vollständigen Pfad der aktuellen Level-Map aus der Config.
         std::string map_path = game::Config::GetLevelMapPath(this->level_Nbr);
 
-        // 2. Extrahiere nur den Dateinamen aus dem Pfad (z.B. "Swamp_0.json").
+        // 6.3 Extrahiere nur den Dateinamen aus dem Pfad (z.B. "Swamp_0.json").
         // Dein FogManager erwartet nur den Namen, nicht den ganzen Pfad.
         std::string map_filename = map_path.substr(map_path.find_last_of("/\\") + 1);
 
-        // 3. Initialisiere den FogManager mit dem dynamischen Map-Namen.
+        // 6.4 Initialisiere den FogManager mit dem dynamischen Map-Namen.
         fogManager.InitializeFog(map_filename, {(float)game::Config::kStageWidth, (float)game::Config::kStageHeight});
         // -----------------------------------------
 
-        // 6. Zeitmessung starten
+        // 7. Zeitmessung starten
         dtm.Start();
     }
 
     Level1Scene::~Level1Scene()
     {
-        // Hier kommt später Aufräumcode hin.
+        // Gib den Speicher der RenderTexture frei, wenn die Szene zerstört wird.
+        UnloadRenderTexture(this->fogMaskTexture);
     }
 
     void Level1Scene::Update()
@@ -116,6 +120,26 @@ namespace game::scenes
                 obj->Tick(dtm.Get_Dt());
             }
         }
+
+        // --- "useFog"-Logik WIEDERHERSTELLEN ---
+        // Dieser Block berechnet, wie transparent jedes Objekt sein soll.
+        Vector2 player_center = sp_player->Get_Player_Center();
+        for (const auto& obj : objectManager.managed_objects) {
+            if (obj && obj->Get_Use_Fog()) {
+                Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                float distance = Vector2Distance(player_center, obj_center);
+                float alpha = 1.0f;
+                if (distance > game::Config::kFogFullVisibilityRadius) {
+                    alpha = 1.0f - (distance - game::Config::kFogFullVisibilityRadius) / (game::Config::kFogNoVisibilityRadius - game::Config::kFogFullVisibilityRadius);
+                }
+                // Wir setzen die berechnete Transparenz für das Objekt.
+                obj->Set_Visibility_Alpha(Clamp(alpha, 0.0f, 1.0f));
+            } else if (obj) {
+                // Alle anderen Objekte sind voll sichtbar.
+                obj->Set_Visibility_Alpha(1.0f);
+            }
+        }
+        // ------------------------------------
 
         // Aktualisiere Kamera und Kollisionen
         p_cm->Check_Collisions();
@@ -159,46 +183,52 @@ namespace game::scenes
 
     void Level1Scene::Draw()
     {
-        // Die Draw-Funktion wird jetzt extrem einfach und folgt der Logik der originalen GameScene.
         BeginDrawing();
         ClearBackground((Color){ 0, 32, 36, 255}); // Deine Hintergrundfarbe
 
-        /// 1. Starte den Kamera-Modus
         BeginMode2D(sp_cam->cam);
-
-        // 2. Starte den Nebel-Shader
-        fogManager.BeginFogMode();
-
-        // 3. Zeichne die unteren Tile-Layer
-        levelScreen.Draw_Level(sp_cam, false);
-
-        // 4. Zeichne alle Spiel-Objekte (Spieler, Spawner, movWall, etc.)
-        for (const auto& obj : objectManager.managed_objects) {
-            if (obj) obj->Draw();
-        }
-
-        // 5. Zeichne die oberen Tile-Layer
-        levelScreen.Draw_Level(sp_cam, true);
-
-        // 6. Beende den Nebel-Shader
-        fogManager.EndFogMode();
-
-        // 7. DEBUG: Zeichne die Hitboxen, falls aktiviert
-        if (game::Config::kDebugShowHitboxes)
         {
-            for (const auto& p_object : objectManager.managed_objects)
+            // --- TEIL 1: OBJEKTE MIT NEBEL-SHADER ---
+            // Wir starten den Shader...
+            fogManager.BeginFogMode();
             {
-                if (p_object != nullptr)
+                // ...zeichnen die Tile-Layer (die immer betroffen sind)...
+                levelScreen.Draw_Level(sp_cam, false);
+
+                // ...und zeichnen NUR die Objekte, die KEIN useFog haben.
+                for (const auto& obj : objectManager.managed_objects) {
+                    if (obj && !obj->Get_Use_Fog()) { // Beachte das "!"
+                        obj->Draw();
+                    }
+                }
+                levelScreen.Draw_Level(sp_cam, true);
+            }
+            // ...und beenden den Shader wieder.
+            fogManager.EndFogMode();
+
+
+            // --- TEIL 2: OBJEKTE MIT TRANSPARENZ (OHNE SHADER) ---
+            // Der Shader ist jetzt aus. Wir zeichnen jetzt alle Objekte, die useFog haben.
+            // Ihre Transparenz wird durch den `visibility_alpha`-Wert gesteuert,
+            // den wir in der Update()-Methode berechnen.
+            for (const auto& obj : objectManager.managed_objects) {
+                if (obj && obj->Get_Use_Fog()) {
+                    obj->Draw();
+                }
+            }
+
+            // --- DEBUG: Hitboxen ---
+            if (game::Config::kDebugShowHitboxes)
+            {
+                for (const auto& p_object : objectManager.managed_objects)
                 {
-                    DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+                    if (p_object != nullptr)
+                    {
+                        DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+                    }
                 }
             }
         }
-
-        // 8. Beende den Kamera-Modus
         EndMode2D();
-
-        // Hier würde später das UI gezeichnet werden, das nicht vom Nebel betroffen sein soll.
-
     }
 }
