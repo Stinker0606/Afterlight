@@ -108,7 +108,7 @@ bool FogManager::ShouldUseFog(const std::string& mapName) const
 void FogManager::LoadFogShader()
 {
     // Wir benutzen nur den Fragment-Shader, da der Vertex-Shader standardmäßig ist.
-    fogShader = LoadShader(0, "assets/shaders/fog.fs");
+    fogShader = LoadShader(0, "assets/shaders/fog2.fs");
 
     if (fogShader.id != 0)
     {
