@@ -63,7 +63,7 @@ public:
 	void Update_Facing_Direction();
 
 	void Melee_Attack();
-	void Ranged_Attack();
+	virtual void Ranged_Attack();
 	void Use_Item();
 
     Collision_Type Get_Collision_Type() const override;

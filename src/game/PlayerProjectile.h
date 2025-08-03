@@ -22,6 +22,9 @@ namespace game {
         Texture2D sprite;
         Rectangle hitbox;
 
+        // Eine Variable, um die Lebensdauer des Projektils zu speichern.
+        float lifetime;
+
         /**
          * @brief Konstruktor für ein neues Spieler-Projektil.
          * @param start_position Die Startposition des Projektils.

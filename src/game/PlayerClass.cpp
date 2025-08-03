@@ -58,10 +58,92 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
     p_current_animation = &anim_Idle_Front;
 }
 
+void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
+{
+    this->sp_camera = camera;
+}
+
+// die Ranged_Attack Methode
+void PlayerClass::Ranged_Attack()
+{
+    // Nur ausführen wenn die Kamera existiert
+    if (auto cam_ptr = sp_camera.lock())
+    {
+        // 1. Hole die Mausposition vom Bildschirm und rechne sie in Welt-Koordinaten um.
+        Vector2 mouse_screen_pos = game::core::Store::mouse_Position;
+        Vector2 target_world_pos = GetScreenToWorld2D(mouse_screen_pos, cam_ptr->cam);
+
+        // --- Spwawn Point des Projectiles ---
+        Vector2 player_center = this->Get_Player_Center();
+        Vector2 spawn_offset = {0.0f, 0.0f};
+        float offset_distance = 24.0f; // Wie weit vor dem Spieler das Projektil spawnen soll (halbe Kachel)
+
+        // Bestimme den Offset basierend auf der aktuellen Blickrichtung des Spielers
+        switch (this->facing_Direction)
+        {
+            case Facing_Direction::UP:          spawn_offset.y = -offset_distance; break;
+            case Facing_Direction::DOWN:        spawn_offset.y = offset_distance;  break;
+            case Facing_Direction::LEFT:        spawn_offset.x = -offset_distance; break;
+            case Facing_Direction::RIGHT:       spawn_offset.x = offset_distance;  break;
+            case Facing_Direction::UP_LEFT:     spawn_offset = Vector2Normalize({-1, -1}) * offset_distance; break;
+            case Facing_Direction::UP_RIGHT:    spawn_offset = Vector2Normalize({1, -1}) * offset_distance;  break;
+            case Facing_Direction::DOWN_LEFT:   spawn_offset = Vector2Normalize({-1, 1}) * offset_distance; break;
+            case Facing_Direction::DOWN_RIGHT:  spawn_offset = Vector2Normalize({1, 1}) * offset_distance;  break;
+        }
+
+        Vector2 projectile_start_pos = { player_center.x + spawn_offset.x, player_center.y + spawn_offset.y };
+        // ------------------------------------
+
+        // 2. Berechne den Richtungsvektor vom NEUEN Startpunkt zur Maus
+        Vector2 fire_direction = Vector2Normalize({
+            target_world_pos.x - projectile_start_pos.x,
+            target_world_pos.y - projectile_start_pos.y
+        });
+
+        // 3. Erstelle das Projektil am neuen Startpunkt
+        auto projectile = std::make_shared<game::Player_Projectile>(
+            projectile_start_pos,
+            fire_direction,
+            this->player_Damage,
+            game::Config::player_Projectile_Sprite_Path
+        );
+        om.AddObject(projectile);
+
+        // Setze den Cooldown zurück
+        ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
+    }
+}
+
 void PlayerClass::Tick(float delta_time)
 {
+    // --- Spieler-Ausrichtung zur Maus ---
+    // Dieser Block wird zuerst ausgeführt, um die Blickrichtung für diesen Frame festzulegen.
+    if (auto cam_ptr = sp_camera.lock())
+    {
+        Vector2 mouse_screen_pos = game::core::Store::mouse_Position;
+        Vector2 target_world_pos = GetScreenToWorld2D(mouse_screen_pos, cam_ptr->cam);
+        Vector2 look_direction = Vector2Normalize({
+            target_world_pos.x - this->Get_Player_Center().x,
+            target_world_pos.y - this->Get_Player_Center().y
+        });
+
+        // Konvertiere den Richtungsvektor in eine unserer 8 Facing_Directions
+        float angle = atan2(look_direction.y, look_direction.x) * (180.0f / PI);
+        if (angle < 0) angle += 360;
+
+        if (angle >= 337.5 || angle < 22.5) facing_Direction = Facing_Direction::RIGHT;
+        else if (angle >= 22.5 && angle < 67.5) facing_Direction = Facing_Direction::DOWN_RIGHT;
+        else if (angle >= 67.5 && angle < 112.5) facing_Direction = Facing_Direction::DOWN;
+        else if (angle >= 112.5 && angle < 157.5) facing_Direction = Facing_Direction::DOWN_LEFT;
+        else if (angle >= 157.5 && angle < 202.5) facing_Direction = Facing_Direction::LEFT;
+        else if (angle >= 202.5 && angle < 247.5) facing_Direction = Facing_Direction::UP_LEFT;
+        else if (angle >= 247.5 && angle < 292.5) facing_Direction = Facing_Direction::UP;
+        else if (angle >= 292.5 && angle < 337.5) facing_Direction = Facing_Direction::UP_RIGHT;
+    }
+    // -----------------------------------------
+
     // 1. Rufe die Tick-Methode der Basisklasse auf.
-    // Diese kümmert sich um die Bewegung und setzt die `is_Moving` und `facing_Direction` Variablen.
+    // Diese kümmert sich NUR NOCH um die Bewegung basierend auf den Tasten.
     Player_Base_Class::Tick(delta_time);
 
     // 2. Aktualisiere unsere Timer
@@ -70,38 +152,36 @@ void PlayerClass::Tick(float delta_time)
         hit_feedback_timer -= delta_time;
         if (hit_feedback_timer <= 0.0f)
         {
-            tint_color = WHITE; // Setze die Farbe zurück, wenn der Timer abgelaufen ist
+            tint_color = WHITE;
         }
     }
 
-    // 3. Unsere eigene Zustands-Logik die die Basisklasse erweitert
-    // Nur wenn der Spieler nicht gerade eine andere Aktion ausführt...
+    // 3. Deine Zustands-Logik
     if (player_state != PlayerState::ATTACKING_RANGED && player_state != PlayerState::ATTACKING_MELEE)
     {
-        // ...aktualisieren wir den Zustand basierend auf der Bewegung.
         player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
 
-        // Prüfe ob ein Angriff gestartet werden soll
         if (IsKeyPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f)
         {
             player_state = PlayerState::ATTACKING_RANGED;
             attack_animation_timer = game::Config::player_Ranged_Attack_Anim_Duration;
             ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
         }
-    }
         else if (IsKeyPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f)
-    	{
+        {
             player_state = PlayerState::ATTACKING_MELEE;
             attack_animation_timer = game::Config::player_Melee_Attack_Anim_Duration;
             melee_Cooldown = game::Config::player_Melee_Attack_Cooldown;
         }
+    }
     // Logik für den Fernkampf-Angriff
     else if (player_state == PlayerState::ATTACKING_RANGED)
     {
         attack_animation_timer -= delta_time;
         if (attack_animation_timer <= 0.0f)
         {
-            Player_Base_Class::Ranged_Attack();
+            // Rufe die Ranged_Attack-Methode DIESER Klasse auf, nicht die der Basisklasse.
+            this->Ranged_Attack();
             player_state = PlayerState::IDLE;
         }
     }
@@ -111,7 +191,7 @@ void PlayerClass::Tick(float delta_time)
         attack_animation_timer -= delta_time;
         if (attack_animation_timer <= 0.0f)
         {
-            Player_Base_Class::Melee_Attack();
+            Player_Base_Class::Melee_Attack(); // Hier bleibt es vorerst bei der Basisklasse
             player_state = PlayerState::IDLE;
         }
     }

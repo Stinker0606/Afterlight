@@ -82,10 +82,11 @@ namespace game {
         // ---------------------------------------- PLAYER ATTACK SETTINGS ---------------------------------------------
 
         // Ranged Attack (Throw)
-        inline static constexpr float player_Projectile_Speed = 100.0f;
+        inline static constexpr float player_Projectile_Speed = 100.0f; // Projectile Geschwindigkeit
         inline static constexpr const char* player_Projectile_Sprite_Path = "assets/graphics/ball.png";// Pfad für Player-Projectile
         inline static constexpr float player_Ranged_Attack_Anim_Duration = 0.5f; // Dauer der Wurfanimation in Sekunden
-        inline static constexpr float player_Ranged_Attack_Cooldown = 1.0f; // Abklingzeit nach einem Wurf
+        inline static constexpr float player_Ranged_Attack_Cooldown = 6.0f; // Abklingzeit nach einem Wurf
+        inline static constexpr float player_Projectile_Lifetime = 12.0f; // Lebensdauer in Sekunden
 
         // Melee Attack (Sweep)
         inline static constexpr float player_Melee_Attack_Anim_Duration = 0.4f; // Dauer der Sweep-Animation
@@ -245,7 +246,7 @@ namespace game {
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
         // Show all hitboxes
-        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
+        inline static constexpr bool kDebugShowHitboxes = true; // Set to 'true' to show all hitboxes
 
         // ------------------------------------------- LEVEL SETTINGS --------------------------------------------------
 

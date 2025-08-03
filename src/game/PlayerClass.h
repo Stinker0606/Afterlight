@@ -2,6 +2,8 @@
 
 #include "PlayerBaseClass.h"
 #include "../core/RepeatAnimation.h"
+#include "../core/Cam.h"
+#include <memory>
 
 /**
  * @brief spezifische, spielbare Charakter-Klasse.
@@ -68,6 +70,9 @@ private:
     // Dying
     RepeatAnimation anim_Dying;
 
+    // Ein schwacher Zeiger auf die Kamera, um die Mausposition umzurechnen.
+    std::weak_ptr<Cam> sp_camera;
+
 public:
     /**
      * @brief Konstruktor für unseren Spieler.
@@ -76,6 +81,12 @@ public:
      */
     PlayerClass(Vector2 start_Position, Object_Manager& om);
     ~PlayerClass() override = default;
+
+    // Eine Methode, um den Kamera-Zeiger zu setzen.
+    void Set_Camera(std::shared_ptr<Cam> camera);
+
+    // Wir überschreiben die Ranged_Attack-Methode der Basisklasse.
+    void Ranged_Attack() override;
 
     /**
      * @brief Überschreibt die Tick-Methode der Basisklasse, um unsere Zustandslogik hinzuzufügen.

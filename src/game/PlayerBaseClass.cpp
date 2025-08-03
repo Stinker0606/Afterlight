@@ -81,9 +81,14 @@ void Player_Base_Class::Tick(float delta_time)
 
     Update_Facing_Direction();
 
+    /*
+
     if (ranged_Cooldown<=0&& IsKeyDown(game::Config::key_Ranged_Attack)){
         Ranged_Attack();
     }
+
+    */
+
     if (melee_Cooldown > 0) melee_Cooldown -= delta_time;
     if (ranged_Cooldown > 0) ranged_Cooldown -= delta_time;
 }
@@ -175,6 +180,7 @@ void Player_Base_Class::Melee_Attack()
 }
 void Player_Base_Class::Ranged_Attack()
 {
+    /*
     // Hole die Mausposition aus dem globalen Store
     Vector2 target_Position = game::core::Store::mouse_Position;
 
@@ -205,7 +211,10 @@ void Player_Base_Class::Ranged_Attack()
         // Setze den Cooldown zurück
         ranged_Cooldown = 0.5f; //PLACEHOLDER ZAHL - darf man ändern.
     }
+    */
 }
+
+
 
 // Funktion für die Tick Methode welche die aktuelle Position speichert, falls das Objekt zurück gesetzt werden soll
 void Player_Base_Class::Update_Previous_Position()
