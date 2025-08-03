@@ -12,14 +12,14 @@ FogManager::FogManager()
       resolution({0, 0}), playerPosLocation(-1), resolutionLocation(-1),
       timeLocation(-1), fogStrengthLocation(-1)
 {
-    // Definiert, auf welchen Maps der Nebel standardmäßig aktiv sein soll.
-    fogMaps = {"Test1.json", "Test1", "Vorhof_0.json"}; // Beispielhaft erweitert
+    // Definiert auf welchen Maps der Nebel standardmäßig aktiv sein soll.
+    fogMaps = {"Test1.json", "Test1", "Vorhof_0.json"}; // PLACEHOLDER
 }
 
 // --- Destruktor ---
 FogManager::~FogManager()
 {
-    // Stellt sicher, dass der Shader beim Beenden entladen wird.
+    // Stellt sicher dass der Shader beim Beenden entladen wird.
     UnloadFog();
 }
 
@@ -27,32 +27,32 @@ FogManager::~FogManager()
 void FogManager::InitializeFog(const std::string& mapName, Vector2 screenResolution)
 {
     resolution = screenResolution;
-    // Prüfe, ob die aktuelle Map in unserer Liste der Nebel-Maps ist.
+    // Prüfe ob die aktuelle Map in unserer Liste der Nebel-Maps ist.
     fogActive = ShouldUseFog(mapName);
 
     if (fogActive && !fogLoaded)
     {
-        LoadFogShader(); // Lade den Shader, wenn er gebraucht wird und noch nicht geladen ist.
+        LoadFogShader(); // Lade den Shader wenn er gebraucht wird und noch nicht geladen ist.
     }
     else if (!fogActive && fogLoaded)
     {
-        UnloadFog(); // Entlade den Shader, wenn er nicht mehr gebraucht wird.
+        UnloadFog(); // Entlade den Shader wenn er nicht mehr gebraucht wird.
     }
 }
 
 // --- Update-Schleife ---
 void FogManager::Update(Vector2 playerPosition, float deltaTime)
 {
-    if (!fogActive || !fogLoaded) return; // Tue nichts, wenn der Nebel nicht aktiv ist.
+    if (!fogActive || !fogLoaded) return; // Tue nichts wenn der Nebel nicht aktiv ist.
 
     // Aktualisiere den Zeit-Akkumulator für den Shader-Effekt.
     timeAccumulator += deltaTime;
 
-    // Sende die aktualisierten Werte (Spielerposition, Zeit) an den Shader.
+    // Sende die aktualisierten Werte (Spielerposition, Zeit, usw.) an den Shader.
     UpdateShaderUniforms(playerPosition);
 }
 
-// --- Zeeichen-Funktionen ---
+// --- Draw-Funktionen ---
 void FogManager::BeginFogMode() const
 {
     if (fogActive && fogLoaded) {
@@ -87,7 +87,7 @@ void FogManager::SetFogMaps(const std::vector<std::string>& maps)
     fogMaps = maps;
 }
 
-// --- Private Hilfsfunktionen (jetzt implementiert) ---
+// --- Private Hilfsfunktionen ---
 
 void FogManager::UnloadFog()
 {
@@ -101,13 +101,12 @@ void FogManager::UnloadFog()
 
 bool FogManager::ShouldUseFog(const std::string& mapName) const
 {
-    // Durchsuche den Vektor `fogMaps`, um zu sehen, ob der aktuelle mapName darin enthalten ist.
+    // Durchsuche den Vektor `fogMaps` um zu sehen ob der aktuelle mapName darin enthalten ist.
     return std::find(fogMaps.begin(), fogMaps.end(), mapName) != fogMaps.end();
 }
 
 void FogManager::LoadFogShader()
 {
-    // Wir benutzen nur den Fragment-Shader, da der Vertex-Shader standardmäßig ist.
     fogShader = LoadShader(0, "assets/shaders/fog2.fs");
 
     if (fogShader.id != 0)
@@ -118,7 +117,7 @@ void FogManager::LoadFogShader()
         timeLocation = GetShaderLocation(fogShader, "time");
         fogStrengthLocation = GetShaderLocation(fogShader, "fogStrength");
 
-        // Setze die Werte, die sich nicht ständig ändern.
+        // Setze die Werte die sich nicht ständig ändern.
         SetShaderValue(fogShader, resolutionLocation, &resolution, SHADER_UNIFORM_VEC2);
         SetShaderValue(fogShader, fogStrengthLocation, &fogStrength, SHADER_UNIFORM_FLOAT);
 
@@ -134,7 +133,7 @@ void FogManager::LoadFogShader()
 
 void FogManager::UpdateShaderUniforms(Vector2 playerPos)
 {
-    // Sende die Werte, die sich jeden Frame ändern, an den Shader.
+    // Sende die Werte die sich jeden Frame ändern an den Shader.
     SetShaderValue(fogShader, playerPosLocation, &playerPos, SHADER_UNIFORM_VEC2);
     SetShaderValue(fogShader, timeLocation, &timeAccumulator, SHADER_UNIFORM_FLOAT);
 }

@@ -4,18 +4,18 @@
 #include "../core/RepeatAnimation.h"
 
 /**
- * @brief Unsere spezifische, spielbare Charakter-Klasse.
+ * @brief spezifische, spielbare Charakter-Klasse.
  * Erbt die grundlegende Logik von PlayerBaseClass und erweitert sie
  * um eine komplexe Animations- und Zustandslogik.
  */
 class PlayerClass : public Player_Base_Class
 {
 private:
-    // Ein Enum für klare Spieler-Zustände. Lebt jetzt hier, nicht in der Basisklasse.
+    // Ein Enum für klare Spieler-Zustände.
     enum class PlayerState { IDLE, MOVING, ATTACKING_RANGED, ATTACKING_MELEE, PUSHING, DYING };
     PlayerState player_state;
 
-    // Ein Zeiger, der immer auf die gerade aktive Animation zeigt.
+    // Ein Zeiger der immer auf die gerade aktive Animation zeigt.
     RepeatAnimation* p_current_animation;
 
     // --- Timer für Zustände ---
@@ -23,9 +23,10 @@ private:
     float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens
 
     // --- Visuelle Effekte ---
-    Color tint_color; // Die aktuelle Tönung des Spielers (normalerweise WEISS)
+    Color tint_color; // Die aktuelle Tönung des Spielers.
 
     // --- Animationen ---
+
     // Idle
     RepeatAnimation anim_Idle_Front;
     RepeatAnimation anim_Idle_Back;
@@ -83,7 +84,7 @@ public:
     void Tick(float delta_time) override;
 
     /**
-     * @brief Überschreibt die Draw-Methode, um die korrekte Animation zu zeichnen.
+     * @brief die Draw-Methode, um die Animation zu zeichnen.
      */
     void Draw() override;
 

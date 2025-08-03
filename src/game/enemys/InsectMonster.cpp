@@ -30,7 +30,7 @@ namespace enemy
         // Rufe zuerst die Basis-Tick-Funktion auf (z.B. für Cooldowns)
         Enemy_Base_Class::Tick(delta_time);
 
-        // Führe dann die Pathfinding-Logik aus, um dem Spieler zu folgen.
+        // Führe dann die Pathfinding-Logik aus um dem Spieler zu folgen.
         Pathfinding(player_position.x, player_position.y, delta_time);
 
         // ANGRIFFSLOGIK:

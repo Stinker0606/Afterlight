@@ -13,7 +13,7 @@ class Push_Block : public Collidable
 private:
     // Die Textur des gesamten Tilesets der Map.
     Texture2D tileset_texture;
-    // Das spezifische Rechteck (Ausschnitt) im Tileset, das diesen Block darstellt.
+    // Das spezifische Rechteck im Tileset, das diesen Block darstellt.
     Rectangle texture_source_rect;
 
 public:

@@ -17,6 +17,7 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
       tint_color(WHITE),
 
       // 3. Initialisiere ALLE Animationen mit den Werten aus der Config
+
       // Idle
       anim_Idle_Front(game::Config::player_animation_size, game::Config::player_Idle_Front_Path, game::Config::player_Idle_Front_Frames, game::Config::player_Idle_Front_Frames_Per_Line),
       anim_Idle_Back(game::Config::player_animation_size, game::Config::player_Idle_Back_Path, game::Config::player_Idle_Back_Frames, game::Config::player_Idle_Back_Frames_Per_Line),
@@ -73,14 +74,14 @@ void PlayerClass::Tick(float delta_time)
         }
     }
 
-    // 3. Unsere eigene Zustands-Logik, die die Basisklasse erweitert
+    // 3. Unsere eigene Zustands-Logik die die Basisklasse erweitert
     // Nur wenn der Spieler nicht gerade eine andere Aktion ausführt...
     if (player_state != PlayerState::ATTACKING_RANGED && player_state != PlayerState::ATTACKING_MELEE)
     {
         // ...aktualisieren wir den Zustand basierend auf der Bewegung.
         player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
 
-        // Prüfe, ob ein Angriff gestartet werden soll
+        // Prüfe ob ein Angriff gestartet werden soll
         if (IsKeyPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f)
         {
             player_state = PlayerState::ATTACKING_RANGED;
@@ -185,20 +186,19 @@ void PlayerClass::Draw()
             break;
     }
 
-    // 2. Zeichne den aktuellen Frame mit der KORREKTEN Offset-Berechnung.
+    // 2. Zeichne den aktuellen Frame mit der Offset-Berechnung.
     if (p_current_animation)
     {
-        // a) Hole die obere linke Ecke der Hitbox (unsere logische Position).
+        // a) Hole die obere linke Ecke der Hitbox.
         Vector2 hitbox_position = Get_Player_Pos();
 
         // b) Addiere den visuellen Offset aus der Config.
-        // DIES IST DIE ENTSCHEIDENDE ZEILE, DIE GEFEHLT HAT.
         Vector2 draw_position = {
             hitbox_position.x + game::Config::player_visual_offset.x,
             hitbox_position.y + game::Config::player_visual_offset.y
         };
 
-        // c) Zeichne die Animation an der korrigierten Position.
+        // c) Zeichne die Animation an der Position.
         p_current_animation->Draw_Current_Frame(draw_position, tint_color);
         p_current_animation->Next_Frame();
     }

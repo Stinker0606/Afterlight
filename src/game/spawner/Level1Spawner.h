@@ -17,7 +17,7 @@ public:
     ~Level1_Spawner() override;
 
     /**
-     * @brief Überschreibt die Tick-Methode von Collidable mit unserer EIGENEN Spawner-Logik.
+     * @brief Überschreibt die Tick-Methode von Collidable mit der Spawner-Logik.
      */
     void Tick(float delta_time) override;
 

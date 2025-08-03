@@ -39,30 +39,6 @@ namespace game::scenes
         Rectangle world_bounds = {0, 0, 4000, 4000};
         p_cm = std::make_unique<Collision_Manager>(world_bounds, objectManager.managed_objects);
 
-        // --- Spawner Erstellung ---
-
-        // Die Listen werden hier in der Szene erstellt.
-        // `obstacle_list_for_spawner` ist noch leer, aber sie existiert.
-        // `raw_enemy_list_for_spawner` ist die temporäre Liste für neue Gegner.
-
-        Rectangle spawner_area = { 400, 400, 300, 200 };
-        float spawn_rate = 0.5f;
-        int max_enemies = 5;
-
-        // Erstelle den Spawner.
-        // `std::make_unique` ist nicht ideal, da die Basisklasse `Enemy_Spawner` nicht von `Collidable` erbt
-        // und wir den Pointer in einem `unique_ptr<Enemy_Spawner>` speichern wollen.
-        // Wir erstellen ihn daher direkt.
-
-        spawner_list.push_back(std::make_unique<Level1_Spawner>(
-            spawner_area,
-            obstacle_list_for_spawner,
-            raw_enemy_list_for_spawner,
-            spawn_rate,
-            max_enemies,
-            objectManager
-        ));
-
         // --- NEBEL-INITIALISIERUNG ---
 
         // 6.1 Initialisiere die fogMaskTexture
@@ -72,7 +48,7 @@ namespace game::scenes
         std::string map_path = game::Config::GetLevelMapPath(this->level_Nbr);
 
         // 6.3 Extrahiere nur den Dateinamen aus dem Pfad (z.B. "Swamp_0.json").
-        // Dein FogManager erwartet nur den Namen, nicht den ganzen Pfad.
+        // Dein FogManager erwartet nur den Namen nicht den ganzen Pfad.
         std::string map_filename = map_path.substr(map_path.find_last_of("/\\") + 1);
 
         // 6.4 Initialisiere den FogManager mit dem dynamischen Map-Namen.
@@ -85,13 +61,13 @@ namespace game::scenes
 
     Level1Scene::~Level1Scene()
     {
-        // Gib den Speicher der RenderTexture frei, wenn die Szene zerstört wird.
+        // Gib den Speicher der RenderTexture frei wenn die Szene zerstört wird.
         UnloadRenderTexture(this->fogMaskTexture);
     }
 
     void Level1Scene::Update()
     {
-        // Standard-Engine-Input für die Pause-Funktion
+        // Standard-Engine-Inputs
         if (IsKeyPressed(KEY_ESCAPE))
         {
             game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
@@ -100,7 +76,7 @@ namespace game::scenes
             ToggleFullscreen();
         }
 
-        // Hole die Spielerposition EINMAL am Anfang des Frames.
+        // Hole die Spielerposition einmalig am Anfang des Frames.
         Vector2 player_position = sp_player->Get_Player_Center();
 
         // --- INTELLIGENTE UPDATE-SCHLEIFE ---
@@ -121,8 +97,8 @@ namespace game::scenes
             }
         }
 
-        // --- "useFog"-Logik WIEDERHERSTELLEN ---
-        // Dieser Block berechnet, wie transparent jedes Objekt sein soll.
+        // --- "useFog"-Logik ---
+        // Diese Logik berechnet wie transparent jedes Objekt sein soll.
         Vector2 player_center = sp_player->Get_Player_Center();
         for (const auto& obj : objectManager.managed_objects) {
             if (obj && obj->Get_Use_Fog()) {
@@ -151,7 +127,7 @@ namespace game::scenes
             float screen_half_width = game::Config::kStageWidth / 2.0f;
             float screen_half_height = game::Config::kStageHeight / 2.0f;
 
-            // 2. Berücksichtige den Zoom-Faktor. Bei Zoom 2.0 ist das Sichtfeld halb so groß.
+            // 2. Berücksichtige den Zoom-Faktor.
             float zoomed_half_width = screen_half_width / sp_cam->cam.zoom;
             float zoomed_half_height = screen_half_height / sp_cam->cam.zoom;
 
@@ -166,7 +142,7 @@ namespace game::scenes
             sp_cam->cam.target.y = Clamp(sp_cam->cam.target.y, min_cam_y, max_cam_y);
         }
 
-        // --- NEBEL-UPDATE (aus deinem funktionierenden Code übernommen) ---
+        // --- NEBEL-UPDATE ---
         // Wir müssen die WELT-Position des Spielers in BILDSCHIRM-Koordinaten umrechnen.
         Vector2 player_world_pos = sp_player->Get_Player_Center();
         Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, sp_cam->cam);
@@ -184,7 +160,7 @@ namespace game::scenes
     void Level1Scene::Draw()
     {
         BeginDrawing();
-        ClearBackground((Color){ 0, 32, 36, 255}); // Deine Hintergrundfarbe
+        ClearBackground((Color){ 0, 32, 36, 255}); // Hintergrundfarbe aus der Farbpalette
 
         BeginMode2D(sp_cam->cam);
         {
@@ -197,7 +173,7 @@ namespace game::scenes
 
                 // ...und zeichnen NUR die Objekte, die KEIN useFog haben.
                 for (const auto& obj : objectManager.managed_objects) {
-                    if (obj && !obj->Get_Use_Fog()) { // Beachte das "!"
+                    if (obj && !obj->Get_Use_Fog()) {
                         obj->Draw();
                     }
                 }

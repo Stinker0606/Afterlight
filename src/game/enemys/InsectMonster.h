@@ -40,7 +40,7 @@ namespace enemy
 
         /**
          * @brief Zeichnet das Insektenmonster.
-         * Hier wird später die Animationslogik implementiert.
+         * To Do: Hier wird später die Animationslogik implementiert.
          */
         void Draw() override;
     };

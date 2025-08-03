@@ -12,7 +12,7 @@
 
 /**
  * @brief Eine erweiterte Version der Screen-Klasse der Engine.
- * Diese Klasse wird von uns kopiert und erweitert, um unsere benutzerdefinierten
+ * Diese Klasse wird kopiert und erweitert, um benutzerdefinierte
  * Spielobjekte aus Tiled-Maps zu laden, ohne die originale Engine-Datei zu verändern.
  */
 class LevelScreen

@@ -38,7 +38,7 @@ void Level1_Spawner::Tick(float delta_time)
     if (spawn_timer >= (1.0f / spawn_Rate_) && current_enemy_count < max_Enemies_)
     {
         // Wir spawnen den Gegner nicht mehr an einer zufälligen Position,
-        // sondern an einer festen, sicheren Position leicht außerhalb des Spawners.
+        // sondern an einer festen sicheren Position leicht außerhalb des Spawners.
         Vector2 spawn_pos = {
             this->hitbox.x + (this->hitbox.width / 2.0f) - 16.0f, // Zentriert auf der X-Achse
             this->hitbox.y - 45.0f                                // Leicht über dem Spawner

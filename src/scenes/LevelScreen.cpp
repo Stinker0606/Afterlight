@@ -7,7 +7,7 @@
 #include "../game/Spawner/Level1Spawner.h"
 #include "../game/PushBlock.h"
 
-// Konstruktor ist identisch zur originalen Screen-Klasse
+// Konstruktor ist identisch
 LevelScreen::LevelScreen(int *level_Ptr) : Level_Nbr_Ptr(level_Ptr) {
     this->loaded = false;
 }
@@ -83,7 +83,6 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
     }
 }
 
-// LoadGameObjects ist vorerst eine saubere Basis.
 void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
     if (!this->loaded){
         Load_Levelmap();
