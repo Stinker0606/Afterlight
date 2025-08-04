@@ -67,6 +67,18 @@ void Collision_Manager::Check_Collisions()
             // count prüft die Liste ob das paar bereits existiert. Existiert dieses, so wird dieses Objekt übersprungen
             if (processed_pairs.count(pair)) continue;
 
+            // Wir holen uns die Typen beider Objekte.
+            Collision_Type typeA = objA->Get_Collision_Type();
+            Collision_Type typeB = objB->Get_Collision_Type();
+
+            // Wenn eines der Objekte der Spieler und das andere ein Spieler-Projektil ist,
+            // überspringen wir diesen Kollisions-Check komplett.
+            if ((typeA == Collision_Type::PLAYER && typeB == Collision_Type::PLAYER_PROJECTILE) ||
+                (typeA == Collision_Type::PLAYER_PROJECTILE && typeB == Collision_Type::PLAYER))
+            {
+                continue; // Nächstes Paar prüfen
+            }
+
             // Hier erfolgt der Collisioncheck. Ist dieser True wird an objA ein Pointer des objB übergeben und anderrum
             if (CheckCollisionRecs(objA->Get_Hitbox(), objB->Get_Hitbox()))
             {

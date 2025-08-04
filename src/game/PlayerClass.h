@@ -4,6 +4,7 @@
 #include "../core/RepeatAnimation.h"
 #include "../core/Cam.h"
 #include <memory>
+#include "PlayerProjectile.h"
 
 /**
  * @brief spezifische, spielbare Charakter-Klasse.

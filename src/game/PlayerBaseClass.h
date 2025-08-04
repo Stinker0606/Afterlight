@@ -9,12 +9,15 @@
 #include "CollisionManager.h"
 #include "../Config.h.in"
 #include "raymath.h"
-#include "PlayerProjectile.h"
 #include "Object_Manager.h"
+#include "FacingDirection.h"
+
+
+namespace game {
+	class Player_Projectile;
+}
 
 class Collision_Manager;
-
-enum Facing_Direction {UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
 
 class Player_Base_Class : public Collidable
 {

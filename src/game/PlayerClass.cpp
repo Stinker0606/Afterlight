@@ -69,47 +69,28 @@ void PlayerClass::Ranged_Attack()
     // Nur ausführen wenn die Kamera existiert
     if (auto cam_ptr = sp_camera.lock())
     {
-        // 1. Hole die Mausposition vom Bildschirm und rechne sie in Welt-Koordinaten um.
+        // 1. Hole Mausposition und rechne sie in Welt-Koordinaten um
         Vector2 mouse_screen_pos = game::core::Store::mouse_Position;
         Vector2 target_world_pos = GetScreenToWorld2D(mouse_screen_pos, cam_ptr->cam);
 
-        // --- Spwawn Point des Projectiles ---
-        Vector2 player_center = this->Get_Player_Center();
-        Vector2 spawn_offset = {0.0f, 0.0f};
-        float offset_distance = 24.0f; // Wie weit vor dem Spieler das Projektil spawnen soll (halbe Kachel)
+        // 2. Nutze die MITTE des Spielers als Startpunkt
+        Vector2 projectile_start_pos = this->Get_Player_Center();
 
-        // Bestimme den Offset basierend auf der aktuellen Blickrichtung des Spielers
-        switch (this->facing_Direction)
-        {
-            case Facing_Direction::UP:          spawn_offset.y = -offset_distance; break;
-            case Facing_Direction::DOWN:        spawn_offset.y = offset_distance;  break;
-            case Facing_Direction::LEFT:        spawn_offset.x = -offset_distance; break;
-            case Facing_Direction::RIGHT:       spawn_offset.x = offset_distance;  break;
-            case Facing_Direction::UP_LEFT:     spawn_offset = Vector2Normalize({-1, -1}) * offset_distance; break;
-            case Facing_Direction::UP_RIGHT:    spawn_offset = Vector2Normalize({1, -1}) * offset_distance;  break;
-            case Facing_Direction::DOWN_LEFT:   spawn_offset = Vector2Normalize({-1, 1}) * offset_distance; break;
-            case Facing_Direction::DOWN_RIGHT:  spawn_offset = Vector2Normalize({1, 1}) * offset_distance;  break;
-        }
-
-        Vector2 projectile_start_pos = { player_center.x + spawn_offset.x, player_center.y + spawn_offset.y };
-        // ------------------------------------
-
-        // 2. Berechne den Richtungsvektor vom NEUEN Startpunkt zur Maus
+        // 3. Berechne den Richtungsvektor vom Startpunkt zur Maus
         Vector2 fire_direction = Vector2Normalize({
             target_world_pos.x - projectile_start_pos.x,
             target_world_pos.y - projectile_start_pos.y
         });
 
-        // 3. Erstelle das Projektil am neuen Startpunkt
+        // 4. Erstelle das Projektil
         auto projectile = std::make_shared<game::Player_Projectile>(
             projectile_start_pos,
             fire_direction,
             this->player_Damage,
-            game::Config::player_Projectile_Sprite_Path
+            this->facing_Direction
         );
         om.AddObject(projectile);
 
-        // Setze den Cooldown zurück
         ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
     }
 }

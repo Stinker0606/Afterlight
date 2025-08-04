@@ -82,11 +82,22 @@ namespace game {
         // ---------------------------------------- PLAYER ATTACK SETTINGS ---------------------------------------------
 
         // Ranged Attack (Throw)
-        inline static constexpr float player_Projectile_Speed = 100.0f; // Projectile Geschwindigkeit
-        inline static constexpr const char* player_Projectile_Sprite_Path = "assets/graphics/ball.png";// Pfad für Player-Projectile
+        inline static constexpr float player_Projectile_Speed = 80.0f; // Projectile Geschwindigkeit
         inline static constexpr float player_Ranged_Attack_Anim_Duration = 0.5f; // Dauer der Wurfanimation in Sekunden
         inline static constexpr float player_Ranged_Attack_Cooldown = 6.0f; // Abklingzeit nach einem Wurf
         inline static constexpr float player_Projectile_Lifetime = 12.0f; // Lebensdauer in Sekunden
+        inline static constexpr int player_Projectile_Hitbox_Width = 16;
+        inline static constexpr int player_Projectile_Hitbox_Height = 16;
+
+        // Projectile Sprites
+        inline static constexpr const char* kPlayerProjectileSpriteUp = "assets/graphics/projectiles/player/SpearR2.png";
+        inline static constexpr const char* kPlayerProjectileSpriteDown = "assets/graphics/projectiles/player/SpearR2.png";
+        inline static constexpr const char* kPlayerProjectileSpriteLeft = "assets/graphics/projectiles/player/SpearR2.png";
+        inline static constexpr const char* kPlayerProjectileSpriteRight = "assets/graphics/projectiles/player/SpearR2.png";
+        inline static constexpr const char* kPlayerProjectileSpriteUpLeft = "assets/graphics/projectiles/player/SpearR2.png";
+        inline static constexpr const char* kPlayerProjectileSpriteUpRight = "assets/graphics/projectiles/player/SpearR2.png";
+        inline static constexpr const char* kPlayerProjectileSpriteDownLeft = "assets/graphics/projectiles/player/SpearR2.png";
+        inline static constexpr const char* kPlayerProjectileSpriteDownRight = "assets/graphics/projectiles/player/SpearR2.png";
 
         // Melee Attack (Sweep)
         inline static constexpr float player_Melee_Attack_Anim_Duration = 0.4f; // Dauer der Sweep-Animation
