@@ -67,16 +67,12 @@ void Collision_Manager::Check_Collisions()
             // count prüft die Liste ob das paar bereits existiert. Existiert dieses, so wird dieses Objekt übersprungen
             if (processed_pairs.count(pair)) continue;
 
-            // Wenn eines der Objekte der Spieler und das andere ein Spieler-Projektil ist,
-            // überspringen wir diesen Kollisions-Check komplett.
-            if (!CheckCollisionRecs(objA->Get_Hitbox(), objB->Get_Hitbox()))
-            {
-                continue;
-            }
-
             // Hier erfolgt der Collisioncheck. Ist dieser True wird an objA ein Pointer des objB übergeben und anderrum
+            if (CheckCollisionRecs(objA->Get_Hitbox(), objB->Get_Hitbox()))
+            {
                 objA->On_Collision(objB);
                 objB->On_Collision(objA);
+            }
             // fügt das geprüfte Paar der insert Liste hinzu, welche im erneuten durchlauf in count geprüft wird
             processed_pairs.insert(pair);
         }
