@@ -97,7 +97,13 @@ void PlayerClass::Ranged_Attack()
             this->player_Damage,
             this->facing_Direction
         );
+        // 1. Füge das Projektil dem Object_Manager hinzu, damit es gezeichnet
+        //    und auf Kollisionen geprüft wird.
         om.AddObject(projectile);
+
+        // 2. Füge das Projektil auch zur eigenen Liste des Spielers hinzu.
+        //    Das "hält" den shared_ptr am Leben und verhindert, dass das Objekt sofort zerstört wird.
+        sp_projectiles.push_back(projectile);
 
         ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
     }

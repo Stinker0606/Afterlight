@@ -70,10 +70,13 @@ Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, 
             rotation,
             WHITE
         );
-        // --- NEU: ZEICHNE DIE HITBOX IMMER ---
-    // Das Projektil zeichnet jetzt seine eigene Hitbox in leuchtendem Grün.
-    // So sehen wir immer, wo sie ist, unabhängig vom globalen Debug-Modus.
-    DrawRectangleLinesEx(this->hitbox, 1.0f, RED);
+    if (game::Config::kDebugShowHitboxes)
+        {
+            // --- NEU: ZEICHNE DIE HITBOX IMMER ---
+        // Das Projektil zeichnet jetzt seine eigene Hitbox in leuchtendem Grün.
+        // So sehen wir immer, wo sie ist, unabhängig vom globalen Debug-Modus.
+        DrawRectangleLinesEx(this->hitbox, 1.0f, RED);
+        }
     }
 
 
