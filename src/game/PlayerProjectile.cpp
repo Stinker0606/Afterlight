@@ -17,18 +17,7 @@ Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, 
         this->velocity.y = direction.y * game::Config::player_Projectile_Speed;
 
         // Wähle das korrekte Sprite basierend auf der Blickrichtung
-        const char* sprite_path = game::Config::kPlayerProjectileSpriteRight;
-        switch (facing_direction)
-        {
-            case UP:         sprite_path = game::Config::kPlayerProjectileSpriteUp; break;
-            case DOWN:       sprite_path = game::Config::kPlayerProjectileSpriteDown; break;
-            case LEFT:       sprite_path = game::Config::kPlayerProjectileSpriteLeft; break;
-            case RIGHT:      sprite_path = game::Config::kPlayerProjectileSpriteRight; break;
-            case UP_LEFT:    sprite_path = game::Config::kPlayerProjectileSpriteUpLeft; break;
-            case UP_RIGHT:   sprite_path = game::Config::kPlayerProjectileSpriteUpRight; break;
-            case DOWN_LEFT:  sprite_path = game::Config::kPlayerProjectileSpriteDownLeft; break;
-            case DOWN_RIGHT: sprite_path = game::Config::kPlayerProjectileSpriteDownRight; break;
-        }
+        const char* sprite_path = game::Config::kPlayerProjectileSprite;
         this->sprite = LoadTexture(sprite_path);
 
         // Berechne die Rotation des Sprites aus dem Richtungsvektor

@@ -74,13 +74,21 @@ void PlayerClass::Ranged_Attack()
         Vector2 target_world_pos = GetScreenToWorld2D(mouse_screen_pos, cam_ptr->cam);
 
         // 2. Nutze die MITTE des Spielers als Startpunkt
-        Vector2 projectile_start_pos = this->Get_Player_Center();
+        Vector2 player_center = this->Get_Player_Center();
 
         // 3. Berechne den Richtungsvektor vom Startpunkt zur Maus
         Vector2 fire_direction = Vector2Normalize({
-            target_world_pos.x - projectile_start_pos.x,
-            target_world_pos.y - projectile_start_pos.y
+            target_world_pos.x - player_center.x,
+            target_world_pos.y - player_center.y
         });
+
+        // Wir starten in der Mitte des Spielers...
+        Vector2 projectile_start_pos = player_center;
+        // ...und bewegen den Startpunkt dann ein Stück nach vorne in Schussrichtung.
+        // 32.0f bedeutet, es spawnt ca. eine Kachel vor dem Spieler.
+        float spawn_offset = 32.0f;
+        projectile_start_pos.x += fire_direction.x * spawn_offset;
+        projectile_start_pos.y += fire_direction.y * spawn_offset;
 
         // 4. Erstelle das Projektil
         auto projectile = std::make_shared<game::Player_Projectile>(
