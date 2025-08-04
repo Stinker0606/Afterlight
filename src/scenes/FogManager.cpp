@@ -107,7 +107,7 @@ bool FogManager::ShouldUseFog(const std::string& mapName) const
 
 void FogManager::LoadFogShader()
 {
-    fogShader = LoadShader(0, "assets/shaders/fog21.fs");
+    fogShader = LoadShader(0, "assets/shaders/fog2.fs");
 
     if (fogShader.id != 0)
     {
