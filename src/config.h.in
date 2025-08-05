@@ -147,19 +147,19 @@ namespace game {
         inline static constexpr int player_Run_Right_Frames = 40;
         inline static constexpr int player_Run_Right_Frames_Per_Line = 40;
 
-        inline static constexpr const char* player_Run_Front_Right_Path = "PLACEHOLDER";
+        inline static constexpr const char* player_Run_Front_Right_Path = "assets/graphics/animations/player/walk/MC_Walkcycle_FrontRight.png";
         inline static constexpr int player_Run_Front_Right_Frames = 40;
         inline static constexpr int player_Run_Front_Right_Frames_Per_Line = 40;
 
-        inline static constexpr const char* player_Run_Back_Right_Path = "PLACEHOLDER";
+        inline static constexpr const char* player_Run_Back_Right_Path = "assets/graphics/animations/player/walk/MC_Walkcycle_BackRight.png";
         inline static constexpr int player_Run_Back_Right_Frames = 40;
         inline static constexpr int player_Run_Back_Right_Frames_Per_Line = 40;
 
-        inline static constexpr const char* player_Run_Front_Left_Path = "PLACEHOLDER";
+        inline static constexpr const char* player_Run_Front_Left_Path = "assets/graphics/animations/player/walk/MC_Walkcycle_FrontLeft.png";
         inline static constexpr int player_Run_Front_Left_Frames = 40;
         inline static constexpr int player_Run_Front_Left_Frames_Per_Line = 40;
 
-        inline static constexpr const char* player_Run_Back_Left_Path = "PLACEHOLDER";
+        inline static constexpr const char* player_Run_Back_Left_Path = "assets/graphics/animations/player/walk/MC_Walkcycle_BackLeft.png";
         inline static constexpr int player_Run_Back_Left_Frames = 40;
         inline static constexpr int player_Run_Back_Left_Frames_Per_Line = 40;
 
