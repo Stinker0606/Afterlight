@@ -64,8 +64,14 @@ namespace game {
         inline static constexpr const int key_Interact = KEY_L; //PLACEHOLDER
         inline static constexpr const int key_Place_Bomb = KEY_G; //PLACEHOLDER
 
+        // -------------------------------------------- Interactables --------------------------------------------------
+
+        // Heal Item
+        inline static constexpr int kItemHealConsDefaultAmount = 25; // Standard-Heilmenge
+
         // ----------------------------------------------- PLAYER ------------------------------------------------------
 
+        // NICHT ÄNDERN! Animation Offset Fix
         inline static constexpr Vector2 player_visual_offset = {14, 10}; // PASSE DIESE WERTE NICHT AN!
 
         // Player General Settings
@@ -93,7 +99,6 @@ namespace game {
         inline static constexpr int player_Projectile_Hitbox_Width = 16; // Projectile Hitbox
         inline static constexpr int player_Projectile_Hitbox_Height = 16; // Projectile Hitbox
         inline static constexpr const char* kPlayerProjectileSprite = "assets/graphics/projectiles/player/SpearR2.png";
-
 
         // Melee Attack (Sweep)
         inline static constexpr float player_Melee_Attack_Anim_Duration = 0.4f; // Dauer der Sweep-Animation

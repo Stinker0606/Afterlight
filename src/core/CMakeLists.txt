@@ -58,6 +58,8 @@ add_library(core STATIC
         ../game/FacingDirection.h
         ../game/interactables/PushBlock.cpp
         ../game/interactables/PushBlock.h
+        ../game/interactables/HealConsumable.cpp
+        ../game/interactables/HealConsumable.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

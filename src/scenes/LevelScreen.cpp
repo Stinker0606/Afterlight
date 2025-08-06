@@ -6,6 +6,7 @@
 #include "../game/Walls.h"
 #include "../game/Spawner/Level1Spawner.h"
 #include "../game/interactables/PushBlock.h"
+#include "../game/interactables/HealConsumable.h"
 
 // Konstruktor ist identisch
 LevelScreen::LevelScreen(int *level_Ptr) : Level_Nbr_Ptr(level_Ptr) {
@@ -131,6 +132,29 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                 }
                 else if (object_name == "player_start") {
                     std::cout << "Spieler-Startpunkt gefunden bei: " << object.getPosition().x << ", " << object.getPosition().y << std::endl;
+                }
+                else if (object_name == "healCons")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
+
+                        if (tile) {
+                            int heal_amount = game::Config::kItemHealConsDefaultAmount;
+                            if(object.getProperties().hasProperty("healAmount")) {
+                                heal_amount = object.getProperties().getValue<int>("healAmount");
+                            }
+
+                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+
+                            new_object = std::make_shared<HealConsumable>(pos, heal_amount, this->tileatlas_Texture, source_rect);
+                        }
+                    }
                 }
 
                 if (new_object != nullptr) {
