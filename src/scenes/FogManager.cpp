@@ -49,6 +49,9 @@ void FogManager::Update(Vector2 playerPosition, float deltaTime)
     // Aktualisiere den Zeit-Akkumulator für den Shader-Effekt.
     timeAccumulator += deltaTime;
 
+    // Wende den Y-Offset aus der Config an, um den sichtbaren Kreis zu verschieben.
+    playerPosition.y += game::Config::kFogPlayerCenterOffsetY;
+
     // Sende die aktualisierten Werte (Spielerposition, Zeit, usw.) an den Shader.
     UpdateShaderUniforms(playerPosition);
 }
