@@ -5,6 +5,7 @@
 #include <iostream>
 #include "PlayerBaseClass.h"
 
+#include "CollisionResponse.h"
 #include "../game/interactables/PushBlock.h"
 #include "Store.h"
 
@@ -98,42 +99,37 @@ void Player_Base_Class::Tick(float delta_time)
 // Phase 3 :: Kollisionsreaktion falls der Collisionmanager eine Kollision mit einem anderen Objekt feststellt
 void Player_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
 {
-    Collision_Type otherType = other->Get_Collision_Type();
-
-    if (otherType == Collision_Type::WALL ||
-        otherType == Collision_Type::ENEMY_SPAWNER ||
-        otherType == Collision_Type::ENEMY)
+    // Prüfe, ob es sich um einen Push_Block handelt. Deine Logik hat hier Vorrang.
+    if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
     {
-        // Prüfe, ob das "WALL"-Objekt in Wirklichkeit ein schiebbarer Block ist.
-        if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
-        {
-            // Berechne die Richtung, aus der der Spieler kommt.
-            Vector2 move_direction = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
-
-            // Runde den Vektor, um eine klare 90-Grad-Richtung zu erhalten (hoch, runter, links, rechts).
-            if (fabs(move_direction.x) > fabs(move_direction.y)) {
-                move_direction.y = 0;
-                move_direction.x = (move_direction.x > 0) ? 1 : -1;
-            } else {
-                move_direction.x = 0;
-                move_direction.y = (move_direction.y > 0) ? 1 : -1;
-            }
-
-            // Stoße den Block in diese Richtung.
-            push_block->Push(move_direction);
+        // Deine funktionierende Push-Logik
+        Vector2 move_direction = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
+        if (fabs(move_direction.x) > fabs(move_direction.y)) {
+            move_direction.y = 0;
+            move_direction.x = (move_direction.x > 0) ? 1 : -1;
+        } else {
+            move_direction.x = 0;
+            move_direction.y = (move_direction.y > 0) ? 1 : -1;
         }
+        push_block->Push(move_direction);
 
-        Rectangle other_hitbox = other->Get_Hitbox();
-        if (CheckCollisionRecs({hitbox.x, previous_Position.y, hitbox.width, hitbox.height}, other_hitbox))
+        // Setze den Spieler auf seine alte Position zurück, um das "Kleben" am Block zu verhindern
+        hitbox.x = previous_Position.x;
+        hitbox.y = previous_Position.y;
+    }
+    else
+    {
+        // Für ALLE ANDEREN soliden Objekte (Wände, Gegner, Spawner), benutze die neue "Gleiten"-Logik.
+        Collision_Type otherType = other->Get_Collision_Type();
+        if (otherType == Collision_Type::WALL ||
+            otherType == Collision_Type::ENEMY_SPAWNER ||
+            otherType == Collision_Type::ENEMY)
         {
-            hitbox.y = previous_Position.y;
-        }
-        if (CheckCollisionRecs({previous_Position.x, hitbox.y, hitbox.width, hitbox.height}, other_hitbox))
-        {
-            hitbox.x = previous_Position.x;
+            CollisionResponse::Resolve_Overlap(shared_from_this(), other);
         }
     }
 }
+
 
 /*
 void Player_Base_Class::On_Collision(std::shared_ptr<Collidable> other)

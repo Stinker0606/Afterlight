@@ -11,7 +11,9 @@
 #include "raymath.h"
 #include "Object_Manager.h"
 #include "FacingDirection.h"
+#include <memory>
 
+class Object_Manager;
 
 namespace game {
 	class Player_Projectile;
@@ -19,7 +21,7 @@ namespace game {
 
 class Collision_Manager;
 
-class Player_Base_Class : public Collidable
+class Player_Base_Class : public Collidable, public std::enable_shared_from_this<Player_Base_Class>
 {
 protected:
 
