@@ -1,6 +1,5 @@
 #include "InsectMonster.h"
 
-#include <iostream>
 
 #include "raymath.h"
 #include "../../config_enemies.h.in"
@@ -58,7 +57,6 @@ namespace enemy
         // 1. Setze Gegner-Zustand auf "ATTACKING"
         // 2. Spiele Angriffsanimation ab
         // 3. Erzeuge eine temporäre Hitbox für den Schaden
-        std::cout << this->enemy_Name << " führt einen Nahkampfangriff aus!" << std::endl;
     }
 
     void Insect_Monster::Range_Attack()
