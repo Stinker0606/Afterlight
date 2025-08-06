@@ -6,6 +6,8 @@
 #include <memory>
 #include "PlayerProjectile.h"
 
+class Push_Block;
+
 /**
  * @brief spezifische, spielbare Charakter-Klasse.
  * Erbt die grundlegende Logik von PlayerBaseClass und erweitert sie
@@ -24,6 +26,11 @@ private:
     // --- Timer für Zustände ---
     float attack_animation_timer; // Timer für die Dauer von Angriffs-Animationen
     float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens
+
+    // --- PUSH-VARIABLEN ---
+    float push_animation_timer; // Eigener Timer für die Push-Animation
+    std::weak_ptr<Push_Block> block_to_push; // Ein schwacher Zeiger auf den Block, den wir schieben
+    Vector2 push_direction; // Die Richtung, in die wir schieben
 
     // --- Visuelle Effekte ---
     Color tint_color; // Die aktuelle Tönung des Spielers.
@@ -88,6 +95,8 @@ public:
 
     // Wir überschreiben die Ranged_Attack-Methode der Basisklasse.
     void Ranged_Attack() override;
+
+    void On_Collision(std::shared_ptr<Collidable> other) override;
 
     /**
      * @brief Überschreibt die Tick-Methode der Basisklasse, um unsere Zustandslogik hinzuzufügen.

@@ -1,5 +1,6 @@
 #include "PlayerClass.h"
-#include "Store.h" // Für die Mausposition
+#include "Store.h"
+#include "interactables/PushBlock.h"
 
 PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
     // 1. Rufe den Konstruktor der Basisklasse mit den Werten aus der Config auf
@@ -14,6 +15,8 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
       player_state(PlayerState::IDLE),
       attack_animation_timer(0.0f),
       hit_feedback_timer(0.0f),
+      push_animation_timer(0.0f),
+      push_direction({0,0}),
       tint_color(WHITE),
 
       // 3. Initialisiere ALLE Animationen mit den Werten aus der Config
@@ -61,6 +64,40 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
 void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
 {
     this->sp_camera = camera;
+}
+
+// On_Collision Methode für spezielle Spieler-Interaktionen
+void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
+{
+    // Reagiere nur auf neue Kollisionen, wenn du nicht gerade eine Aktion ausführst.
+    if (player_state != PlayerState::IDLE && player_state != PlayerState::MOVING) return;
+
+    if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
+    {
+        // Wenn wir auf einen schiebbaren Block treffen, starten wir die PUSHING-Aktion.
+        player_state = PlayerState::PUSHING;
+        push_animation_timer = game::Config::player_Push_Anim_Duration;
+
+        block_to_push = push_block;
+
+        Vector2 move_dir = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
+        if (fabs(move_dir.x) > fabs(move_dir.y)) {
+            push_direction = { (move_dir.x > 0) ? 1.0f : -1.0f, 0.0f };
+        } else {
+            push_direction = { 0.0f, (move_dir.y > 0) ? 1.0f : -1.0f };
+        }
+
+        // Setze Spielerposition zurück und stoppe Bewegung
+        hitbox.x = previous_Position.x;
+        hitbox.y = previous_Position.y;
+        player_Pos = previous_Position;
+        is_Moving = false;
+    }
+    else
+    {
+        // Wenn es kein Push-Block ist, benutze die Standard-Kollisionslogik der Basisklasse.
+        Player_Base_Class::On_Collision(other);
+    }
 }
 
 // die Ranged_Attack Methode
@@ -111,86 +148,89 @@ void PlayerClass::Ranged_Attack()
 
 void PlayerClass::Tick(float delta_time)
 {
-    // --- Spieler-Ausrichtung zur Maus ---
-    // Dieser Block wird zuerst ausgeführt, um die Blickrichtung für diesen Frame festzulegen.
-    if (auto cam_ptr = sp_camera.lock())
+    // Update der Blickrichtung zur Maus (nur wenn nicht in einer Aktion gesperrt)
+    if (player_state != PlayerState::PUSHING)
     {
-        Vector2 mouse_screen_pos = game::core::Store::mouse_Position;
-        Vector2 target_world_pos = GetScreenToWorld2D(mouse_screen_pos, cam_ptr->cam);
-        Vector2 look_direction = Vector2Normalize({
-            target_world_pos.x - this->Get_Player_Center().x,
-            target_world_pos.y - this->Get_Player_Center().y
-        });
+        if (auto cam_ptr = sp_camera.lock())
+        {
+            Vector2 mouse_screen_pos = game::core::Store::mouse_Position;
+            Vector2 target_world_pos = GetScreenToWorld2D(mouse_screen_pos, cam_ptr->cam);
+            Vector2 look_direction = Vector2Normalize({target_world_pos.x - this->Get_Player_Center().x, target_world_pos.y - this->Get_Player_Center().y});
+            float angle = atan2(look_direction.y, look_direction.x) * (180.0f / PI);
+            if (angle < 0) angle += 360;
 
-        // Konvertiere den Richtungsvektor in eine unserer 8 Facing_Directions
-        float angle = atan2(look_direction.y, look_direction.x) * (180.0f / PI);
-        if (angle < 0) angle += 360;
-
-        if (angle >= 337.5 || angle < 22.5) facing_Direction = Facing_Direction::RIGHT;
-        else if (angle >= 22.5 && angle < 67.5) facing_Direction = Facing_Direction::DOWN_RIGHT;
-        else if (angle >= 67.5 && angle < 112.5) facing_Direction = Facing_Direction::DOWN;
-        else if (angle >= 112.5 && angle < 157.5) facing_Direction = Facing_Direction::DOWN_LEFT;
-        else if (angle >= 157.5 && angle < 202.5) facing_Direction = Facing_Direction::LEFT;
-        else if (angle >= 202.5 && angle < 247.5) facing_Direction = Facing_Direction::UP_LEFT;
-        else if (angle >= 247.5 && angle < 292.5) facing_Direction = Facing_Direction::UP;
-        else if (angle >= 292.5 && angle < 337.5) facing_Direction = Facing_Direction::UP_RIGHT;
+            if (angle >= 337.5 || angle < 22.5) facing_Direction = Facing_Direction::RIGHT;
+            else if (angle >= 22.5 && angle < 67.5) facing_Direction = Facing_Direction::DOWN_RIGHT;
+            else if (angle >= 67.5 && angle < 112.5) facing_Direction = Facing_Direction::DOWN;
+            else if (angle >= 112.5 && angle < 157.5) facing_Direction = Facing_Direction::DOWN_LEFT;
+            else if (angle >= 157.5 && angle < 202.5) facing_Direction = Facing_Direction::LEFT;
+            else if (angle >= 202.5 && angle < 247.5) facing_Direction = Facing_Direction::UP_LEFT;
+            else if (angle >= 247.5 && angle < 292.5) facing_Direction = Facing_Direction::UP;
+            else if (angle >= 292.5 && angle < 337.5) facing_Direction = Facing_Direction::UP_RIGHT;
+        }
     }
-    // -----------------------------------------
 
-    // 1. Rufe die Tick-Methode der Basisklasse auf.
-    // Diese kümmert sich NUR NOCH um die Bewegung basierend auf den Tasten.
-    Player_Base_Class::Tick(delta_time);
+    // Update der Spielerbewegung (nur wenn nicht in einer Aktion gesperrt)
+    if (player_state != PlayerState::PUSHING && player_state != PlayerState::ATTACKING_RANGED && player_state != PlayerState::ATTACKING_MELEE)
+    {
+        Player_Base_Class::Tick(delta_time);
+    }
 
-    // 2. Aktualisiere unsere Timer
+    // Update der Timer
     if (hit_feedback_timer > 0.0f)
     {
         hit_feedback_timer -= delta_time;
-        if (hit_feedback_timer <= 0.0f)
-        {
-            tint_color = WHITE;
-        }
+        if (hit_feedback_timer <= 0.0f) { tint_color = WHITE; }
     }
 
-    // 3. Deine Zustands-Logik
-    if (player_state != PlayerState::ATTACKING_RANGED && player_state != PlayerState::ATTACKING_MELEE)
+    // Deine Zustands-Logik (angepasst an if/else if)
+    if (player_state == PlayerState::IDLE || player_state == PlayerState::MOVING)
     {
         player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
 
-        if (IsKeyPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f)
-        {
+        if (IsKeyPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_RANGED;
             attack_animation_timer = game::Config::player_Ranged_Attack_Anim_Duration;
-            ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
-        }
-        else if (IsKeyPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f)
-        {
+        } else if (IsKeyPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_MELEE;
             attack_animation_timer = game::Config::player_Melee_Attack_Anim_Duration;
             melee_Cooldown = game::Config::player_Melee_Attack_Cooldown;
         }
     }
-    // Logik für den Fernkampf-Angriff
     else if (player_state == PlayerState::ATTACKING_RANGED)
     {
         attack_animation_timer -= delta_time;
-        if (attack_animation_timer <= 0.0f)
-        {
-            // Rufe die Ranged_Attack-Methode DIESER Klasse auf, nicht die der Basisklasse.
+        if (attack_animation_timer <= 0.0f) {
             this->Ranged_Attack();
             player_state = PlayerState::IDLE;
         }
     }
-    // Logik für den Nahkampf-Angriff
     else if (player_state == PlayerState::ATTACKING_MELEE)
     {
         attack_animation_timer -= delta_time;
-        if (attack_animation_timer <= 0.0f)
-        {
-            Player_Base_Class::Melee_Attack(); // Hier bleibt es vorerst bei der Basisklasse
+        if (attack_animation_timer <= 0.0f) {
+            Player_Base_Class::Melee_Attack();
             player_state = PlayerState::IDLE;
         }
     }
+    else if (player_state == PlayerState::PUSHING)
+    {
+        push_animation_timer -= delta_time;
+        if (push_animation_timer <= 0.0f) {
+            if (auto locked_block = block_to_push.lock()) {
+                locked_block->Push(push_direction);
+            }
+            player_state = PlayerState::IDLE;
+        }
+    }
+    else if (player_state == PlayerState::DYING)
+    {
+        // Hier kommt die Logik für den Tod hinein.
+        // Z.B. Animation abspielen, nach einer Weile zum Game-Over-Screen wechseln.
+        // Vorerst bleibt der Spieler einfach im DYING-Zustand.
+    }
 }
+
 
 void PlayerClass::Draw()
 {

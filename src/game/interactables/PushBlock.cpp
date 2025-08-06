@@ -21,12 +21,14 @@ void Push_Block::Draw()
 
 void Push_Block::On_Collision(std::shared_ptr<Collidable> other)
 {
-    // Wenn der Block mit einer Wand oder einem anderen schiebbaren Block kollidiert,
-    // wird er auf seine vorherige Position zurückgesetzt.
+    // Ignoriere Kollisionen mit dem Spieler
+    if (other->Get_Collision_Type() == Collision_Type::PLAYER) return;
+
+    // Wenn der Block mit einer Wand oder einem ANDEREN Block kollidiert
     auto other_type = other->Get_Collision_Type();
-    if (other_type == Collision_Type::WALL || other_type == Collision_Type::ENEMY_SPAWNER ||
-        (other.get() != this && other->Get_Collision_Type() == Get_Collision_Type())) // Verhindert Selbstkollision
+    if (other_type == Collision_Type::WALL || other_type == Collision_Type::ENEMY_SPAWNER)
     {
+        // Setze die Position auf die Position VOR dem Push zurück
         this->hitbox.x = this->previous_position.x;
         this->hitbox.y = this->previous_position.y;
     }

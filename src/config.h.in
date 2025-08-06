@@ -80,7 +80,10 @@ namespace game {
         inline static constexpr float player_Movement_Speed = 30.0f;
         inline static constexpr int player_Damage = 50;
 
-        // ---------------------------------------- PLAYER ATTACK SETTINGS ---------------------------------------------
+        // ----------------------------------- PLAYER ATTACK & ACTION SETTINGS -----------------------------------------
+
+        // Push Action
+        inline static constexpr float player_Push_Anim_Duration = 0.5f; // Dauer der Push-Animation in Sekunden
 
         // Ranged Attack (Throw)
         inline static constexpr float player_Projectile_Speed = 80.0f; // Projectile Geschwindigkeit
