@@ -6,7 +6,7 @@
 #define RAYLIBSTARTER_CONSUMABLES_H
 
 
-#include "Collidable.h"
+#include "../Collidable.h"
 
 class Collision_Manager;
 class Consumables : public Collidable

@@ -5,7 +5,7 @@
 #include "../config.h.in"
 #include "../game/Walls.h"
 #include "../game/Spawner/Level1Spawner.h"
-#include "../game/PushBlock.h"
+#include "../game/interactables/PushBlock.h"
 
 // Konstruktor ist identisch
 LevelScreen::LevelScreen(int *level_Ptr) : Level_Nbr_Ptr(level_Ptr) {

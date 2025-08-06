@@ -50,14 +50,14 @@ add_library(core STATIC
         ../game/spawner/Level1Spawner.cpp
         ../game/Walls.h
         ../game/Walls.cpp
-        ../game/Consumables.h
-        ../game/Consumables.cpp
+        ../game/interactables/Consumables.h
+        ../game/interactables/Consumables.cpp
         ../game/CollisionResponse.h
         ../game/CollisionResponse.cpp
-        ../game/PushBlock.cpp
-        ../game/PushBlock.h
         ../game/enemys/enemies_list.h
         ../game/FacingDirection.h
+        ../game/interactables/PushBlock.cpp
+        ../game/interactables/PushBlock.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

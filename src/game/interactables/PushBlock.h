@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Collidable.h"
-#include <raylib.h>
+#include "../Collidable.h"
+#include "raylib.h"
 
 /**
  * @brief Repräsentiert einen schiebbaren Block (movWall).
@@ -15,6 +15,8 @@ private:
     Texture2D tileset_texture;
     // Das spezifische Rechteck im Tileset, das diesen Block darstellt.
     Rectangle texture_source_rect;
+    // Speichert die vorherige Position, um bei Kollisionen zurückgesetzt zu werden.
+    Vector2 previous_position;
 
 public:
     /**
@@ -24,11 +26,16 @@ public:
      * @param source_rect Der genaue Ausschnitt im Tileset für die Grafik dieses Blocks.
      */
     Push_Block(Vector2 position, Texture2D tileset, Rectangle source_rect);
-    ~Push_Block() override = default; // Der Destruktor ist einfach, da die Textur von der LevelScreen verwaltet wird.
+    ~Push_Block() override = default;
 
-    // Implementierung der virtuellen Funktionen von Collidable
     void Tick(float delta_time) override;
     void Draw() override;
     void On_Collision(std::shared_ptr<Collidable> other) override;
     Collision_Type Get_Collision_Type() const override;
+
+    /**
+     * @brief Versucht, den Block in eine Richtung zu bewegen.
+     * @param move_direction Der normalisierte Vektor der Bewegungsrichtung.
+     */
+    void Push(Vector2 move_direction);
 };

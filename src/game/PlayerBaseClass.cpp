@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include "PlayerBaseClass.h"
+
+#include "../game/interactables/PushBlock.h"
 #include "Store.h"
 
 // Konstruktor
@@ -96,22 +98,41 @@ void Player_Base_Class::Tick(float delta_time)
 // Phase 3 :: Kollisionsreaktion falls der Collisionmanager eine Kollision mit einem anderen Objekt feststellt
 void Player_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
 {
-	Collision_Type otherType = other->Get_Collision_Type();
+    Collision_Type otherType = other->Get_Collision_Type();
 
     if (otherType == Collision_Type::WALL ||
         otherType == Collision_Type::ENEMY_SPAWNER ||
         otherType == Collision_Type::ENEMY)
     {
-		Rectangle wall_Hitbox = other->Get_Hitbox();
-        if (CheckCollisionRecs({hitbox.x, previous_Position.y, hitbox.width, hitbox.height}, wall_Hitbox))
+        // Prüfe, ob das "WALL"-Objekt in Wirklichkeit ein schiebbarer Block ist.
+        if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
+        {
+            // Berechne die Richtung, aus der der Spieler kommt.
+            Vector2 move_direction = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
+
+            // Runde den Vektor, um eine klare 90-Grad-Richtung zu erhalten (hoch, runter, links, rechts).
+            if (fabs(move_direction.x) > fabs(move_direction.y)) {
+                move_direction.y = 0;
+                move_direction.x = (move_direction.x > 0) ? 1 : -1;
+            } else {
+                move_direction.x = 0;
+                move_direction.y = (move_direction.y > 0) ? 1 : -1;
+            }
+
+            // Stoße den Block in diese Richtung.
+            push_block->Push(move_direction);
+        }
+
+        Rectangle other_hitbox = other->Get_Hitbox();
+        if (CheckCollisionRecs({hitbox.x, previous_Position.y, hitbox.width, hitbox.height}, other_hitbox))
         {
             hitbox.y = previous_Position.y;
         }
-        if (CheckCollisionRecs({previous_Position.x, hitbox.y, hitbox.width, hitbox.height}, wall_Hitbox))
+        if (CheckCollisionRecs({previous_Position.x, hitbox.y, hitbox.width, hitbox.height}, other_hitbox))
         {
             hitbox.x = previous_Position.x;
-		}
-	}
+        }
+    }
 }
 
 /*
