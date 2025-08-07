@@ -71,6 +71,8 @@ add_library(core STATIC
         ../game/interactables/Bomb.h
         ../game/interactables/Explosion.cpp
         ../game/interactables/Explosion.h
+        ../game/interactables/BreakableWall.cpp
+        ../game/interactables/BreakableWall.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

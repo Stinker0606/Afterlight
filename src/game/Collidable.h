@@ -21,7 +21,7 @@ enum class Collision_Type
     ENEMY_SPAWNER
 };
 
-class Collidable
+class Collidable : public std::enable_shared_from_this<Collidable>
 {
 protected:
     Rectangle hitbox;

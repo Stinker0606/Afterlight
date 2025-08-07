@@ -22,6 +22,9 @@ namespace game::scenes
     class Level1Scene final : public game::core::Scene
     {
     private:
+        // --- WARTELISTE ---
+        std::vector<std::shared_ptr<Collidable>> objects_to_add_list_;
+
         // --- Engine-Systeme ---
         Object_Manager objectManager;
         DT::timemachine dtm;
@@ -31,7 +34,7 @@ namespace game::scenes
         std::shared_ptr<PlayerClass> sp_player;
         std::shared_ptr<Cam> sp_cam;
 
-        // --- Deine eigenen Systeme für diesen Level ---
+        // --- Fog-Manager ---
         FogManager fogManager;
 
         // Eine RenderTexture, die als unsere "Nebel-Maske" dient.
@@ -43,10 +46,10 @@ namespace game::scenes
 
         // Listen, die der EnemySpawner aus der Basis-Engine benötigt
         // ---------------------------------------------------------------------
-        // Eine Liste, die alle Hindernisse für die Spawner enthält (vorerst leer).
+        // Eine Liste, die alle Hindernisse für die Spawner enthält.
         std::vector<Rectangle> obstacle_list_for_spawner;
 
-        // Eine temporäre Liste, in der der Spawner seine neu erstellten Gegner (als rohe Pointer) ablegt.
+        // Eine temporäre Liste, in der der Spawner seine neu erstellten Gegner ablegt.
         std::vector<enemy::Enemy_Base_Class*> raw_enemy_list_for_spawner;
 
         // Eine Liste, die alle unsere Spawner-Objekte verwaltet.
@@ -75,5 +78,8 @@ namespace game::scenes
          * @brief Wird jeden Frame aufgerufen, um alles zu zeichnen.
          */
         void Draw() override;
+
+        // --- HILFSFUNKTION ---
+        void Add_Object_To_Waitlist(std::shared_ptr<Collidable> object);
     };
 }

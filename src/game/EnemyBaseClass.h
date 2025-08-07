@@ -12,7 +12,7 @@
 namespace enemy
 {
     //class Collision_Manager;
-class Enemy_Base_Class : public Collidable , public std::enable_shared_from_this<Enemy_Base_Class>
+    class Enemy_Base_Class : public Collidable
     {
     protected:
 

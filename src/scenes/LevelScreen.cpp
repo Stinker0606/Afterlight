@@ -122,6 +122,22 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                         }
                     }
                 }
+                else if (object_name == "breakWall")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
+                        if (tile) {
+                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+                            new_object = std::make_shared<BreakableWall>(pos, this->tileatlas_Texture, source_rect);
+                        }
+                    }
+                }
                 else if (object_name == "spawn1") {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
                     float spawn_rate = game::Config::kSpawnRateSpawn1;
@@ -183,7 +199,10 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                 {
                     if (object.getGid() > 0) {
                         tson::Tile* tile = nullptr;
-                        for (auto& tileset : map->getTilesets()) { tile = tileset.getTile(object.getGid()); if (tile) break; }
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
                         if (tile) {
                             Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                             tson::Rect drawing_rect = tile->getDrawingRect();
@@ -196,7 +215,10 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                 {
                     if (object.getGid() > 0) {
                         tson::Tile* tile = nullptr;
-                        for (auto& tileset : map->getTilesets()) { tile = tileset.getTile(object.getGid()); if (tile) break; }
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
                         if (tile) {
                             Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                             tson::Rect drawing_rect = tile->getDrawingRect();

@@ -72,6 +72,12 @@ namespace game {
         // DMG Item
         inline static constexpr int kItemDmgConsDefaultAmount = 10;  // Standard-Schadensmenge - PLACEHOLDER WERT
 
+        // Bomb Settings
+        inline static constexpr int kBombDamage = 1000; // Bomben Damage - PLACEHOLDER WERT
+        inline static constexpr float kBombDetonationTime = 12.0f; // Detonations Zeit - PLACEHOLDER WERT
+        inline static constexpr float kBombBlinkInterval = 1.0f; // Blink Interval - PLACEHOLDER WERT
+        inline static constexpr float kBombPlacementCooldown = 2.0f; // Cooldown - PLACEHOLDER WERT
+
         // ----------------------------------------------- PLAYER ------------------------------------------------------
 
         // NICHT ÄNDERN! Animation Offset Fix

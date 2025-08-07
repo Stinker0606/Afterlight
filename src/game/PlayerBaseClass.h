@@ -21,7 +21,7 @@ namespace game {
 
 class Collision_Manager;
 
-class Player_Base_Class : public Collidable, public std::enable_shared_from_this<Player_Base_Class>
+class Player_Base_Class : public Collidable
 {
 protected:
 

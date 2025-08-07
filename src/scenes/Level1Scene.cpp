@@ -8,7 +8,7 @@
 #include "../game/Walls.h"
 #include "../game/spawner/Level1Spawner.h"
 #include "../game/enemys/enemies_list.h"
-
+#include "../game/interactables/interact_list.h"
 
 using namespace std::string_literals;
 
@@ -68,6 +68,13 @@ namespace game::scenes
         UnloadRenderTexture(this->fogMaskTexture);
     }
 
+    void Level1Scene::Add_Object_To_Waitlist(std::shared_ptr<Collidable> object)
+    {
+        if (object) {
+            objects_to_add_list_.push_back(object);
+        }
+    }
+
     void Level1Scene::Update()
     {
         // Standard-Engine-Inputs
@@ -100,6 +107,18 @@ namespace game::scenes
             }
         }
 
+        if (sp_player->Should_Place_Bomb())
+        {
+            // Platziere die Bombe auf dem Grid, auf dem der Spieler steht
+            Vector2 player_center = sp_player->Get_Player_Center();
+            Vector2 bomb_pos = {
+                floorf(player_center.x / 32.0f) * 32.0f,
+                floorf(player_center.y / 32.0f) * 32.0f
+            };
+            auto bomb = std::make_shared<Bomb>(bomb_pos, this);
+            Add_Object_To_Waitlist(bomb);
+        }
+
         // --- "useFog"-Logik ---
         // Diese Logik berechnet wie transparent jedes Objekt sein soll.
         Vector2 player_center = sp_player->Get_Player_Center();
@@ -119,6 +138,13 @@ namespace game::scenes
             }
         }
         // ------------------------------------
+
+        objectManager.Cleanup_Objects();
+
+        for (const auto& new_obj : objects_to_add_list_) {
+            objectManager.AddObject(new_obj);
+        }
+        objects_to_add_list_.clear();
 
         // Aktualisiere Kamera und Kollisionen
         p_cm->Check_Collisions();
@@ -156,7 +182,6 @@ namespace game::scenes
         }
 
         // Aufräumen und Zeit aktualisieren
-        objectManager.Cleanup_Objects();
         dtm.Update();
     }
 

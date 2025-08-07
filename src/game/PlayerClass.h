@@ -27,7 +27,7 @@ private:
     float attack_animation_timer; // Timer für die Dauer von Angriffs-Animationen
     float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens
 
-    // --- PUSH-VARIABLEN ---
+    // --- PUSH WALL ---
     float push_animation_timer; // Eigener Timer für die Push-Animation
     std::weak_ptr<Push_Block> block_to_push; // Ein schwacher Zeiger auf den Block, den wir schieben
     Vector2 push_direction; // Die Richtung, in die wir schieben
@@ -38,6 +38,10 @@ private:
     // --- INVENTAR-ZÄHLER ---
     int key_count_ = 0;
     int bomb_count_ = 0;
+
+    // --- BOMBEN ---
+    bool should_place_bomb_ = false;
+    float bomb_cooldown_ = 0.0f;
 
     // --- Animationen ---
 
@@ -121,7 +125,9 @@ public:
 
     // --- METHODEN ZUM VERWALTEN DES INVENTARS ---
     void Add_Key(int amount);
-    void Add_Bomb(int amount);
     int Get_Key_Count() const;
+    void Add_Bomb(int amount);
     int Get_Bomb_Count() const;
+    void Use_Bomb();
+    bool Should_Place_Bomb();
 };

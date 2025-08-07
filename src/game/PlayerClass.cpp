@@ -183,6 +183,10 @@ void PlayerClass::Tick(float delta_time)
         hit_feedback_timer -= delta_time;
         if (hit_feedback_timer <= 0.0f) { tint_color = WHITE; }
     }
+    // Bomben-Cooldown-Timer aktualisieren
+    if (bomb_cooldown_ > 0.0f) {
+        bomb_cooldown_ -= delta_time;
+    }
 
     // Deine Zustands-Logik (angepasst an if/else if)
     if (player_state == PlayerState::IDLE || player_state == PlayerState::MOVING)
@@ -196,6 +200,9 @@ void PlayerClass::Tick(float delta_time)
             player_state = PlayerState::ATTACKING_MELEE;
             attack_animation_timer = game::Config::player_Melee_Attack_Anim_Duration;
             melee_Cooldown = game::Config::player_Melee_Attack_Cooldown;
+        }  if (IsKeyPressed(game::Config::key_Place_Bomb) && bomb_count_ > 0 && bomb_cooldown_ <= 0.0f)
+        {
+            Use_Bomb();
         }
     }
     else if (player_state == PlayerState::ATTACKING_RANGED)
@@ -342,17 +349,33 @@ void PlayerClass::Add_Key(int amount)
     this->key_count_ += amount;
 }
 
-void PlayerClass::Add_Bomb(int amount)
-{
-    this->bomb_count_ += amount;
-}
-
 int PlayerClass::Get_Key_Count() const
 {
     return this->key_count_;
 }
 
+void PlayerClass::Add_Bomb(int amount)
+{
+    this->bomb_count_ += amount;
+}
+
 int PlayerClass::Get_Bomb_Count() const
 {
     return this->bomb_count_;
+}
+
+void PlayerClass::Use_Bomb()
+{
+    bomb_count_--;
+    should_place_bomb_ = true; // Signal für die Szene setzen
+    bomb_cooldown_ = game::Config::kBombPlacementCooldown; // Cooldown zurücksetzen
+}
+
+bool PlayerClass::Should_Place_Bomb()
+{
+    if (should_place_bomb_) {
+        should_place_bomb_ = false; // Signal zurücksetzen
+        return true;
+    }
+    return false;
 }
