@@ -256,8 +256,8 @@ namespace game {
 
         // Spawn1
         inline static constexpr const char* kSpawnerLevel1SpritePath = "assets/graphics/spawner/Spawner_outside.png"; //PLACEHOLDER
-        inline static constexpr int kMaxEnemiesSpawn1 = 5;
-        inline static constexpr float kSpawnRateSpawn1 = 300.0f; //PLACEHOLDER
+        inline static constexpr int kMaxEnemiesSpawn1 = 2;
+        inline static constexpr float kSpawnRateSpawn1 = 20.0f; //PLACEHOLDER
 
         // Spawn2
         inline static constexpr const char* kSpawnerLevel2SpritePath = "assets/graphics/spawner/Spawner_outside.png"; //PLACEHOLDER
