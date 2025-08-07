@@ -63,6 +63,14 @@ add_library(core STATIC
         ../game/interactables/DmgConsumable.cpp
         ../game/interactables/DmgConsumable.h
         ../game/interactables/interact_list.h
+        ../game/interactables/KeyConsumable.cpp
+        ../game/interactables/KeyConsumable.h
+        ../game/interactables/BombConsumable.cpp
+        ../game/interactables/BombConsumable.h
+        ../game/interactables/Bomb.cpp
+        ../game/interactables/Bomb.h
+        ../game/interactables/Explosion.cpp
+        ../game/interactables/Explosion.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

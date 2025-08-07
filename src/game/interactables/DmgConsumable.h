@@ -2,7 +2,6 @@
 
 #include "../Collidable.h"
 #include <raylib.h>
-#include <string>
 
 class Player_Base_Class;
 

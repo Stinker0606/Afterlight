@@ -35,6 +35,10 @@ private:
     // --- Visuelle Effekte ---
     Color tint_color; // Die aktuelle Tönung des Spielers.
 
+    // --- INVENTAR-ZÄHLER ---
+    int key_count_ = 0;
+    int bomb_count_ = 0;
+
     // --- Animationen ---
 
     // Idle
@@ -114,4 +118,10 @@ public:
      * @param damage Die Höhe des Schadens.
      */
     void Take_Damage(int damage) override;
+
+    // --- METHODEN ZUM VERWALTEN DES INVENTARS ---
+    void Add_Key(int amount);
+    void Add_Bomb(int amount);
+    int Get_Key_Count() const;
+    int Get_Bomb_Count() const;
 };

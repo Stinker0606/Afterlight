@@ -179,6 +179,32 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                         }
                     }
                 }
+                else if (object_name == "keyCons")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) { tile = tileset.getTile(object.getGid()); if (tile) break; }
+                        if (tile) {
+                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+                            new_object = std::make_shared<KeyConsumable>(pos, 1, this->tileatlas_Texture, source_rect); // Fügt standardmäßig 1 Schlüssel hinzu
+                        }
+                    }
+                }
+                else if (object_name == "bombCons")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) { tile = tileset.getTile(object.getGid()); if (tile) break; }
+                        if (tile) {
+                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+                            new_object = std::make_shared<BombConsumable>(pos, 1, this->tileatlas_Texture, source_rect); // Fügt standardmäßig 1 Bombe hinzu
+                        }
+                    }
+                }
 
                 if (new_object != nullptr) {
                     if (object.getProperties().hasProperty("useFog")) {

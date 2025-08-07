@@ -320,7 +320,6 @@ void PlayerClass::Draw()
     }
 }
 
-
 void PlayerClass::Take_Damage(int damage)
 {
     // 1. Rufe die Logik der Basisklasse auf, um die HP zu reduzieren.
@@ -336,4 +335,24 @@ void PlayerClass::Take_Damage(int damage)
         player_state = PlayerState::DYING;
     }
     */
+}
+
+void PlayerClass::Add_Key(int amount)
+{
+    this->key_count_ += amount;
+}
+
+void PlayerClass::Add_Bomb(int amount)
+{
+    this->bomb_count_ += amount;
+}
+
+int PlayerClass::Get_Key_Count() const
+{
+    return this->key_count_;
+}
+
+int PlayerClass::Get_Bomb_Count() const
+{
+    return this->bomb_count_;
 }
