@@ -4,8 +4,8 @@
 
 #include "Consumables.h"
 #include <iostream>
-#include "CollisionManager.h"
-#include "../../cmake-build-debug/_deps/raylib-src/src/config.h"
+#include "../core/CollisionManager.h"
+#include "../../config.h.in"
 
 Consumables::Consumables(Vector2 position, std::string name)
 {

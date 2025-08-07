@@ -4,10 +4,9 @@
 
 #include <iostream>
 #include "PlayerBaseClass.h"
-#include "Store.h"
 #include "CollisionResponse.h"
-#include <cmath>
-
+#include "../game/interactables/interact_list.h"
+#include "Store.h"
 
 // Konstruktor
 Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position, Object_Manager& om)
@@ -16,7 +15,7 @@ Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int d
       previous_Position(start_Position), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
       inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false),om(om)
 {
-    hitbox={start_Position.x,start_Position.y,30,46};
+    hitbox={start_Position.x,start_Position.y,game::Config::Player_Hitbox_Width,game::Config::Player_Hitbox_Height};
     // 2. Registriere Objekt beim Manager
 
 }
@@ -40,7 +39,7 @@ void Player_Base_Class::Player_Input()
         Ranged_Attack();
     }
 
-    /*if (IsKeyPressed(game::Config::key_Use_Item) && inventory_Is_Full)
+    /*if (IsKeyPressed(game::Config::key_Interact) && inventory_Is_Full)
     {
         Use_Item();
     }*/
@@ -70,15 +69,28 @@ void Player_Base_Class::Tick(float delta_time)
 
     hitbox.x += (move_Direction.x * player_Movement_Speed * delta_time);
     hitbox.y += (move_Direction.y * player_Movement_Speed * delta_time);
+
+    // --- Spieler an die Weltgrenzen klemmen ---
+    if (hitbox.x < game::Config::kWorldBoundsMinX) hitbox.x = game::Config::kWorldBoundsMinX;
+    if (hitbox.y < game::Config::kWorldBoundsMinY) hitbox.y = game::Config::kWorldBoundsMinY;
+    if (hitbox.x + hitbox.width > game::Config::kWorldBoundsMaxX) hitbox.x = game::Config::kWorldBoundsMaxX - hitbox.width;
+    if (hitbox.y + hitbox.height > game::Config::kWorldBoundsMaxY) hitbox.y = game::Config::kWorldBoundsMaxY - hitbox.height;
+
+
     player_Pos.x=hitbox.x;
     player_Pos.y=hitbox.y;
 
 
     Update_Facing_Direction();
 
+    /*
+
     if (ranged_Cooldown<=0&& IsKeyDown(game::Config::key_Ranged_Attack)){
         Ranged_Attack();
     }
+
+    */
+
     if (melee_Cooldown > 0) melee_Cooldown -= delta_time;
     if (ranged_Cooldown > 0) ranged_Cooldown -= delta_time;
 }
@@ -86,23 +98,90 @@ void Player_Base_Class::Tick(float delta_time)
 // Phase 3 :: Kollisionsreaktion falls der Collisionmanager eine Kollision mit einem anderen Objekt feststellt
 void Player_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
 {
-	Collision_Type otherType = other->Get_Collision_Type();
+    // Prüfe, ob es sich um einen Push_Block handelt. Deine Logik hat hier Vorrang.
+    if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
+    {
+        // Deine funktionierende Push-Logik
+        Vector2 move_direction = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
+        if (fabs(move_direction.x) > fabs(move_direction.y)) {
+            move_direction.y = 0;
+            move_direction.x = (move_direction.x > 0) ? 1 : -1;
+        } else {
+            move_direction.x = 0;
+            move_direction.y = (move_direction.y > 0) ? 1 : -1;
+        }
+        push_block->Push(move_direction);
+
+        // Setze den Spieler auf seine alte Position zurück, um das "Kleben" am Block zu verhindern
+        hitbox.x = previous_Position.x;
+        hitbox.y = previous_Position.y;
+    }
+    else
+    {
+        // Für ALLE ANDEREN soliden Objekte (Wände, Gegner, Spawner), benutze die neue "Gleiten"-Logik.
+        Collision_Type otherType = other->Get_Collision_Type();
+        if (otherType == Collision_Type::WALL ||
+            otherType == Collision_Type::ENEMY_SPAWNER ||
+            otherType == Collision_Type::ENEMY)
+        {
+            CollisionResponse::Resolve_Overlap(shared_from_this(), other);
+        }
+    }
+}
+
+
+/*
+void Player_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
+{
+    Collision_Type otherType = other->Get_Collision_Type();
 
     if (otherType == Collision_Type::WALL ||
         otherType == Collision_Type::ENEMY_SPAWNER ||
         otherType == Collision_Type::ENEMY)
     {
-		Rectangle wall_Hitbox = other->Get_Hitbox();
-        if (CheckCollisionRecs({hitbox.x, previous_Position.y, hitbox.width, hitbox.height}, wall_Hitbox))
+        // --- NEUE, ROBUSTERE KOLLISIONSLOGIK ---
+        Rectangle other_hitbox = other->Get_Hitbox();
+
+        // Berechne, wie tief die Hitboxen auf jeder Achse ineinander stecken
+        float overlap_x = std::min(hitbox.x + hitbox.width, other_hitbox.x + other_hitbox.width) - std::max(hitbox.x, other_hitbox.x);
+        float overlap_y = std::min(hitbox.y + hitbox.height, other_hitbox.y + other_hitbox.height) - std::max(hitbox.y, other_hitbox.y);
+
+        // Die Kollision fand auf der Achse mit der GERINGEREN Überlappung statt
+        if (overlap_x < overlap_y)
         {
-            hitbox.y = previous_Position.y;
+            // Kollision auf der X-Achse
+            if (hitbox.x < other_hitbox.x)
+            {
+                // Spieler kam von links, also schiebe ihn nach links zurück
+                hitbox.x -= overlap_x;
+            }
+            else
+            {
+                // Spieler kam von rechts, also schiebe ihn nach rechts zurück
+                hitbox.x += overlap_x;
+            }
         }
-        if (CheckCollisionRecs({previous_Position.x, hitbox.y, hitbox.width, hitbox.height}, wall_Hitbox))
+        else
         {
-            hitbox.x = previous_Position.x;
-		}
-	}
+            // Kollision auf der Y-Achse
+            if (hitbox.y < other_hitbox.y)
+            {
+                // Spieler kam von oben, also schiebe ihn nach oben zurück
+                hitbox.y -= overlap_y;
+            }
+            else
+            {
+                // Spieler kam von unten, also schiebe ihn nach unten zurück
+                hitbox.y += overlap_y;
+            }
+        }
+
+        // Aktualisiere die visuelle Position des Spielers, damit sie zur korrigierten Hitbox-Position passt
+        player_Pos.x = hitbox.x;
+        player_Pos.y = hitbox.y;
+    }
 }
+*/
 
 // Draw Methode ist noch nicht klar, wie das mit der Visualisierung laufen wird
 void Player_Base_Class::Draw()
@@ -117,6 +196,7 @@ void Player_Base_Class::Melee_Attack()
 }
 void Player_Base_Class::Ranged_Attack()
 {
+    /*
     // Hole die Mausposition aus dem globalen Store
     Vector2 target_Position = game::core::Store::mouse_Position;
 
@@ -147,7 +227,10 @@ void Player_Base_Class::Ranged_Attack()
         // Setze den Cooldown zurück
         ranged_Cooldown = 0.5f; //PLACEHOLDER ZAHL - darf man ändern.
     }
+    */
 }
+
+
 
 // Funktion für die Tick Methode welche die aktuelle Position speichert, falls das Objekt zurück gesetzt werden soll
 void Player_Base_Class::Update_Previous_Position()

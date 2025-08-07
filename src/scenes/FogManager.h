@@ -36,6 +36,9 @@ public:
     // Cleanup
     void UnloadFog();
 
+    // Eine Getter-Methode für den Shader.
+    Shader GetShader() const { return fogShader; }
+
 private:
     Shader fogShader;
     bool fogLoaded;

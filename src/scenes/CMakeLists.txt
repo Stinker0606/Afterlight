@@ -1,11 +1,26 @@
 cmake_minimum_required(VERSION 3.11)
 
-add_library(scenes STATIC MenuScene.h MenuScene.cpp GameScene.h GameScene.cpp PauseScene.cpp PauseScene.h screen.h screen.cpp
-        screen.cpp
-        screen.h
+add_library(scenes STATIC
+        Scene.h
+        MenuScene.h
+        MenuScene.cpp
+        GameScene.h
+        GameScene.cpp
+        PauseScene.cpp
+        PauseScene.h
+
+        # Unsere neuen Klassen
+        LevelScreen.h
+        LevelScreen.cpp
+        Level1Scene.h
+        Level1Scene.cpp
+
+        # Dein FogManager
+        FogManager.h
         FogManager.cpp
-        FogManager.h)
+)
 
 target_include_directories(scenes PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
+# Die Szenen-Bibliothek muss wissen, wo die Kern-Logik ist
 target_link_libraries(scenes raylib raylib_cpp core nlohmann_json::nlohmann_json)

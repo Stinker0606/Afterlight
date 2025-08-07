@@ -2,6 +2,8 @@
 // Created by $Will on 22.06.2025.
 //
 
+/*
+
 #ifndef PLAYERCLASSONE_H
 #define PLAYERCLASSONE_H
 
@@ -15,7 +17,6 @@ class Player_Class_One : public Player_Base_Class
 {
 private:
     Vector2 size{100,100};
-
 
     RepeatAnimation* current_animation;
 
@@ -32,6 +33,7 @@ public:
     //RepeatAnimation Idle_Front_Right;
     //RepeatAnimation Idle_Top_Left;
     //RepeatAnimation Idle_Front_Left;
+
     // Moving
     RepeatAnimation Run_Front;
     RepeatAnimation Run_Back;
@@ -42,6 +44,16 @@ public:
     //RepeatAnimation Run_Top_Left;
     //RepeatAnimation Run_Front_Left;
 
+    // Attack-Throw
+    //RepeatAnimation Throw_Front;
+    //RepeatAnimation Throw_Back;
+    //RepeatAnimation Throw_Left;
+    //RepeatAnimation Throw_Right;
+    //RepeatAnimation Throw_Top_Right;
+    //RepeatAnimation Throw_Front_Right;
+    //RepeatAnimation Throw_Top_Left;
+    //RepeatAnimation Throw_Front_Left;
+
     Player_Class_One(Vector2 start_Position,Object_Manager& om);
     ~Player_Class_One();
     void Draw() override;
@@ -50,3 +62,6 @@ public:
 
 
 #endif //PLAYERCLASSONE_H
+
+
+*/

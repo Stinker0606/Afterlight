@@ -19,26 +19,29 @@ void CollisionResponse::Resolve_Overlap(std::shared_ptr<Collidable> obj_A, const
     float overlap_X = std::min(hitbox_A.x + hitbox_A.width, hitbox_B.x + hitbox_B.width) - std::max(hitbox_A.x, hitbox_B.x);
     float overlap_Y = std::min(hitbox_A.y + hitbox_A.height, hitbox_B.y + hitbox_B.height) - std::max(hitbox_A.y, hitbox_B.y);
 
-    if (overlap_X < overlap_Y)
+    if (overlap_X > 0 && overlap_Y > 0)
     {
-        if (hitbox_A.x < hitbox_B.x)
+        if (overlap_X < overlap_Y)
         {
-            obj_A->Set_Position({ hitbox_A.x - overlap_X, hitbox_A.y });
+            if ((hitbox_A.x + hitbox_A.width / 2) < (hitbox_B.x + hitbox_B.width / 2))
+            {
+                obj_A->Set_Position({ hitbox_A.x - overlap_X, hitbox_A.y });
+            }
+            else
+            {
+                obj_A->Set_Position({ hitbox_A.x + overlap_X, hitbox_A.y });
+            }
         }
         else
         {
-            obj_A->Set_Position({ hitbox_A.x + overlap_X, hitbox_A.y });
-        }
-    }
-    else
-    {
-        if (hitbox_A.y < hitbox_B.y)
-        {
-            obj_A->Set_Position({ hitbox_A.x, hitbox_A.y - overlap_Y });
-        }
-        else
-        {
-            obj_A->Set_Position({ hitbox_A.x, hitbox_A.y + overlap_Y });
+            if ((hitbox_A.y + hitbox_A.height / 2) < (hitbox_B.y + hitbox_B.height / 2))
+            {
+                obj_A->Set_Position({ hitbox_A.x, hitbox_A.y - overlap_Y });
+            }
+            else
+            {
+                obj_A->Set_Position({ hitbox_A.x, hitbox_A.y + overlap_Y });
+            }
         }
     }
 }
@@ -56,6 +59,7 @@ void CollisionResponse::Apply_Damage(std::shared_ptr<Collidable> target, int dam
         enemy->Take_Damage(damage);
     }
 }
+
 
 void CollisionResponse::Mark_For_Destruction(std::shared_ptr<Collidable> obj_To_Destroy)
 {

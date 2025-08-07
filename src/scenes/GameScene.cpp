@@ -1,3 +1,4 @@
+/*
 #include "GameScene.h"
 #include <memory>
 #include <string>
@@ -9,25 +10,21 @@
 #include "Renderer.h"
 #include "SpriteAnimated.h"
 
-#include "../game/PlayerClassOne.h"
+#include "../game/PlayerClass.h"
 #include "../core/CollisionManager.h"
-#include "config.h"
-#include "raymath.h"
 
 using namespace std::string_literals;
 
 game::scenes::GameScene::GameScene()
 {
     dtm.Start();
-    this->sp_mp=std::make_shared<Player_Class_One>(sp,objectManager);
+    this->sp_mp=std::make_shared<PlayerClass>(sp,objectManager);
     objectManager.AddObject(sp_mp);
     cam=std::make_shared<Cam>(sp_mp);
     screen.LoadGameObjects(objectManager);
 
-    cam->Cam_Movement(0.0f);
-    Vector2 initial_player_world_pos = cam->cam.target;
-    Vector2 initial_player_screen_pos = GetWorldToScreen2D(initial_player_world_pos, cam->cam);
-    screen.UpdateFog(initial_player_screen_pos, 0.0f);
+    // Your scene initialization code here...
+
 }
 
 game::scenes::GameScene::~GameScene()
@@ -44,25 +41,12 @@ void game::scenes::GameScene::Update()
         ToggleFullscreen();
     }
 
-    for (auto& obj : objectManager.managed_objects) {
-        obj->Tick(dtm.Get_Dt());
+
+    for (int i = 0; i < objectManager.managed_objects.size(); ++i) {
+        objectManager.managed_objects[i]->Tick(dtm.Get_Dt());
     }
-
-    p_cm->Check_Collisions();
-    cam->Cam_Movement(dtm.Get_Dt());
-
-    Vector2 player_world_pos = cam->cam.target;
-    Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, cam->cam);
-
-    // 1. Definiere hier einen visuellen Offset.
-    Vector2 fog_visual_offset = { -0.0f, -0.0f };
-
-    // 2. Addiere den Offset zur berechneten Bildschirm-Position.
-    Vector2 final_fog_pos = Vector2Add(player_screen_pos, fog_visual_offset);
-
-    // 3. Übergib die finale, korrigierte Position an den Nebel.
-    screen.UpdateFog(final_fog_pos, dtm.Get_Dt());
-
+    this->cam->Cam_Movement(dtm.Get_Dt());
+    this->p_cm->Check_Collisions();
     objectManager.Cleanup_Objects();
     dtm.Update();
 }
@@ -77,14 +61,6 @@ void game::scenes::GameScene::Draw()
     for (int i = 0; i < objectManager.managed_objects.size(); ++i) {
         objectManager.managed_objects[i]->Draw();
     }
-
-    for (const auto& p_object : objectManager.managed_objects)
-    {
-        if (p_object != nullptr)
-        {
-            DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
-        }
-    }
-
     screen.Draw_Level(this->cam, true);
 }
+*/

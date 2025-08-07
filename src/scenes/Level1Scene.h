@@ -1,0 +1,85 @@
+#pragma once
+
+#include "Scene.h"
+#include "LevelScreen.h"
+#include "Object_Manager.h"
+#include "CollisionManager.h"
+#include "../core/DeltaTimeMachine.h"
+#include "Cam.h"
+#include "FogManager.h"
+#include "../game/PlayerClass.h"
+#include <memory>
+#include <vector>
+#include "../game/spawner/Level1Spawner.h"
+
+namespace game::scenes
+{
+    /**
+     * @brief Dies ist DEINE Szene für Level 1.
+     * Sie erbt von der Basis-Szene und enthält die gesamte Spiellogik,
+     * die nur für diesen Level relevant ist. Sie ist unser sauberer Arbeitsbereich.
+     */
+    class Level1Scene final : public game::core::Scene
+    {
+    private:
+        // --- WARTELISTE ---
+        std::vector<std::shared_ptr<Collidable>> objects_to_add_list_;
+
+        // --- Engine-Systeme ---
+        Object_Manager objectManager;
+        DT::timemachine dtm;
+        std::unique_ptr<Collision_Manager> p_cm;
+
+        // --- Spiel-Objekte ---
+        std::shared_ptr<PlayerClass> sp_player;
+        std::shared_ptr<Cam> sp_cam;
+
+        // --- Fog-Manager ---
+        FogManager fogManager;
+
+        // Eine RenderTexture, die als unsere "Nebel-Maske" dient.
+        RenderTexture2D fogMaskTexture;
+
+        // --- Level-spezifische Daten ---
+        int level_Nbr = 1;
+        LevelScreen levelScreen{&level_Nbr}; // Wir benutzen unsere erweiterbare LevelScreen
+
+        // Listen, die der EnemySpawner aus der Basis-Engine benötigt
+        // ---------------------------------------------------------------------
+        // Eine Liste, die alle Hindernisse für die Spawner enthält.
+        std::vector<Rectangle> obstacle_list_for_spawner;
+
+        // Eine temporäre Liste, in der der Spawner seine neu erstellten Gegner ablegt.
+        std::vector<enemy::Enemy_Base_Class*> raw_enemy_list_for_spawner;
+
+        // Eine Liste, die alle unsere Spawner-Objekte verwaltet.
+        std::vector<std::unique_ptr<Enemy_Spawner>> spawner_list;
+        // ---------------------------------------------------------------------
+
+    public:
+        /**
+         * @brief Konstruktor, wird einmal beim Erstellen der Szene aufgerufen.
+         * Hier wird das Level initialisiert.
+         */
+        Level1Scene();
+
+        /**
+         * @brief Destruktor, wird beim Zerstören der Szene aufgerufen.
+         */
+        ~Level1Scene() override;
+
+        /**
+         * @brief Wird jeden Frame aufgerufen, um die Spiellogik zu aktualisieren.
+         * Die Engine-Basisklasse `Scene` gibt den Namen "Update" vor.
+         */
+        void Update() override;
+
+        /**
+         * @brief Wird jeden Frame aufgerufen, um alles zu zeichnen.
+         */
+        void Draw() override;
+
+        // --- HILFSFUNKTION ---
+        void Add_Object_To_Waitlist(std::shared_ptr<Collidable> object);
+    };
+}

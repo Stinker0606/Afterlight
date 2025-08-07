@@ -9,12 +9,17 @@
 #include "CollisionManager.h"
 #include "../Config.h.in"
 #include "raymath.h"
-#include "PlayerProjectile.h"
 #include "Object_Manager.h"
+#include "FacingDirection.h"
+#include <memory>
+
+class Object_Manager;
+
+namespace game {
+	class Player_Projectile;
+}
 
 class Collision_Manager;
-
-enum Facing_Direction {UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
 
 class Player_Base_Class : public Collidable
 {
@@ -35,11 +40,18 @@ protected:
 	Facing_Direction facing_Direction;
 	bool is_Moving;
 
-    Texture2D maintex= LoadTexture("assets/graphics/animations/player/turnaround/Maincharacter_turnaround_Front.png");
+	Texture2D maintex= LoadTexture("PLACEHOLDER");
 
     float projectile_Speed;
     std::vector<std::shared_ptr<game::Player_Projectile>> sp_projectiles;
     Object_Manager& om;
+
+	// Ein Enum für klare Spieler-Zustände
+	enum class PlayerState { IDLE, MOVING, ATTACKING_RANGED, ATTACKING_MELEE, PUSHING, DYING };
+	PlayerState player_state;
+
+	// Ein Timer der steuert wann nach der Animation der Schuss ausgelöst wird
+	float attack_animation_timer;
 
 public:
 	// Konstruktor
@@ -56,14 +68,14 @@ public:
 	void Update_Facing_Direction();
 
 	void Melee_Attack();
-	void Ranged_Attack();
+	virtual void Ranged_Attack();
 	void Use_Item();
 
     Collision_Type Get_Collision_Type() const override;
     Vector2 Get_Player_Pos();
     Vector2 Get_Player_Center();
 
-    void Take_Damage(int damage);
+    virtual void Take_Damage(int damage);
 
 };
 
