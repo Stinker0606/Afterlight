@@ -5,8 +5,8 @@
 #include "../config.h.in"
 #include "../game/Walls.h"
 #include "../game/Spawner/Level1Spawner.h"
-#include "../game/interactables/PushBlock.h"
-#include "../game/interactables/HealConsumable.h"
+#include "../game/interactables/interact_list.h"
+
 
 // Konstruktor ist identisch
 LevelScreen::LevelScreen(int *level_Ptr) : Level_Nbr_Ptr(level_Ptr) {
@@ -153,6 +153,29 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
 
                             new_object = std::make_shared<HealConsumable>(pos, heal_amount, this->tileatlas_Texture, source_rect);
+                        }
+                    }
+                }
+                else if (object_name == "dmgCons")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
+
+                        if (tile) {
+                            int damage_amount = game::Config::kItemDmgConsDefaultAmount;
+                            if(object.getProperties().hasProperty("damageAmount")) {
+                                damage_amount = object.getProperties().getValue<int>("damageAmount");
+                            }
+
+                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+
+                            new_object = std::make_shared<DmgConsumable>(pos, damage_amount, this->tileatlas_Texture, source_rect);
                         }
                     }
                 }

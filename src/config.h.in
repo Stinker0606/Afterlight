@@ -67,7 +67,10 @@ namespace game {
         // -------------------------------------------- Interactables --------------------------------------------------
 
         // Heal Item
-        inline static constexpr int kItemHealConsDefaultAmount = 25; // Standard-Heilmenge
+        inline static constexpr int kItemHealConsDefaultAmount = 25; // Standard-Heilmenge - PLACEHOLDER WERT
+
+        // DMG Item
+        inline static constexpr int kItemDmgConsDefaultAmount = 10;  // Standard-Schadensmenge - PLACEHOLDER WERT
 
         // ----------------------------------------------- PLAYER ------------------------------------------------------
 

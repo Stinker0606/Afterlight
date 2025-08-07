@@ -4,9 +4,8 @@
 
 #include <iostream>
 #include "PlayerBaseClass.h"
-
 #include "CollisionResponse.h"
-#include "../game/interactables/PushBlock.h"
+#include "../game/interactables/interact_list.h"
 #include "Store.h"
 
 // Konstruktor

@@ -1,6 +1,6 @@
 #include "PlayerClass.h"
 #include "Store.h"
-#include "interactables/PushBlock.h"
+#include "../game/interactables/interact_list.h"
 
 PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
     // 1. Rufe den Konstruktor der Basisklasse mit den Werten aus der Config auf
@@ -327,6 +327,6 @@ void PlayerClass::Take_Damage(int damage)
     this->player_Health -= damage;
 
     // 2. Starte unser visuelles Hit-Feedback.
-    hit_feedback_timer = 0.2f; // Für 0.2 Sekunden aufleuchten
+    hit_feedback_timer = 1.0f; // Für 0.2 Sekunden aufleuchten
     tint_color = (Color){ 88, 60, 72, 255 }; // Hex-Code #583c48
 }
