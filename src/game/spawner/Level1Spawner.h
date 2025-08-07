@@ -26,11 +26,13 @@ public:
      */
     void Draw() override;
 
+    void On_Collision(std::shared_ptr<Collidable> other) override;
 private:
     Texture2D spawner_sprite;
     Object_Manager& object_manager_ref;
     float spawn_timer;
     int current_enemy_count;
+    int health_;
 
 protected:
     enemy::Enemy_Base_Class* createEnemy(Vector2 position) override;

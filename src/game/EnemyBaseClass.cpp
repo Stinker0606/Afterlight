@@ -31,6 +31,12 @@ Enemy_Base_Class::~Enemy_Base_Class()
 void Enemy_Base_Class::Take_Damage(int damage_amount)
 {
     enemy_Health -= damage_amount;
+
+    // Wenn die Gesundheit auf 0 oder weniger fällt, markiere den Gegner zur Zerstörung.
+    if (this->enemy_Health <= 0)
+    {
+        this->Mark_For_Destruction();
+    }
 }
 
 void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time)
@@ -89,7 +95,6 @@ void Enemy_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
     switch(other_Type)
     {
         case Collision_Type::WALL:
-        case Collision_Type::ENEMY_SPAWNER:
         case Collision_Type::PLAYER:
         {
             if (this->is_Moving)
@@ -121,7 +126,7 @@ void Enemy_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
             CollisionResponse::Mark_For_Destruction(other);*/
             break;
         }
-
+        case Collision_Type::ENEMY_SPAWNER:
         case Collision_Type::CONSUMABLE:
         {
             /* // Wir brauchen eine Basis-Klasse "Consumable", von der alle Items erben.
