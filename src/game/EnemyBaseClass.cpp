@@ -43,7 +43,7 @@ void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Positio
     float distance_To_Target = std::sqrt(delta_Vector_X * delta_Vector_X + delta_Vector_Y * delta_Vector_Y);
 
     // Wir holen uns die Angriffsreichweite.
-    float attack_Range = 32.0; // 1,2 Tiles +-
+    float attack_Range = 36.0; // 1,2 Tiles +-
 
     // Sicherheitscheck, um eine Division durch Null (Fehler den ich bei meinem Test oft hatte) zu verhindern.
     // Die Bewegung wird nur ausgeführt, wenn der Gegner sein Ziel noch nicht erreicht hat.

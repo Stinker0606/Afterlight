@@ -59,6 +59,7 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
 {
     // 4. Setze die Standard-Animation beim Start
     p_current_animation = &anim_Idle_Front;
+    this->useFog = true;
 }
 
 void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
@@ -320,7 +321,6 @@ void PlayerClass::Draw()
 }
 
 
-
 void PlayerClass::Take_Damage(int damage)
 {
     // 1. Rufe die Logik der Basisklasse auf, um die HP zu reduzieren.
@@ -329,4 +329,11 @@ void PlayerClass::Take_Damage(int damage)
     // 2. Starte unser visuelles Hit-Feedback.
     hit_feedback_timer = 1.0f; // Für 0.2 Sekunden aufleuchten
     tint_color = (Color){ 88, 60, 72, 255 }; // Hex-Code #583c48
+
+    /*
+    if (this->player_Health <= 0)
+    {
+        player_state = PlayerState::DYING;
+    }
+    */
 }

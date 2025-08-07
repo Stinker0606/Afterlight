@@ -113,5 +113,5 @@ public:
      * @brief Überschreibt die Take_Damage-Methode, um das Hit-Feedback auszulösen.
      * @param damage Die Höhe des Schadens.
      */
-    void Take_Damage(int damage);
+    void Take_Damage(int damage) override;
 };

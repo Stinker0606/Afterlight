@@ -75,7 +75,7 @@ public:
     Vector2 Get_Player_Pos();
     Vector2 Get_Player_Center();
 
-    void Take_Damage(int damage);
+    virtual void Take_Damage(int damage);
 
 };
 
