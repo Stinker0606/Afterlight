@@ -250,20 +250,6 @@ namespace game {
         inline static constexpr int enemy_Class_1_Hitbox_Height = 32; //PLACEHOLDER
         inline static constexpr const char* enemy_Class_1_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER
 
-        // ----------------------------------------------- SPAWNERS ----------------------------------------------------
-
-        // ------------------------------------------------ SUMPF ------------------------------------------------------
-
-        // Spawn1
-        inline static constexpr const char* kSpawnerLevel1SpritePath = "assets/graphics/spawner/Spawner_outside.png"; //PLACEHOLDER
-        inline static constexpr int kMaxEnemiesSpawn1 = 5;
-        inline static constexpr float kSpawnRateSpawn1 = 300.0f; //PLACEHOLDER
-
-        // Spawn2
-        inline static constexpr const char* kSpawnerLevel2SpritePath = "assets/graphics/spawner/Spawner_outside.png"; //PLACEHOLDER
-        inline static constexpr int kMaxEnemiesSpawn2 = 5;
-        inline static constexpr float kSpawnRateSpawn2 = 300.0f; //PLACEHOLDER
-
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
         // for fog

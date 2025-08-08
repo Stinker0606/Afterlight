@@ -1,9 +1,9 @@
 #include "Level1Spawner.h"
-
 #include <iostream>
-
 #include "../enemys/enemies_list.h"
-#include "../../config.h.in"
+#include "../../config_enemies.h.in"
+#include "../PlayerProjectile.h"
+#include <numeric>
 
 Level1_Spawner::Level1_Spawner(Rectangle spawner_Area,
                                const std::vector<Rectangle>& obstacle_List,
@@ -11,17 +11,14 @@ Level1_Spawner::Level1_Spawner(Rectangle spawner_Area,
                                float spawn_Rate,
                                int max_Enemies,
                                Object_Manager& om)
-    : Enemy_Spawner(spawner_Area, obstacle_List, enemy_List, spawn_Rate, max_Enemies),
+  : Enemy_Spawner(spawner_Area, obstacle_List, enemy_List, game::EnemyConfig::kSpawner1_SpawnRate, game::EnemyConfig::kSpawner1_MaxEnemies),
       object_manager_ref(om),
-      spawn_timer(0.0f),
-      current_enemy_count(0),
+      spawn_timer(game::EnemyConfig::kSpawner1_SpawnRate), // Startet voll um sofort spawnen zu können
+      max_enemies_per_instance_(game::EnemyConfig::kSpawner1_MaxEnemies),
       health_(1)
 {
     this->hitbox = spawner_Area;
-    this->spawner_sprite = LoadTexture(game::Config::kSpawnerLevel1SpritePath);
-    if (this->spawner_sprite.id == 0) {
-        std::cerr << "FEHLER: Spawner-Sprite konnte nicht geladen werden unter: " << game::Config::kSpawnerLevel1SpritePath << std::endl;
-    }
+    this->spawner_sprite = LoadTexture("assets/graphics/spawner/Spawner_outside.png");
 }
 
 Level1_Spawner::~Level1_Spawner()
@@ -32,28 +29,77 @@ Level1_Spawner::~Level1_Spawner()
     }
 }
 
+void Level1_Spawner::Update_And_Count_Spawned_Enemies(std::map<enemy::EnemyType, int>& counts)
+{
+    counts.clear();
+    spawned_enemies_.erase(std::remove_if(spawned_enemies_.begin(), spawned_enemies_.end(),
+        [&counts](const std::weak_ptr<enemy::Enemy_Base_Class>& e) {
+            if (auto locked_enemy = e.lock()) {
+                // Zähle die Typen der lebenden Gegner
+                if (auto insect = std::dynamic_pointer_cast<enemy::Insect_Monster>(locked_enemy)) {
+                    counts[enemy::EnemyType::INSECT_MONSTER]++;
+                }
+                // Hier weitere else-if für andere Gegnertypen
+                return false; // Behalte in der Liste
+            }
+            return true; // Entferne aus der Liste, da abgelaufen
+        }), spawned_enemies_.end());
+}
+
 void Level1_Spawner::Tick(float delta_time)
 {
     if (health_ <= 0) return;
-
-    spawn_timer += delta_time;
-
-    if (spawn_timer >= (1.0f / spawn_Rate_) && current_enemy_count < max_Enemies_)
+    spawn_timer -= delta_time;
+    if (spawn_timer <= 0.0f)
     {
-        // Wir spawnen den Gegner nicht mehr an einer zufälligen Position,
-        // sondern an einer festen sicheren Position leicht außerhalb des Spawners.
-        Vector2 spawn_pos = {
-            this->hitbox.x + (this->hitbox.width / 2.0f),   // Zentriert auf der X-Achse
-            this->hitbox.y + (this->hitbox.height / 2.0f)   // Zentriert auf der Y-Achse
-        };
+        spawn_timer = spawn_Rate_;
+        std::map<enemy::EnemyType, int> on_field_counts;
+        Update_And_Count_Spawned_Enemies(on_field_counts);
 
-        auto new_enemy = std::shared_ptr<enemy::Enemy_Base_Class>(createEnemy(spawn_pos));
-
-        if (new_enemy)
+        if (spawned_enemies_.size() < max_enemies_per_instance_)
         {
-            object_manager_ref.AddObject(new_enemy);
-            current_enemy_count++;
-            spawn_timer = 0.0f;
+            std::vector<SpawnableEnemy> possible_spawns;
+            int total_weight = 0;
+            for (const auto& spawn_info : game::EnemyConfig::kSpawner1_EnemyPool)
+            {
+                int current_count = on_field_counts.count(spawn_info.type) ? on_field_counts[spawn_info.type] : 0;
+                if (current_count < spawn_info.max_on_field) {
+                    possible_spawns.push_back(spawn_info);
+                    total_weight += spawn_info.weight;
+                }
+            }
+            if (!possible_spawns.empty())
+            {
+                int random_value = GetRandomValue(0, total_weight - 1);
+                int cumulative_weight = 0;
+                for (const auto& spawn_info : possible_spawns)
+                {
+                    cumulative_weight += spawn_info.weight;
+                    if (random_value < cumulative_weight)
+                    {
+                        Vector2 spawn_pos = {
+                            hitbox.x + GetRandomValue(0, (int)hitbox.width - 32),
+                            hitbox.y + GetRandomValue(0, (int)hitbox.height - 32)
+                        };
+
+                        // Hier wird die Logik zur Gegnererstellung direkt aufgerufen
+                        enemy::Enemy_Base_Class* new_enemy_raw = nullptr;
+                        switch (spawn_info.type) {
+                            case enemy::EnemyType::INSECT_MONSTER:
+                                new_enemy_raw = new enemy::Insect_Monster(spawn_pos, true);
+                                break;
+                            // Hier weitere cases für andere Gegner
+                        }
+
+                        if (new_enemy_raw) {
+                            auto new_enemy_shared = std::shared_ptr<enemy::Enemy_Base_Class>(new_enemy_raw);
+                            object_manager_ref.AddObject(new_enemy_shared);
+                            spawned_enemies_.push_back(new_enemy_shared);
+                        }
+                        break;
+                    }
+                }
+            }
         }
     }
 }
@@ -67,7 +113,7 @@ void Level1_Spawner::Draw()
 // On_Collision Implementierung
 void Level1_Spawner::On_Collision(std::shared_ptr<Collidable> other)
 {
-    // Spawner reagieren NUR auf Spieler-Projektile (und später Nahkampfangriffe)
+    // Spawner reagieren NUR auf Spieler-Projektile
     if (other->Get_Collision_Type() == Collision_Type::PLAYER_PROJECTILE)
     {
         // Wir prüfen nicht, ob es eine Bombe oder ein Speer ist, sondern einfach, ob es ein Spieler-Angriff ist.

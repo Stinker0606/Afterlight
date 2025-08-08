@@ -122,6 +122,12 @@ public:
      * @param damage Die Höhe des Schadens.
      */
     void Take_Damage(int damage) override;
+     /**
+     * @brief Eine neue Heal-Methode um den Heal auszulösen.
+     * @param amount Die Höhe des Heals.
+     */
+    void Heal(int amount);
+
 
     // --- METHODEN ZUM VERWALTEN DES INVENTARS ---
     void Add_Key(int amount);

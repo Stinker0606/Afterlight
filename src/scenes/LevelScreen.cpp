@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "../config.h.in"
+#include "../config_enemies.h.in"
 #include "../game/Walls.h"
 #include "../game/Spawner/Level1Spawner.h"
 #include "../game/interactables/interact_list.h"
@@ -140,8 +141,8 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                 }
                 else if (object_name == "spawn1") {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
-                    float spawn_rate = game::Config::kSpawnRateSpawn1;
-                    int max_enemies = game::Config::kMaxEnemiesSpawn1;
+                    float spawn_rate = game::EnemyConfig::kSpawner1_SpawnRate;
+                    int max_enemies = game::EnemyConfig::kSpawner1_MaxEnemies;
                     if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
                     if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
                     new_object = std::shared_ptr<Level1_Spawner>(new Level1_Spawner(spawner_area, temp_obstacle_list, temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager));

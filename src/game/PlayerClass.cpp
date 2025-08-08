@@ -327,21 +327,31 @@ void PlayerClass::Draw()
     }
 }
 
+void PlayerClass::Heal(int amount)
+{
+    // Erhöhe die Gesundheit, aber nicht über das Maximum
+    this->player_Health += amount;
+    if (this->player_Health > this->player_Max_Health)
+    {
+        this->player_Health = this->player_Max_Health;
+    }
+}
+
 void PlayerClass::Take_Damage(int damage)
 {
-    // 1. Rufe die Logik der Basisklasse auf, um die HP zu reduzieren.
     this->player_Health -= damage;
 
-    // 2. Starte unser visuelles Hit-Feedback.
-    hit_feedback_timer = 1.0f; // Für 0.2 Sekunden aufleuchten
-    tint_color = (Color){ 88, 60, 72, 255 }; // Hex-Code #583c48
-
-    /*
+    // LÖSE FEEDBACK NUR BEI SCHADEN AUS
+    if (damage > 0) {
+        hit_feedback_timer = 0.2f;
+        tint_color = (Color){ 88, 60, 72, 255 };
+    }
+/*
     if (this->player_Health <= 0)
     {
         player_state = PlayerState::DYING;
     }
-    */
+*/
 }
 
 void PlayerClass::Add_Key(int amount)

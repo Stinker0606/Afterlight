@@ -2,10 +2,37 @@
 
 #include <raylib.h>
 #include <string>
+#include <vector>
+#include "game/enemys/enemies_list.h"
+
+// Eine Struktur, um die Eigenschaften eines spawn-baren Gegners zu definieren.
+struct SpawnableEnemy {
+    enemy::EnemyType type;
+    int weight; // Die Spawn-Chance. Höher = häufiger.
+    int max_on_field; // Wie viele von diesem Typ dürfen maximal gleichzeitig auf dem Feld sein.
+};
 
 namespace game {
-    class Config final {
+    class EnemyConfig final {
     public:
+        // ----------------------------------------------- SPAWNERS ----------------------------------------------------
+
+        // ------------------------------------------------ SUMPF ------------------------------------------------------
+
+        // --- SUMPF SPAWNER (spawn1) ---
+                inline static constexpr float kSpawner1_SpawnRate = 30.0f; // Spawnt alle XX Sekunden einen Gegner.
+                inline static constexpr int kSpawner1_MaxEnemies = 5;     // Jeder Spawner darf maximal XX Gegner gleichzeitig aktiv haben.
+
+                // Der Pool an Gegnern die dieser Spawner erzeugen kann.
+                // Die Summe der 'weight'-Werte ist die Basis für die prozentuale Chance.
+                // Beispiel: 90 + 10 = 100 -> Insekt hat 90% Chance, Frosch hat 10% Chance.
+                inline static const std::vector<SpawnableEnemy> kSpawner1_EnemyPool = {
+                    { enemy::EnemyType::INSECT_MONSTER, 100, 5 }, // XX % Chance, max. X Insekten von diesem Spawner
+
+                    // Bsp.: { enemy::EnemyType::POISON_FROG, 5, 1 } // Beispiel für Frosch: 5% Chance, max. 1 Frosch von diesem Spawner
+                };
+
+        // ----------------------------------------------- ENEMIES -----------------------------------------------------
 
         // ------------------------------------------------ SUMPF ------------------------------------------------------
 

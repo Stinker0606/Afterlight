@@ -9,16 +9,16 @@ namespace enemy
     Insect_Monster::Insect_Monster(Vector2 start_position, bool use_fog)
         : Enemy_Base_Class(
             "Insect Monster",
-            game::Config::kInsectMonsterHealth,
-            game::Config::kInsectMonsterMovementSpeed,
-            game::Config::kInsectMonsterDamage,
-            game::Config::kInsectMonsterValue,
-            game::Config::kInsectMonsterSpritePath,
+            game::EnemyConfig::kInsectMonsterHealth,
+            game::EnemyConfig::kInsectMonsterMovementSpeed,
+            game::EnemyConfig::kInsectMonsterDamage,
+            game::EnemyConfig::kInsectMonsterValue,
+            game::EnemyConfig::kInsectMonsterSpritePath,
             nullptr,
             start_position,
-            game::Config::kInsectMonsterHitboxWidth,
-            game::Config::kInsectMonsterHitboxHeight,
-            game::Config::kInsectMonsterAttackCooldown
+            game::EnemyConfig::kInsectMonsterHitboxWidth,
+            game::EnemyConfig::kInsectMonsterHitboxHeight,
+            game::EnemyConfig::kInsectMonsterAttackCooldown
           )
     {
         this->useFog = true;
@@ -36,7 +36,7 @@ namespace enemy
         float distance_to_player = Vector2Distance({this->hitbox.x, this->hitbox.y}, player_position);
 
         // Wenn der Spieler in Reichweite ist UND der Cooldown bereit ist...
-        if (distance_to_player <= game::Config::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f)
+        if (distance_to_player <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f)
         {
             // ... dann führe einen Angriff aus.
             this->Melee_Attack();
