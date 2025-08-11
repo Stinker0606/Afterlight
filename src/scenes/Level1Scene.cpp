@@ -188,40 +188,44 @@ namespace game::scenes
     void Level1Scene::Draw()
     {
         BeginDrawing();
-        ClearBackground((Color){ 0, 32, 36, 255}); // Hintergrundfarbe aus der Farbpalette
+        ClearBackground((Color){ 0, 32, 36, 255 }); // Hintergrundfarbe
 
         BeginMode2D(sp_cam->cam);
         {
-            // --- TEIL 1: OBJEKTE MIT NEBEL-SHADER ---
-            // Wir starten den Shader...
+            // Starte den Nebel-Shader genau wie in deinem alten Code.
+            // Er wird den Sichtkreis um den Spieler selbst zeichnen.
             fogManager.BeginFogMode();
             {
-                // ...zeichnen die Tile-Layer (die immer betroffen sind)...
+                // 1. ZEICHNE DEN BODEN
+                // (Alle Kachel-Ebenen, bei denen "IsAboveObjects" NICHT true ist)
                 levelScreen.Draw_Level(sp_cam, false);
 
-                // ...und zeichnen NUR die Objekte, die KEIN useFog haben.
+                // 2. SORTIERE ALLE SPIELOBJEKTE
+                // Hier werden Spieler, Gegner, Bäume etc. (sobald sie Objekte sind)
+                // und alle anderen Objekte in EINER Liste korrekt sortiert.
+                std::sort(objectManager.managed_objects.begin(), objectManager.managed_objects.end(),
+                    [](const std::shared_ptr<Collidable>& a, const std::shared_ptr<Collidable>& b) {
+                        // Sortiere nach der Unterkante der Hitbox
+                        return (a->Get_Hitbox().y + a->Get_Hitbox().height) < (b->Get_Hitbox().y + b->Get_Hitbox().height);
+                    });
+
+                // 3. ZEICHNE ALLE SORTIERTEN OBJEKTE
+                // Diese EINE Schleife zeichnet jetzt alles in der richtigen Reihenfolge.
+                // Jedes Objekt nutzt seine eigene `visibility_alpha` für den Entfernungs-Fade.
                 for (const auto& obj : objectManager.managed_objects) {
-                    if (obj && !obj->Get_Use_Fog()) {
+                    if (obj) {
                         obj->Draw();
                     }
                 }
+
+                // 4. ZEICHNE DIE "IMMER-OBEN"-SCHICHT
+                // (z.B. Wandspitzen, die immer über dem Spieler sein müssen)
                 levelScreen.Draw_Level(sp_cam, true);
             }
-            // ...und beenden den Shader wieder.
+            // Beende den Shader.
             fogManager.EndFogMode();
 
-
-            // --- TEIL 2: OBJEKTE MIT TRANSPARENZ (OHNE SHADER) ---
-            // Der Shader ist jetzt aus. Wir zeichnen jetzt alle Objekte, die useFog haben.
-            // Ihre Transparenz wird durch den `visibility_alpha`-Wert gesteuert,
-            // den wir in der Update()-Methode berechnen.
-            for (const auto& obj : objectManager.managed_objects) {
-                if (obj && obj->Get_Use_Fog()) {
-                    obj->Draw();
-                }
-            }
-
-            // --- DEBUG: Hitboxen ---
+            // --- DEBUG ---
             if (game::Config::kDebugShowHitboxes)
             {
                 for (const auto& p_object : objectManager.managed_objects)
