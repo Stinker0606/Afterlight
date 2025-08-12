@@ -231,6 +231,46 @@ void PlayerClass::Tick(float delta_time)
             player_state = PlayerState::IDLE;
         }
     }
+    /*
+    else if (player_state == PlayerState::PUSHING)
+    {
+        push_animation_timer -= delta_time;
+        if (push_animation_timer <= 0.0f) {
+            if (auto locked_block = block_to_push.lock()) {
+                // --- NEUE VORAUSSCHAUENDE PRÜFUNG ---
+                // 1. Berechne, wo der Block nach dem Stoß sein würde.
+                Rectangle future_hitbox = locked_block->Get_Hitbox();
+                future_hitbox.x += push_direction.x * 32.0f;
+                future_hitbox.y += push_direction.y * 32.0f;
+
+                // 2. Prüfe, ob dieser zukünftige Platz frei ist.
+                bool can_push = true;
+                for (const auto& other_obj : om.managed_objects)
+                {
+                    // Ignoriere den Block selbst und den Spieler
+                    if (other_obj == locked_block || other_obj == shared_from_this()) continue;
+
+                    Collision_Type type = other_obj->Get_Collision_Type();
+                    if (type == Collision_Type::WALL || type == Collision_Type::ENEMY || type == Collision_Type::ENEMY_SPAWNER)
+                    {
+                        if (CheckCollisionRecs(future_hitbox, other_obj->Get_Hitbox()))
+                        {
+                            can_push = false; // Ein Hindernis ist im Weg!
+                            break;
+                        }
+                    }
+                }
+
+                // 3. Nur wenn der Weg frei ist, bewege den Block.
+                if (can_push) {
+                    locked_block->Push(push_direction);
+                }
+                // --- ENDE DER NEUEN LOGIK ---
+            }
+            player_state = PlayerState::IDLE; // Gehe immer in den Idle-Zustand, egal ob der Push erfolgreich war.
+        }
+    }
+    */
     else if (player_state == PlayerState::DYING)
     {
         // Hier kommt die Logik für den Tod hinein.

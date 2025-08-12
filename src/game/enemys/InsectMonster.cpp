@@ -22,26 +22,39 @@ namespace enemy
           )
     {
         this->useFog = true;
+        this->attack_animation_timer = 0.0f; // Wichtig: Initialisieren!
     }
 
     void Insect_Monster::Update_AI(float delta_time, Vector2 player_position)
-    {
-        // Rufe zuerst die Basis-Tick-Funktion auf (z.B. für Cooldowns)
-        Enemy_Base_Class::Tick(delta_time);
+{
+    // Rufe zuerst die Basis-Tick-Funktion auf (z.B. für Cooldowns)
+    Enemy_Base_Class::Tick(delta_time);
 
-        // Führe dann die Pathfinding-Logik aus um dem Spieler zu folgen.
-        Pathfinding(player_position.x, player_position.y, delta_time);
+    // --- ZUSTANDS-LOGIK ---
 
-        // ANGRIFFSLOGIK:
-        float distance_to_player = Vector2Distance({this->hitbox.x, this->hitbox.y}, player_position);
-
-        // Wenn der Spieler in Reichweite ist UND der Cooldown bereit ist...
-        if (distance_to_player <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f)
-        {
-            // ... dann führe einen Angriff aus.
-            this->Melee_Attack();
-        }
+    // Wenn eine Angriffsanimation läuft, zähle den Timer herunter.
+    if (attack_animation_timer > 0.0f) {
+        attack_animation_timer -= delta_time;
     }
+
+    // BEWEGUNG: Führe die Pathfinding-Logik nur aus, wenn gerade KEINE Angriffsanimation läuft.
+    if (attack_animation_timer <= 0.0f) {
+        Pathfinding(player_position.x, player_position.y, delta_time);
+    }
+
+    // --- ANGRIFFS-LOGIK ---
+    float distance_to_player = Vector2Distance({this->hitbox.x, this->hitbox.y}, player_position);
+
+    // Wenn der Spieler in Reichweite ist UND der Cooldown bereit ist UND keine Animation läuft...
+    if (distance_to_player <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f && attack_animation_timer <= 0.0f)
+    {
+        // ... dann starte die Angriffs-Animation.
+        attack_animation_timer = 0.8f; // Setze die Dauer der Animation. Anpassen!
+
+        // Führe den eigentlichen Angriff aus.
+        this->Melee_Attack();
+    }
+}
 
     void Insect_Monster::Tick(float delta_time)
     {

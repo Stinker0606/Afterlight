@@ -43,5 +43,7 @@ namespace enemy
          * To Do: Hier wird später die Animationslogik implementiert.
          */
         void Draw() override;
+        private:
+        float attack_animation_timer;
     };
 }
