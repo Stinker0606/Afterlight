@@ -1,118 +1,97 @@
 /**********************************************************************************
 *
-* Fragment-Shader für einen kreisförmigen "Kriegsnebel"-Effekt (War of Fog).
+* Fragment-Shader für einen selektiven "Kriegsnebel"-Effekt.
 *
-* - Erzeugt einen weichen, kreisförmigen, klaren Bereich um eine Spielerposition.
-* - Füllt den Rest des Bildschirms mit einem statischen, grauen Nebel.
-* - Nutzt einen prozeduralen Rausch-Algorithmus, um dem Nebelrand eine
-* organische, "pixelige" und animierte Textur zu verleihen.
-* - Die Stärke des Nebeleffekts kann von außen gesteuert werden.
-*
-* Uniforms:
-* - texture0:    Das gerenderte Originalbild der Spielszene.
-* - playerPos:   Die Bildschirm-Koordinaten des Spielers (Mittelpunkt des klaren Bereichs).
-* - resolution:  Die Auflösung des Spielfensters (Breite und Höhe).
-* - time:        Eine fortlaufende Zeitvariable, um das Rauschen zu animieren.
-* - fogStrength: Ein Multiplikator, um die Dichte/Stärke des Nebels zu steuern.
+* - Behält die komplette Funktionalität des Original-Shaders bei.
+* - Fügt der grauen Nebelfläche eine subtile, pixelige Textur hinzu.
+* - Die Textur bewegt sich langsam und konstant von oben rechts nach unten links.
 *
 **********************************************************************************/
 
 #version 330
 
 // --- EINGÄNGE (Vom Vertex-Shader) ---
-in vec2 fragTexCoord; // Die Texturkoordinaten für den aktuellen Pixel.
+in vec2 fragTexCoord;
 
 // --- UNIFORMS (Parameter von der CPU) ---
-uniform sampler2D texture0;    // Der Framebuffer mit der gerenderten Szene.
-uniform vec2 playerPos;        // Die Position des Spielers in Bildschirm-Koordinaten.
-uniform vec2 resolution;       // Die Auflösung des Bildschirms.
-uniform float time;            // Laufende Zeit für Animationen.
-uniform float fogStrength;     // Globale Stärke des Nebeleffekts.
+uniform sampler2D texture0;
+uniform sampler2D fogMask;
+uniform vec2 playerPos;
+uniform vec2 resolution;
+uniform float time;
+uniform float fogStrength;
 
 // --- AUSGANG ---
-out vec4 finalColor; // Die endgültige Farbe des Pixels nach der Nebelberechnung.
-
+out vec4 finalColor;
 
 // --- RAUSCH-FUNKTIONEN ---
-// Diese Funktionen erzeugen eine prozedurale, "zufällige" Textur.
-// Sie wird verwendet, um dem Nebelrand ein ungleichmäßiges Aussehen zu verleihen.
-
-// Erzeugt einen pseudo-zufälligen Wert (Hash) basierend auf einer 2D-Koordinate.
 float rand(vec2 co) {
-    // Eine mathematische Formel, die für einen gegebenen Input immer denselben,
-    // aber scheinbar zufälligen, Output zwischen 0.0 und 1.0 erzeugt.
     return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
-// Erzeugt ein weiches "Value Noise" durch Interpolation der zufälligen Werte.
-// Dies verhindert harte Kanten und erzeugt ein wolkigeres Muster.
 float noise(vec2 pos) {
-    vec2 i = floor(pos); // Ganzzahliger Teil der Position (Gitterzelle)
-    vec2 f = fract(pos); // Nachkommaanteil (Position innerhalb der Zelle)
-
-    // Hole Zufallswerte für die vier Ecken der Gitterzelle
+    vec2 i = floor(pos);
+    vec2 f = fract(pos);
     float a = rand(i);
     float b = rand(i + vec2(1.0, 0.0));
     float c = rand(i + vec2(0.0, 1.0));
     float d = rand(i + vec2(1.0, 1.0));
-
-    // Erzeuge weiche Übergänge mit einer Smoothstep-Kurve
     vec2 u = f * f * (3.0 - 2.0 * f);
-
-    // Interpoliere (mische) die Werte der Eckpunkte, um den finalen Rauschwert zu erhalten.
     return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
 }
 
-
 void main()
 {
-    // 1. Originalfarbe der Szene aus der Textur holen
-    // Liest die Farbe des aktuellen Pixels aus dem gerenderten Spielbild.
+    // 1. Hole die Originalfarbe der Szene aus der Textur.
     vec4 originalColor = texture(texture0, fragTexCoord);
 
-    // Optimierung: Wenn ein Pixel fast vollständig durchsichtig ist (z.B. außerhalb der gerenderten Welt),
-    // wird er ignoriert, um unnötige Berechnungen für den Nebeleffekt zu sparen.
-    if (originalColor.a < 0.1)
-    {
-        // Gib die transparente Farbe direkt aus und beende den Shader für diesen Pixel.
-        finalColor = originalColor;
-        return;
+    if (originalColor.a < 0.1) {
+        discard;
     }
 
-    // 2. Nebelberechnung basierend auf der Distanz zum Spieler
-    // Ermittle die exakte Bildschirm-Koordinate des aktuellen Pixels.
-    // Die Y-Koordinate wird invertiert (resolution.y - ...), da gl_FragCoord den Ursprung unten links hat.
-    vec2 pixelPos = vec2(gl_FragCoord.x, resolution.y - gl_FragCoord.y);
+    float maskValue = texture(fogMask, fragTexCoord).r;
 
-    // Berechne die euklidische Distanz zwischen dem Pixel und der Spielerposition.
+    // 2. Berechne die Position und Distanz für den Sichtkreis.
+    vec2 pixelPos = vec2(gl_FragCoord.x, resolution.y - gl_FragCoord.y);
     float dist = length(pixelPos - playerPos);
 
-    // Erzeuge einen weichen Übergang von klar zu neblig mit smoothstep.
-    // - Unter 90 Pixeln Distanz ist der Nebelfaktor 0.0 (komplett klar).
-    // - Über 250 Pixeln Distanz ist der Nebelfaktor 1.0 (potenziell voller Nebel).
-    // - Dazwischen wird der Wert weich interpoliert.
+    // 3. Berechne den Nebelfaktor mit weichem Kantenrauschen.
     float fogFactor = smoothstep(90.0, 250.0, dist);
-
-    // Füge den animierten Rausch-Effekt hinzu, um die Kanten aufzubrechen.
-    // Die Position wird skaliert und die Zeit addiert, um eine langsam wogende Bewegung zu erzeugen.
-    float n = noise(pixelPos * 0.3 + vec2(time * 0.23, -time * 0.25));
-    // Das Ergebnis des Rauschens modifiziert den Nebelfaktor.
+    vec2 movementVector = vec2(time * 0.23, -time * 0.25);
+    float n = noise(pixelPos * 0.3 + movementVector);
     fogFactor *= 0.9 + 0.5 * n;
+    fogFactor = clamp(fogFactor * fogStrength, 0.0, 0.70);
 
-    // Wende die globale Nebelstärke an und begrenze das Ergebnis.
-    fogFactor *= fogStrength;
-    // `clamp` stellt sicher, dass der Nebel nie stärker als 70% wird,
-    // um zu verhindern, dass die Szene komplett verdeckt wird.
-    fogFactor = clamp(fogFactor, 0.0, 0.70);
-
-    // 3. Definiere die Farbe des Nebels
-    // Ein mittleres, neutrales Grau mit voller Deckkraft.
+    // 4. Definiere die Basis-Farbe des Nebels.
     vec4 fogColor = vec4(0.6, 0.6, 0.6, 1.0);
 
-    // 4. Mische die Originalfarbe mit der Nebelfarbe
-    // `mix` interpoliert linear zwischen der Originalfarbe und der Nebelfarbe.
-    // Der `fogFactor` bestimmt das Mischverhältnis:
-    // - fogFactor = 0.0 -> 100% originalColor
-    // - fogFactor = 0.7 -> 30% originalColor und 70% fogColor
-    finalColor = mix(originalColor, fogColor, fogFactor);
+    // --- PIXEL-TEXTUR FÜR DEN NEBEL ---
+    float pixelSize = 4.0;
+    vec2 pixelGridPos = floor(pixelPos / pixelSize);
+
+    // HIER IST DIE ÄNDERUNG:
+    // Wir definieren einen festen Vektor für die Richtung (oben rechts -> unten links ist (-1, 1))
+    // und multiplizieren ihn mit einer sehr kleinen, zeitbasierten Geschwindigkeit.
+    vec2 pixelMovement = vec2(-1.0, 1.0) * time * 0.000005;
+    float pixelNoise = rand(pixelGridPos + pixelMovement);
+
+    // Modifiziere die Nebelfarbe basierend auf diesem Rauschen.
+    fogColor.rgb -= pixelNoise * 0.06;
+
+
+    // 5. Mische die Originalfarbe mit der (jetzt texturierten) Nebelfarbe.
+    vec4 colorWithFog = mix(originalColor, fogColor, fogFactor);
+
+    // 6. Selektive Transparenz (Fading) basierend auf der Maske.
+    float finalAlpha = originalColor.a;
+    if (maskValue > 0.0)
+    {
+        float startFadeRadius = 50.0;
+        float endFadeRadius = 300.0;
+        float distanceAlpha = 1.0 - smoothstep(startFadeRadius, endFadeRadius, dist);
+        finalAlpha = originalColor.a * distanceAlpha;
+    }
+
+    // 7. Setze die endgültige Farbe zusammen.
+    finalColor = vec4(colorWithFog.rgb, finalAlpha);
 }
