@@ -18,7 +18,6 @@ namespace game {
         bool is_active;
         int damage;
         Texture2D sprite;
-        Rectangle hitbox;
 
         // Eine Variable, um die Lebensdauer des Projektils zu speichern.
         float lifetime;
