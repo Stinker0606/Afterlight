@@ -59,10 +59,10 @@ namespace game {
         inline static constexpr const int key_Left = KEY_A;
         inline static constexpr const int key_Right = KEY_D;
 
-        inline static constexpr const int key_Melee_Attack = KEY_J; //PLACEHOLDER
-        inline static constexpr const int key_Ranged_Attack = KEY_K; //PLACEHOLDER
-        inline static constexpr const int key_Interact = KEY_L; //PLACEHOLDER
-        inline static constexpr const int key_Place_Bomb = KEY_G; //PLACEHOLDER
+        inline static constexpr const int key_Melee_Attack = MOUSE_BUTTON_RIGHT; //PLACEHOLDER
+        inline static constexpr const int key_Ranged_Attack = MOUSE_BUTTON_LEFT; //PLACEHOLDER
+        inline static constexpr const int key_Interact = KEY_E; //PLACEHOLDER
+        inline static constexpr const int key_Place_Bomb = KEY_Q; //PLACEHOLDER
 
         // -------------------------------------------- Interactables --------------------------------------------------
 
@@ -73,7 +73,7 @@ namespace game {
         inline static constexpr int kItemDmgConsDefaultAmount = 10;  // Standard-Schadensmenge - PLACEHOLDER WERT
 
         // Bomb Settings
-        inline static constexpr int kBombDamage = 1000; // Bomben Damage - PLACEHOLDER WERT
+        inline static constexpr int kBombDamage = 200; // Bomben Damage - PLACEHOLDER WERT
         inline static constexpr float kBombDetonationTime = 12.0f; // Detonations Zeit - PLACEHOLDER WERT
         inline static constexpr float kBombBlinkInterval = 1.0f; // Blink Interval - PLACEHOLDER WERT
         inline static constexpr float kBombPlacementCooldown = 2.0f; // Cooldown - PLACEHOLDER WERT
@@ -88,12 +88,14 @@ namespace game {
         inline static constexpr float player_Health_Drain_Rate = 1.0f; // HP-Verlust pro Sekunde
         inline static constexpr int Player_Hitbox_Width = 30; // Player Hitbox
         inline static constexpr int Player_Hitbox_Height = 31; // Player Hitbox
-        inline static constexpr Vector2 player_animation_size = {100, 100};
+
+        inline static constexpr Vector2 player_animation_size = {100, 100}; // NICHT ÄNDERN!
 
         // Player Stats
         inline static constexpr int player_Max_Health = 600;
         inline static constexpr float player_Movement_Speed = 30.0f;
-        inline static constexpr int player_Damage = 50;
+        inline static constexpr int player_Melee_Damage = 100;
+        inline static constexpr int player_Projectile_Damage = 75;
 
         // ----------------------------------- PLAYER ATTACK & ACTION SETTINGS -----------------------------------------
 

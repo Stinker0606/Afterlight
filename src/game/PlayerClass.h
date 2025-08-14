@@ -43,6 +43,9 @@ private:
     bool should_place_bomb_ = false;
     float bomb_cooldown_ = 0.0f;
 
+    // --- MELEE ---
+    bool melee_hitbox_spawned_;
+
     // --- Animationen ---
 
     // Idle
@@ -101,7 +104,8 @@ public:
     // Eine Methode, um den Kamera-Zeiger zu setzen.
     void Set_Camera(std::shared_ptr<Cam> camera);
 
-    // Wir überschreiben die Ranged_Attack-Methode der Basisklasse.
+    // Wir überschreiben die Ranged_Attack- sowie Melee_Attack-Methode der Basisklasse.
+    void Melee_Attack() override;
     void Ranged_Attack() override;
 
     void On_Collision(std::shared_ptr<Collidable> other) override;

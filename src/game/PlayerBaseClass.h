@@ -55,7 +55,7 @@ protected:
 
 public:
 	// Konstruktor
-	Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position, Object_Manager& om);
+	Player_Base_Class(int max_Health, float movement_Speed, Vector2 start_Position, Object_Manager& om);
 
 	// Destruktor
 	~Player_Base_Class() override;
@@ -67,7 +67,7 @@ public:
 	void Update_Previous_Position();
 	void Update_Facing_Direction();
 
-	void Melee_Attack();
+    virtual void Melee_Attack();
 	virtual void Ranged_Attack();
 	void Use_Item();
 

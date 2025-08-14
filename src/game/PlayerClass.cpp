@@ -1,13 +1,13 @@
 #include "PlayerClass.h"
 #include "Store.h"
 #include "../game/interactables/interact_list.h"
+#include "interactables/MeleeHitbox.h"
 
 PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
     // 1. Rufe den Konstruktor der Basisklasse mit den Werten aus der Config auf
     : Player_Base_Class(
         game::Config::player_Max_Health,
         game::Config::player_Movement_Speed,
-        game::Config::player_Damage,
         start_Position,
         om
       ),
@@ -60,6 +60,7 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
     // 4. Setze die Standard-Animation beim Start
     p_current_animation = &anim_Idle_Front;
     this->useFog = true;
+    this->melee_hitbox_spawned_ = false;
 }
 
 void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
@@ -132,7 +133,7 @@ void PlayerClass::Ranged_Attack()
         auto projectile = std::make_shared<game::Player_Projectile>(
             projectile_start_pos,
             fire_direction,
-            this->player_Damage,
+            game::Config::player_Projectile_Damage,
             this->facing_Direction
         );
         // 1. Füge das Projektil dem Object_Manager hinzu, damit es gezeichnet
@@ -145,6 +146,73 @@ void PlayerClass::Ranged_Attack()
 
         ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
     }
+}
+
+void PlayerClass::Melee_Attack()
+{
+    float sweep_breite = 16.0f; // Die lange Seite des Angriffs
+    float sweep_hoehe = 48.0f;  // Die kurze Seite des Angriffs
+    float hitbox_width, hitbox_height;
+    Vector2 hitbox_pos;
+
+    Vector2 player_center = this->Get_Player_Center();
+    float offset = 12.0f;
+
+    switch (facing_Direction)
+    {
+        // VERTIKALE ANGRIFFE (tauschen)
+        case Facing_Direction::UP:
+        case Facing_Direction::DOWN:
+            hitbox_width = sweep_hoehe;
+            hitbox_height = sweep_breite;
+            if (facing_Direction == Facing_Direction::UP) {
+                hitbox_pos = { player_center.x - hitbox_width / 2, player_center.y - offset - hitbox_height };
+            } else {
+                hitbox_pos = { player_center.x - hitbox_width / 2, player_center.y + offset };
+            }
+            break;
+
+        // HORIZONTALE ANGRIFFE (Standard)
+        case Facing_Direction::LEFT:
+        case Facing_Direction::RIGHT:
+            hitbox_width = sweep_breite;
+            hitbox_height = sweep_hoehe;
+            if (facing_Direction == Facing_Direction::LEFT) {
+                hitbox_pos = { player_center.x - offset - hitbox_width, player_center.y - hitbox_height / 2 };
+            } else {
+                hitbox_pos = { player_center.x + offset, player_center.y - hitbox_height / 2 };
+            }
+            break;
+
+        // --- LOGIK FÜR DIAGONALE ANGRIFFE ---
+        default:
+        {
+            // Wir benutzen eine quadratische Hitbox für einen besseren "Fächer"-Effekt.
+            hitbox_width = 32.0f;
+            hitbox_height = 32.0f;
+            float diagonal_offset = -4.0f; // Wie weit die Box verschoben wird.
+
+            if (facing_Direction == Facing_Direction::UP_RIGHT) {
+                hitbox_pos = { player_center.x + diagonal_offset, player_center.y - diagonal_offset - hitbox_height };
+            } else if (facing_Direction == Facing_Direction::DOWN_RIGHT) {
+                hitbox_pos = { player_center.x + diagonal_offset, player_center.y + diagonal_offset };
+            } else if (facing_Direction == Facing_Direction::UP_LEFT) {
+                hitbox_pos = { player_center.x - diagonal_offset - hitbox_width, player_center.y - diagonal_offset - hitbox_height };
+            } else { // DOWN_LEFT
+                hitbox_pos = { player_center.x - diagonal_offset - hitbox_width, player_center.y + diagonal_offset };
+            }
+            break;
+        }
+    }
+
+    auto sweep_hitbox = std::make_shared<MeleeHitbox>(
+        Rectangle{ hitbox_pos.x, hitbox_pos.y, hitbox_width, hitbox_height },
+        0.2f,
+        game::Config::player_Melee_Damage,
+        Collision_Type::PLAYER
+    );
+
+    om.AddObject(sweep_hitbox);
 }
 
 void PlayerClass::Tick(float delta_time)
@@ -193,14 +261,16 @@ void PlayerClass::Tick(float delta_time)
     {
         player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
 
-        if (IsKeyPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f) {
+        if (IsMouseButtonPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_RANGED;
             attack_animation_timer = game::Config::player_Ranged_Attack_Anim_Duration;
-        } else if (IsKeyPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f) {
+        } else if (IsMouseButtonPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_MELEE;
             attack_animation_timer = game::Config::player_Melee_Attack_Anim_Duration;
+            melee_hitbox_spawned_ = false; // Setze die Spawn-Kontrolle zurück
             melee_Cooldown = game::Config::player_Melee_Attack_Cooldown;
-        }  if (IsKeyPressed(game::Config::key_Place_Bomb) && bomb_count_ > 0 && bomb_cooldown_ <= 0.0f)
+        }
+        if (IsKeyPressed(game::Config::key_Place_Bomb) && bomb_count_ > 0 && bomb_cooldown_ <= 0.0f)
         {
             Use_Bomb();
         }
@@ -216,8 +286,19 @@ void PlayerClass::Tick(float delta_time)
     else if (player_state == PlayerState::ATTACKING_MELEE)
     {
         attack_animation_timer -= delta_time;
+
+        // Definiere den Zeitpunkt, wann die Hitbox erscheinen soll (Gesamtdauer - 0.2s)
+        float spawn_time = game::Config::player_Melee_Attack_Anim_Duration - 0.2f;
+
+        // Wenn der Zeitpunkt erreicht ist UND die Hitbox noch nicht erstellt wurde...
+        if (attack_animation_timer <= spawn_time && !melee_hitbox_spawned_)
+        {
+            this->Melee_Attack(); // ...erstelle die Hitbox.
+            melee_hitbox_spawned_ = true; // Markiere sie als erstellt.
+        }
+
+        // Wenn die Animation komplett vorbei ist, gehe zurück zum Stillstand.
         if (attack_animation_timer <= 0.0f) {
-            Player_Base_Class::Melee_Attack();
             player_state = PlayerState::IDLE;
         }
     }

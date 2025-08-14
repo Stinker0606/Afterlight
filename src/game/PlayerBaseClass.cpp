@@ -6,12 +6,12 @@
 #include "PlayerBaseClass.h"
 #include "CollisionResponse.h"
 #include "../game/interactables/interact_list.h"
+#include "../game/interactables/MeleeHitbox.h"
 #include "Store.h"
 
 // Konstruktor
-Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position, Object_Manager& om)
+Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, Vector2 start_Position, Object_Manager& om)
     : player_Max_Health(max_Health), player_Health((float)max_Health), player_Movement_Speed(movement_Speed),
-      player_Damage(damage),
       previous_Position(start_Position), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
       inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false),om(om)
 {
@@ -192,8 +192,9 @@ void Player_Base_Class::Draw()
 // Um die beiden Attack Methoden weiter auszuarbeiten, braucht es die passenden Klassen
 void Player_Base_Class::Melee_Attack()
 {
-	melee_Cooldown = 0.0f;
+    //melee_Cooldown = game::Config::player_Melee_Attack_Cooldown;
 }
+
 void Player_Base_Class::Ranged_Attack()
 {
     /*
