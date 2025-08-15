@@ -77,5 +77,8 @@ public:
 
     virtual void Take_Damage(int damage);
 
+	float GetHealth() const { return player_Health; }
+	float GetMaxHealth() const { return player_Max_Health; }
+
 };
 

@@ -38,27 +38,30 @@ namespace game::scenes
         // 5. Weise dem Spieler die Kamera zu.
         sp_player->Set_Camera(sp_cam);
 
-        // 6. Collision Manager initialisieren
+        // 6. Initialisiere den UI-Manager und gib ihm den Spieler
+        uiManager_.SetPlayer(sp_player);
+
+        // 7. Collision Manager initialisieren
         Rectangle world_bounds = {0, 0, 4000, 4000};
         p_cm = std::make_unique<Collision_Manager>(world_bounds, objectManager.managed_objects);
 
         // --- NEBEL-INITIALISIERUNG ---
 
-        // 7.1 Initialisiere die fogMaskTexture
+        // 8.1 Initialisiere die fogMaskTexture
         this->fogMaskTexture = LoadRenderTexture(game::Config::kStageWidth, game::Config::kStageHeight);
 
-        // 7.2 Hole den vollständigen Pfad der aktuellen Level-Map aus der Config.
+        // 8.2 Hole den vollständigen Pfad der aktuellen Level-Map aus der Config.
         std::string map_path = game::Config::GetLevelMapPath(this->level_Nbr);
 
-        // 7.3 Extrahiere nur den Dateinamen aus dem Pfad (z.B. "Swamp_0.json").
+        // 8.3 Extrahiere nur den Dateinamen aus dem Pfad (z.B. "Swamp_0.json").
         // Dein FogManager erwartet nur den Namen nicht den ganzen Pfad.
         std::string map_filename = map_path.substr(map_path.find_last_of("/\\") + 1);
 
-        // 7.4 Initialisiere den FogManager mit dem dynamischen Map-Namen.
+        // 8.4 Initialisiere den FogManager mit dem dynamischen Map-Namen.
         fogManager.InitializeFog(map_filename, {(float)game::Config::kStageWidth, (float)game::Config::kStageHeight});
         // -----------------------------------------
 
-        // 8. Zeitmessung starten
+        // 9. Zeitmessung starten
         dtm.Start();
     }
 
@@ -238,5 +241,7 @@ namespace game::scenes
             }
         }
         EndMode2D();
+        // --- ZEICHNE DIE UI ---
+        uiManager_.DrawUI();
     }
 }

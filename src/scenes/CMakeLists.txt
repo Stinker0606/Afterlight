@@ -18,6 +18,8 @@ add_library(scenes STATIC
         # Dein FogManager
         FogManager.h
         FogManager.cpp
+        UIManager.cpp
+        UIManager.h
 )
 
 target_include_directories(scenes PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

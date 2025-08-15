@@ -10,6 +10,8 @@
 #include "../game/PlayerClass.h"
 #include <memory>
 #include <vector>
+
+#include "UIManager.h"
 #include "../game/spawner/Level1Spawner.h"
 
 namespace game::scenes
@@ -33,6 +35,9 @@ namespace game::scenes
         // --- Spiel-Objekte ---
         std::shared_ptr<PlayerClass> sp_player;
         std::shared_ptr<Cam> sp_cam;
+
+        // --- UI-Manager ---
+        UIManager uiManager_;
 
         // --- Fog-Manager ---
         FogManager fogManager;

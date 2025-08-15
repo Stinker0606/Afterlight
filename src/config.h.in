@@ -85,7 +85,7 @@ namespace game {
 
         // Player General Settings
         inline static constexpr bool enable_Health_Drain = true; // HP-Drain durch Zeit an/aus
-        inline static constexpr float player_Health_Drain_Rate = 1.0f; // HP-Verlust pro Sekunde
+        inline static constexpr float player_Health_Drain_Rate = 0.1; // HP-Verlust pro Sekunde | 0,1 -> 1hp/sek.
         inline static constexpr int Player_Hitbox_Width = 30; // Player Hitbox
         inline static constexpr int Player_Hitbox_Height = 31; // Player Hitbox
 

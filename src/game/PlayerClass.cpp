@@ -450,7 +450,10 @@ void PlayerClass::Draw()
 
 void PlayerClass::Heal(int amount)
 {
-    // Erhöhe die Gesundheit, aber nicht über das Maximum
+    // Verhindere Heilung, wenn der Spieler bereits tot ist.
+    if (this->player_Health <= 0) return;
+
+    // Erhöhe die Gesundheit, aber nicht über das Maximum.
     this->player_Health += amount;
     if (this->player_Health > this->player_Max_Health)
     {
@@ -460,6 +463,9 @@ void PlayerClass::Heal(int amount)
 
 void PlayerClass::Take_Damage(int damage)
 {
+    // Verhindere weiteren Schaden, wenn der Spieler bereits tot ist.
+    if (this->player_Health <= 0) return;
+
     this->player_Health -= damage;
 
     // LÖSE FEEDBACK NUR BEI SCHADEN AUS
@@ -467,12 +473,13 @@ void PlayerClass::Take_Damage(int damage)
         hit_feedback_timer = 0.2f;
         tint_color = (Color){ 88, 60, 72, 255 };
     }
-/*
-    if (this->player_Health <= 0)
-    {
-        player_state = PlayerState::DYING;
+
+    // Stelle sicher, dass die HP nicht unter 0 fallen.
+    if (this->player_Health < 0) {
+        this->player_Health = 0;
+        // Hier könntest du später den DYING-Zustand auslösen
+        // player_state = PlayerState::DYING;
     }
-*/
 }
 
 void PlayerClass::Add_Key(int amount)

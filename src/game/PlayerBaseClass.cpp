@@ -49,10 +49,16 @@ void Player_Base_Class::Player_Input()
 void Player_Base_Class::Tick(float delta_time)
 {
 
-    if (game::Config::enable_Health_Drain)
+    if (game::Config::enable_Health_Drain && player_Health > 0)
     {
         player_Health -= game::Config::player_Health_Drain_Rate * delta_time;
+
+        // Stelle sicher, dass die HP durch den Drain nicht unter 0 fallen.
+        if (player_Health < 0) {
+            player_Health = 0;
+        }
     }
+
     Update_Previous_Position();
 
 	Vector2 move_Direction = {0.0f, 0.0f};
