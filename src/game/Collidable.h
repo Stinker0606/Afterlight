@@ -43,6 +43,9 @@ public:
     virtual ~Collidable() = default;
 
     Rectangle Get_Hitbox() const{return this->hitbox;};
+    Vector2 Get_Hitbox_Center() const {
+        return { hitbox.x + hitbox.width / 2.0f, hitbox.y + hitbox.height / 2.0f };
+    }
     virtual Collision_Type Get_Collision_Type() const = 0;
     virtual void Tick(float delta_time) = 0;
     virtual void Draw()=0;

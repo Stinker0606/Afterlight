@@ -2,6 +2,8 @@
 
 #include "../EnemyBaseClass.h"
 
+class Object_Manager;
+
 namespace enemy
 {
     /**
@@ -11,12 +13,15 @@ namespace enemy
      */
     class Insect_Monster : public Enemy_Base_Class
     {
+    private:
+        float attack_animation_timer;
+        Vector2 last_player_position_;
     public:
         /**
          * @brief Konstruktor für das Insektenmonster.
          * @param start_position Die Position, an der der Gegner gespawnt wird.
          */
-        Insect_Monster(Vector2 start_position, bool use_fog = true);
+        Insect_Monster(Vector2 start_position, Object_Manager& om, bool use_fog = true);
         ~Insect_Monster() override = default;
 
         /**
@@ -43,7 +48,5 @@ namespace enemy
          * To Do: Hier wird später die Animationslogik implementiert.
          */
         void Draw() override;
-        private:
-        float attack_animation_timer;
     };
 }

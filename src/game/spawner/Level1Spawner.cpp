@@ -86,8 +86,9 @@ void Level1_Spawner::Tick(float delta_time)
                         enemy::Enemy_Base_Class* new_enemy_raw = nullptr;
                         switch (spawn_info.type) {
                             case enemy::EnemyType::INSECT_MONSTER:
-                                new_enemy_raw = new enemy::Insect_Monster(spawn_pos, true);
-                                break;
+                                // Übergebe die object_manager_ref an den Konstruktor
+                                    new_enemy_raw = new enemy::Insect_Monster(spawn_pos, object_manager_ref, true);
+                            break;
                             // Hier weitere cases für andere Gegner
                         }
 
@@ -127,5 +128,5 @@ void Level1_Spawner::On_Collision(std::shared_ptr<Collidable> other)
 
 enemy::Enemy_Base_Class* Level1_Spawner::createEnemy(Vector2 position)
 {
-    return new enemy::Insect_Monster(position, true);
+    return new enemy::Insect_Monster(position, object_manager_ref,true);
 }

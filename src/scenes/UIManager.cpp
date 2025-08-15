@@ -40,7 +40,9 @@ void UIManager::DrawUI()
     {
         // Skalierungsfaktor NUR für HP
         float hp_scale = 2.0f;
-        // Skalierungsfaktor für ALLE ANDEREN Icons
+        // Skalierungsfaktor für Icons
+        float icons_scale = 1.7f;
+        // Skalierungsfaktor für ANDEREN Icons
         float other_icons_scale = 1.8f;
 
         // === OBEN LINKS ===
@@ -74,17 +76,17 @@ void UIManager::DrawUI()
         // === UNTEN LINKS ===
 
         // Segen (Blessings)
-        Vector2 blessings_pos = { 5, (float)GetScreenHeight() - 155 };
-        DrawTextureEx(blessings_icon_texture_, blessings_pos, 0.0f, other_icons_scale, WHITE);
+        Vector2 blessings_pos = { 10, (float)GetScreenHeight() - 150 };
+        DrawTextureEx(blessings_icon_texture_, blessings_pos, 0.0f, icons_scale, WHITE);
         Color blessing_color = { 128, 96, 88, 255 };
-        DrawTextEx(pixel_font_, "20%", { blessings_pos.x + 43, blessings_pos.y + 70 }, 26, 2, blessing_color);
-        DrawTextEx(pixel_font_, "20%", { blessings_pos.x + 156, blessings_pos.y + 70 }, 26, 2, blessing_color);
-        DrawTextEx(pixel_font_, "20%", { blessings_pos.x + 269, blessings_pos.y + 70 }, 26, 2, blessing_color);
+        DrawTextEx(pixel_font_, "20%", { blessings_pos.x + 42, blessings_pos.y + 65 }, 25, 2, blessing_color);
+        DrawTextEx(pixel_font_, "20%", { blessings_pos.x + 146, blessings_pos.y + 65 }, 25, 2, blessing_color);
+        DrawTextEx(pixel_font_, "20%", { blessings_pos.x + 252, blessings_pos.y + 65 }, 25, 2, blessing_color);
 
         // === UNTEN RECHTS ===
 
         // Buch
-        Vector2 book_pos = { (float)GetScreenWidth() - 170, (float)GetScreenHeight() - 110 };
-        DrawTextureEx(book_icon_texture_, book_pos, 0.0f, other_icons_scale, WHITE);
+        Vector2 book_pos = { (float)GetScreenWidth() - 190, (float)GetScreenHeight() - 115 };
+        DrawTextureEx(book_icon_texture_, book_pos, 0.0f, hp_scale, WHITE);
     }
 }
