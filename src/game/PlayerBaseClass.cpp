@@ -10,10 +10,10 @@
 #include "Store.h"
 
 // Konstruktor
-Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, Vector2 start_Position, Object_Manager& om)
+Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, Vector2 start_Position, Object_Manager* om)
     : player_Max_Health(max_Health), player_Health((float)max_Health), player_Movement_Speed(movement_Speed),
       previous_Position(start_Position), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
-      inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false),om(om)
+      inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false), p_om_(om)
 {
     hitbox={start_Position.x,start_Position.y,game::Config::Player_Hitbox_Width,game::Config::Player_Hitbox_Height};
     // 2. Registriere Objekt beim Manager
@@ -24,6 +24,11 @@ Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, Vecto
 Player_Base_Class::~Player_Base_Class()
 {
 
+}
+
+void Player_Base_Class::Set_Object_Manager(Object_Manager* new_om)
+{
+    this->p_om_ = new_om;
 }
 
 // Phase 1 :: Player input Prüfung

@@ -26,36 +26,36 @@ namespace enemy
     }
 
     void Insect_Monster::Update_AI(float delta_time, Vector2 player_position)
-{
-    // Rufe zuerst die Basis-Tick-Funktion auf (z.B. für Cooldowns)
-    Enemy_Base_Class::Tick(delta_time);
-
-    // --- ZUSTANDS-LOGIK ---
-
-    // Wenn eine Angriffsanimation läuft, zähle den Timer herunter.
-    if (attack_animation_timer > 0.0f) {
-        attack_animation_timer -= delta_time;
-    }
-
-    // BEWEGUNG: Führe die Pathfinding-Logik nur aus, wenn gerade KEINE Angriffsanimation läuft.
-    if (attack_animation_timer <= 0.0f) {
-        Pathfinding(player_position.x, player_position.y, delta_time);
-        last_player_position_ = player_position;
-    }
-
-    // --- ANGRIFFS-LOGIK ---
-    float distance_to_player = Vector2Distance({this->hitbox.x, this->hitbox.y}, player_position);
-
-    // Wenn der Spieler in Reichweite ist UND der Cooldown bereit ist UND keine Animation läuft...
-    if (distance_to_player <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f && attack_animation_timer <= 0.0f)
     {
-        // ... dann starte die Angriffs-Animation.
-        attack_animation_timer = 0.8f; // Setze die Dauer der Animation.
+        // Rufe zuerst die Basis-Tick-Funktion auf
+        Enemy_Base_Class::Tick(delta_time);
 
-        // Führe den eigentlichen Angriff aus.
-        this->Melee_Attack();
+        // --- ZUSTANDS-LOGIK ---
+        if (attack_animation_timer > 0.0f) {
+            attack_animation_timer -= delta_time;
+        }
+
+        if (attack_animation_timer <= 0.0f) {
+            Pathfinding(player_position.x, player_position.y, delta_time);
+            last_player_position_ = player_position;
+        }
+
+        // --- ANGRIFFS-LOGIK ---
+
+        // Berechne die Distanz von Zentrum zu Zentrum
+        Vector2 enemy_center = this->Get_Hitbox_Center();
+        float distance_to_player = Vector2Distance(enemy_center, player_position);
+
+        // Wenn der Spieler in Reichweite ist UND der Cooldown bereit ist UND keine Animation läuft...
+        if (distance_to_player <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f && attack_animation_timer <= 0.0f)
+        {
+            // ... dann starte die Angriffs-Animation.
+            attack_animation_timer = 0.8f;
+
+            // Führe den eigentlichen Angriff aus.
+            this->Melee_Attack();
+        }
     }
-}
 
     void Insect_Monster::Tick(float delta_time)
     {
@@ -67,7 +67,7 @@ namespace enemy
         this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
 
         // 1. Definiere die Standardmaße für einen horizontalen Sweep.
-        float sweep_width = 16.0f;
+        float sweep_width = 48.0f;
         float sweep_height = 48.0f;
         float hitbox_width, hitbox_height;
         Vector2 hitbox_pos;

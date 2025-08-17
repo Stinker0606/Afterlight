@@ -98,7 +98,7 @@ public:
      * @param start_Position Die Startposition in der Welt.
      * @param om Referenz zum Object_Manager, um Projektile zu spawnen.
      */
-    PlayerClass(Vector2 start_Position, Object_Manager& om);
+    PlayerClass(Vector2 start_Position, Object_Manager* om);
     ~PlayerClass() override = default;
 
     // Eine Methode, um den Kamera-Zeiger zu setzen.

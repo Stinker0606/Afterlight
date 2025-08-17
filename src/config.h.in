@@ -49,8 +49,8 @@ namespace game {
         inline static constexpr float kFogPlayerCenterOffsetY = -15.0f; // Wert verschiebt den Kreis
 
         // Cam Settings
-        inline static constexpr const int cam_start_pos_x = 0;
-        inline static constexpr const int cam_start_pos_y = 0;
+        inline static constexpr const int cam_start_pos_x = 0; // PASSE DIESE WERTE NICHT AN!
+        inline static constexpr const int cam_start_pos_y = 0; // PASSE DIESE WERTE NICHT AN!
         inline static constexpr const float cam_zoom = 2; // Nur das ändern.
 
         // Control Settings

@@ -23,7 +23,7 @@ namespace game::scenes
     class Level1Scene final : public game::core::Scene
     {
     private:
-        // --- WARTELISTE ---
+        // --- Warteliste ---
         std::vector<std::shared_ptr<Collidable>> objects_to_add_list_;
 
         // --- Engine-Systeme ---
@@ -32,7 +32,7 @@ namespace game::scenes
         std::unique_ptr<Collision_Manager> p_cm;
 
         // --- Spiel-Objekte ---
-        std::shared_ptr<PlayerClass> sp_player;
+        std::weak_ptr<PlayerClass> sp_player;
         std::shared_ptr<Cam> sp_cam;
 
         // --- UI-Manager ---

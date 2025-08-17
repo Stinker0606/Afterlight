@@ -275,7 +275,7 @@
                         {
                          "name":"target_spawn_point",
                          "type":"string",
-                         "value":"player_start_from_Test1"
+                         "value":"player_start_from_test1"
                         }],
                  "rotation":0,
                  "type":"",
@@ -465,8 +465,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":60.666666666667,
-                 "y":494.666666666667
+                 "x":59.3333333333337,
+                 "y":470.666666666667
                 }, 
                 {
                  "gid":370,
@@ -503,11 +503,6 @@
                  "name":"spawn1",
                  "properties":[
                         {
-                         "name":"max_enemies",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"useFog",
                          "type":"bool",
                          "value":true
@@ -525,11 +520,6 @@
                  "name":"spawn1",
                  "properties":[
                         {
-                         "name":"max_enemies",
-                         "type":"int",
-                         "value":4
-                        }, 
-                        {
                          "name":"useFog",
                          "type":"bool",
                          "value":true
@@ -542,26 +532,10 @@
                  "y":351.333333333333
                 }, 
                 {
-                 "height":0,
-                 "id":84,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":189.333333333333,
-                 "y":611.333333333333
-                }, 
-                {
                  "height":32.6667,
                  "id":91,
                  "name":"spawn1",
                  "properties":[
-                        {
-                         "name":"max_enemies",
-                         "type":"int",
-                         "value":20
-                        }, 
                         {
                          "name":"useFog",
                          "type":"bool",
@@ -599,7 +573,7 @@
                 {
                  "height":0,
                  "id":77,
-                 "name":"player_start_from_Test2",
+                 "name":"player_start_from_test2",
                  "rotation":0,
                  "type":"",
                  "visible":true,

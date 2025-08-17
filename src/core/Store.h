@@ -1,9 +1,11 @@
 #pragma once
 
 #include <map>
+#include <string>
 #include <raylib.h>
 #include "Stage.h"
 #include "Actor.h"
+#include "../game/PlayerClass.h"
 
 namespace game::core
 {
@@ -25,5 +27,12 @@ namespace game::core
         /// The actors map can contain shared pointers to actor objects that are to be used across
         /// multiple scenes (e.g. the player actor).
         inline static std::map<std::string, std::shared_ptr<game::core::Actor>> actors = { };
+
+        // Ein globaler, permanenter Zeiger auf unseren Spieler
+        inline static std::shared_ptr<PlayerClass> player = nullptr;
+
+        // Globale Variablen für den Szenenwechsel
+        inline static std::string next_scene_map = "";
+        inline static std::string next_spawn_point = "";
     };
 }

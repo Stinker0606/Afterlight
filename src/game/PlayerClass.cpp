@@ -1,9 +1,14 @@
 #include "PlayerClass.h"
+#include <iostream>
 #include "Store.h"
+#include "../scenes/Level1Scene.h"
+#include <string>
 #include "../game/interactables/interact_list.h"
 #include "interactables/MeleeHitbox.h"
 
-PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
+using namespace std::string_literals;
+
+PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager* om)
     // 1. Rufe den Konstruktor der Basisklasse mit den Werten aus der Config auf
     : Player_Base_Class(
         game::Config::player_Max_Health,
@@ -71,6 +76,25 @@ void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
 // On_Collision Methode für spezielle Spieler-Interaktionen
 void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
 {
+    // Reagiere nur, wenn der Spieler nicht gerade eine andere Aktion ausführt.
+    if (player_state != PlayerState::IDLE && player_state != PlayerState::MOVING) return;
+
+    // --- PORTAL-LOGIK ---
+    if (other->Get_Collision_Type() == Collision_Type::PORTAL)
+    {
+        if (auto door = std::dynamic_pointer_cast<Door>(other))
+        {
+            // 1. Schreibe die Zieldaten in den globalen Store.
+            game::core::Store::next_scene_map = door->Get_Target_Map();
+            game::core::Store::next_spawn_point = door->Get_Target_Spawn_Point();
+
+            // 2. Ersetze die aktuelle Szene durch eine NEUE Instanz der Level1Scene.
+            // Die neue Szene wird sich beim Starten die neuen Daten aus dem Store holen.
+            game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "gameplay"s, std::make_unique<game::scenes::Level1Scene>());
+        }
+        return;
+    }
+
     // --- SPEZIELLE INTERAKTIONS-LOGIK ---
 
     // 1. Prüfe, ob es eine KeyWall ist UND ob wir sie öffnen können.
@@ -83,7 +107,7 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
             float search_radius = 72.0f;
             Vector2 origin_center = key_wall->Get_Hitbox_Center();
 
-            for (const auto& obj_to_check : om.managed_objects)
+            for (const auto& obj_to_check : p_om_->managed_objects)
             {
                 if (auto wall_to_destroy = std::dynamic_pointer_cast<KeyWall>(obj_to_check))
                 {
@@ -98,8 +122,7 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
 
     // --- PHYSISCHE KOLLISIONS-LOGIK ---
 
-    // 2. Die Kollision mit einem Push_Block ist ein Sonderfall, da sie den Spieler-Zustand ändert.
-    // Diese Logik funktioniert bereits korrekt und hat Vorrang.
+    // 1. Die Kollision mit einem Push_Block ist ein Sonderfall, da sie den Spieler-Zustand ändert.
     if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
     {
         player_state = PlayerState::PUSHING;
@@ -118,14 +141,11 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
     }
     else
     {
-        // 3. Für ALLE ANDEREN soliden Objekte (inkl. keyWall, normale walls, Gegner etc.)
-        // wird die Standard-Kollisionslogik aus der Basisklasse aufgerufen.
-        // Diese sorgt für das "Anrempeln" und Stehenbleiben.
+        // 2. Für ALLE ANDEREN soliden Objekte wird die Standard-Kollisionslogik aus der Basisklasse aufgerufen.
         Player_Base_Class::On_Collision(other);
     }
 }
 
-// die Ranged_Attack Methode
 void PlayerClass::Ranged_Attack()
 {
     // Nur ausführen wenn die Kamera existiert
@@ -161,7 +181,7 @@ void PlayerClass::Ranged_Attack()
         );
         // 1. Füge das Projektil dem Object_Manager hinzu, damit es gezeichnet
         //    und auf Kollisionen geprüft wird.
-        om.AddObject(projectile);
+        p_om_->AddObject(projectile);
 
         // 2. Füge das Projektil auch zur eigenen Liste des Spielers hinzu.
         //    Das "hält" den shared_ptr am Leben und verhindert, dass das Objekt sofort zerstört wird.
@@ -235,7 +255,7 @@ void PlayerClass::Melee_Attack()
         Collision_Type::PLAYER
     );
 
-    om.AddObject(sweep_hitbox);
+    p_om_->AddObject(sweep_hitbox);
 }
 
 void PlayerClass::Tick(float delta_time)

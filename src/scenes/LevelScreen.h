@@ -7,6 +7,8 @@
 #include <../../external/tileson/tileson.hpp>
 #include "Cam.h"
 #include "Object_Manager.h"
+#include <string>
+#include <map>
 #include "CollisionManager.h"
 #include "FogManager.h"
 
@@ -47,8 +49,14 @@ public:
      * @brief Lädt die .json-Datei der Map und das dazugehörige Tileset.
      */
     void Load_Levelmap();
-
     void Hide_Tiles_In_Area(Rectangle area_to_hide);
+
+    // Lädt eine spezifische Map anhand ihres Dateinamens.
+    void LoadSpecificLevelmap(const std::string& map_filename);
+
+    // Ein öffentliches "Gedächtnis" für alle Spawn-Punkte der Map.
+    // Der Key ist der Name (z.B. "player_start_from_Test1"), der Value ist die Position.
+    std::map<std::string, Vector2> spawn_points_;
 
 private:
     Texture2D tileatlas_Texture;

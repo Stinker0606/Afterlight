@@ -19,7 +19,8 @@ enum class Collision_Type
     CONSUMABLE,
     ENEMY_SPAWNER,
     PLAYER_MELEE_HITBOX,
-    ENEMY_MELEE_HITBOX
+    ENEMY_MELEE_HITBOX,
+    PORTAL
 };
 
 class Collidable : public std::enable_shared_from_this<Collidable>
@@ -28,8 +29,6 @@ protected:
     Rectangle hitbox;
     bool is_Marked_For_Destruction = false;
 
-    // Eigenschaften für die "Nebel"-Mechanik
-    // ---------------------------------------------------------------------
     // Bestimmt, ob dieses Objekt von der Nebel-Mechanik betroffen ist.
     // Wird in Tiled über die Custom Property "useFog" gesteuert.
     bool useFog = false;
@@ -37,7 +36,6 @@ protected:
     // Bestimmt die aktuelle Sichtbarkeit (Transparenz) des Objekts.
     // 1.0f = voll sichtbar, 0.0f = komplett unsichtbar.
     float visibility_alpha = 1.0f;
-    // ---------------------------------------------------------------------
 
 public:
     virtual ~Collidable() = default;
@@ -55,8 +53,7 @@ public:
     virtual void Mark_For_Destruction() { this->is_Marked_For_Destruction = true; }
     bool Is_Marked_For_Destruction() const { return this->is_Marked_For_Destruction; }
 
-    // Öffentliche Methoden um die Nebel-Eigenschaften zu steuern
-    // ---------------------------------------------------------------------
+
     /**
      * @brief Setzt ob dieses Objekt vom Nebel betroffen sein soll.
      * @param usefog True, wenn es betroffen sein soll, sonst false.
@@ -73,6 +70,5 @@ public:
      * @brief Gibt zurück ob dieses Objekt vom Nebel betroffen ist.
      */
     bool Get_Use_Fog() const { return this->useFog; }
-    // ---------------------------------------------------------------------
 };
 #endif //COLLIDABLE_H

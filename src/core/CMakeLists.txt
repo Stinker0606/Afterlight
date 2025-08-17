@@ -77,6 +77,8 @@ add_library(core STATIC
         ../game/interactables/MeleeHitbox.h
         ../game/interactables/KeyWall.cpp
         ../game/interactables/KeyWall.h
+        ../game/interactables/Door.cpp
+        ../game/interactables/Door.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

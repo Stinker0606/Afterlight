@@ -9,6 +9,7 @@
 #include "scenes/Screen.h"
 #include "config.h.in"
 #include "scenes/Level1Scene.h"
+#include "core/Store.h"
 
 /* Aktiviert "String-Literalen erlaubt "menu"s Daraus wird dann direkt ein std::string
  * also "menu"s == std::string ("menu")
@@ -24,7 +25,16 @@ int main()
                           game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio,
                           game::Config::kProjectName);
 
-    game.Run("Test1"s, std::make_unique<game::scenes::Level1Scene>());
+    // 1. Setze die Start-Map und den Spawnpoint für den Start.
+    game::core::Store::next_scene_map = "Test1.json";
+    game::core::Store::next_spawn_point = "player_start";
+
+    // 2. ERSTELLE DEN SPIELER EINMALIG.
+    Object_Manager temp_om;
+    game::core::Store::player = std::make_shared<PlayerClass>(Vector2{0,0}, nullptr);
+
+    // 3. Starte das Spiel mit der ersten Szene.
+    game.Run("gameplay"s, std::make_unique<game::scenes::Level1Scene>());
 
     return EXIT_SUCCESS;
 }

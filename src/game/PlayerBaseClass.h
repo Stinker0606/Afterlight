@@ -44,7 +44,7 @@ protected:
 
     float projectile_Speed;
     std::vector<std::shared_ptr<game::Player_Projectile>> sp_projectiles;
-    Object_Manager& om;
+	Object_Manager* p_om_;
 
 	// Ein Enum für klare Spieler-Zustände
 	enum class PlayerState { IDLE, MOVING, ATTACKING_RANGED, ATTACKING_MELEE, PUSHING, DYING };
@@ -55,13 +55,14 @@ protected:
 
 public:
 	// Konstruktor
-	Player_Base_Class(int max_Health, float movement_Speed, Vector2 start_Position, Object_Manager& om);
+	Player_Base_Class(int max_Health, float movement_Speed, Vector2 start_Position, Object_Manager* om);
 
 	// Destruktor
 	~Player_Base_Class() override;
 	void Player_Input();
 	void Tick(float delta_time) override;
 	void On_Collision(std::shared_ptr<Collidable> other) override;
+	void Set_Object_Manager(Object_Manager* new_om);
 	virtual void Draw() override;
 
 	void Update_Previous_Position();
@@ -79,6 +80,5 @@ public:
 
 	float GetHealth() const { return player_Health; }
 	float GetMaxHealth() const { return player_Max_Health; }
-
 };
 

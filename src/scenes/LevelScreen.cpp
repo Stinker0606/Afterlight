@@ -50,6 +50,31 @@ void LevelScreen::Load_Levelmap() {
     }
 }
 
+void LevelScreen::LoadSpecificLevelmap(const std::string& map_filename) {
+    tson::Tileson parser;
+    std::string levelmap_Path = "../../assets/Tiled/Levelmaps/" + map_filename;
+
+    map = parser.parse(levelmap_Path);
+
+    if (map == nullptr || map->getStatus() != tson::ParseStatus::OK) {
+        std::cerr << "FEHLER: Konnte die Map nicht laden oder parsen: " << levelmap_Path << std::endl;
+        return;
+    }
+
+    for (auto &tileset: map->getTilesets()) {
+        std::string image_Path_Raw = tileset.getImagePath().string();
+        if (image_Path_Raw.substr(0, 3) == "../") {
+            image_Path_Raw = image_Path_Raw.substr(3);
+        }
+        std::string image_Path = "../../assets/Tiled/" + image_Path_Raw;
+        tileatlas_Texture = LoadTexture(image_Path.c_str());
+        if (tileatlas_Texture.id == 0) {
+            std::cerr << "FEHLER: Konnte das Tileset nicht laden: " << image_Path << std::endl;
+        }
+        break;
+    }
+}
+
 void LevelScreen::Hide_Tiles_In_Area(Rectangle area_to_hide)
 {
     if (map == nullptr) return;
@@ -111,10 +136,6 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
 }
 
 void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
-    if (!this->loaded){
-        Load_Levelmap();
-        this->loaded = true;
-    }
     if (map == nullptr) { return; }
 
     static std::vector<Rectangle> temp_obstacle_list;
@@ -158,7 +179,6 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                         }
 
                         if (tile) {
-                            // Wir verwenden die korrigierte Position
                             tson::Rect drawing_rect = tile->getDrawingRect();
                             Vector2 pos = {
                                 (float)object.getPosition().x,
@@ -181,12 +201,38 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             if (tile) break;
                         }
                         if (tile) {
-                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                             tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {
+                                (float)object.getPosition().x,
+                                (float)object.getPosition().y - (float)drawing_rect.height
+                            };
+
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
                             new_object = std::make_shared<BreakableWall>(pos, this->tileatlas_Texture, source_rect);
                         }
                     }
+                }
+                else if (object_name == "doors")
+                {
+                    // Lese die Custom Properties aus Tiled aus.
+                    std::string target_map = "default.json";
+                    std::string target_spawn = "player_start";
+
+                    if (object.getProperties().hasProperty("target_map")) {
+                        target_map = object.getProperties().getValue<std::string>("target_map");
+                    }
+                    if (object.getProperties().hasProperty("target_spawn_point")) {
+                        target_spawn = object.getProperties().getValue<std::string>("target_spawn_point");
+                    }
+                    // Erstelle die Hitbox und das Door-Objekt.
+                    Rectangle rect = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<Door>(rect, target_map, target_spawn);
+                }
+                // Erkennt den Standard-Startpunkt UND alle benannten Startpunkte
+                else if (object_name == "player_start" || object_name.rfind("player_start_", 0) == 0)
+                {
+                    // Speichere den Namen und die Position des Objekts in unserem "Gedächtnis"
+                    spawn_points_[object_name] = { (float)object.getPosition().x, (float)object.getPosition().y };
                 }
                 else if (object_name == "spawn1") {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
