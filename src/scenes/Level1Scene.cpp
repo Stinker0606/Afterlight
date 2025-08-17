@@ -63,14 +63,10 @@ namespace game::scenes
         // 9.1 Initialisiere die fogMaskTexture
         this->fogMaskTexture = LoadRenderTexture(game::Config::kStageWidth, game::Config::kStageHeight);
 
-        // 9.2 Hole den vollständigen Pfad der aktuellen Level-Map aus der Config.
-        std::string map_path = game::Config::GetLevelMapPath(this->level_Nbr);
+        // 9.2 Hole den Dateinamen der AKTUELLEN Map aus dem globalen Store.
+        std::string map_filename = game::core::Store::next_scene_map;
 
-        // 9.3 Extrahiere nur den Dateinamen aus dem Pfad (z.B. "Swamp_0.json").
-        // Dein FogManager erwartet nur den Namen nicht den ganzen Pfad.
-        std::string map_filename = map_path.substr(map_path.find_last_of("/\\") + 1);
-
-        // 9.4 Initialisiere den FogManager mit dem dynamischen Map-Namen.
+        // 9.3 Initialisiere den FogManager mit dem korrekten, dynamischen Map-Namen.
         fogManager.InitializeFog(map_filename, {(float)game::Config::kStageWidth, (float)game::Config::kStageHeight});
         // -----------------------------------------
 
@@ -137,24 +133,34 @@ namespace game::scenes
             }
 
             // --- "useFog"-Logik ---
-            // Diese Logik berechnet wie transparent jedes Objekt sein soll.
-            Vector2 player_center = player->Get_Player_Center();
-            for (const auto& obj : objectManager.managed_objects) {
-                if (obj && obj->Get_Use_Fog()) {
-                    Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
-                    float distance = Vector2Distance(player_center, obj_center);
-                    float alpha = 1.0f;
-                    if (distance > game::Config::kFogFullVisibilityRadius) {
-                        alpha = 1.0f - (distance - game::Config::kFogFullVisibilityRadius) / (game::Config::kFogNoVisibilityRadius - game::Config::kFogFullVisibilityRadius);
+            if (fogManager.IsFogActive())
+            {
+                // WENN der Nebel AN ist, berechne die Transparenz basierend auf der Distanz.
+                Vector2 player_center = player->Get_Player_Center();
+                for (const auto& obj : objectManager.managed_objects) {
+                    if (obj && obj->Get_Use_Fog()) {
+                        Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                        float distance = Vector2Distance(player_center, obj_center);
+                        float alpha = 1.0f;
+                        if (distance > game::Config::kFogFullVisibilityRadius) {
+                            alpha = 1.0f - (distance - game::Config::kFogFullVisibilityRadius) / (game::Config::kFogNoVisibilityRadius - game::Config::kFogFullVisibilityRadius);
+                        }
+                        obj->Set_Visibility_Alpha(Clamp(alpha, 0.0f, 1.0f));
+                    } else if (obj) {
+                        // Objekte ohne useFog sind im Nebel immer voll sichtbar.
+                        obj->Set_Visibility_Alpha(1.0f);
                     }
-                    // Wir setzen die berechnete Transparenz für das Objekt.
-                    obj->Set_Visibility_Alpha(Clamp(alpha, 0.0f, 1.0f));
-                } else if (obj) {
-                    // Alle anderen Objekte sind voll sichtbar.
-                    obj->Set_Visibility_Alpha(1.0f);
                 }
             }
-            // ------------------------------------
+            else
+            {
+                // WENN der Nebel AUS ist, setze ALLE Objekte auf 100% Sichtbarkeit.
+                for (const auto& obj : objectManager.managed_objects) {
+                    if (obj) {
+                        obj->Set_Visibility_Alpha(1.0f);
+                    }
+                }
+            }
 
             objectManager.Cleanup_Objects();
 
