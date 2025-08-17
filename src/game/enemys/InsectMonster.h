@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../EnemyBaseClass.h"
+#include "../../core/RepeatAnimation.h"
 
 class Object_Manager;
 
@@ -14,8 +15,28 @@ namespace enemy
     class Insect_Monster : public Enemy_Base_Class
     {
     private:
+        enum class AnimationState { FLYING, ATTACKING, DYING };
+        AnimationState anim_state_;
         float attack_animation_timer;
         Vector2 last_player_position_;
+        RepeatAnimation* p_current_animation_;
+
+        // --- ANIMATIONS ---
+
+        // Fly
+        RepeatAnimation anim_fly_front_;
+        RepeatAnimation anim_fly_back_;
+        RepeatAnimation anim_fly_left_;
+        RepeatAnimation anim_fly_right_;
+
+        // Death
+        RepeatAnimation anim_death_;
+
+        // Attack
+        RepeatAnimation anim_melee_front_;
+        RepeatAnimation anim_melee_back_;
+        RepeatAnimation anim_melee_left_;
+        RepeatAnimation anim_melee_right_;
     public:
         /**
          * @brief Konstruktor für das Insektenmonster.
@@ -35,13 +56,6 @@ namespace enemy
         //  Wir implementieren die Angriffsfunktionen
         void Melee_Attack() override;
         void Range_Attack() override;
-
-        /**
-         * @brief Erfüllt den Vertrag der Collidable-Klasse.
-         * Leitet den Aufruf an die KI-Tick-Methode weiter.
-         */
-        void Tick(float delta_time) override;
-
 
         /**
          * @brief Zeichnet das Insektenmonster.

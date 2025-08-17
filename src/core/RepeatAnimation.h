@@ -20,7 +20,6 @@ class RepeatAnimation {
     RepeatAnimation(Vector2,const char*,int,int);
         void Next_Frame();
         void First_Frame();
-        void Draw_Current_Frame(Vector2);
 
     /**
      * @brief Zeichnet den aktuellen Frame der Animation an einer Position.

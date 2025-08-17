@@ -17,6 +17,10 @@ struct SpawnableEnemy {
 namespace game {
     class EnemyConfig final {
     public:
+            // Globaler Schalter für Gegner-Animationen
+            // true = Nutze die vollen Animationen
+            // false = Nutze die einfachen Platzhalter-Sprites aus der Basisklasse
+            inline static constexpr bool kUseEnemyAnimations = false;
         // ----------------------------------------------- SPAWNERS ----------------------------------------------------
 
         // ------------------------------------------------ SUMPF ------------------------------------------------------
@@ -40,10 +44,9 @@ namespace game {
 
         // ====================================================================================
         // I. INSEKTEN MONSTER (Nahkämpfer)
-        // Quelle: Steckbrief_InsektenMonster.pdf
         // ====================================================================================
 
-        inline static constexpr const char* kInsectMonsterSpritePath = "assets/graphics/kRaoKr_imresizer.png"; //PLACEHOLDER
+        inline static constexpr const char* kInsectMonsterSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
         // -- Stats --
         inline static constexpr int kInsectMonsterHealth = 50; 
         inline static constexpr float kInsectMonsterMovementSpeed = 10.0; // deactivated -> 2 Tiles pro Sekunde (1 Tile = 32px)
@@ -90,8 +93,7 @@ namespace game {
 
 
         // ====================================================================================
-        // II. DROWNED SNIPER (Stationärer 8-Wege-Fernkämpfer)
-        // Quelle: Steckbrief_DrownedSniper.pdf
+        // II. DROWNED SNIPER (Stationärer 8-Fernkämpfer)
         // ====================================================================================
 
         // -- Stats --
@@ -150,8 +152,7 @@ namespace game {
 
 
         // ====================================================================================
-        // III. CHIMERA (Nahkampf-Tank)
-        // Quelle: Steckbrief_Chimera.pdf
+        // III. CHIMERA (Nahkampf)
         // ====================================================================================
 
         // -- Stats --
@@ -201,7 +202,6 @@ namespace game {
 
         // ====================================================================================
         // IV. POISON FROG (Einmaliger AoE-Angreifer?)
-        // Quelle: Steckbrief_PoisonFrog.pdf
         // ====================================================================================
 
         // -- Stats --
@@ -241,8 +241,7 @@ namespace game {
 
 
         // ====================================================================================
-        // V. NYX (Stationärer Debuff-Gegner)
-        // Quelle: Steckbrief_Nyx.pdf
+        // V. NYX (Stationärer Debuff-Gegner?)
         // ====================================================================================
 
         // -- Stats --
@@ -280,8 +279,7 @@ namespace game {
 
 
         // ====================================================================================
-        // VI. DARKNESS MONSTER (Hybrid Nah- & Fernkämpfer)
-        // Quelle: Steckbrief_DarknessMonster.pdf
+        // VI. DARKNESS MONSTER (Nah- & Fernkämpfer)
         // ====================================================================================
 
         // -- Stats --

@@ -3,6 +3,7 @@
 #include "../interactables/MeleeHitbox.h"
 #include "raymath.h"
 #include "../../config_enemies.h.in"
+#include "../FacingDirection.h"
 
 namespace enemy
 {
@@ -20,45 +21,55 @@ namespace enemy
             game::EnemyConfig::kInsectMonsterHitboxHeight,
             game::EnemyConfig::kInsectMonsterAttackCooldown
             , om ),
+            anim_fly_front_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyFrontPath, game::EnemyConfig::kInsectMonsterFlyFrontFrames, game::EnemyConfig::kInsectMonsterFlyFrontFramesPerLine),
+            anim_fly_back_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyBackPath, game::EnemyConfig::kInsectMonsterFlyBackFrames, game::EnemyConfig::kInsectMonsterFlyBackFramesPerLine),
+            anim_fly_left_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyLeftPath, game::EnemyConfig::kInsectMonsterFlyLeftFrames, game::EnemyConfig::kInsectMonsterFlyLeftFramesPerLine),
+            anim_fly_right_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyRightPath, game::EnemyConfig::kInsectMonsterFlyRightFrames, game::EnemyConfig::kInsectMonsterFlyRightFramesPerLine),
+            anim_death_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterDeathPath, game::EnemyConfig::kInsectMonsterDeathFrames, game::EnemyConfig::kInsectMonsterDeathFramesPerLine),
+            anim_melee_front_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeFrontPath, game::EnemyConfig::kInsectMonsterMeleeFrontFrames, game::EnemyConfig::kInsectMonsterMeleeFrontFramesPerLine),
+            anim_melee_back_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeBackPath, game::EnemyConfig::kInsectMonsterMeleeBackFrames, game::EnemyConfig::kInsectMonsterMeleeBackFramesPerLine),
+            anim_melee_left_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeLeftPath, game::EnemyConfig::kInsectMonsterMeleeLeftFrames, game::EnemyConfig::kInsectMonsterMeleeLeftFramesPerLine),
+            anim_melee_right_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeRightPath, game::EnemyConfig::kInsectMonsterMeleeRightFrames, game::EnemyConfig::kInsectMonsterMeleeRightFramesPerLine),
             attack_animation_timer(0.0f)
     {
         this->useFog = true;
+        this->anim_state_ = AnimationState::FLYING; // Startzustand
+        this->p_current_animation_ = &anim_fly_front_; // Standard-Animation
     }
 
     void Insect_Monster::Update_AI(float delta_time, Vector2 player_position)
     {
-        // Rufe zuerst die Basis-Tick-Funktion auf
-        Enemy_Base_Class::Tick(delta_time);
+        // Wenn der Gegner tot ist, mache nichts mehr.
+        if (anim_state_ == AnimationState::DYING) return;
 
-        // --- ZUSTANDS-LOGIK ---
-        if (attack_animation_timer > 0.0f) {
-            attack_animation_timer -= delta_time;
+        // Prüfe, ob der Gegner sterben sollte.
+        if (this->enemy_Health <= 0) {
+            anim_state_ = AnimationState::DYING;
+            this->attack_animation_timer = 9999.0f; // Verhindere weitere Aktionen
+            return;
         }
 
-        if (attack_animation_timer <= 0.0f) {
+        Enemy_Base_Class::Tick(delta_time);
+
+        if (attack_animation_timer > 0.0f) {
+            attack_animation_timer -= delta_time;
+            if (attack_animation_timer <= 0.0f) {
+                anim_state_ = AnimationState::FLYING; // Zurück zum Fliegen nach dem Angriff
+            }
+        } else {
             Pathfinding(player_position.x, player_position.y, delta_time);
             last_player_position_ = player_position;
         }
 
-        // --- ANGRIFFS-LOGIK ---
-
-        // Berechne die Distanz von Zentrum zu Zentrum
         Vector2 enemy_center = this->Get_Hitbox_Center();
         float distance_to_player = Vector2Distance(enemy_center, player_position);
 
-        // Wenn der Spieler in Reichweite ist UND der Cooldown bereit ist UND keine Animation läuft...
         if (distance_to_player <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f && attack_animation_timer <= 0.0f)
         {
-            // ... dann starte die Angriffs-Animation.
+            anim_state_ = AnimationState::ATTACKING; // Setze den Angriffszustand
             attack_animation_timer = 0.8f;
-
-            // Führe den eigentlichen Angriff aus.
             this->Melee_Attack();
         }
-    }
-
-    void Insect_Monster::Tick(float delta_time)
-    {
     }
 
     // Implementierung der Angriffsfunktionen
@@ -114,16 +125,58 @@ namespace enemy
         om_ref_.AddObject(sweep_hitbox);
     }
 
+    // hat kein Range Attack
     void Insect_Monster::Range_Attack()
     {
     }
 
     void Insect_Monster::Draw()
     {
-        // TO-DO: Hier wird später die Animations-Logik basierend
-        // auf dem Gegner-Zustand (Idle, Flying, Attacking, Dying) stehen.
-        if (sprite.id > 0)
+        if (game::EnemyConfig::kUseEnemyAnimations)
         {
+            // --- LOGIK FÜR VOLLE ANIMATIONEN ---
+            Vector2 direction = Vector2Normalize({ last_player_position_.x - this->Get_Hitbox_Center().x, last_player_position_.y - this->Get_Hitbox_Center().y });
+            float angle = atan2(direction.y, direction.x) * (180.0f / PI);
+            if (angle < 0) angle += 360;
+
+            Facing_Direction facing_dir = Facing_Direction::DOWN; // Standardwert
+            if (angle >= 45 && angle < 135) facing_dir = Facing_Direction::DOWN;
+            else if (angle >= 135 && angle < 225) facing_dir = Facing_Direction::LEFT;
+            else if (angle >= 225 && angle < 315) facing_dir = Facing_Direction::UP;
+            else facing_dir = Facing_Direction::RIGHT;
+
+            switch (anim_state_)
+            {
+                case AnimationState::FLYING:
+                    if (facing_dir == Facing_Direction::UP) p_current_animation_ = &anim_fly_back_;
+                    else if (facing_dir == Facing_Direction::DOWN) p_current_animation_ = &anim_fly_front_;
+                    else if (facing_dir == Facing_Direction::LEFT) p_current_animation_ = &anim_fly_left_;
+                    else p_current_animation_ = &anim_fly_right_;
+                    break;
+                case AnimationState::ATTACKING:
+                    if (facing_dir == Facing_Direction::UP) p_current_animation_ = &anim_melee_back_;
+                    else if (facing_dir == Facing_Direction::DOWN) p_current_animation_ = &anim_melee_front_;
+                    else if (facing_dir == Facing_Direction::LEFT) p_current_animation_ = &anim_melee_left_;
+                    else p_current_animation_ = &anim_melee_right_;
+                    break;
+                case AnimationState::DYING:
+                    p_current_animation_ = &anim_death_;
+                    break;
+            }
+
+            if (p_current_animation_)
+            {
+                Vector2 draw_pos = {
+                    this->hitbox.x - (game::EnemyConfig::kInsectMonsterAnimSize.x - this->hitbox.width) / 2,
+                    this->hitbox.y - (game::EnemyConfig::kInsectMonsterAnimSize.y - this->hitbox.height) / 2
+                };
+                p_current_animation_->Draw_Current_Frame(draw_pos, WHITE);
+                p_current_animation_->Next_Frame();
+            }
+        }
+        else
+        {
+            // --- LOGIK FÜR PLATZHALTER ---
             DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
         }
     }
