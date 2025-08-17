@@ -6,7 +6,6 @@
 #include <vector>
 #include "../config.h.in"
 #include "../game/Walls.h"
-#include "../game/spawner/Level1Spawner.h"
 #include "../game/enemys/enemies_list.h"
 #include "../game/interactables/interact_list.h"
 

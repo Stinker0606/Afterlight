@@ -258,7 +258,7 @@ namespace game {
         inline static constexpr bool kDebugShowFog = true; // Set to 'false' to disable fog
 
         // for ALL hitboxes
-        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
+        inline static constexpr bool kDebugShowHitboxes = true; // Set to 'true' to show all hitboxes
 
         // ------------------------------------------- LEVEL SETTINGS --------------------------------------------------
 
@@ -277,7 +277,7 @@ namespace game {
                         case 1:
                             return "../../assets/Tiled/Levelmaps/Test1.json";
                         case 2:
-                            return "../../assets/Tiled/Levelmaps/Swamp_1.json";
+                            return "../../assets/Tiled/Levelmaps/Test2.json";
                         case 3:
                             return "assets/maps/level3.json";
                         default:

@@ -10,7 +10,6 @@
 #include "../game/PlayerClass.h"
 #include <memory>
 #include <vector>
-
 #include "UIManager.h"
 #include "../game/spawner/Level1Spawner.h"
 

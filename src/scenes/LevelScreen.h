@@ -48,11 +48,14 @@ public:
      */
     void Load_Levelmap();
 
+    void Hide_Tiles_In_Area(Rectangle area_to_hide);
+
 private:
     Texture2D tileatlas_Texture;
     std::unique_ptr<tson::Map> map;
     int* Level_Nbr_Ptr = nullptr;
     bool loaded;
+    std::vector<std::tuple<int, int>> hidden_tiles_;
 };
 
 #endif //LEVEL_SCREEN_H

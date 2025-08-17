@@ -136,6 +136,7 @@ public:
     // --- METHODEN ZUM VERWALTEN DES INVENTARS ---
     void Add_Key(int amount);
     int Get_Key_Count() const;
+    void Use_Key(int amount);
     void Add_Bomb(int amount);
     int Get_Bomb_Count() const;
     void Use_Bomb();

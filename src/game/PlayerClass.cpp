@@ -71,25 +71,46 @@ void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
 // On_Collision Methode für spezielle Spieler-Interaktionen
 void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
 {
-    // Reagiere nur auf neue Kollisionen, wenn du nicht gerade eine Aktion ausführst.
-    if (player_state != PlayerState::IDLE && player_state != PlayerState::MOVING) return;
+    // --- SPEZIELLE INTERAKTIONS-LOGIK ---
 
+    // 1. Prüfe, ob es eine KeyWall ist UND ob wir sie öffnen können.
+    if (auto key_wall = std::dynamic_pointer_cast<KeyWall>(other))
+    {
+        if (this->Get_Key_Count() > 0)
+        {
+            this->Use_Key(1);
+            // Definiere den Radius und markiere alle Wände in der Nähe zur Zerstörung.
+            float search_radius = 72.0f;
+            Vector2 origin_center = key_wall->Get_Hitbox_Center();
+
+            for (const auto& obj_to_check : om.managed_objects)
+            {
+                if (auto wall_to_destroy = std::dynamic_pointer_cast<KeyWall>(obj_to_check))
+                {
+                    if (Vector2Distance(origin_center, wall_to_destroy->Get_Hitbox_Center()) <= search_radius)
+                    {
+                        wall_to_destroy->Mark_For_Destruction();
+                    }
+                }
+            }
+        }
+    }
+
+    // --- PHYSISCHE KOLLISIONS-LOGIK ---
+
+    // 2. Die Kollision mit einem Push_Block ist ein Sonderfall, da sie den Spieler-Zustand ändert.
+    // Diese Logik funktioniert bereits korrekt und hat Vorrang.
     if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
     {
-        // Wenn wir auf einen schiebbaren Block treffen, starten wir die PUSHING-Aktion.
         player_state = PlayerState::PUSHING;
         push_animation_timer = game::Config::player_Push_Anim_Duration;
-
         block_to_push = push_block;
-
         Vector2 move_dir = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
         if (fabs(move_dir.x) > fabs(move_dir.y)) {
             push_direction = { (move_dir.x > 0) ? 1.0f : -1.0f, 0.0f };
         } else {
             push_direction = { 0.0f, (move_dir.y > 0) ? 1.0f : -1.0f };
         }
-
-        // Setze Spielerposition zurück und stoppe Bewegung
         hitbox.x = previous_Position.x;
         hitbox.y = previous_Position.y;
         player_Pos = previous_Position;
@@ -97,7 +118,9 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
     }
     else
     {
-        // Wenn es kein Push-Block ist, benutze die Standard-Kollisionslogik der Basisklasse.
+        // 3. Für ALLE ANDEREN soliden Objekte (inkl. keyWall, normale walls, Gegner etc.)
+        // wird die Standard-Kollisionslogik aus der Basisklasse aufgerufen.
+        // Diese sorgt für das "Anrempeln" und Stehenbleiben.
         Player_Base_Class::On_Collision(other);
     }
 }
@@ -490,6 +513,14 @@ void PlayerClass::Add_Key(int amount)
 int PlayerClass::Get_Key_Count() const
 {
     return this->key_count_;
+}
+
+void PlayerClass::Use_Key(int amount)
+{
+    this->key_count_ -= amount;
+    if (this->key_count_ < 0) {
+        this->key_count_ = 0;
+    }
 }
 
 void PlayerClass::Add_Bomb(int amount)

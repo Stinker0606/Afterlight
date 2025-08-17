@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 #include "../config.h.in"
 #include "../config_enemies.h.in"
 #include "../game/Walls.h"
@@ -49,11 +50,28 @@ void LevelScreen::Load_Levelmap() {
     }
 }
 
-void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
-    if (map == nullptr) {
-        return;
-    }
+void LevelScreen::Hide_Tiles_In_Area(Rectangle area_to_hide)
+{
+    if (map == nullptr) return;
 
+    int tile_width = map->getTileSize().x;
+    int tile_height = map->getTileSize().y;
+
+    int start_x = floorf(area_to_hide.x / tile_width);
+    int start_y = floorf(area_to_hide.y / tile_height);
+    int end_x = floorf((area_to_hide.x + area_to_hide.width) / tile_width);
+    int end_y = floorf((area_to_hide.y + area_to_hide.height) / tile_height);
+
+    // Füge die Koordinaten aller Kacheln im Bereich zur "schwarzen Liste" hinzu
+    for (int y = start_y; y < end_y; ++y) {
+        for (int x = start_x; x < end_x; ++x) {
+            hidden_tiles_.emplace_back(x, y);
+        }
+    }
+}
+
+void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
+    if (map == nullptr) return;
     // Die Funktion kümmert sich NUR noch um das Zeichnen der Kacheln.
     for (auto &layer: map->getLayers()) {
         if (!layer.isVisible() || layer.getType() != tson::LayerType::TileLayer) {
@@ -73,6 +91,13 @@ void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
         for (const auto &pair: tile_Layer) {
             int x = std::get<0>(pair.first);
             int y = std::get<1>(pair.first);
+            // Erstelle ein Tupel für die aktuelle Kachel-Koordinate
+            std::tuple<int, int> current_tile_coords = {x, y};
+            // Prüfe, ob diese Koordinate in unserer "schwarzen Liste" ist.
+            if (std::find(hidden_tiles_.begin(), hidden_tiles_.end(), current_tile_coords) != hidden_tiles_.end())
+            {
+                continue; // Wenn ja, überspringe das Zeichnen dieser Kachel.
+            }
             tson::Tile *tile = pair.second;
             if (tile != nullptr) {
                 tson::Rect drawingRect = tile->getDrawingRect();
@@ -120,6 +145,30 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             tson::Rect drawing_rect = tile->getDrawingRect();
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
                             new_object = std::make_shared<Push_Block>(pos, this->tileatlas_Texture, source_rect);
+                        }
+                    }
+                }
+                else if (object_name == "keyWall")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
+
+                        if (tile) {
+                            // Wir verwenden die korrigierte Position
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {
+                                (float)object.getPosition().x,
+                                (float)object.getPosition().y - (float)drawing_rect.height
+                            };
+
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+
+                            // Wir erstellen das KeyWall-Objekt mit den Grafik-Daten
+                            new_object = std::make_shared<KeyWall>(pos, this->tileatlas_Texture, source_rect);
                         }
                     }
                 }
