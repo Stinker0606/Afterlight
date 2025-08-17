@@ -44,9 +44,9 @@ namespace game {
 // ----------------------------------------------- IMPORTANT SETTINGS --------------------------------------------------
 
         // NEBEL SETTINGS - NICHT ÄNDERN !
-        inline static constexpr float kFogFullVisibilityRadius = 50.0f; // Innerhalb dieses Radius ist alles 100% sichtbar - useFog
-        inline static constexpr float kFogNoVisibilityRadius = 85.0f;   // Außerhalb dieses Radius ist alles 0% sichtbar - useFog
-        inline static constexpr float kFogPlayerCenterOffsetY = -15.0f; // Wert verschiebt den Kreis
+        inline static constexpr float kFogFullVisibilityRadius = 50.0; // Innerhalb dieses Radius ist alles 100% sichtbar - useFog
+        inline static constexpr float kFogNoVisibilityRadius = 85.0;   // Außerhalb dieses Radius ist alles 0% sichtbar - useFog
+        inline static constexpr float kFogPlayerCenterOffsetY = -15.0; // Wert verschiebt den Kreis
 
         // Cam Settings
         inline static constexpr const int cam_start_pos_x = 0; // PASSE DIESE WERTE NICHT AN!
@@ -66,6 +66,8 @@ namespace game {
 
         // -------------------------------------------- Interactables --------------------------------------------------
 
+// WICHTIG -> 6.0f sind 1 SEKUNDE
+
         // Heal Item
         inline static constexpr int kItemHealConsDefaultAmount = 25; // Standard-Heilmenge - PLACEHOLDER WERT
 
@@ -76,7 +78,7 @@ namespace game {
         inline static constexpr int kBombDamage = 200; // Bomben Damage - PLACEHOLDER WERT
         inline static constexpr float kBombDetonationTime = 12.0f; // Detonations Zeit - PLACEHOLDER WERT
         inline static constexpr float kBombBlinkInterval = 1.0f; // Blink Interval - PLACEHOLDER WERT
-        inline static constexpr float kBombPlacementCooldown = 2.0f; // Cooldown - PLACEHOLDER WERT
+        inline static constexpr float kBombPlacementCooldown = 6.0f; // Cooldown - PLACEHOLDER WERT
 
         // ----------------------------------------------- PLAYER ------------------------------------------------------
 
@@ -93,7 +95,7 @@ namespace game {
 
         // Player Stats
         inline static constexpr int player_Max_Health = 600;
-        inline static constexpr float player_Movement_Speed = 30.0f;
+        inline static constexpr float player_Movement_Speed = 18.0;
         inline static constexpr int player_Melee_Damage = 100;
         inline static constexpr int player_Projectile_Damage = 75;
 
@@ -103,9 +105,9 @@ namespace game {
         inline static constexpr float player_Push_Anim_Duration = 0.5f; // Dauer der Push-Animation in Sekunden
 
         // Ranged Attack (Throw)
-        inline static constexpr float player_Projectile_Speed = 80.0f; // Projectile Geschwindigkeit
+        inline static constexpr float player_Projectile_Speed = 80.0; // Projectile Geschwindigkeit
         inline static constexpr float player_Ranged_Attack_Anim_Duration = 0.5f; // Dauer der Wurfanimation in Sekunden
-        inline static constexpr float player_Ranged_Attack_Cooldown = 6.0f; // Abklingzeit nach einem Wurf
+        inline static constexpr float player_Ranged_Attack_Cooldown = 4.5f; // Abklingzeit nach einem Wurf
         inline static constexpr float player_Projectile_Lifetime = 12.0f; // Lebensdauer in Sekunden
         inline static constexpr int player_Projectile_Hitbox_Width = 16; // Projectile Hitbox
         inline static constexpr int player_Projectile_Hitbox_Height = 16; // Projectile Hitbox
@@ -113,7 +115,7 @@ namespace game {
 
         // Melee Attack (Sweep)
         inline static constexpr float player_Melee_Attack_Anim_Duration = 0.4f; // Dauer der Sweep-Animation
-        inline static constexpr float player_Melee_Attack_Cooldown = 0.8f; // Abklingzeit nach einem Sweep
+        inline static constexpr float player_Melee_Attack_Cooldown = 6.0f; // Abklingzeit nach einem Sweep
 
         // ------------------------------------------ PLAYER ANIMATIONS ------------------------------------------------
 
@@ -244,7 +246,7 @@ namespace game {
 
         // Enemy_Class_One - (PLACEHOLDER DER BASIS-ENGINE)
         inline static constexpr int enemy_Class_1_Health = 50; //PLACEHOLDER
-        inline static constexpr float enemy_Class_1_Movement_Speed = 100.0f; //PLACEHOLDER
+        inline static constexpr float enemy_Class_1_Movement_Speed = 100.0; //PLACEHOLDER
         inline static constexpr int enemy_Class_1_Damage = 5; //PLACEHOLDER
         inline static constexpr int enemy_Class_1_Value = 10; // Punkte für den Kill + PLACEHOLDER
         inline static constexpr const char* enemy_Class_1_Sprite_Path = "assets/graphics/enemy_Class_1.png"; //PLACEHOLDER
@@ -263,10 +265,10 @@ namespace game {
         // ------------------------------------------- LEVEL SETTINGS --------------------------------------------------
 
         // Diese Werte müssen an die Größe der Tiled-Map angepasst werden!
-        inline static constexpr float kWorldBoundsMinX = 0.0f;
-        inline static constexpr float kWorldBoundsMinY = 0.0f;
-        inline static constexpr float kWorldBoundsMaxX = 960.0f; // Breite der Map in Pixeln
-        inline static constexpr float kWorldBoundsMaxY = 576.0f; // Höhe der Map in Pixeln
+        inline static constexpr float kWorldBoundsMinX = 0.0;
+        inline static constexpr float kWorldBoundsMinY = 0.0;
+        inline static constexpr float kWorldBoundsMaxX = 960.0; // Breite der Map in Pixeln
+        inline static constexpr float kWorldBoundsMaxY = 576.0; // Höhe der Map in Pixeln
 
 
         // Levelmap-file paths
