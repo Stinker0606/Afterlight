@@ -23,9 +23,12 @@ private:
     // Ein Zeiger der immer auf die gerade aktive Animation zeigt.
     RepeatAnimation* p_current_animation;
 
+    // Variable für den Punktestand
+    int score_ = 0;
+
     // --- Timer für Zustände ---
     float attack_animation_timer; // Timer für die Dauer von Angriffs-Animationen
-    float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens
+    float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens -> not working under shader
 
     // --- PUSH WALL ---
     float push_animation_timer; // Eigener Timer für die Push-Animation
@@ -132,7 +135,6 @@ public:
      */
     void Heal(int amount);
 
-
     // --- METHODEN ZUM VERWALTEN DES INVENTARS ---
     void Add_Key(int amount);
     int Get_Key_Count() const;
@@ -141,4 +143,8 @@ public:
     int Get_Bomb_Count() const;
     void Use_Bomb();
     bool Should_Place_Bomb();
+
+    // --- METHODEN FÜR DEN SCORE ---
+    void Add_Score(int amount);
+    int Get_Score() const;
 };

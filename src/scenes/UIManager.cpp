@@ -58,7 +58,7 @@ void UIManager::DrawUI()
         // Zeichne das Score-Icon
         DrawTextureEx(score_icon_texture_, score_pos, 0.0f, hp_scale, WHITE);
         // Zeichne die Score-Zahl daneben
-        std::string score_text = std::to_string(8214); // Platzhalter
+        std::string score_text = std::to_string(player->Get_Score());
         DrawTextEx(pixel_font_, score_text.c_str(), { score_pos.x + 71, score_pos.y + 18 }, 28, 1, BLACK);
 
         // Bomben

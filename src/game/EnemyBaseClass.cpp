@@ -4,9 +4,8 @@
 
 #include <valarray>
 #include "EnemyBaseClass.h"
-
 #include <iostream>
-
+#include "Store.h"
 #include "CollisionManager.h"
 #include "CollisionResponse.h"
 #include "PlayerBaseClass.h"
@@ -28,16 +27,24 @@ Enemy_Base_Class::~Enemy_Base_Class()
     UnloadTexture(sprite);
 }
 
-void Enemy_Base_Class::Take_Damage(int damage_amount)
+    void Enemy_Base_Class::Take_Damage(int damage_amount)
 {
+    // Verhindere, dass bereits tote Gegner mehrfach Punkte geben
+    if (this->enemy_Health <= 0) return;
+
     enemy_Health -= damage_amount;
 
-    // Wenn die Gesundheit auf 0 oder weniger fällt, markiere den Gegner zur Zerstörung.
     if (this->enemy_Health <= 0)
     {
+        // Logik für die Punktevergabe
+        if (game::core::Store::player) {
+            game::core::Store::player->Add_Score(this->enemy_Value);
+        }
+
         this->Mark_For_Destruction();
     }
 }
+
 
 void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time)
 {

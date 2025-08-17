@@ -568,3 +568,13 @@ bool PlayerClass::Should_Place_Bomb()
     }
     return false;
 }
+
+void PlayerClass::Add_Score(int amount)
+{
+    this->score_ += amount;
+}
+
+int PlayerClass::Get_Score() const
+{
+    return this->score_;
+}
