@@ -72,9 +72,7 @@ Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, 
         );
     if (game::Config::kDebugShowHitboxes)
         {
-            // --- NEU: ZEICHNE DIE HITBOX IMMER ---
-        // Das Projektil zeichnet jetzt seine eigene Hitbox in leuchtendem Grün.
-        // So sehen wir immer, wo sie ist, unabhängig vom globalen Debug-Modus.
+        // --- DEBUG: ZEICHNE DIE HITBOX  ---
         DrawRectangleLinesEx(this->hitbox, 1.0f, RED);
         }
     }
@@ -117,7 +115,7 @@ Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, 
             // FÄLLE, DIE IGNORIERT WERDEN:
             default:
             {
-                // Tue nichts (z.B. bei Kollision mit Consumables).
+                // Tue nichts.
                 break;
             }
         }

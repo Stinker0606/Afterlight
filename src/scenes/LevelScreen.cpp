@@ -7,6 +7,7 @@
 #include "../config_enemies.h.in"
 #include "../game/Walls.h"
 #include "../game/Spawner/Level1Spawner.h"
+#include "../game/Spawner/SpecificSpawner.h"
 #include "../game/interactables/interact_list.h"
 
 
@@ -234,13 +235,53 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     // Speichere den Namen und die Position des Objekts in unserem "Gedächtnis"
                     spawn_points_[object_name] = { (float)object.getPosition().x, (float)object.getPosition().y };
                 }
-                else if (object_name == "spawn1") {
+                else if (object_name.rfind("spawn", 0) == 0) // Erkennt alle Spawner
+                {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
-                    float spawn_rate = game::EnemyConfig::kSpawner1_SpawnRate;
-                    int max_enemies = game::EnemyConfig::kSpawner1_MaxEnemies;
-                    if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
-                    if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
-                    new_object = std::shared_ptr<Level1_Spawner>(new Level1_Spawner(spawner_area, temp_obstacle_list, temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager));
+
+                    if (object_name.find('_') != std::string::npos)
+                    {
+                        // --- FALL 1: SPEZIFISCHER SPAWNER (z.B. "spawn_sniper") ---
+                        std::string enemy_name = object_name.substr(6);
+                        enemy::EnemyType type;
+                        bool found = true;
+
+                        // Standardwerte aus der Config laden
+                        float spawn_rate = game::EnemyConfig::kSpecificSpawner_SpawnRate;
+                        int max_enemies = game::EnemyConfig::kSpecificSpawner_MaxEnemies;
+
+                        // Prüfe, welcher Gegner es ist und wende die spezifische Ausnahme an
+                        if (enemy_name == "sniper") {
+                            type = enemy::EnemyType::DROWNED_SNIPER;
+                            max_enemies = game::EnemyConfig::kDrownedSniper_MaxSpawnCount;
+                        } else if (enemy_name == "insect") {
+                            type = enemy::EnemyType::INSECT_MONSTER;
+                            max_enemies = game::EnemyConfig::kInsectMonster_MaxSpawnCount;
+                        } else {
+                            found = false;
+                        }
+
+                        if (found) {
+                            // Überschreibe die Config-Werte, wenn in Tiled etwas anderes steht
+                            if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
+                            if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
+
+                            new_object = std::make_shared<SpecificSpawner>(spawner_area, spawn_rate, max_enemies, g_objectManager, type);
+                        }
+                    }
+                    else
+                    {
+                        // --- FALL 2: LEVEL-SPEZIFISCHER POOL-SPAWNER (z.B. "spawn1") ---
+                        if (object_name == "spawn1") {
+                            // Für Pool-Spawner bleiben die Parameter wie sie waren
+                            float spawn_rate = game::EnemyConfig::kSpawner1_SpawnRate;
+                            int max_enemies = game::EnemyConfig::kSpawner1_MaxEnemies;
+                            if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
+                            if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
+
+                            new_object = std::make_shared<Level1_Spawner>(spawner_area, temp_obstacle_list, &temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager);
+                        }
+                    }
                 }
                 else if (object_name == "player_start") {
                     std::cout << "Spieler-Startpunkt gefunden bei: " << object.getPosition().x << ", " << object.getPosition().y << std::endl;

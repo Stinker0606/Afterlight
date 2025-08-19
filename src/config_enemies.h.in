@@ -17,11 +17,23 @@ struct SpawnableEnemy {
 namespace game {
     class EnemyConfig final {
     public:
+
             // Globaler Schalter für Gegner-Animationen
+
             // true = Nutze die vollen Animationen
             // false = Nutze die einfachen Platzhalter-Sprites aus der Basisklasse
             inline static constexpr bool kUseEnemyAnimations = false;
-        // ----------------------------------------------- SPAWNERS ----------------------------------------------------
+
+        // =============================================== SPAWNERS ====================================================
+
+        // --- SPEZIFISCHER SPAWNER (z.B. spawn_sniper) ---
+        inline static constexpr float kSpecificSpawner_SpawnRate = 30.0f; // Spawnt alle XX Sekunden einen Gegner.
+        inline static constexpr int kSpecificSpawner_MaxEnemies = 5;      // Jeder Spawner darf maximal XX Gegner gleichzeitig aktiv haben.
+
+        // Gegner-spezifische Ausnahmen für die maximale Anzahl.
+        // Hiermit stellen wir sicher, dass z.B. Sniper standardmäßig nur einmal spawnen.
+        inline static constexpr int kDrownedSniper_MaxSpawnCount = 1;
+        inline static constexpr int kInsectMonster_MaxSpawnCount = 5;
 
         // ------------------------------------------------ SUMPF ------------------------------------------------------
 
@@ -38,7 +50,7 @@ namespace game {
                     // Bsp.: { enemy::EnemyType::POISON_FROG, 5, 1 } // Beispiel für Frosch: 5% Chance, max. 1 Frosch von diesem Spawner
                 };
 
-        // ----------------------------------------------- ENEMIES -----------------------------------------------------
+        // =============================================== ENEMIES =====================================================
 
         // ------------------------------------------------ SUMPF ------------------------------------------------------
 
@@ -54,8 +66,8 @@ namespace game {
         inline static constexpr float kInsectMonsterAttackCooldown = 6.0f; // 1 Angriff pro Sekunde
         inline static constexpr float kInsectMonsterAttackRange = 70.0; // 1.5 Tiles (48 + Hitbox Berechnung = +- 70)
         inline static constexpr int kInsectMonsterValue = 15;
-        inline static constexpr int kInsectMonsterHitboxWidth = 32;
-        inline static constexpr int kInsectMonsterHitboxHeight = 48;
+        inline static constexpr int kInsectMonsterHitboxWidth = 30;
+        inline static constexpr int kInsectMonsterHitboxHeight = 44;
         inline static constexpr Vector2 kInsectMonsterAnimSize = {100, 100};
 
         // -- Hover/Fly Animations --
@@ -96,16 +108,19 @@ namespace game {
         // II. DROWNED SNIPER (Stationärer 8-Fernkämpfer)
         // ====================================================================================
 
+        inline static constexpr const char* kDrownedSniperSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
         // -- Stats --
         inline static constexpr int kDrownedSniperHealth = 75;
         inline static constexpr float kDrownedSniperMovementSpeed = 0.0;
         inline static constexpr int kDrownedSniperDamage = 50;
-        inline static constexpr float kDrownedSniperAttackCooldown = 3.0f;
-        inline static constexpr float kDrownedSniperAttackRange = 8000.0;
-        inline static constexpr float kDrownedSniperProjectileSpeed = 300.0; // Sehr schnell
+        inline static constexpr float kDrownedSniperAttackCooldown = 24.0f;
+        inline static constexpr float kDrownedSniperAttackRange = 2000.0;
+        inline static constexpr float kDrownedSniperProjectileSpeed = 110.0;
+        inline static constexpr int kDrownedSniperProjectileHitboxWidth = 16;
+        inline static constexpr int kDrownedSniperProjectileHitboxHeight = 16;
         inline static constexpr int kDrownedSniperValue = 50;
-        inline static constexpr int kDrownedSniperHitboxWidth = 48;
-        inline static constexpr int kDrownedSniperHitboxHeight = 64;
+        inline static constexpr int kDrownedSniperHitboxWidth = 30;
+        inline static constexpr int kDrownedSniperHitboxHeight = 44;
         inline static constexpr Vector2 kDrownedSniperAnimSize = {120, 120};
 
         // -- Death Animation --
@@ -140,7 +155,7 @@ namespace game {
         inline static constexpr int kDrownedSniperAttackDownRightFramesPerLine = 8;
 
         // -- Projectile Sprites (8 Richtungen) --
-        inline static constexpr const char* kDrownedSniperProjectileSpriteUp = "assets/graphics/projectiles/sniper_bolt_up.png";
+        inline static constexpr const char* kDrownedSniperProjectileSpriteUp = "assets/graphics/projectiles/enemies/sniper/arrow.png";
         inline static constexpr const char* kDrownedSniperProjectileSpriteDown = "assets/graphics/projectiles/sniper_bolt_down.png";
         inline static constexpr const char* kDrownedSniperProjectileSpriteLeft = "assets/graphics/projectiles/sniper_bolt_left.png";
         inline static constexpr const char* kDrownedSniperProjectileSpriteRight = "assets/graphics/projectiles/sniper_bolt_right.png";

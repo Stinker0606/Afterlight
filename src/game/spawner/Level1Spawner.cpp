@@ -7,13 +7,17 @@
 
 Level1_Spawner::Level1_Spawner(Rectangle spawner_Area,
                                const std::vector<Rectangle>& obstacle_List,
-                               std::vector<enemy::Enemy_Base_Class*>& enemy_List,
+                               std::vector<enemy::Enemy_Base_Class*>* enemy_List,
                                float spawn_Rate,
                                int max_Enemies,
                                Object_Manager& om)
-  : Enemy_Spawner(spawner_Area, obstacle_List, enemy_List, game::EnemyConfig::kSpawner1_SpawnRate, game::EnemyConfig::kSpawner1_MaxEnemies),
-      object_manager_ref(om),
-      spawn_timer(game::EnemyConfig::kSpawner1_SpawnRate), // Startet voll um sofort spawnen zu können
+  // Wir rufen den Basis-Konstruktor wieder mit den festen Werten aus der Config auf.
+  : Enemy_Spawner(spawner_Area, obstacle_List, enemy_List,
+                  game::EnemyConfig::kSpawner1_SpawnRate,
+                  game::EnemyConfig::kSpawner1_MaxEnemies,
+                  om),
+    object_manager_ref(om),
+      spawn_timer(game::EnemyConfig::kSpawner1_SpawnRate),
       max_enemies_per_instance_(game::EnemyConfig::kSpawner1_MaxEnemies),
       health_(1)
 {

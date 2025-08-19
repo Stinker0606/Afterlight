@@ -13,7 +13,7 @@ class Level1_Spawner : public Enemy_Spawner
 public:
     Level1_Spawner(Rectangle spawner_Area,
                    const std::vector<Rectangle>& obstacle_List,
-                   std::vector<enemy::Enemy_Base_Class*>& enemy_List,
+                   std::vector<enemy::Enemy_Base_Class*>* enemy_List,
                    float spawn_Rate,
                    int max_Enemies,
                    Object_Manager& om);

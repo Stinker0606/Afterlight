@@ -40,6 +40,8 @@ add_library(core STATIC
         ../game/PlayerClass.cpp
         ../game/PlayerProjectile.h
         ../game/PlayerProjectile.cpp
+        ../game/EnemyProjectile.h
+        ../game/EnemyProjectile.cpp
         ../game/EnemyBaseClass.h
         ../game/EnemyBaseClass.cpp
         ../game/enemys/InsectMonster.h
@@ -79,6 +81,10 @@ add_library(core STATIC
         ../game/interactables/KeyWall.h
         ../game/interactables/Door.cpp
         ../game/interactables/Door.h
+        ../game/enemys/DrownedSniper.cpp
+        ../game/enemys/DrownedSniper.h
+        ../game/spawner/SpecificSpawner.cpp
+        ../game/spawner/SpecificSpawner.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

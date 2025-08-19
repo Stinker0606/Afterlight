@@ -4,7 +4,7 @@
 namespace enemy {
     enum class EnemyType {
         INSECT_MONSTER,
-        POISON_FROG, // Beispiel für zukünftigen Gegner
+        DROWNED_SNIPER,
         // ... hier weitere Typen hinzufügen
     };
 }
@@ -12,5 +12,6 @@ namespace enemy {
 // Diese Datei dient als Sammelstelle für alle Gegner-Header.
 
 #include "InsectMonster.h"
+#include "DrownedSniper.h"
 
 // #include "NeuerGegner.h" // Hier kommen zukünftige Gegner hin

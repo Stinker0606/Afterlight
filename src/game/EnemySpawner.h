@@ -4,6 +4,7 @@
 #include <vector>
 #include "EnemyBaseClass.h"
 #include "raylib.h"
+#include "../core/Object_Manager.h"
 
 
 // Basisklasse für Spawner (abstrakt)
@@ -13,10 +14,10 @@ class Enemy_Spawner : public Collidable
 public:
     Enemy_Spawner(Rectangle spawner_Area,
             const std::vector<Rectangle>& obstacle_List,
-            std::vector<enemy::Enemy_Base_Class*>& enemy_List,
+            std::vector<enemy::Enemy_Base_Class*>* enemy_List,
             float spawn_Rate,
-            int max_Enemies);
-
+            int max_Enemies,
+            Object_Manager& om);
 
     virtual ~Enemy_Spawner() = default;
 
@@ -35,7 +36,7 @@ public:
 protected:
     Rectangle spawner_Area;                     // Spawnbereich
     const std::vector<Rectangle>& obstacle_List; // Hindernisse (Wände)
-    std::vector<enemy::Enemy_Base_Class*>& enemy_List;           // Referenz auf externe Gegnerliste
+    std::vector<enemy::Enemy_Base_Class*>* enemy_List_;
 
     float spawn_Rate_;           // Spawnrate (Gegner pro Sekunde)
     int max_Enemies_;            // Maximal erlaubte Gegneranzahl
@@ -47,6 +48,8 @@ protected:
 
     // erzeugt konkreten Gegner
     virtual enemy::Enemy_Base_Class* createEnemy(Vector2 position) = 0;
+
+    Object_Manager& om_ref_;
 };
 
 //////BEISPIEL GOBLIN SPAWNER//////
