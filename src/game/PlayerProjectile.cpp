@@ -1,4 +1,6 @@
 #include "PlayerProjectile.h"
+
+#include "AssetManager.h"
 #include "EnemyBaseClass.h"
 #include "CollisionResponse.h"
 #include "raymath.h"
@@ -18,7 +20,7 @@ Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, 
 
         // Wähle das korrekte Sprite basierend auf der Blickrichtung
         const char* sprite_path = game::Config::kPlayerProjectileSprite;
-        this->sprite = LoadTexture(sprite_path);
+        this->sprite = AssetManager::GetInstance().Load(sprite_path);
 
         // Berechne die Rotation des Sprites aus dem Richtungsvektor
         this->rotation = atan2f(direction.y, direction.x) * RAD2DEG;

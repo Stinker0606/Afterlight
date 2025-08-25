@@ -1,4 +1,6 @@
 #include "SpecificSpawner.h"
+
+#include "AssetManager.h"
 #include "../../config_enemies.h.in"
 
 SpecificSpawner::SpecificSpawner(Rectangle spawner_Area, float spawn_Rate, int max_Enemies,
@@ -9,15 +11,16 @@ SpecificSpawner::SpecificSpawner(Rectangle spawner_Area, float spawn_Rate, int m
       health_(1)
 {
     this->hitbox = spawner_Area;
-    this->spawner_sprite_ = LoadTexture("assets/graphics/spawner/Spawner_outside.png");
+    this->spawner_sprite_ = AssetManager::GetInstance().Load("assets/graphics/spawner/Spawner_outside.png");
     this->useFog = true;
 }
 
 SpecificSpawner::~SpecificSpawner()
 {
-    if (spawner_sprite_.id > 0) {
+    /*if (spawner_sprite_.id > 0)
+    {
         UnloadTexture(spawner_sprite_);
-    }
+    }*/
 }
 
 void SpecificSpawner::Tick(float delta_time)

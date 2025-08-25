@@ -8,7 +8,7 @@
 #include <Game.h>
 #include "scenes/Screen.h"
 #include "config.h.in"
-#include "scenes/Level1Scene.h"
+#include "scenes/LevelScene.h"
 #include "core/Store.h"
 
 /* Aktiviert "String-Literalen erlaubt "menu"s Daraus wird dann direkt ein std::string
@@ -26,7 +26,7 @@ int main()
                           game::Config::kProjectName);
 
     // 1. Setze die Start-Map und den Spawnpoint für den Start.
-    game::core::Store::next_scene_map = "Test1.json";
+    game::core::Store::next_scene_map = "Swamp_0.json";
     game::core::Store::next_spawn_point = "player_start";
 
     // 2. ERSTELLE DEN SPIELER EINMALIG.

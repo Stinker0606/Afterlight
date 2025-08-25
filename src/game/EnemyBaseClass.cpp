@@ -6,6 +6,7 @@
 #include "EnemyBaseClass.h"
 #include <iostream>
 #include "Store.h"
+#include "AssetManager.h"
 #include "CollisionManager.h"
 #include "CollisionResponse.h"
 #include "PlayerBaseClass.h"
@@ -19,12 +20,12 @@ Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_
       enemy_Value(value),attack_Cooldown_Duration(cooldown_Duration), attack_Cooldown_Timer(0.0f), is_Moving(false), om_ref_(om)
     {
     hitbox = {start_position.x, start_position.y, (float)width, (float)height};
-    sprite = LoadTexture(sprite_path);
+    sprite = AssetManager::GetInstance().Load(sprite_path);
     }
 
 Enemy_Base_Class::~Enemy_Base_Class()
 {
-    UnloadTexture(sprite);
+    //UnloadTexture(sprite);
 }
 
     void Enemy_Base_Class::Take_Damage(int damage_amount)

@@ -12,8 +12,8 @@ add_library(scenes STATIC
         # Unsere neuen Klassen
         LevelScreen.h
         LevelScreen.cpp
-        Level1Scene.h
-        Level1Scene.cpp
+        LevelScene.h
+        LevelScene.cpp
 
         # Dein FogManager
         FogManager.h

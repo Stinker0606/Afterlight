@@ -155,16 +155,22 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     Vector2 temp_size = { (float)object.getSize().x, (float)object.getSize().y };
                     new_object = std::make_shared<Walls>(temp_pos, temp_size);
                 }
-                else if (object_name == "movWall") {
+                else if (object_name == "movWall")
+                {
                     if (object.getGid() > 0) {
                         tson::Tile* tile = nullptr;
                         for (auto& tileset : map->getTilesets()) {
                             tile = tileset.getTile(object.getGid());
                             if (tile) break;
                         }
+
                         if (tile) {
-                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                             tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {
+                                (float)object.getPosition().x,
+                                (float)object.getPosition().y - (float)drawing_rect.height
+                                };
+
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
                             new_object = std::make_shared<Push_Block>(pos, this->tileatlas_Texture, source_rect);
                         }
@@ -187,8 +193,6 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             };
 
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
-
-                            // Wir erstellen das KeyWall-Objekt mit den Grafik-Daten
                             new_object = std::make_shared<KeyWall>(pos, this->tileatlas_Texture, source_rect);
                         }
                     }
@@ -201,6 +205,7 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             tile = tileset.getTile(object.getGid());
                             if (tile) break;
                         }
+
                         if (tile) {
                             tson::Rect drawing_rect = tile->getDrawingRect();
                             Vector2 pos = {
@@ -301,8 +306,12 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                                 heal_amount = object.getProperties().getValue<int>("healAmount");
                             }
 
-                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                             tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {
+                                (float)object.getPosition().x,
+                                (float)object.getPosition().y - (float)drawing_rect.height
+                            };
+
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
 
                             new_object = std::make_shared<HealConsumable>(pos, heal_amount, this->tileatlas_Texture, source_rect);
@@ -324,8 +333,12 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                                 damage_amount = object.getProperties().getValue<int>("damageAmount");
                             }
 
-                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                             tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {
+                                (float)object.getPosition().x,
+                                (float)object.getPosition().y - (float)drawing_rect.height
+                            };
+
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
 
                             new_object = std::make_shared<DmgConsumable>(pos, damage_amount, this->tileatlas_Texture, source_rect);
@@ -341,8 +354,12 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             if (tile) break;
                         }
                         if (tile) {
-                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                             tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {
+                                (float)object.getPosition().x,
+                                (float)object.getPosition().y - (float)drawing_rect.height
+                            };
+
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
                             new_object = std::make_shared<KeyConsumable>(pos, 1, this->tileatlas_Texture, source_rect); // Fügt standardmäßig 1 Schlüssel hinzu
                         }
@@ -357,8 +374,12 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             if (tile) break;
                         }
                         if (tile) {
-                            Vector2 pos = { (float)object.getPosition().x, (float)object.getPosition().y };
                             tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {
+                                (float)object.getPosition().x,
+                                (float)object.getPosition().y - (float)drawing_rect.height
+                            };
+
                             Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
                             new_object = std::make_shared<BombConsumable>(pos, 1, this->tileatlas_Texture, source_rect); // Fügt standardmäßig 1 Bombe hinzu
                         }

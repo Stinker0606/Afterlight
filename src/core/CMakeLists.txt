@@ -31,6 +31,8 @@ add_library(core STATIC
         RepeatAnimation.h
         Object_Manager.h
         Object_Manager.cpp
+        AssetManager.h
+        AssetManager.cpp
 
         # --- GAMEPLAY-LOGIK (gehört logisch zusammen) ---
         ../game/Collidable.h

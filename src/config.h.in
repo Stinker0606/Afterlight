@@ -88,13 +88,13 @@ namespace game {
         // Player General Settings
         inline static constexpr bool enable_Health_Drain = true; // HP-Drain durch Zeit an/aus
         inline static constexpr float player_Health_Drain_Rate = 0.1; // HP-Verlust pro Sekunde | 0,1 -> 1hp/sek.
-        inline static constexpr int Player_Hitbox_Width = 30; // Player Hitbox
+        inline static constexpr int Player_Hitbox_Width = 28; // Player Hitbox
         inline static constexpr int Player_Hitbox_Height = 31; // Player Hitbox
 
         inline static constexpr Vector2 player_animation_size = {100, 100}; // NICHT ÄNDERN!
 
         // Player Stats
-        inline static constexpr int player_Max_Health = 600;
+        inline static constexpr int player_Max_Health = 60000;
         inline static constexpr float player_Movement_Speed = 18.0;
         inline static constexpr int player_Melee_Damage = 100;
         inline static constexpr int player_Projectile_Damage = 75;
@@ -277,9 +277,9 @@ namespace game {
                 inline static std::string GetLevelMapPath(int Lvl_Nbr) {
                     switch (Lvl_Nbr) {
                         case 1:
-                            return "../../assets/Tiled/Levelmaps/Test1.json";
+                            return "../../assets/Tiled/Levelmaps/Swamp_0.json";
                         case 2:
-                            return "../../assets/Tiled/Levelmaps/Test2.json";
+                            return "../../assets/Tiled/Levelmaps/Swamp_1.json";
                         case 3:
                             return "assets/maps/level3.json";
                         default:

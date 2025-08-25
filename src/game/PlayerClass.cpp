@@ -1,7 +1,7 @@
 #include "PlayerClass.h"
 #include <iostream>
 #include "Store.h"
-#include "../scenes/Level1Scene.h"
+#include "../scenes/LevelScene.h"
 #include <string>
 #include "../game/interactables/interact_list.h"
 #include "interactables/MeleeHitbox.h"
@@ -345,6 +345,7 @@ void PlayerClass::Tick(float delta_time)
             player_state = PlayerState::IDLE;
         }
     }
+/*
     else if (player_state == PlayerState::PUSHING)
     {
         push_animation_timer -= delta_time;
@@ -355,7 +356,7 @@ void PlayerClass::Tick(float delta_time)
             player_state = PlayerState::IDLE;
         }
     }
-    /*
+*/
     else if (player_state == PlayerState::PUSHING)
     {
         push_animation_timer -= delta_time;
@@ -364,12 +365,13 @@ void PlayerClass::Tick(float delta_time)
                 // --- NEUE VORAUSSCHAUENDE PRÜFUNG ---
                 // 1. Berechne, wo der Block nach dem Stoß sein würde.
                 Rectangle future_hitbox = locked_block->Get_Hitbox();
-                future_hitbox.x += push_direction.x * 32.0f;
-                future_hitbox.y += push_direction.y * 32.0f;
+                future_hitbox.x += push_direction.x * 16.0f;
+                future_hitbox.y += push_direction.y * 16.0f;
 
                 // 2. Prüfe, ob dieser zukünftige Platz frei ist.
                 bool can_push = true;
-                for (const auto& other_obj : om.managed_objects)
+                // KORREKTUR: Benutze den korrekten Member-Pointer 'p_om_'
+                for (const auto& other_obj : p_om_->managed_objects)
                 {
                     // Ignoriere den Block selbst und den Spieler
                     if (other_obj == locked_block || other_obj == shared_from_this()) continue;
@@ -394,7 +396,7 @@ void PlayerClass::Tick(float delta_time)
             player_state = PlayerState::IDLE; // Gehe immer in den Idle-Zustand, egal ob der Push erfolgreich war.
         }
     }
-    */
+
     else if (player_state == PlayerState::DYING)
     {
         // Hier kommt die Logik für den Tod hinein.

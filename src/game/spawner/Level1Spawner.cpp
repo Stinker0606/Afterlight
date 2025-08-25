@@ -5,6 +5,8 @@
 #include "../PlayerProjectile.h"
 #include <numeric>
 
+#include "AssetManager.h"
+
 Level1_Spawner::Level1_Spawner(Rectangle spawner_Area,
                                const std::vector<Rectangle>& obstacle_List,
                                std::vector<enemy::Enemy_Base_Class*>* enemy_List,
@@ -22,15 +24,15 @@ Level1_Spawner::Level1_Spawner(Rectangle spawner_Area,
       health_(1)
 {
     this->hitbox = spawner_Area;
-    this->spawner_sprite = LoadTexture("assets/graphics/spawner/Spawner_outside.png");
+    this->spawner_sprite = AssetManager::GetInstance().Load("assets/graphics/spawner/Spawner_outside.png");
 }
 
 Level1_Spawner::~Level1_Spawner()
 {
-    if (spawner_sprite.id > 0)
+   /* if (spawner_sprite.id > 0)
     {
         UnloadTexture(this->spawner_sprite);
-    }
+    }*/
 }
 
 void Level1_Spawner::Update_And_Count_Spawned_Enemies(std::map<enemy::EnemyType, int>& counts)

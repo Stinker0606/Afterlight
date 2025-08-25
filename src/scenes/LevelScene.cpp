@@ -1,4 +1,4 @@
-#include "Level1Scene.h"
+#include "LevelScene.h"
 #include <memory>
 #include "Store.h"
 #include "PauseScene.h"
@@ -128,7 +128,7 @@ namespace game::scenes
                     floorf(player_center.x / 32.0f) * 32.0f,
                     floorf(player_center.y / 32.0f) * 32.0f
                 };
-                auto bomb = std::make_shared<Bomb>(bomb_pos, this);
+                auto bomb = std::make_shared<Bomb>(bomb_pos, this, objectManager);
                 Add_Object_To_Waitlist(bomb);
             }
 
@@ -216,12 +216,16 @@ namespace game::scenes
 
         BeginMode2D(sp_cam->cam);
         {
+            // Zeichne ZUERST den Boden (alle Ebenen UNTER den Objekten)
+            // BEVOR der Nebel-Shader überhaupt aktiv wird.
+            levelScreen.Draw_Level(sp_cam, false);
+
             // Starte den Nebel-Shader genau wie in deinem alten Code.
             // Er wird den Sichtkreis um den Spieler selbst zeichnen.
             fogManager.BeginFogMode();
             {
-                // 1. ZEICHNE DEN BODEN
-                // (Alle Kachel-Ebenen, bei denen "IsAboveObjects" NICHT true ist)
+                // 1. ZEICHNE DEN BODEN ERNEUT
+                // Dies ist notwendig, damit Objekte korrekt hinter Wänden verschwinden.
                 levelScreen.Draw_Level(sp_cam, false);
 
                 // 2. SORTIERE ALLE SPIELOBJEKTE

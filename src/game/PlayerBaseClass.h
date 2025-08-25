@@ -13,6 +13,8 @@
 #include "FacingDirection.h"
 #include <memory>
 
+#include "AssetManager.h"
+
 class Object_Manager;
 
 namespace game {
@@ -40,7 +42,7 @@ protected:
 	Facing_Direction facing_Direction;
 	bool is_Moving;
 
-	Texture2D maintex= LoadTexture("PLACEHOLDER");
+	Texture2D maintex= AssetManager::GetInstance().Load("PLACEHOLDER");
 
     float projectile_Speed;
     std::vector<std::shared_ptr<game::Player_Projectile>> sp_projectiles;

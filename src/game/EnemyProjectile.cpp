@@ -3,6 +3,8 @@
 //
 
 #include "EnemyProjectile.h"
+
+#include "AssetManager.h"
 #include "raymath.h"
 #include "PlayerClass.h"
 #include "../config_enemies.h.in"
@@ -17,7 +19,7 @@ namespace game {
     {
         this->velocity.x = direction.x * projectile_speed;
         this->velocity.y = direction.y * projectile_speed;
-        this->sprite = LoadTexture(sprite_path);
+        this->sprite = AssetManager::GetInstance().Load(sprite_path);
         this->rotation = atan2f(direction.y, direction.x) * RAD2DEG;
 
         // Initialisiere die Hitbox mit der korrekten Größe aus der Config
@@ -31,10 +33,10 @@ namespace game {
     }
 
     Enemy_Projectile::~Enemy_Projectile() {
-        if (sprite.id > 0) {
+       /* if (sprite.id > 0) {
             UnloadTexture(sprite);
         }
-    }
+    */ }
 
     void Enemy_Projectile::Tick(float delta_time) {
         if (!is_active) return;

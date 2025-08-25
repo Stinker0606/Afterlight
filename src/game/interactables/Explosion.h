@@ -1,14 +1,15 @@
 #pragma once
+#include "Object_Manager.h"
 #include "../Collidable.h"
 
 class Explosion : public Collidable
 {
 private:
     float lifetime;
-    // Hier können später Animationen hinzugefügt werden
+    Object_Manager& om_ref_;
 
 public:
-    Explosion(Vector2 position);
+    Explosion(Vector2 position, Object_Manager& om);
     ~Explosion() override = default;
 
     void Tick(float delta_time) override;

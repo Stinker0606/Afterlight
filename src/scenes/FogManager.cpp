@@ -14,7 +14,7 @@ FogManager::FogManager()
       timeLocation(-1), fogStrengthLocation(-1), fogMaskLocation(-1)
 {
     // Definiert auf welchen Maps der Nebel standardmäßig aktiv sein soll.
-    fogMaps = {"Test1.json", "Test2.json", "Vorhof_0.json"}; // PLACEHOLDER NAMEN
+    fogMaps = {"Test1.json", "Swamp_0.json", "Swamp_1.json", "Vorhof_0"}; // LEVEL NAMEN
 }
 
 // --- Destruktor ---

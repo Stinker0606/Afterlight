@@ -4,7 +4,7 @@
 Push_Block::Push_Block(Vector2 position, Texture2D tileset, Rectangle source_rect)
     : tileset_texture(tileset), texture_source_rect(source_rect)
 {
-    this->hitbox = { position.x, position.y, 32.0f, 32.0f };
+    this->hitbox = { position.x, position.y, 29.0f, 29.0f };
     this->previous_position = { position.x, position.y };
 }
 
