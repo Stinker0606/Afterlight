@@ -6,8 +6,8 @@
 Bomb::Bomb(Vector2 position, game::scenes::Level1Scene* scene)
     : scene_context(scene)
 {
-    texture = LoadTexture("assets/graphics/kRaoKr_imresizer.png"); // PLATZHALTER-PFAD
-    hitbox = { position.x, position.y, 32.0f, 32.0f };
+    texture = LoadTexture("assets/graphics/projectiles/player/Bombe.png");
+    hitbox = { position.x, position.y, 30.0f, 30.0f };
     useFog = true;
     detonation_timer = game::Config::kBombDetonationTime;
     blink_timer = game::Config::kBombBlinkInterval;
@@ -57,7 +57,7 @@ void Bomb::Detonate()
     this->Mark_For_Destruction();
 }
 
-void Bomb::On_Collision(std::shared_ptr<Collidable> other) { /* Bomben kollidieren vorerst nicht */ }
+void Bomb::On_Collision(std::shared_ptr<Collidable> other) {}
 
 Collision_Type Bomb::Get_Collision_Type() const {
     return Collision_Type::WALL; // Verhält sich wie eine Wand, solange sie da ist
