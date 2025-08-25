@@ -280,7 +280,7 @@
                 {
                  "height":215.5,
                  "id":19,
-                 "name":"wall_8",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -653,7 +653,7 @@
                 {
                  "height":32.1818,
                  "id":9,
-                 "name":"bombe_0",
+                 "name":"bombCons",
                  "properties":[
                         {
                          "name":"inventory",
