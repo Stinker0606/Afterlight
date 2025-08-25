@@ -688,7 +688,18 @@
          "draworder":"topdown",
          "id":9,
          "name":"interactibles",
-         "objects":[],
+         "objects":[
+                {
+                 "height":30.3333333333333,
+                 "id":56,
+                 "name":"player_start",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":31.3333333333333,
+                 "x":192.666666666667,
+                 "y":129.666666666667
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -696,7 +707,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":56,
+ "nextobjectid":57,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
