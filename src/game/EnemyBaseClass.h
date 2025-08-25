@@ -9,6 +9,10 @@
 #include <string>
 #include "Collidable.h"
 
+enum class EnemyState { IDLE, CHASING, ATTACKING, DYING };
+
+class Object_Manager;
+
 namespace enemy
 {
     //class Collision_Manager;
@@ -27,11 +31,14 @@ namespace enemy
         Texture2D sprite;
         const char* projectile_sprite_path;
         void Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time);
+        EnemyState current_state;
+        float attack_animation_timer;
+        Object_Manager& om_ref_;
 
     public:
         Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
-            const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height,
-            float cooldown_duration);
+           const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height,
+           float cooldown_duration, Object_Manager& om);
 
         virtual ~Enemy_Base_Class();
 

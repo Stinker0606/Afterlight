@@ -6,14 +6,14 @@
 #include "PlayerBaseClass.h"
 #include "CollisionResponse.h"
 #include "../game/interactables/interact_list.h"
+#include "../game/interactables/MeleeHitbox.h"
 #include "Store.h"
 
 // Konstruktor
-Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int damage, Vector2 start_Position, Object_Manager& om)
+Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, Vector2 start_Position, Object_Manager* om)
     : player_Max_Health(max_Health), player_Health((float)max_Health), player_Movement_Speed(movement_Speed),
-      player_Damage(damage),
       previous_Position(start_Position), melee_Cooldown(0.0f), ranged_Cooldown(0.0f),
-      inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false),om(om)
+      inventory_Is_Full(false), facing_Direction(Facing_Direction::DOWN), is_Moving(false), p_om_(om)
 {
     hitbox={start_Position.x,start_Position.y,game::Config::Player_Hitbox_Width,game::Config::Player_Hitbox_Height};
     // 2. Registriere Objekt beim Manager
@@ -24,6 +24,11 @@ Player_Base_Class::Player_Base_Class(int max_Health, float movement_Speed, int d
 Player_Base_Class::~Player_Base_Class()
 {
 
+}
+
+void Player_Base_Class::Set_Object_Manager(Object_Manager* new_om)
+{
+    this->p_om_ = new_om;
 }
 
 // Phase 1 :: Player input Prüfung
@@ -49,10 +54,16 @@ void Player_Base_Class::Player_Input()
 void Player_Base_Class::Tick(float delta_time)
 {
 
-    if (game::Config::enable_Health_Drain)
+    if (game::Config::enable_Health_Drain && player_Health > 0)
     {
         player_Health -= game::Config::player_Health_Drain_Rate * delta_time;
+
+        // Stelle sicher, dass die HP durch den Drain nicht unter 0 fallen.
+        if (player_Health < 0) {
+            player_Health = 0;
+        }
     }
+
     Update_Previous_Position();
 
 	Vector2 move_Direction = {0.0f, 0.0f};
@@ -192,8 +203,9 @@ void Player_Base_Class::Draw()
 // Um die beiden Attack Methoden weiter auszuarbeiten, braucht es die passenden Klassen
 void Player_Base_Class::Melee_Attack()
 {
-	melee_Cooldown = 0.0f;
+    //melee_Cooldown = game::Config::player_Melee_Attack_Cooldown;
 }
+
 void Player_Base_Class::Ranged_Attack()
 {
     /*

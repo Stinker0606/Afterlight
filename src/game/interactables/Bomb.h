@@ -3,6 +3,8 @@
 #include "../Collidable.h"
 #include <raylib.h>
 
+#include "Object_Manager.h"
+
 namespace game::scenes
 {
     class Level1Scene;
@@ -16,9 +18,10 @@ private:
     float blink_timer;
     bool is_visible;
     game::scenes::Level1Scene* scene_context; // Wichtig, um die Explosion zu spawnen
+    Object_Manager& om_ref_; // Eine Referenz zum Object Manager
 
 public:
-    Bomb(Vector2 position, game::scenes::Level1Scene* scene); // Alternativer Konstruktor
+    Bomb(Vector2 position, game::scenes::Level1Scene* scene, Object_Manager& om);
     ~Bomb() override;
 
     void Tick(float delta_time) override;

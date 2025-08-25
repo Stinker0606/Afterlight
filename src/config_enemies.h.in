@@ -2,28 +2,72 @@
 
 #include <raylib.h>
 #include <string>
+#include <vector>
+#include "game/enemys/enemies_list.h"
+
+// Eine Struktur, um die Eigenschaften eines spawn-baren Gegners zu definieren.
+struct SpawnableEnemy {
+    enemy::EnemyType type;
+    int weight; // Die Spawn-Chance. Höher = häufiger.
+    int max_on_field; // Wie viele von diesem Typ dürfen maximal gleichzeitig auf dem Feld sein.
+};
+
+// WICHTIG -> 6.0f sind 1 SEKUNDE
 
 namespace game {
-    class Config final {
+    class EnemyConfig final {
     public:
+
+            // Globaler Schalter für Gegner-Animationen
+
+            // true = Nutze die vollen Animationen
+            // false = Nutze die einfachen Platzhalter-Sprites aus der Basisklasse
+            inline static constexpr bool kUseEnemyAnimations = false;
+
+        // =============================================== SPAWNERS ====================================================
+
+        // --- SPEZIFISCHER SPAWNER (z.B. spawn_sniper) ---
+        inline static constexpr float kSpecificSpawner_SpawnRate = 30.0f; // Spawnt alle XX Sekunden einen Gegner.
+        inline static constexpr int kSpecificSpawner_MaxEnemies = 5;      // Jeder Spawner darf maximal XX Gegner gleichzeitig aktiv haben.
+
+        // Gegner-spezifische Ausnahmen für die maximale Anzahl.
+        // Hiermit stellen wir sicher, dass z.B. Sniper standardmäßig nur einmal spawnen.
+        inline static constexpr int kDrownedSniper_MaxSpawnCount = 1;
+        inline static constexpr int kInsectMonster_MaxSpawnCount = 5;
+
+        // ------------------------------------------------ SUMPF ------------------------------------------------------
+
+        // --- SUMPF SPAWNER (spawn1) ---
+                inline static constexpr float kSpawner1_SpawnRate = 30.0f; // Spawnt alle XX Sekunden einen Gegner.
+                inline static constexpr int kSpawner1_MaxEnemies = 5;     // Jeder Spawner darf maximal XX Gegner gleichzeitig aktiv haben.
+
+                // Der Pool an Gegnern die dieser Spawner erzeugen kann.
+                // Die Summe der 'weight'-Werte ist die Basis für die prozentuale Chance.
+                // Beispiel: 90 + 10 = 100 -> Insekt hat 90% Chance, Frosch hat 10% Chance.
+                inline static const std::vector<SpawnableEnemy> kSpawner1_EnemyPool = {
+                    { enemy::EnemyType::INSECT_MONSTER, 100, 5 }, // XX % Chance, max. X Insekten von diesem Spawner
+
+                    // Bsp.: { enemy::EnemyType::POISON_FROG, 5, 1 } // Beispiel für Frosch: 5% Chance, max. 1 Frosch von diesem Spawner
+                };
+
+        // =============================================== ENEMIES =====================================================
 
         // ------------------------------------------------ SUMPF ------------------------------------------------------
 
         // ====================================================================================
         // I. INSEKTEN MONSTER (Nahkämpfer)
-        // Quelle: Steckbrief_InsektenMonster.pdf
         // ====================================================================================
 
-        inline static constexpr const char* kInsectMonsterSpritePath = "assets/graphics/kRaoKr_imresizer.png"; //PLACEHOLDER
+        inline static constexpr const char* kInsectMonsterSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
         // -- Stats --
         inline static constexpr int kInsectMonsterHealth = 50; 
-        inline static constexpr float kInsectMonsterMovementSpeed = 4.0f; // 2 Tiles pro Sekunde (1 Tile = 32px)
+        inline static constexpr float kInsectMonsterMovementSpeed = 6.0; // deactivated -> 2 Tiles pro Sekunde (1 Tile = 32px)
         inline static constexpr int kInsectMonsterDamage = 20; 
-        inline static constexpr float kInsectMonsterAttackCooldown = 1.0f; // 1 Angriff pro Sekunde
-        inline static constexpr float kInsectMonsterAttackRange = 48.0f; // 1.5 Tiles
+        inline static constexpr float kInsectMonsterAttackCooldown = 6.0f; // 1 Angriff pro Sekunde
+        inline static constexpr float kInsectMonsterAttackRange = 70.0; // 1.5 Tiles (48 + Hitbox Berechnung = +- 70)
         inline static constexpr int kInsectMonsterValue = 15;
-        inline static constexpr int kInsectMonsterHitboxWidth = 32;
-        inline static constexpr int kInsectMonsterHitboxHeight = 48;
+        inline static constexpr int kInsectMonsterHitboxWidth = 30;
+        inline static constexpr int kInsectMonsterHitboxHeight = 44;
         inline static constexpr Vector2 kInsectMonsterAnimSize = {100, 100};
 
         // -- Hover/Fly Animations --
@@ -61,20 +105,22 @@ namespace game {
 
 
         // ====================================================================================
-        // II. DROWNED SNIPER (Stationärer 8-Wege-Fernkämpfer)
-        // Quelle: Steckbrief_DrownedSniper.pdf
+        // II. DROWNED SNIPER (Stationärer 8-Fernkämpfer)
         // ====================================================================================
 
+        inline static constexpr const char* kDrownedSniperSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
         // -- Stats --
         inline static constexpr int kDrownedSniperHealth = 75;
-        inline static constexpr float kDrownedSniperMovementSpeed = 0.0f;
+        inline static constexpr float kDrownedSniperMovementSpeed = 0.0;
         inline static constexpr int kDrownedSniperDamage = 50;
-        inline static constexpr float kDrownedSniperAttackCooldown = 3.0f;
-        inline static constexpr float kDrownedSniperAttackRange = 8000.0f;
-        inline static constexpr float kDrownedSniperProjectileSpeed = 300.0f; // Sehr schnell
+        inline static constexpr float kDrownedSniperAttackCooldown = 24.0f;
+        inline static constexpr float kDrownedSniperAttackRange = 2000.0;
+        inline static constexpr float kDrownedSniperProjectileSpeed = 110.0;
+        inline static constexpr int kDrownedSniperProjectileHitboxWidth = 16;
+        inline static constexpr int kDrownedSniperProjectileHitboxHeight = 16;
         inline static constexpr int kDrownedSniperValue = 50;
-        inline static constexpr int kDrownedSniperHitboxWidth = 48;
-        inline static constexpr int kDrownedSniperHitboxHeight = 64;
+        inline static constexpr int kDrownedSniperHitboxWidth = 30;
+        inline static constexpr int kDrownedSniperHitboxHeight = 44;
         inline static constexpr Vector2 kDrownedSniperAnimSize = {120, 120};
 
         // -- Death Animation --
@@ -109,7 +155,7 @@ namespace game {
         inline static constexpr int kDrownedSniperAttackDownRightFramesPerLine = 8;
 
         // -- Projectile Sprites (8 Richtungen) --
-        inline static constexpr const char* kDrownedSniperProjectileSpriteUp = "assets/graphics/projectiles/sniper_bolt_up.png";
+        inline static constexpr const char* kDrownedSniperProjectileSpriteUp = "assets/graphics/projectiles/enemies/sniper/arrow.png";
         inline static constexpr const char* kDrownedSniperProjectileSpriteDown = "assets/graphics/projectiles/sniper_bolt_down.png";
         inline static constexpr const char* kDrownedSniperProjectileSpriteLeft = "assets/graphics/projectiles/sniper_bolt_left.png";
         inline static constexpr const char* kDrownedSniperProjectileSpriteRight = "assets/graphics/projectiles/sniper_bolt_right.png";
@@ -121,16 +167,15 @@ namespace game {
 
 
         // ====================================================================================
-        // III. CHIMERA (Nahkampf-Tank)
-        // Quelle: Steckbrief_Chimera.pdf
+        // III. CHIMERA (Nahkampf)
         // ====================================================================================
 
         // -- Stats --
         inline static constexpr int kChimeraHealth = 350; 
-        inline static constexpr float kChimeraMovementSpeed = 96.0f; // 3 Tiles pro Sekunde
+        inline static constexpr float kChimeraMovementSpeed = 96.0; // 3 Tiles pro Sekunde
         inline static constexpr int kChimeraDamage = 50; 
         inline static constexpr float kChimeraAttackCooldown = 1.0f; 
-        inline static constexpr float kChimeraAttackRange = 48.0f; // 1.5 Tiles
+        inline static constexpr float kChimeraAttackRange = 48.0; // 1.5 Tiles
         inline static constexpr int kChimeraValue = 150;
         inline static constexpr int kChimeraHitboxWidth = 96;
         inline static constexpr int kChimeraHitboxHeight = 96;
@@ -172,15 +217,14 @@ namespace game {
 
         // ====================================================================================
         // IV. POISON FROG (Einmaliger AoE-Angreifer?)
-        // Quelle: Steckbrief_PoisonFrog.pdf
         // ====================================================================================
 
         // -- Stats --
         inline static constexpr int kPoisonFrogHealth = 25; 
-        inline static constexpr float kPoisonFrogMovementSpeed = 64.0f; // 2 Tiles pro Sekunde
+        inline static constexpr float kPoisonFrogMovementSpeed = 64.0; // 2 Tiles pro Sekunde
         inline static constexpr int kPoisonFrogDamage = 5; // HP Drain pro Sekunde 
         inline static constexpr float kPoisonFrogAttackCooldown = 999999.0f; // Greift nur einmal an
-        inline static constexpr float kPoisonFrogAttackRange = 48.0f; // Muss mindestens 1,5 Tiles sein
+        inline static constexpr float kPoisonFrogAttackRange = 48.0; // Muss mindestens 1,5 Tiles sein
         inline static constexpr int kPoisonFrogValue = 5;
         inline static constexpr int kPoisonFrogHitboxWidth = 24;
         inline static constexpr int kPoisonFrogHitboxHeight = 24;
@@ -212,18 +256,17 @@ namespace game {
 
 
         // ====================================================================================
-        // V. NYX (Stationärer Debuff-Gegner)
-        // Quelle: Steckbrief_Nyx.pdf
+        // V. NYX (Stationärer Debuff-Gegner?)
         // ====================================================================================
 
         // -- Stats --
         inline static constexpr int kNyxHealth = 100;
-        inline static constexpr float kNyxMovementSpeed = 0.0f; // Keine Bewegung ?
+        inline static constexpr float kNyxMovementSpeed = 0.0; // Keine Bewegung ?
         inline static constexpr int kNyxDamage = 30; 
-        inline static constexpr float kNyxAttackCooldown = 1.0f; // Melee
-        inline static constexpr float kNyxSirenSongCooldown = 5.0f;
-        inline static constexpr float kNyxAttackRange = 64.0f; // 2 Tiles 
-        inline static constexpr float kNyxSirenSongRange = 160.0f; // 5 Tiles
+        inline static constexpr float kNyxAttackCooldown = 6.0f; // Melee
+        inline static constexpr float kNyxSirenSongCooldown = 30.0f; // Skill
+        inline static constexpr float kNyxAttackRange = 64.0; // 2 Tiles
+        inline static constexpr float kNyxSirenSongRange = 160.0; // 5 Tiles
         inline static constexpr int kNyxValue = 75;
         inline static constexpr int kNyxHitboxWidth = 48;
         inline static constexpr int kNyxHitboxHeight = 64;
@@ -251,21 +294,20 @@ namespace game {
 
 
         // ====================================================================================
-        // VI. DARKNESS MONSTER (Hybrid Nah- & Fernkämpfer)
-        // Quelle: Steckbrief_DarknessMonster.pdf
+        // VI. DARKNESS MONSTER (Nah- & Fernkämpfer)
         // ====================================================================================
 
         // -- Stats --
         inline static constexpr int kDarknessMonsterHealth = 275; 
-        inline static constexpr float kDarknessMonsterMovementSpeed = 64.0f; // 2 Tiles/Sekunde
-        inline static constexpr float kDarknessMonsterAggroSpeed = 96.0f; // 3 Tiles/Sekunde im Radius
-        inline static constexpr float kDarknessMonsterAggroRadius = 128.0f; // 4 Tiles
+        inline static constexpr float kDarknessMonsterMovementSpeed = 64.0; // 2 Tiles/Sekunde
+        inline static constexpr float kDarknessMonsterAggroSpeed = 96.0; // 3 Tiles/Sekunde im Radius
+        inline static constexpr float kDarknessMonsterAggroRadius = 128.0; // 4 Tiles
         inline static constexpr int kDarknessMonsterDamage = 90; 
         inline static constexpr float kDarknessMonsterMeleeCooldown = 1.0f; 
         inline static constexpr float kDarknessMonsterRangedCooldown = 2.0f; 
-        inline static constexpr float kDarknessMonsterMeleeRange = 48.0f; // mindestens 1,5 Tiles
-        inline static constexpr float kDarknessMonsterRangedRange = 96.0f; // 3 Tiles
-        inline static constexpr float kDarknessMonsterProjectileSpeed = 100.0f; // Mittlere Geschwindigkeit
+        inline static constexpr float kDarknessMonsterMeleeRange = 48.0; // mindestens 1,5 Tiles
+        inline static constexpr float kDarknessMonsterRangedRange = 96.0; // 3 Tiles
+        inline static constexpr float kDarknessMonsterProjectileSpeed = 100.0; // Mittlere Geschwindigkeit
         inline static constexpr int kDarknessMonsterValue = 200;
         inline static constexpr int kDarknessMonsterHitboxWidth = 64;
         inline static constexpr int kDarknessMonsterHitboxHeight = 96;

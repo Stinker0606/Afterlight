@@ -4,9 +4,9 @@
 
 #include <valarray>
 #include "EnemyBaseClass.h"
-
 #include <iostream>
-
+#include "Store.h"
+#include "AssetManager.h"
 #include "CollisionManager.h"
 #include "CollisionResponse.h"
 #include "PlayerBaseClass.h"
@@ -15,29 +15,37 @@
 namespace enemy
 {
 Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
-    const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height, float cooldown_Duration)
+    const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height, float cooldown_Duration, Object_Manager& om)
     : enemy_Name(name), enemy_Health(health), enemy_Movement_Speed(movement_speed), enemy_Damage(damage),
-      enemy_Value(value),attack_Cooldown_Duration(cooldown_Duration), attack_Cooldown_Timer(0.0f), is_Moving(false)
+      enemy_Value(value),attack_Cooldown_Duration(cooldown_Duration), attack_Cooldown_Timer(0.0f), is_Moving(false), om_ref_(om)
     {
     hitbox = {start_position.x, start_position.y, (float)width, (float)height};
-    sprite = LoadTexture(sprite_path);
+    sprite = AssetManager::GetInstance().Load(sprite_path);
     }
 
 Enemy_Base_Class::~Enemy_Base_Class()
 {
-    UnloadTexture(sprite);
+    //UnloadTexture(sprite);
 }
 
-void Enemy_Base_Class::Take_Damage(int damage_amount)
+    void Enemy_Base_Class::Take_Damage(int damage_amount)
 {
+    // Verhindere, dass bereits tote Gegner mehrfach Punkte geben
+    if (this->enemy_Health <= 0) return;
+
     enemy_Health -= damage_amount;
 
-    // Wenn die Gesundheit auf 0 oder weniger fällt, markiere den Gegner zur Zerstörung.
     if (this->enemy_Health <= 0)
     {
+        // Logik für die Punktevergabe
+        if (game::core::Store::player) {
+            game::core::Store::player->Add_Score(this->enemy_Value);
+        }
+
         this->Mark_For_Destruction();
     }
 }
+
 
 void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time)
 {
@@ -49,7 +57,7 @@ void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Positio
     float distance_To_Target = std::sqrt(delta_Vector_X * delta_Vector_X + delta_Vector_Y * delta_Vector_Y);
 
     // Wir holen uns die Angriffsreichweite.
-    float attack_Range = 36.0; // 1,2 Tiles +-
+    float attack_Range = 16.0; // 0,5 Tiles
 
     // Sicherheitscheck, um eine Division durch Null (Fehler den ich bei meinem Test oft hatte) zu verhindern.
     // Die Bewegung wird nur ausgeführt, wenn der Gegner sein Ziel noch nicht erreicht hat.

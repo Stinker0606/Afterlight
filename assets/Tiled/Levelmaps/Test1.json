@@ -32,8 +32,8 @@
          "y":0
         }, 
         {
-         "data":[0, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 10, 11, 12, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 0,
-            50, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 25, 26, 27, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 50,
+         "data":[0, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 0, 0, 0, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 0,
+            50, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 0, 0, 0, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 50,
             65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65,
             65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65,
             65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65,
@@ -211,7 +211,7 @@
                  "id":41,
                  "name":"movWall",
                  "rotation":0,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":32,
                  "x":576.666666666667,
@@ -223,7 +223,7 @@
                  "id":43,
                  "name":"movWall",
                  "rotation":0,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":32,
                  "x":576,
@@ -263,17 +263,6 @@
                  "y":0
                 }, 
                 {
-                 "height":60.6666666666667,
-                 "id":66,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":92.6666666666667,
-                 "x":449.333333333333,
-                 "y":0.666666666666664
-                }, 
-                {
                  "height":34.6666666666667,
                  "id":68,
                  "name":"doors",
@@ -286,7 +275,7 @@
                         {
                          "name":"target_spawn_point",
                          "type":"string",
-                         "value":"player_start_from_Test1"
+                         "value":"player_start_from_test1"
                         }],
                  "rotation":0,
                  "type":"",
@@ -305,6 +294,78 @@
                  "width":32.6666666666667,
                  "x":607.333333333333,
                  "y":160.666666666667
+                }, 
+                {
+                 "gid":25,
+                 "height":32,
+                 "id":85,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":32,
+                 "x":448,
+                 "y":64
+                }, 
+                {
+                 "gid":26,
+                 "height":32,
+                 "id":86,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":32,
+                 "x":480,
+                 "y":64
+                }, 
+                {
+                 "gid":27,
+                 "height":32,
+                 "id":87,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":32,
+                 "x":512,
+                 "y":64
+                }, 
+                {
+                 "gid":12,
+                 "height":32,
+                 "id":88,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":512,
+                 "y":32
+                }, 
+                {
+                 "gid":11,
+                 "height":32,
+                 "id":89,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":480,
+                 "y":32
+                }, 
+                {
+                 "gid":10,
+                 "height":32,
+                 "id":90,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":448,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -329,7 +390,7 @@
                          "value":true
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":32,
                  "x":128,
@@ -350,8 +411,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":66.6666666666667,
-                 "y":384.666666666667
+                 "x":69.3333333333334,
+                 "y":368.666666666667
                 }, 
                 {
                  "gid":84,
@@ -383,11 +444,11 @@
                          "value":true
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":32,
-                 "x":801.333333333333,
-                 "y":446
+                 "x":200,
+                 "y":129.333333333333
                 }, 
                 {
                  "gid":355,
@@ -404,8 +465,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":256.666666666667,
-                 "y":128.666666666667
+                 "x":59.3333333333337,
+                 "y":470.666666666667
                 }, 
                 {
                  "gid":370,
@@ -437,32 +498,10 @@
          "name":"spawner",
          "objects":[
                 {
-                 "height":64,
-                 "id":71,
-                 "name":"spawn1",
-                 "properties":[
-                        {
-                         "name":"useFog",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":65.3333333333333,
-                 "x":351.333333333333,
-                 "y":383.333333333333
-                }, 
-                {
                  "height":32.6666666666667,
                  "id":72,
                  "name":"spawn1",
                  "properties":[
-                        {
-                         "name":"max_enemies",
-                         "type":"int",
-                         "value":1
-                        }, 
                         {
                          "name":"useFog",
                          "type":"bool",
@@ -481,11 +520,6 @@
                  "name":"spawn1",
                  "properties":[
                         {
-                         "name":"max_enemies",
-                         "type":"int",
-                         "value":4
-                        }, 
-                        {
                          "name":"useFog",
                          "type":"bool",
                          "value":true
@@ -498,15 +532,21 @@
                  "y":351.333333333333
                 }, 
                 {
-                 "height":0,
-                 "id":84,
-                 "name":"",
+                 "height":32.6667,
+                 "id":91,
+                 "name":"spawn1",
+                 "properties":[
+                        {
+                         "name":"useFog",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
-                 "x":189.333333333333,
-                 "y":611.333333333333
+                 "width":33.3333,
+                 "x":638.666683333333,
+                 "y":470.333316666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -527,13 +567,13 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":235.385754641946,
-                 "y":252.236636406023
+                 "x":101.385754641946,
+                 "y":230.236636406023
                 }, 
                 {
                  "height":0,
                  "id":77,
-                 "name":"player_start_from_Test2",
+                 "name":"player_start_from_test2",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -594,7 +634,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":85,
+ "nextobjectid":92,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

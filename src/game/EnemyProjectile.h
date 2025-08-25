@@ -18,7 +18,8 @@ namespace game {
         bool is_active;
         int damage;
         Texture2D sprite;
-        Rectangle hitbox;
+        float rotation;
+        float lifetime;
 
         /**
          * @brief Konstruktor für ein neues Gegner-Projektil.

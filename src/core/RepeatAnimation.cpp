@@ -1,10 +1,10 @@
 //
 // Created by Kruse on 07/07/2025.
 //
-
+#include "AssetManager.h"
 #include "RepeatAnimation.h"
 RepeatAnimation::RepeatAnimation(Vector2 sprite_size,const char* filename,int FC,int spl) {
-    this->spritesheet= LoadTexture(filename);
+    this->spritesheet = AssetManager::GetInstance().Load(filename);
     this->size=sprite_size;
     this->frame_Count=FC;
     this->sprites_per_line=spl;

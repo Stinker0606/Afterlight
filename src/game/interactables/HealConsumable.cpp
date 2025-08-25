@@ -1,5 +1,5 @@
 #include "HealConsumable.h"
-#include "../PlayerBaseClass.h"
+#include "../PlayerClass.h"
 
 HealConsumable::HealConsumable(Vector2 position, int healAmount, Texture2D tileset, Rectangle source_rect)
     : heal_amount(healAmount), tileset_texture(tileset), texture_source_rect(source_rect)
@@ -24,7 +24,8 @@ void HealConsumable::On_Collision(std::shared_ptr<Collidable> other)
 {
     if (other->Get_Collision_Type() == Collision_Type::PLAYER)
     {
-        if (auto player = std::dynamic_pointer_cast<Player_Base_Class>(other))
+        // Wir casten zur PlayerClass, um Heal() aufzurufen
+        if (auto player = std::dynamic_pointer_cast<PlayerClass>(other))
         {
             ApplyEffect(player.get());
             this->Mark_For_Destruction();
@@ -39,5 +40,9 @@ Collision_Type HealConsumable::Get_Collision_Type() const
 
 void HealConsumable::ApplyEffect(Player_Base_Class* player)
 {
-    player->Take_Damage(-this->heal_amount);
+    // Wir müssen hier zum PlayerClass-Typ casten
+    if(auto player_derived = dynamic_cast<PlayerClass*>(player))
+    {
+        player_derived->Heal(this->heal_amount);
+    }
 }

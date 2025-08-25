@@ -39,6 +39,11 @@ public:
     // Eine Getter-Methode für den Shader.
     Shader GetShader() const { return fogShader; }
 
+    /**
+     * @brief Übergibt die Nebel-Maske (eine RenderTexture) an den Shader.
+     * @param maskTexture Die Textur, die als Maske dient.
+     */
+    void SetFogMaskTexture(RenderTexture2D maskTexture);
 private:
     Shader fogShader;
     bool fogLoaded;
@@ -52,6 +57,7 @@ private:
     int resolutionLocation;
     int timeLocation;
     int fogStrengthLocation;
+    int fogMaskLocation;
 
     // Maps that should use fog
     std::vector<std::string> fogMaps;

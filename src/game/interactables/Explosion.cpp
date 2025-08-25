@@ -4,7 +4,8 @@
 #include "../PlayerClass.h"
 #include "../../config.h.in"
 
-Explosion::Explosion(Vector2 position)
+Explosion::Explosion(Vector2 position, Object_Manager& om)
+    : om_ref_(om)
 {
     // Die Explosion ist ein 3x3 Kachel großes Feld (96x96), zentriert auf der Bombe
     hitbox = { position.x - 32.0f, position.y - 32.0f, 96.0f, 96.0f };
@@ -27,6 +28,24 @@ void Explosion::Draw()
 
 void Explosion::On_Collision(std::shared_ptr<Collidable> other)
 {
+    if (auto breakable_wall = std::dynamic_pointer_cast<BreakableWall>(other))
+    {
+        float search_radius = 80.0f; // 2,5 Kacheln
+        Vector2 explosion_center = this->Get_Hitbox_Center();
+
+        // Gehe durch ALLE Objekte
+        for (const auto& obj_to_check : om_ref_.managed_objects)
+        {
+            if (auto wall_to_destroy = std::dynamic_pointer_cast<BreakableWall>(obj_to_check))
+            {
+                if (Vector2Distance(explosion_center, wall_to_destroy->Get_Hitbox_Center()) <= search_radius)
+                {
+                    wall_to_destroy->Mark_For_Destruction();
+                }
+            }
+        }
+    }
+
     if (!other) return;
 
     // Bomben machen ALLEN Objekten Schaden
@@ -35,11 +54,6 @@ void Explosion::On_Collision(std::shared_ptr<Collidable> other)
     }
     if (auto player = std::dynamic_pointer_cast<PlayerClass>(other)) {
         player->Take_Damage(game::Config::kBombDamage);
-    }
-
-    // Zerstörbare Wände reagieren selbst auf die Explosion
-    if (auto breakable_wall = std::dynamic_pointer_cast<BreakableWall>(other)) {
-        breakable_wall->On_Collision(shared_from_this());
     }
 }
 

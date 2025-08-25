@@ -10,5 +10,7 @@
 #include "Bomb.h"
 #include "Explosion.h"
 #include "BreakableWall.h"
+#include "KeyWall.h"
+#include "Door.h"
 
 // #include "Interactable.h" // Hier kommen zukünftige neue Interables hin

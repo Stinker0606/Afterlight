@@ -4,7 +4,7 @@
 Push_Block::Push_Block(Vector2 position, Texture2D tileset, Rectangle source_rect)
     : tileset_texture(tileset), texture_source_rect(source_rect)
 {
-    this->hitbox = { position.x, position.y, 32.0f, 32.0f };
+    this->hitbox = { position.x, position.y, 29.0f, 29.0f };
     this->previous_position = { position.x, position.y };
 }
 
@@ -21,14 +21,18 @@ void Push_Block::Draw()
 
 void Push_Block::On_Collision(std::shared_ptr<Collidable> other)
 {
-    // Ignoriere Kollisionen mit dem Spieler
+    // Kollisionen mit dem Spieler werden von der Player-Klasse gehandhabt,
+    // hier also ignorieren, um Zyklen zu vermeiden.
     if (other->Get_Collision_Type() == Collision_Type::PLAYER) return;
 
-    // Wenn der Block mit einer Wand oder einem ANDEREN Block kollidiert
-    auto other_type = other->Get_Collision_Type();
-    if (other_type == Collision_Type::WALL || other_type == Collision_Type::ENEMY_SPAWNER)
+    // Prüfe, ob das andere Objekt "solide" ist.
+    // Ein Push_Block gibt selbst den Typ WALL zurück, also wird der erste Check
+    // auch die Kollision mit anderen Push_Blocks abfangen.
+    if (other->Get_Collision_Type() == Collision_Type::WALL ||
+        other->Get_Collision_Type() == Collision_Type::ENEMY_SPAWNER ||
+        other->Get_Collision_Type() == Collision_Type::ENEMY)
     {
-        // Setze die Position auf die Position VOR dem Push zurück
+        // Setze die Position auf die Position VOR dem Push zurück.
         this->hitbox.x = this->previous_position.x;
         this->hitbox.y = this->previous_position.y;
     }

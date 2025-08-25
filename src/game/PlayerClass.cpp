@@ -1,13 +1,18 @@
 #include "PlayerClass.h"
+#include <iostream>
 #include "Store.h"
+#include "../scenes/LevelScene.h"
+#include <string>
 #include "../game/interactables/interact_list.h"
+#include "interactables/MeleeHitbox.h"
 
-PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
+using namespace std::string_literals;
+
+PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager* om)
     // 1. Rufe den Konstruktor der Basisklasse mit den Werten aus der Config auf
     : Player_Base_Class(
         game::Config::player_Max_Health,
         game::Config::player_Movement_Speed,
-        game::Config::player_Damage,
         start_Position,
         om
       ),
@@ -60,6 +65,7 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager& om)
     // 4. Setze die Standard-Animation beim Start
     p_current_animation = &anim_Idle_Front;
     this->useFog = true;
+    this->melee_hitbox_spawned_ = false;
 }
 
 void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
@@ -70,25 +76,64 @@ void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
 // On_Collision Methode für spezielle Spieler-Interaktionen
 void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
 {
-    // Reagiere nur auf neue Kollisionen, wenn du nicht gerade eine Aktion ausführst.
+    // Reagiere nur, wenn der Spieler nicht gerade eine andere Aktion ausführt.
     if (player_state != PlayerState::IDLE && player_state != PlayerState::MOVING) return;
 
+    // --- PORTAL-LOGIK ---
+    if (other->Get_Collision_Type() == Collision_Type::PORTAL)
+    {
+        if (auto door = std::dynamic_pointer_cast<Door>(other))
+        {
+            // 1. Schreibe die Zieldaten in den globalen Store.
+            game::core::Store::next_scene_map = door->Get_Target_Map();
+            game::core::Store::next_spawn_point = door->Get_Target_Spawn_Point();
+
+            // 2. Ersetze die aktuelle Szene durch eine NEUE Instanz der Level1Scene.
+            // Die neue Szene wird sich beim Starten die neuen Daten aus dem Store holen.
+            game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "gameplay"s, std::make_unique<game::scenes::Level1Scene>());
+        }
+        return;
+    }
+
+    // --- SPEZIELLE INTERAKTIONS-LOGIK ---
+
+    // 1. Prüfe, ob es eine KeyWall ist UND ob wir sie öffnen können.
+    if (auto key_wall = std::dynamic_pointer_cast<KeyWall>(other))
+    {
+        if (this->Get_Key_Count() > 0)
+        {
+            this->Use_Key(1);
+            // Definiere den Radius und markiere alle Wände in der Nähe zur Zerstörung.
+            float search_radius = 72.0f;
+            Vector2 origin_center = key_wall->Get_Hitbox_Center();
+
+            for (const auto& obj_to_check : p_om_->managed_objects)
+            {
+                if (auto wall_to_destroy = std::dynamic_pointer_cast<KeyWall>(obj_to_check))
+                {
+                    if (Vector2Distance(origin_center, wall_to_destroy->Get_Hitbox_Center()) <= search_radius)
+                    {
+                        wall_to_destroy->Mark_For_Destruction();
+                    }
+                }
+            }
+        }
+    }
+
+    // --- PHYSISCHE KOLLISIONS-LOGIK ---
+
+    // 1. Die Kollision mit einem Push_Block ist ein Sonderfall, da sie den Spieler-Zustand ändert.
     if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
     {
-        // Wenn wir auf einen schiebbaren Block treffen, starten wir die PUSHING-Aktion.
         player_state = PlayerState::PUSHING;
         push_animation_timer = game::Config::player_Push_Anim_Duration;
-
         block_to_push = push_block;
-
         Vector2 move_dir = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
         if (fabs(move_dir.x) > fabs(move_dir.y)) {
             push_direction = { (move_dir.x > 0) ? 1.0f : -1.0f, 0.0f };
         } else {
             push_direction = { 0.0f, (move_dir.y > 0) ? 1.0f : -1.0f };
         }
-
-        // Setze Spielerposition zurück und stoppe Bewegung
         hitbox.x = previous_Position.x;
         hitbox.y = previous_Position.y;
         player_Pos = previous_Position;
@@ -96,12 +141,11 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
     }
     else
     {
-        // Wenn es kein Push-Block ist, benutze die Standard-Kollisionslogik der Basisklasse.
+        // 2. Für ALLE ANDEREN soliden Objekte wird die Standard-Kollisionslogik aus der Basisklasse aufgerufen.
         Player_Base_Class::On_Collision(other);
     }
 }
 
-// die Ranged_Attack Methode
 void PlayerClass::Ranged_Attack()
 {
     // Nur ausführen wenn die Kamera existiert
@@ -132,12 +176,12 @@ void PlayerClass::Ranged_Attack()
         auto projectile = std::make_shared<game::Player_Projectile>(
             projectile_start_pos,
             fire_direction,
-            this->player_Damage,
+            game::Config::player_Projectile_Damage,
             this->facing_Direction
         );
         // 1. Füge das Projektil dem Object_Manager hinzu, damit es gezeichnet
         //    und auf Kollisionen geprüft wird.
-        om.AddObject(projectile);
+        p_om_->AddObject(projectile);
 
         // 2. Füge das Projektil auch zur eigenen Liste des Spielers hinzu.
         //    Das "hält" den shared_ptr am Leben und verhindert, dass das Objekt sofort zerstört wird.
@@ -145,6 +189,73 @@ void PlayerClass::Ranged_Attack()
 
         ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
     }
+}
+
+void PlayerClass::Melee_Attack()
+{
+    float sweep_breite = 16.0f; // Die lange Seite des Angriffs
+    float sweep_hoehe = 48.0f;  // Die kurze Seite des Angriffs
+    float hitbox_width, hitbox_height;
+    Vector2 hitbox_pos;
+
+    Vector2 player_center = this->Get_Player_Center();
+    float offset = 12.0f;
+
+    switch (facing_Direction)
+    {
+        // VERTIKALE ANGRIFFE (tauschen)
+        case Facing_Direction::UP:
+        case Facing_Direction::DOWN:
+            hitbox_width = sweep_hoehe;
+            hitbox_height = sweep_breite;
+            if (facing_Direction == Facing_Direction::UP) {
+                hitbox_pos = { player_center.x - hitbox_width / 2, player_center.y - offset - hitbox_height };
+            } else {
+                hitbox_pos = { player_center.x - hitbox_width / 2, player_center.y + offset };
+            }
+            break;
+
+        // HORIZONTALE ANGRIFFE (Standard)
+        case Facing_Direction::LEFT:
+        case Facing_Direction::RIGHT:
+            hitbox_width = sweep_breite;
+            hitbox_height = sweep_hoehe;
+            if (facing_Direction == Facing_Direction::LEFT) {
+                hitbox_pos = { player_center.x - offset - hitbox_width, player_center.y - hitbox_height / 2 };
+            } else {
+                hitbox_pos = { player_center.x + offset, player_center.y - hitbox_height / 2 };
+            }
+            break;
+
+        // --- LOGIK FÜR DIAGONALE ANGRIFFE ---
+        default:
+        {
+            // Wir benutzen eine quadratische Hitbox für einen besseren "Fächer"-Effekt.
+            hitbox_width = 32.0f;
+            hitbox_height = 32.0f;
+            float diagonal_offset = -4.0f; // Wie weit die Box verschoben wird.
+
+            if (facing_Direction == Facing_Direction::UP_RIGHT) {
+                hitbox_pos = { player_center.x + diagonal_offset, player_center.y - diagonal_offset - hitbox_height };
+            } else if (facing_Direction == Facing_Direction::DOWN_RIGHT) {
+                hitbox_pos = { player_center.x + diagonal_offset, player_center.y + diagonal_offset };
+            } else if (facing_Direction == Facing_Direction::UP_LEFT) {
+                hitbox_pos = { player_center.x - diagonal_offset - hitbox_width, player_center.y - diagonal_offset - hitbox_height };
+            } else { // DOWN_LEFT
+                hitbox_pos = { player_center.x - diagonal_offset - hitbox_width, player_center.y + diagonal_offset };
+            }
+            break;
+        }
+    }
+
+    auto sweep_hitbox = std::make_shared<MeleeHitbox>(
+        Rectangle{ hitbox_pos.x, hitbox_pos.y, hitbox_width, hitbox_height },
+        0.2f,
+        game::Config::player_Melee_Damage,
+        Collision_Type::PLAYER
+    );
+
+    p_om_->AddObject(sweep_hitbox);
 }
 
 void PlayerClass::Tick(float delta_time)
@@ -193,14 +304,16 @@ void PlayerClass::Tick(float delta_time)
     {
         player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
 
-        if (IsKeyPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f) {
+        if (IsMouseButtonPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_RANGED;
             attack_animation_timer = game::Config::player_Ranged_Attack_Anim_Duration;
-        } else if (IsKeyPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f) {
+        } else if (IsMouseButtonPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_MELEE;
             attack_animation_timer = game::Config::player_Melee_Attack_Anim_Duration;
+            melee_hitbox_spawned_ = false; // Setze die Spawn-Kontrolle zurück
             melee_Cooldown = game::Config::player_Melee_Attack_Cooldown;
-        }  if (IsKeyPressed(game::Config::key_Place_Bomb) && bomb_count_ > 0 && bomb_cooldown_ <= 0.0f)
+        }
+        if (IsKeyPressed(game::Config::key_Place_Bomb) && bomb_count_ > 0 && bomb_cooldown_ <= 0.0f)
         {
             Use_Bomb();
         }
@@ -216,11 +329,23 @@ void PlayerClass::Tick(float delta_time)
     else if (player_state == PlayerState::ATTACKING_MELEE)
     {
         attack_animation_timer -= delta_time;
+
+        // Definiere den Zeitpunkt, wann die Hitbox erscheinen soll (Gesamtdauer - 0.2s)
+        float spawn_time = game::Config::player_Melee_Attack_Anim_Duration - 0.2f;
+
+        // Wenn der Zeitpunkt erreicht ist UND die Hitbox noch nicht erstellt wurde...
+        if (attack_animation_timer <= spawn_time && !melee_hitbox_spawned_)
+        {
+            this->Melee_Attack(); // ...erstelle die Hitbox.
+            melee_hitbox_spawned_ = true; // Markiere sie als erstellt.
+        }
+
+        // Wenn die Animation komplett vorbei ist, gehe zurück zum Stillstand.
         if (attack_animation_timer <= 0.0f) {
-            Player_Base_Class::Melee_Attack();
             player_state = PlayerState::IDLE;
         }
     }
+/*
     else if (player_state == PlayerState::PUSHING)
     {
         push_animation_timer -= delta_time;
@@ -231,6 +356,47 @@ void PlayerClass::Tick(float delta_time)
             player_state = PlayerState::IDLE;
         }
     }
+*/
+    else if (player_state == PlayerState::PUSHING)
+    {
+        push_animation_timer -= delta_time;
+        if (push_animation_timer <= 0.0f) {
+            if (auto locked_block = block_to_push.lock()) {
+                // --- NEUE VORAUSSCHAUENDE PRÜFUNG ---
+                // 1. Berechne, wo der Block nach dem Stoß sein würde.
+                Rectangle future_hitbox = locked_block->Get_Hitbox();
+                future_hitbox.x += push_direction.x * 16.0f;
+                future_hitbox.y += push_direction.y * 16.0f;
+
+                // 2. Prüfe, ob dieser zukünftige Platz frei ist.
+                bool can_push = true;
+                // KORREKTUR: Benutze den korrekten Member-Pointer 'p_om_'
+                for (const auto& other_obj : p_om_->managed_objects)
+                {
+                    // Ignoriere den Block selbst und den Spieler
+                    if (other_obj == locked_block || other_obj == shared_from_this()) continue;
+
+                    Collision_Type type = other_obj->Get_Collision_Type();
+                    if (type == Collision_Type::WALL || type == Collision_Type::ENEMY || type == Collision_Type::ENEMY_SPAWNER)
+                    {
+                        if (CheckCollisionRecs(future_hitbox, other_obj->Get_Hitbox()))
+                        {
+                            can_push = false; // Ein Hindernis ist im Weg!
+                            break;
+                        }
+                    }
+                }
+
+                // 3. Nur wenn der Weg frei ist, bewege den Block.
+                if (can_push) {
+                    locked_block->Push(push_direction);
+                }
+                // --- ENDE DER NEUEN LOGIK ---
+            }
+            player_state = PlayerState::IDLE; // Gehe immer in den Idle-Zustand, egal ob der Push erfolgreich war.
+        }
+    }
+
     else if (player_state == PlayerState::DYING)
     {
         // Hier kommt die Logik für den Tod hinein.
@@ -327,21 +493,38 @@ void PlayerClass::Draw()
     }
 }
 
+void PlayerClass::Heal(int amount)
+{
+    // Verhindere Heilung, wenn der Spieler bereits tot ist.
+    if (this->player_Health <= 0) return;
+
+    // Erhöhe die Gesundheit, aber nicht über das Maximum.
+    this->player_Health += amount;
+    if (this->player_Health > this->player_Max_Health)
+    {
+        this->player_Health = this->player_Max_Health;
+    }
+}
+
 void PlayerClass::Take_Damage(int damage)
 {
-    // 1. Rufe die Logik der Basisklasse auf, um die HP zu reduzieren.
+    // Verhindere weiteren Schaden, wenn der Spieler bereits tot ist.
+    if (this->player_Health <= 0) return;
+
     this->player_Health -= damage;
 
-    // 2. Starte unser visuelles Hit-Feedback.
-    hit_feedback_timer = 1.0f; // Für 0.2 Sekunden aufleuchten
-    tint_color = (Color){ 88, 60, 72, 255 }; // Hex-Code #583c48
-
-    /*
-    if (this->player_Health <= 0)
-    {
-        player_state = PlayerState::DYING;
+    // LÖSE FEEDBACK NUR BEI SCHADEN AUS
+    if (damage > 0) {
+        hit_feedback_timer = 0.2f;
+        tint_color = (Color){ 88, 60, 72, 255 };
     }
-    */
+
+    // Stelle sicher, dass die HP nicht unter 0 fallen.
+    if (this->player_Health < 0) {
+        this->player_Health = 0;
+        // Hier könntest du später den DYING-Zustand auslösen
+        // player_state = PlayerState::DYING;
+    }
 }
 
 void PlayerClass::Add_Key(int amount)
@@ -352,6 +535,14 @@ void PlayerClass::Add_Key(int amount)
 int PlayerClass::Get_Key_Count() const
 {
     return this->key_count_;
+}
+
+void PlayerClass::Use_Key(int amount)
+{
+    this->key_count_ -= amount;
+    if (this->key_count_ < 0) {
+        this->key_count_ = 0;
+    }
 }
 
 void PlayerClass::Add_Bomb(int amount)
@@ -378,4 +569,14 @@ bool PlayerClass::Should_Place_Bomb()
         return true;
     }
     return false;
+}
+
+void PlayerClass::Add_Score(int amount)
+{
+    this->score_ += amount;
+}
+
+int PlayerClass::Get_Score() const
+{
+    return this->score_;
 }

@@ -23,9 +23,12 @@ private:
     // Ein Zeiger der immer auf die gerade aktive Animation zeigt.
     RepeatAnimation* p_current_animation;
 
+    // Variable für den Punktestand
+    int score_ = 0;
+
     // --- Timer für Zustände ---
     float attack_animation_timer; // Timer für die Dauer von Angriffs-Animationen
-    float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens
+    float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens -> not working under shader
 
     // --- PUSH WALL ---
     float push_animation_timer; // Eigener Timer für die Push-Animation
@@ -42,6 +45,9 @@ private:
     // --- BOMBEN ---
     bool should_place_bomb_ = false;
     float bomb_cooldown_ = 0.0f;
+
+    // --- MELEE ---
+    bool melee_hitbox_spawned_;
 
     // --- Animationen ---
 
@@ -95,13 +101,14 @@ public:
      * @param start_Position Die Startposition in der Welt.
      * @param om Referenz zum Object_Manager, um Projektile zu spawnen.
      */
-    PlayerClass(Vector2 start_Position, Object_Manager& om);
+    PlayerClass(Vector2 start_Position, Object_Manager* om);
     ~PlayerClass() override = default;
 
     // Eine Methode, um den Kamera-Zeiger zu setzen.
     void Set_Camera(std::shared_ptr<Cam> camera);
 
-    // Wir überschreiben die Ranged_Attack-Methode der Basisklasse.
+    // Wir überschreiben die Ranged_Attack- sowie Melee_Attack-Methode der Basisklasse.
+    void Melee_Attack() override;
     void Ranged_Attack() override;
 
     void On_Collision(std::shared_ptr<Collidable> other) override;
@@ -122,12 +129,22 @@ public:
      * @param damage Die Höhe des Schadens.
      */
     void Take_Damage(int damage) override;
+     /**
+     * @brief Eine neue Heal-Methode um den Heal auszulösen.
+     * @param amount Die Höhe des Heals.
+     */
+    void Heal(int amount);
 
     // --- METHODEN ZUM VERWALTEN DES INVENTARS ---
     void Add_Key(int amount);
     int Get_Key_Count() const;
+    void Use_Key(int amount);
     void Add_Bomb(int amount);
     int Get_Bomb_Count() const;
     void Use_Bomb();
     bool Should_Place_Bomb();
+
+    // --- METHODEN FÜR DEN SCORE ---
+    void Add_Score(int amount);
+    int Get_Score() const;
 };

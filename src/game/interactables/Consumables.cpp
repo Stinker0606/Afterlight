@@ -4,21 +4,22 @@
 
 #include "Consumables.h"
 #include <iostream>
+
+#include "AssetManager.h"
 #include "../core/CollisionManager.h"
 #include "../../config.h.in"
 
 Consumables::Consumables(Vector2 position, std::string name)
 {
     name = name;
-    texture = LoadTexture("assets/pngs/ball.png"); // Beispielpfad
+    texture = AssetManager::GetInstance().Load("assets/pngs/ball.png"); // Beispielpfad
     hitbox = { position.x, position.y, (float)texture.width, (float)texture.height };
 
 }
 
 Consumables::~Consumables()
 {
-
-    UnloadTexture(texture);
+    //UnloadTexture(texture);
 }
 
 Collision_Type Consumables::Get_Collision_Type() const

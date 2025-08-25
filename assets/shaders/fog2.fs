@@ -68,6 +68,14 @@ void main()
     // 1. Originalfarbe der Szene aus der Textur holen
     // Liest die Farbe des aktuellen Pixels aus dem gerenderten Spielbild.
     vec4 originalColor = texture(texture0, fragTexCoord);
+
+    // Wenn der Pixel vom Sprite fast durchsichtig ist (z.B. der Bereich um eine Figur),
+    // verwirf ihn komplett. So wird der schwarze Rahmen bei transparenten
+    // Objekten im Nebel verhindert.
+    if (originalColor.a < 0.1) {
+        discard;
+    }
+
     float maskValue = texture(fogMask, fragTexCoord).r; // Lese den Rot-Kanal der Maske (weiß=1.0, schwarz=0.0)
 
     // Optimierung: Wenn ein Pixel fast vollständig durchsichtig ist (z.B. außerhalb der gerenderten Welt),
@@ -122,8 +130,8 @@ void main()
     {
         // ...berechne die Transparenz basierend auf der Entfernung.
         // Diese Werte kannst du anpassen, um den Fade-Effekt zu steuern.
-        float startFadeRadius = 150.0;
-        float endFadeRadius = 250.0;
+        float startFadeRadius = 50.0;
+        float endFadeRadius = 300.0; // Nebel useFog fade in aussen
 
         // `smoothstep` sorgt für einen weichen Übergang von 1.0 (sichtbar) zu 0.0 (unsichtbar)
         float distanceAlpha = 1.0 - smoothstep(startFadeRadius, endFadeRadius, dist);

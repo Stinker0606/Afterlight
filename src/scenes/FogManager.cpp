@@ -11,10 +11,10 @@
 FogManager::FogManager()
     : fogLoaded(false), fogActive(false), fogStrength(1.0f), timeAccumulator(0.0f),
       resolution({0, 0}), playerPosLocation(-1), resolutionLocation(-1),
-      timeLocation(-1), fogStrengthLocation(-1)
+      timeLocation(-1), fogStrengthLocation(-1), fogMaskLocation(-1)
 {
     // Definiert auf welchen Maps der Nebel standardmäßig aktiv sein soll.
-    fogMaps = {"Test1.json", "Test1", "Vorhof_0.json"}; // PLACEHOLDER
+    fogMaps = {"Test1.json", "Swamp_0.json", "Swamp_1.json", "Vorhof_0"}; // LEVEL NAMEN
 }
 
 // --- Destruktor ---
@@ -113,7 +113,7 @@ void FogManager::LoadFogShader()
 {
     if (game::Config::kDebugShowFog)
     {
-        fogShader = LoadShader(0, "assets/shaders/fog2.fs");
+        fogShader = LoadShader(0, "assets/shaders/fog.fs");
     }
 
     if (fogShader.id != 0)
@@ -123,6 +123,7 @@ void FogManager::LoadFogShader()
         resolutionLocation = GetShaderLocation(fogShader, "resolution");
         timeLocation = GetShaderLocation(fogShader, "time");
         fogStrengthLocation = GetShaderLocation(fogShader, "fogStrength");
+        fogMaskLocation = GetShaderLocation(fogShader, "fogMask");
 
         // Setze die Werte die sich nicht ständig ändern.
         SetShaderValue(fogShader, resolutionLocation, &resolution, SHADER_UNIFORM_VEC2);
@@ -143,4 +144,12 @@ void FogManager::UpdateShaderUniforms(Vector2 playerPos)
     // Sende die Werte die sich jeden Frame ändern an den Shader.
     SetShaderValue(fogShader, playerPosLocation, &playerPos, SHADER_UNIFORM_VEC2);
     SetShaderValue(fogShader, timeLocation, &timeAccumulator, SHADER_UNIFORM_FLOAT);
+}
+
+void FogManager::SetFogMaskTexture(RenderTexture2D maskTexture)
+{
+    if (fogLoaded && fogMaskLocation != -1) {
+        // Übergibt die Textur direkt an den Shader-Slot für "fogMask"
+        SetShaderValueTexture(fogShader, fogMaskLocation, maskTexture.texture);
+    }
 }

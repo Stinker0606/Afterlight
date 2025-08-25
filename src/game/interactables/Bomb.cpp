@@ -1,13 +1,14 @@
 #include "Bomb.h"
 #include "Explosion.h"
-#include "../../scenes/Level1Scene.h"
+#include "../../scenes/LevelScene.h"
 #include "../../config.h.in"
+#include "AssetManager.h"
 
-Bomb::Bomb(Vector2 position, game::scenes::Level1Scene* scene)
-    : scene_context(scene)
+Bomb::Bomb(Vector2 position, game::scenes::Level1Scene* scene, Object_Manager& om)
+    : scene_context(scene), om_ref_(om)
 {
-    texture = LoadTexture("assets/graphics/kRaoKr_imresizer.png"); // PLATZHALTER-PFAD
-    hitbox = { position.x, position.y, 32.0f, 32.0f };
+    texture = AssetManager::GetInstance().Load("assets/graphics/projectiles/player/Bombe.png");
+    hitbox = { position.x, position.y, 30.0f, 30.0f };
     useFog = true;
     detonation_timer = game::Config::kBombDetonationTime;
     blink_timer = game::Config::kBombBlinkInterval;
@@ -16,9 +17,9 @@ Bomb::Bomb(Vector2 position, game::scenes::Level1Scene* scene)
 
 Bomb::~Bomb()
 {
-    if (texture.id > 0) {
+   /* if (texture.id > 0) {
         UnloadTexture(texture);
-    }
+    } */
 }
 
 void Bomb::Tick(float delta_time)
@@ -50,14 +51,14 @@ void Bomb::Detonate()
 {
     if (scene_context) {
         // Erzeuge eine Explosion an der Position der Bombe
-        auto explosion = std::make_shared<Explosion>(Vector2{hitbox.x, hitbox.y});
+        auto explosion = std::make_shared<Explosion>(Vector2{hitbox.x, hitbox.y}, om_ref_);
         scene_context->Add_Object_To_Waitlist(explosion);
     }
     // Markiere die Bombe selbst zur Zerstörung
     this->Mark_For_Destruction();
 }
 
-void Bomb::On_Collision(std::shared_ptr<Collidable> other) { /* Bomben kollidieren vorerst nicht */ }
+void Bomb::On_Collision(std::shared_ptr<Collidable> other) {}
 
 Collision_Type Bomb::Get_Collision_Type() const {
     return Collision_Type::WALL; // Verhält sich wie eine Wand, solange sie da ist
