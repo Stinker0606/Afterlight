@@ -61,7 +61,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 370, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -159,6 +159,53 @@
                  "width":32,
                  "x":512,
                  "y":0.375
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":8,
+         "name":"consumables",
+         "objects":[
+                {
+                 "gid":82,
+                 "height":32,
+                 "id":57,
+                 "name":"bombCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":864,
+                 "y":64
+                }, 
+                {
+                 "gid":370,
+                 "height":32,
+                 "id":59,
+                 "name":"keyCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":448,
+                 "y":32
+                }, 
+                {
+                 "gid":82,
+                 "height":32,
+                 "id":60,
+                 "name":"bombCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":928,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -618,40 +665,6 @@
         }, 
         {
          "draworder":"topdown",
-         "id":8,
-         "name":"consumables",
-         "objects":[
-                {
-                 "height":32,
-                 "id":10,
-                 "name":"key_0",
-                 "rotation":0,
-                 "type":"keyCons",
-                 "visible":true,
-                 "width":31.3333,
-                 "x":448.667,
-                 "y":0
-                }, 
-                {
-                 "gid":82,
-                 "height":32,
-                 "id":57,
-                 "name":"bombCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":864,
-                 "y":64
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
          "id":9,
          "name":"interactibles",
          "objects":[
@@ -673,7 +686,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":58,
+ "nextobjectid":61,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
