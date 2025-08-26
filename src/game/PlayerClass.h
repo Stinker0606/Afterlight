@@ -77,6 +77,10 @@ private:
     RepeatAnimation anim_Throw_Back;
     RepeatAnimation anim_Throw_Left;
     RepeatAnimation anim_Throw_Right;
+    RepeatAnimation anim_Throw_Front_Right;
+    RepeatAnimation anim_Throw_Front_Left;
+    RepeatAnimation anim_Throw_Back_Left;
+    RepeatAnimation anim_Throw_Back_Right;
 
     // Attack Sweep
     RepeatAnimation anim_Sweep_Front;

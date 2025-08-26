@@ -50,6 +50,10 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager* om)
       anim_Throw_Back(game::Config::player_animation_size, game::Config::player_Throw_Back_Path, game::Config::player_Throw_Back_Frames, game::Config::player_Throw_Back_Frames_Per_Line),
       anim_Throw_Left(game::Config::player_animation_size, game::Config::player_Throw_Left_Path, game::Config::player_Throw_Left_Frames, game::Config::player_Throw_Left_Frames_Per_Line),
       anim_Throw_Right(game::Config::player_animation_size, game::Config::player_Throw_Right_Path, game::Config::player_Throw_Right_Frames, game::Config::player_Throw_Right_Frames_Per_Line),
+      anim_Throw_Front_Right(game::Config::player_animation_size, game::Config::player_Throw_Front_Right_Path, game::Config::player_Throw_Front_Right_Frames, game::Config::player_Throw_Front_Right_Frames_Per_Line),
+      anim_Throw_Front_Left(game::Config::player_animation_size, game::Config::player_Throw_Front_Left_Path, game::Config::player_Throw_Front_Left_Frames, game::Config::player_Throw_Front_Left_Frames_Per_Line),
+      anim_Throw_Back_Left(game::Config::player_animation_size, game::Config::player_Throw_Back_Left_Path, game::Config::player_Throw_Back_Left_Frames, game::Config::player_Throw_Back_Left_Frames_Per_Line),
+      anim_Throw_Back_Right(game::Config::player_animation_size, game::Config::player_Throw_Back_Right_Path, game::Config::player_Throw_Back_Right_Frames, game::Config::player_Throw_Back_Right_Frames_Per_Line),
       // Attack Sweep
       anim_Sweep_Front(game::Config::player_animation_size, game::Config::player_Sweep_Front_Path, game::Config::player_Sweep_Front_Frames, game::Config::player_Sweep_Front_Frames_Per_Line),
       anim_Sweep_Back(game::Config::player_animation_size, game::Config::player_Sweep_Back_Path, game::Config::player_Sweep_Back_Frames, game::Config::player_Sweep_Back_Frames_Per_Line),
@@ -465,11 +469,15 @@ void PlayerClass::Draw()
 
         case PlayerState::ATTACKING_MELEE:
             switch (facing_Direction) {
-                case Facing_Direction::UP:    p_current_animation = &anim_Sweep_Back; break;
-                case Facing_Direction::DOWN:  p_current_animation = &anim_Sweep_Front; break;
-                case Facing_Direction::LEFT:  p_current_animation = &anim_Sweep_Left; break;
-                case Facing_Direction::RIGHT: p_current_animation = &anim_Sweep_Right; break;
-                default:                      p_current_animation = &anim_Sweep_Front; break;
+                case Facing_Direction::UP:          p_current_animation = &anim_Sweep_Back; break;
+                case Facing_Direction::DOWN:        p_current_animation = &anim_Sweep_Front; break;
+                case Facing_Direction::LEFT:        p_current_animation = &anim_Sweep_Left; break;
+                case Facing_Direction::RIGHT:       p_current_animation = &anim_Sweep_Right; break;
+                case Facing_Direction::UP_RIGHT:    p_current_animation = &anim_Throw_Back_Right; break;
+                case Facing_Direction::UP_LEFT:     p_current_animation = &anim_Throw_Back_Left; break;
+                case Facing_Direction::DOWN_RIGHT:  p_current_animation = &anim_Throw_Front_Right; break;
+                case Facing_Direction::DOWN_LEFT:   p_current_animation = &anim_Throw_Front_Left; break;
+                default:                            p_current_animation = &anim_Sweep_Front; break;
             }
             break;
 
