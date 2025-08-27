@@ -4,6 +4,11 @@
 #include "raymath.h"
 #include "../../config_enemies.h.in"
 #include "../FacingDirection.h"
+#include "raylib.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 namespace enemy
 {
@@ -134,12 +139,11 @@ namespace enemy
     {
         if (game::EnemyConfig::kUseEnemyAnimations)
         {
-            // --- LOGIK FÜR VOLLE ANIMATIONEN ---
             Vector2 direction = Vector2Normalize({ last_player_position_.x - this->Get_Hitbox_Center().x, last_player_position_.y - this->Get_Hitbox_Center().y });
             float angle = atan2(direction.y, direction.x) * (180.0f / PI);
             if (angle < 0) angle += 360;
 
-            Facing_Direction facing_dir = Facing_Direction::DOWN; // Standardwert
+            Facing_Direction facing_dir = Facing_Direction::DOWN;
             if (angle >= 45 && angle < 135) facing_dir = Facing_Direction::DOWN;
             else if (angle >= 135 && angle < 225) facing_dir = Facing_Direction::LEFT;
             else if (angle >= 225 && angle < 315) facing_dir = Facing_Direction::UP;
@@ -152,25 +156,25 @@ namespace enemy
                     else if (facing_dir == Facing_Direction::DOWN) p_current_animation_ = &anim_fly_front_;
                     else if (facing_dir == Facing_Direction::LEFT) p_current_animation_ = &anim_fly_left_;
                     else p_current_animation_ = &anim_fly_right_;
-                    break;
+                break;
                 case AnimationState::ATTACKING:
                     if (facing_dir == Facing_Direction::UP) p_current_animation_ = &anim_melee_back_;
                     else if (facing_dir == Facing_Direction::DOWN) p_current_animation_ = &anim_melee_front_;
                     else if (facing_dir == Facing_Direction::LEFT) p_current_animation_ = &anim_melee_left_;
                     else p_current_animation_ = &anim_melee_right_;
-                    break;
+                break;
                 case AnimationState::DYING:
                     p_current_animation_ = &anim_death_;
-                    break;
+                break;
             }
 
             if (p_current_animation_)
             {
                 Vector2 draw_pos = {
-                    this->hitbox.x - (game::EnemyConfig::kInsectMonsterAnimSize.x - this->hitbox.width) / 2,
-                    this->hitbox.y - (game::EnemyConfig::kInsectMonsterAnimSize.y - this->hitbox.height) / 2
+                    this->hitbox.x - game::EnemyConfig::kInsectMonster_visual_offset.x,
+                    this->hitbox.y - game::EnemyConfig::kInsectMonster_visual_offset.y
                 };
-                p_current_animation_->Draw_Current_Frame(draw_pos, WHITE);
+                p_current_animation_->Draw_Current_Frame(draw_pos, Fade(WHITE, this->visibility_alpha));
                 p_current_animation_->Next_Frame();
             }
         }

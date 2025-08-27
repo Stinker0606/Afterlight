@@ -23,7 +23,7 @@ class RepeatAnimation {
 
     /**
      * @brief Zeichnet den aktuellen Frame der Animation an einer Position.
-     * NEU: Akzeptiert eine Tint-Farbe für visuelle Effekte wie Hit-Feedback.
+     * @brief Akzeptiert eine Tint-Farbe für visuelle Effekte wie Hit-Feedback.
      * @param pos Die Position, an der gezeichnet werden soll.
      * @param tint Die Farbe, mit der das Sprite getönt werden soll (Standard ist WHITE).
      */
