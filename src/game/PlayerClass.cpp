@@ -127,100 +127,26 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
 
     // --- PHYSISCHE KOLLISIONS-LOGIK ---
 
-     if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
+    // 1. Die Kollision mit einem Push_Block ist ein Sonderfall, da sie den Spieler-Zustand ändert.
+    if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
     {
-        // REGEL 0: Wenn der Cooldown aktiv ist, ist der Block eine normale Wand. Ende.
-        if (push_cooldown_timer > 0.0f)
-        {
-            Player_Base_Class::On_Collision(other);
-            return;
+        player_state = PlayerState::PUSHING;
+        push_animation_timer = game::Config::player_Push_Anim_Duration;
+        block_to_push = push_block;
+        Vector2 move_dir = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
+        if (fabs(move_dir.x) > fabs(move_dir.y)) {
+            push_direction = { (move_dir.x > 0) ? 1.0f : -1.0f, 0.0f };
+        } else {
+            push_direction = { 0.0f, (move_dir.y > 0) ? 1.0f : -1.0f };
         }
-
-        // REGEL 1: BESTIMME DIE BEWEGUNGSACHSE DES SPIELERS (Horizontal oder Vertikal).
-        // Dies verhindert den Diagonal-Exploit.
-        Vector2 move_vector = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
-        bool is_moving_horizontally = fabs(move_vector.x) > fabs(move_vector.y);
-
-        Rectangle player_hitbox = Get_Hitbox();
-        Rectangle block_hitbox = push_block->Get_Hitbox();
-        bool is_aligned = false;
-
-        // REGEL 2: PRÜFE DIE AUSRICHTUNG DES SPIELERS ZUM BLOCK.
-        // Ein "Anstupsen" mit der Ecke ist nicht mehr möglich.
-        if (is_moving_horizontally)
-        {
-            // Spieler will horizontal schieben -> muss vertikal ausgerichtet sein.
-            float y_overlap = std::min(player_hitbox.y + player_hitbox.height, block_hitbox.y + block_hitbox.height) - std::max(player_hitbox.y, block_hitbox.y);
-            if (y_overlap > block_hitbox.height * 0.7f) // Mindestens 70% der BLOCK-Höhe müssen berührt werden.
-            {
-                is_aligned = true;
-                push_direction = { (move_vector.x > 0) ? 1.0f : -1.0f, 0.0f };
-            }
-        }
-        else // Spieler bewegt sich primär vertikal
-        {
-            // Spieler will vertikal schieben -> muss horizontal ausgerichtet sein.
-            float x_overlap = std::min(player_hitbox.x + player_hitbox.width, block_hitbox.x + block_hitbox.width) - std::max(player_hitbox.x, block_hitbox.x);
-            if (x_overlap > block_hitbox.width * 0.7f) // Mindestens 70% der BLOCK-Breite müssen berührt werden.
-            {
-                is_aligned = true;
-                push_direction = { 0.0f, (move_vector.y > 0) ? 1.0f : -1.0f };
-            }
-        }
-
-        // Wenn die Ausrichtung nicht stimmt, ist es eine normale Wand. Ende.
-        if (!is_aligned)
-        {
-            Player_Base_Class::On_Collision(other);
-            return;
-        }
-
-        // REGEL 3: PRÜFE, OB DER ZIELPLATZ FREI IST.
-        // Das ist die finale Prüfung gegen das Durchschieben.
-        Rectangle future_hitbox = push_block->Get_Hitbox();
-        future_hitbox.x += push_direction.x * 32.0f;
-        future_hitbox.y += push_direction.y * 32.0f;
-
-        bool path_is_blocked = false;
-        for (const auto& other_obj : p_om_->managed_objects)
-        {
-            if (other_obj == push_block || other_obj == shared_from_this()) continue;
-
-            // Prüfe gegen JEDES solide Objekt (dünne Wände, andere Blöcke etc.)
-            if (other_obj->Get_Collision_Type() == Collision_Type::WALL)
-            {
-                if (CheckCollisionRecs(future_hitbox, other_obj->Get_Hitbox()))
-                {
-                    path_is_blocked = true;
-                    break;
-                }
-            }
-        }
-
-        // REGEL 4: FINALE AKTION
-        if (!path_is_blocked)
-        {
-            // ALLES PASST: Starte die Schiebe-Aktion
-            player_state = PlayerState::PUSHING;
-            push_animation_timer = game::Config::player_Push_Anim_Duration;
-            push_cooldown_timer = 0.3f; // Cooldown sofort aktivieren
-            block_to_push = push_block;
-
-            // Spieler zurücksetzen, um "Kleben" oder Durchrutschen zu verhindern
-            hitbox.x = previous_Position.x;
-            hitbox.y = previous_Position.y;
-            player_Pos = previous_Position;
-            is_Moving = false;
-        }
-        else
-        {
-            // Weg ist blockiert -> behandle als normale, unbewegliche Wand.
-            Player_Base_Class::On_Collision(other);
-        }
+        hitbox.x = previous_Position.x;
+        hitbox.y = previous_Position.y;
+        player_Pos = previous_Position;
+        is_Moving = false;
     }
     else
     {
-        // Für alle anderen soliden Objekte, nutze die Standard-Kollisionslogik.
+        // 2. Für ALLE ANDEREN soliden Objekte wird die Standard-Kollisionslogik aus der Basisklasse aufgerufen.
         Player_Base_Class::On_Collision(other);
     }
 }
@@ -367,18 +293,12 @@ void PlayerClass::Tick(float delta_time)
         Player_Base_Class::Tick(delta_time);
     }
 
-    // Hit-Feedback-Cooldown-Timer aktualisieren
+    // Update der Timer
     if (hit_feedback_timer > 0.0f)
     {
         hit_feedback_timer -= delta_time;
         if (hit_feedback_timer <= 0.0f) { tint_color = WHITE; }
     }
-
-    // Push-Cooldown-Timer aktualisieren
-    if (push_cooldown_timer > 0.0f) {
-        push_cooldown_timer -= delta_time;
-    }
-
     // Bomben-Cooldown-Timer aktualisieren
     if (bomb_cooldown_ > 0.0f) {
         bomb_cooldown_ -= delta_time;
@@ -430,16 +350,55 @@ void PlayerClass::Tick(float delta_time)
             player_state = PlayerState::IDLE;
         }
     }
-
+/*
     else if (player_state == PlayerState::PUSHING)
     {
         push_animation_timer -= delta_time;
         if (push_animation_timer <= 0.0f) {
-            // Die Prüfung hat bereits stattgefunden. Wir führen den Push jetzt einfach aus.
             if (auto locked_block = block_to_push.lock()) {
                 locked_block->Push(push_direction);
             }
             player_state = PlayerState::IDLE;
+        }
+    }
+*/
+    else if (player_state == PlayerState::PUSHING)
+    {
+        push_animation_timer -= delta_time;
+        if (push_animation_timer <= 0.0f) {
+            if (auto locked_block = block_to_push.lock()) {
+                // --- NEUE VORAUSSCHAUENDE PRÜFUNG ---
+                // 1. Berechne, wo der Block nach dem Stoß sein würde.
+                Rectangle future_hitbox = locked_block->Get_Hitbox();
+                future_hitbox.x += push_direction.x * 16.0f;
+                future_hitbox.y += push_direction.y * 16.0f;
+
+                // 2. Prüfe, ob dieser zukünftige Platz frei ist.
+                bool can_push = true;
+                // KORREKTUR: Benutze den korrekten Member-Pointer 'p_om_'
+                for (const auto& other_obj : p_om_->managed_objects)
+                {
+                    // Ignoriere den Block selbst und den Spieler
+                    if (other_obj == locked_block || other_obj == shared_from_this()) continue;
+
+                    Collision_Type type = other_obj->Get_Collision_Type();
+                    if (type == Collision_Type::WALL || type == Collision_Type::ENEMY || type == Collision_Type::ENEMY_SPAWNER)
+                    {
+                        if (CheckCollisionRecs(future_hitbox, other_obj->Get_Hitbox()))
+                        {
+                            can_push = false; // Ein Hindernis ist im Weg!
+                            break;
+                        }
+                    }
+                }
+
+                // 3. Nur wenn der Weg frei ist, bewege den Block.
+                if (can_push) {
+                    locked_block->Push(push_direction);
+                }
+                // --- ENDE DER NEUEN LOGIK ---
+            }
+            player_state = PlayerState::IDLE; // Gehe immer in den Idle-Zustand, egal ob der Push erfolgreich war.
         }
     }
 
@@ -450,7 +409,6 @@ void PlayerClass::Tick(float delta_time)
         // Vorerst bleibt der Spieler einfach im DYING-Zustand.
     }
 }
-
 
 void PlayerClass::Draw()
 {
@@ -463,6 +421,10 @@ void PlayerClass::Draw()
                 case Facing_Direction::DOWN:  		p_current_animation = &anim_Throw_Front; break;
                 case Facing_Direction::LEFT:  		p_current_animation = &anim_Throw_Left; break;
                 case Facing_Direction::RIGHT: 		p_current_animation = &anim_Throw_Right; break;
+                case Facing_Direction::UP_RIGHT:    p_current_animation = &anim_Throw_Back_Right; break;
+                case Facing_Direction::UP_LEFT:     p_current_animation = &anim_Throw_Back_Left; break;
+                case Facing_Direction::DOWN_RIGHT:  p_current_animation = &anim_Throw_Front_Right; break;
+                case Facing_Direction::DOWN_LEFT:   p_current_animation = &anim_Throw_Front_Left; break;
                 default:                      		p_current_animation = &anim_Throw_Front; break;
             }
             break;
@@ -473,10 +435,6 @@ void PlayerClass::Draw()
                 case Facing_Direction::DOWN:        p_current_animation = &anim_Sweep_Front; break;
                 case Facing_Direction::LEFT:        p_current_animation = &anim_Sweep_Left; break;
                 case Facing_Direction::RIGHT:       p_current_animation = &anim_Sweep_Right; break;
-                case Facing_Direction::UP_RIGHT:    p_current_animation = &anim_Throw_Back_Right; break;
-                case Facing_Direction::UP_LEFT:     p_current_animation = &anim_Throw_Back_Left; break;
-                case Facing_Direction::DOWN_RIGHT:  p_current_animation = &anim_Throw_Front_Right; break;
-                case Facing_Direction::DOWN_LEFT:   p_current_animation = &anim_Throw_Front_Left; break;
                 default:                            p_current_animation = &anim_Sweep_Front; break;
             }
             break;

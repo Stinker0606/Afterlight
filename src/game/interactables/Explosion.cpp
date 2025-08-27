@@ -5,7 +5,13 @@
 #include "../../config.h.in"
 
 Explosion::Explosion(Vector2 position, Object_Manager& om)
-    : om_ref_(om)
+    : om_ref_(om),
+      animation_(
+          game::Config::kExplosionAnimationSize,
+          game::Config::kExplosionAnimationPath,
+          game::Config::kExplosionAnimationFrames,
+          game::Config::kExplosionAnimationFramesPerLine
+      )
 {
     // Die Explosion ist ein 3x3 Kachel großes Feld (96x96), zentriert auf der Bombe
     hitbox = { position.x - 32.0f, position.y - 32.0f, 96.0f, 96.0f };
@@ -15,49 +21,60 @@ Explosion::Explosion(Vector2 position, Object_Manager& om)
 void Explosion::Tick(float delta_time)
 {
     lifetime -= delta_time;
-    if (lifetime <= 0.0f) {
+    if (lifetime <= 0.0f) {}
+
+    animation_.Next_Frame();
+
+    // Wenn die Animation fertig ist, zerstöre das Objekt.
+    if (lifetime <= -6.6f) {
         this->Mark_For_Destruction();
     }
 }
 
 void Explosion::Draw()
 {
-    // Temporäres visuelles Feedback für die Explosion
-    DrawRectangleRec(hitbox, Fade(ORANGE, 0.5f));
+    Vector2 draw_pos = {
+        hitbox.x + hitbox.width / 2,
+        hitbox.y + hitbox.height / 2
+    };
+    animation_.Draw_Current_Frame(draw_pos);
 }
 
 void Explosion::On_Collision(std::shared_ptr<Collidable> other)
 {
-    if (auto breakable_wall = std::dynamic_pointer_cast<BreakableWall>(other))
+    if (lifetime > 0.0f)
     {
-        float search_radius = 80.0f; // 2,5 Kacheln
-        Vector2 explosion_center = this->Get_Hitbox_Center();
-
-        // Gehe durch ALLE Objekte
-        for (const auto& obj_to_check : om_ref_.managed_objects)
+        if (auto breakable_wall = std::dynamic_pointer_cast<BreakableWall>(other))
         {
-            if (auto wall_to_destroy = std::dynamic_pointer_cast<BreakableWall>(obj_to_check))
+            float search_radius = 80.0f; // 2,5 Kacheln
+            Vector2 explosion_center = this->Get_Hitbox_Center();
+
+            // Gehe durch ALLE Objekte
+            for (const auto& obj_to_check : om_ref_.managed_objects)
             {
-                if (Vector2Distance(explosion_center, wall_to_destroy->Get_Hitbox_Center()) <= search_radius)
+                if (auto wall_to_destroy = std::dynamic_pointer_cast<BreakableWall>(obj_to_check))
                 {
-                    wall_to_destroy->Mark_For_Destruction();
+                    if (Vector2Distance(explosion_center, wall_to_destroy->Get_Hitbox_Center()) <= search_radius)
+                    {
+                        wall_to_destroy->Mark_For_Destruction();
+                    }
                 }
             }
         }
-    }
 
-    if (!other) return;
+        if (!other) return;
 
-    // Bomben machen ALLEN Objekten Schaden
-    if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(other)) {
-        enemy->Take_Damage(game::Config::kBombDamage);
-    }
-    if (auto player = std::dynamic_pointer_cast<PlayerClass>(other)) {
-        player->Take_Damage(game::Config::kBombDamage);
+        // Bomben machen ALLEN Objekten Schaden
+        if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(other)) {
+            enemy->Take_Damage(game::Config::kBombDamage);
+        }
+        if (auto player = std::dynamic_pointer_cast<PlayerClass>(other)) {
+            player->Take_Damage(game::Config::kBombDamage);
+        }
     }
 }
 
 Collision_Type Explosion::Get_Collision_Type() const
 {
-    return Collision_Type::PLAYER_PROJECTILE; // Verhält sich wie ein Projektil, um Schaden zu verursachen
+    return (lifetime > 0.0f) ? Collision_Type::PLAYER_PROJECTILE : Collision_Type::WALL;
 }

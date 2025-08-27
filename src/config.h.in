@@ -79,6 +79,12 @@ namespace game {
         inline static constexpr float kBombDetonationTime = 12.0f; // Detonations Zeit - PLACEHOLDER WERT
         inline static constexpr float kBombBlinkInterval = 1.0f; // Blink Interval - PLACEHOLDER WERT
         inline static constexpr float kBombPlacementCooldown = 6.0f; // Cooldown - PLACEHOLDER WERT
+        inline static constexpr const char* kExplosionAnimationPath = "assets/graphics/animations/bomb/Bombe_Animation.png";
+        inline static constexpr int kExplosionAnimationFrames = 56;
+        inline static constexpr int kExplosionAnimationFramesPerLine = 56;
+        inline static constexpr Vector2 kExplosionAnimationSize = { 96, 96 };
+
+        inline static constexpr float kPushBlockMoveSpeed = 32.0f; // Geschwindigkeit in Pixel pro Sekunde (160 = 5 Tiles/Sekunde)
 
         // ----------------------------------------------- PLAYER ------------------------------------------------------
 
@@ -94,7 +100,7 @@ namespace game {
         inline static constexpr Vector2 player_animation_size = {100, 100}; // NICHT ÄNDERN!
 
         // Player Stats
-        inline static constexpr int player_Max_Health = 60000;
+        inline static constexpr int player_Max_Health = 600;
         inline static constexpr float player_Movement_Speed = 18.0;
         inline static constexpr int player_Melee_Damage = 100;
         inline static constexpr int player_Projectile_Damage = 75;
@@ -237,21 +243,21 @@ namespace game {
         inline static constexpr int player_Sweep_Right_Frames_Per_Line = 999;
 
         // Pushing
-        inline static constexpr const char* player_Push_Front_Path = "PLACEHOLDER";
-        inline static constexpr int player_Push_Front_Frames = 999;
-        inline static constexpr int player_Push_Front_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Push_Front_Path = "assets/graphics/animations/player/push/MC_Push_Front.png";
+        inline static constexpr int player_Push_Front_Frames = 12;
+        inline static constexpr int player_Push_Front_Frames_Per_Line = 12;
 
-        inline static constexpr const char* player_Push_Back_Path = "PLACEHOLDER";
-        inline static constexpr int player_Push_Back_Frames = 999;
-        inline static constexpr int player_Push_Back_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Push_Back_Path = "assets/graphics/animations/player/push/MC_Push_Back.png";
+        inline static constexpr int player_Push_Back_Frames = 12;
+        inline static constexpr int player_Push_Back_Frames_Per_Line = 12;
 
-        inline static constexpr const char* player_Push_Left_Path = "PLACEHOLDER";
-        inline static constexpr int player_Push_Left_Frames = 999;
-        inline static constexpr int player_Push_Left_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Push_Left_Path = "assets/graphics/animations/player/push/MC_Push_Left.png";
+        inline static constexpr int player_Push_Left_Frames = 12;
+        inline static constexpr int player_Push_Left_Frames_Per_Line = 12;
 
-        inline static constexpr const char* player_Push_Right_Path = "PLACEHOLDER";
-        inline static constexpr int player_Push_Right_Frames = 999;
-        inline static constexpr int player_Push_Right_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Push_Right_Path = "assets/graphics/animations/player/push/MC_Push_Right.png";
+        inline static constexpr int player_Push_Right_Frames = 12;
+        inline static constexpr int player_Push_Right_Frames_Per_Line = 12;
 
         // Dying
         inline static constexpr const char* player_Dying_Path = "PLACEHOLDER";
