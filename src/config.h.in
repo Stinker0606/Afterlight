@@ -19,7 +19,7 @@ namespace game {
         inline static constexpr int kTargetFps = 60;
 
         // Start game in window or fullscreen mode
-        inline static constexpr const bool kFullScreen = false;
+        inline static constexpr const bool kFullScreen = true;
 
         // Define if the game uses a mouse/mouse pointer
         // The mouse position is then accessible in game::core::Store in the mouse_position attribute
@@ -282,7 +282,7 @@ namespace game {
         inline static constexpr bool kDebugShowFog = true; // Set to 'false' to disable fog
 
         // for ALL hitboxes
-        inline static constexpr bool kDebugShowHitboxes = true; // Set to 'true' to show all hitboxes
+        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
 
         // ------------------------------------------- LEVEL SETTINGS --------------------------------------------------
 

@@ -90,6 +90,7 @@ namespace game::scenes
     void Level1Scene::Update()
     {
         // Standard-Engine-Inputs
+/*
         if (IsKeyPressed(KEY_ESCAPE))
         {
             game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
@@ -97,7 +98,7 @@ namespace game::scenes
         if (IsKeyPressed(KEY_L)){
             ToggleFullscreen();
         }
-
+*/
         if (auto player = sp_player.lock())
         {
             Vector2 player_position = player->Get_Player_Center();

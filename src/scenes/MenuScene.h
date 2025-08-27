@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
-#include "Screen.h"
+#include <vector>
+#include <string>
 
 namespace game::scenes
 {
@@ -8,12 +9,21 @@ namespace game::scenes
     {
     public:
         MenuScene();
-
-        ~MenuScene() override ;
+        ~MenuScene() override;
 
         void Update() override;
-
         void Draw() override;
 
+    private:
+        Texture2D logo_texture_;
+        Texture2D selector_texture_;
+        Font menu_font_;
+
+        std::vector<std::string> menu_items_;
+        int selected_item_index_;
+
+        Color background_color_;
+        Color text_color_;
+        Color selected_text_color_;
     };
 }

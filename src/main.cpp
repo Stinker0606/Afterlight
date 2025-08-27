@@ -8,12 +8,9 @@
 #include <Game.h>
 #include "scenes/Screen.h"
 #include "config.h.in"
+#include "scenes/MenuScene.h"
 #include "scenes/LevelScene.h"
 #include "core/Store.h"
-
-/* Aktiviert "String-Literalen erlaubt "menu"s Daraus wird dann direkt ein std::string
- * also "menu"s == std::string ("menu")
- */
 
 using namespace std::string_literals;
 
@@ -30,11 +27,11 @@ int main()
     game::core::Store::next_spawn_point = "player_start";
 
     // 2. ERSTELLE DEN SPIELER EINMALIG.
-    Object_Manager temp_om;
+    // Object_Manager ist hier nur temporär nötig, wird in der Szene richtig gesetzt.
     game::core::Store::player = std::make_shared<PlayerClass>(Vector2{0,0}, nullptr);
 
-    // 3. Starte das Spiel mit der ersten Szene.
-    game.Run("gameplay"s, std::make_unique<game::scenes::Level1Scene>());
+    // 3. Starte das Spiel mit der MenuScene.
+    game.Run("menu"s, std::make_unique<game::scenes::MenuScene>());
 
     return EXIT_SUCCESS;
 }
