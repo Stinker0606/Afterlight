@@ -22,7 +22,7 @@ namespace game {
 
             // true = Nutze die vollen Animationen
             // false = Nutze die einfachen Platzhalter-Sprites aus der Basisklasse
-            inline static constexpr bool kUseEnemyAnimations = false;
+            inline static constexpr bool kUseEnemyAnimations = true;
 
         // =============================================== SPAWNERS ====================================================
 
