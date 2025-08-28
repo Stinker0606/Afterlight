@@ -917,12 +917,12 @@
                         {
                          "name":"target_map",
                          "type":"string",
-                         "value":"\u00dcbergang_1_1.json"
+                         "value":"Uebergang_1_1.json"
                         }, 
                         {
                          "name":"target_spawn_point",
                          "type":"string",
-                         "value":"player_start_from_\u00fcbergang_1_1"
+                         "value":"player_start_from_uebergang_1_1"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1094,6 +1094,28 @@
         }, 
         {
          "draworder":"topdown",
+         "id":12,
+         "name":"Interactibles",
+         "objects":[
+                {
+                 "height":30,
+                 "id":172,
+                 "name":"player_start_from_vorhof_1_1",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":33.5,
+                 "x":767,
+                 "y":480.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":11,
          "name":"spawner",
          "objects":[
@@ -1245,28 +1267,6 @@
          "visible":true,
          "x":0,
          "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":12,
-         "name":"Interactibles",
-         "objects":[
-                {
-                 "height":30,
-                 "id":172,
-                 "name":"player_start_from_vorhof_1_1",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":33.5,
-                 "x":767,
-                 "y":480.5
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
         }],
  "nextlayerid":13,
  "nextobjectid":211,
@@ -1277,7 +1277,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
+         "source":"..\/Clion code\/Afterlight\/assets\/Tiled\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
         }],
  "tilewidth":32,
  "type":"map",
