@@ -73,17 +73,17 @@ namespace game {
 
         // -- Hover/Fly Animations --
         inline static constexpr const char* kInsectMonsterFlyFrontPath = "assets/graphics/animations/insekten_Monster/Move/Insect_hover_Front.png";
-        inline static constexpr int kInsectMonsterFlyFrontFrames = 80;
-        inline static constexpr int kInsectMonsterFlyFrontFramesPerLine = 80;
+        inline static constexpr int kInsectMonsterFlyFrontFrames = 36;
+        inline static constexpr int kInsectMonsterFlyFrontFramesPerLine = 36;
         inline static constexpr const char* kInsectMonsterFlyBackPath = "assets/graphics/animations/insekten_Monster/Move/Insect_hover_Back.png";
-        inline static constexpr int kInsectMonsterFlyBackFrames = 80;
-        inline static constexpr int kInsectMonsterFlyBackFramesPerLine = 80;
+        inline static constexpr int kInsectMonsterFlyBackFrames = 36;
+        inline static constexpr int kInsectMonsterFlyBackFramesPerLine = 36;
         inline static constexpr const char* kInsectMonsterFlyLeftPath = "assets/graphics/animations/insekten_Monster/Move/Insect_hover_Left.png";
-        inline static constexpr int kInsectMonsterFlyLeftFrames = 80;
-        inline static constexpr int kInsectMonsterFlyLeftFramesPerLine = 80;
+        inline static constexpr int kInsectMonsterFlyLeftFrames = 36;
+        inline static constexpr int kInsectMonsterFlyLeftFramesPerLine = 36;
         inline static constexpr const char* kInsectMonsterFlyRightPath = "assets/graphics/animations/insekten_Monster/Move/Insect_hover_Right.png";
-        inline static constexpr int kInsectMonsterFlyRightFrames = 80;
-        inline static constexpr int kInsectMonsterFlyRightFramesPerLine = 80;
+        inline static constexpr int kInsectMonsterFlyRightFrames = 36;
+        inline static constexpr int kInsectMonsterFlyRightFramesPerLine = 36;
 
         // -- Death Animation --
         inline static constexpr const char* kInsectMonsterDeathPath = "assets/graphics/enemies/insect_monster/death.png";
@@ -91,18 +91,18 @@ namespace game {
         inline static constexpr int kInsectMonsterDeathFramesPerLine = 12;
 
         // -- Melee "Sweep" Attack Animations (4 Richtungen) --
-        inline static constexpr const char* kInsectMonsterMeleeFrontPath = "assets/graphics/enemies/insect_monster/melee_front.png";
-        inline static constexpr int kInsectMonsterMeleeFrontFrames = 10;
-        inline static constexpr int kInsectMonsterMeleeFrontFramesPerLine = 10;
-        inline static constexpr const char* kInsectMonsterMeleeBackPath = "assets/graphics/enemies/insect_monster/melee_back.png";
-        inline static constexpr int kInsectMonsterMeleeBackFrames = 10;
-        inline static constexpr int kInsectMonsterMeleeBackFramesPerLine = 10;
-        inline static constexpr const char* kInsectMonsterMeleeLeftPath = "assets/graphics/enemies/insect_monster/melee_left.png";
-        inline static constexpr int kInsectMonsterMeleeLeftFrames = 10;
-        inline static constexpr int kInsectMonsterMeleeLeftFramesPerLine = 10;
-        inline static constexpr const char* kInsectMonsterMeleeRightPath = "assets/graphics/enemies/insect_monster/melee_right.png";
-        inline static constexpr int kInsectMonsterMeleeRightFrames = 10;
-        inline static constexpr int kInsectMonsterMeleeRightFramesPerLine = 10;
+        inline static constexpr const char* kInsectMonsterMeleeFrontPath = "assets/graphics/animations/insekten_Monster/Attack/insect_attack_Front.png";
+        inline static constexpr int kInsectMonsterMeleeFrontFrames = 36;
+        inline static constexpr int kInsectMonsterMeleeFrontFramesPerLine = 36;
+        inline static constexpr const char* kInsectMonsterMeleeBackPath = "assets/graphics/animations/insekten_Monster/Attack/insect_attack_Back.png";
+        inline static constexpr int kInsectMonsterMeleeBackFrames = 36;
+        inline static constexpr int kInsectMonsterMeleeBackFramesPerLine = 36;
+        inline static constexpr const char* kInsectMonsterMeleeLeftPath = "assets/graphics/animations/insekten_Monster/Attack/insect_attack_Left.png";
+        inline static constexpr int kInsectMonsterMeleeLeftFrames = 36;
+        inline static constexpr int kInsectMonsterMeleeLeftFramesPerLine = 36;
+        inline static constexpr const char* kInsectMonsterMeleeRightPath = "assets/graphics/animations/insekten_Monster/Attack/insect_attack_Right.png";
+        inline static constexpr int kInsectMonsterMeleeRightFrames = 36;
+        inline static constexpr int kInsectMonsterMeleeRightFramesPerLine = 36;
 
 
         // ====================================================================================
