@@ -95,17 +95,6 @@
          "name":"spawner",
          "objects":[
                 {
-                 "height":32,
-                 "id":1,
-                 "name":"spawn1",
-                 "rotation":0,
-                 "type":"spawn1",
-                 "visible":true,
-                 "width":32,
-                 "x":256,
-                 "y":352
-                }, 
-                {
                  "height":31,
                  "id":2,
                  "name":"spawn1",
@@ -113,8 +102,8 @@
                  "type":"spawn1",
                  "visible":true,
                  "width":31.6667,
-                 "x":64.3333,
-                 "y":481
+                 "x":96,
+                 "y":416
                 }, 
                 {
                  "height":32,
@@ -148,17 +137,6 @@
                  "width":32.25,
                  "x":895.75,
                  "y":223.75
-                }, 
-                {
-                 "height":31.625,
-                 "id":7,
-                 "name":"spawn1",
-                 "rotation":0,
-                 "type":"spawn1",
-                 "visible":true,
-                 "width":32,
-                 "x":512,
-                 "y":0.375
                 }],
          "opacity":1,
          "type":"objectgroup",
