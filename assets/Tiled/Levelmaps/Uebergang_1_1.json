@@ -276,7 +276,7 @@
                 {
                  "height":32.8678839957036,
                  "id":14,
-                 "name":"player_start_from_\u00fcbergamg_1_1",
+                 "name":"player_start_from_uebergang_1_1",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -356,7 +356,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Afterlight_All_Level_Tileset.tsx"
+         "source":"..\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
         }],
  "tilewidth":32,
  "type":"map",

@@ -917,12 +917,12 @@
                         {
                          "name":"target_map",
                          "type":"string",
-                         "value":"\u00dcbergang_1_1.json"
+                         "value":"Uebergang_1_1.json"
                         }, 
                         {
                          "name":"target_spawn_point",
                          "type":"string",
-                         "value":"player_start_from_\u00fcbergang_1_1"
+                         "value":"player_start_from_uebergang_1_1"
                         }],
                  "rotation":0,
                  "type":"",
