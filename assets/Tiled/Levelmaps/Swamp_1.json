@@ -819,12 +819,12 @@
                         {
                          "name":"target_map",
                          "type":"string",
-                         "value":"Vorhof_1_1.json"
+                         "value":"Swamp_0.json"
                         }, 
                         {
                          "name":"target_spawn_point",
                          "type":"string",
-                         "value":"player_start_from_vorhof_1_1"
+                         "value":"player_start"
                         }],
                  "rotation":0,
                  "type":"doors",

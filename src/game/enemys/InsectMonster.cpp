@@ -83,7 +83,7 @@ namespace enemy
         this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
 
         // 1. Definiere die Standardmaße für einen horizontalen Sweep.
-        float sweep_width = 48.0f;
+        float sweep_width = 32.0f;
         float sweep_height = 48.0f;
         float hitbox_width, hitbox_height;
         Vector2 hitbox_pos;
@@ -92,7 +92,7 @@ namespace enemy
         Vector2 enemy_center = this->Get_Hitbox_Center();
         Vector2 direction = Vector2Normalize({ last_player_position_.x - enemy_center.x, last_player_position_.y - enemy_center.y });
 
-        float offset = 18.0f; // Wie weit vor dem Gegner die Hitbox erscheint.
+        float offset = 12.0f; // Wie weit vor dem Gegner die Hitbox erscheint.
 
         // 3. Bestimme die primäre Angriffsrichtung (horizontal vs. vertikal)
         if (fabs(direction.x) > fabs(direction.y))
