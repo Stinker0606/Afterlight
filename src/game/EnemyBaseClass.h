@@ -9,10 +9,14 @@
 #include <string>
 #include "Collidable.h"
 
+enum class EnemyState { IDLE, CHASING, ATTACKING, DYING };
+
+class Object_Manager;
+
 namespace enemy
 {
     //class Collision_Manager;
-class Enemy_Base_Class : public Collidable , public std::enable_shared_from_this<Enemy_Base_Class>
+    class Enemy_Base_Class : public Collidable
     {
     protected:
 
@@ -26,25 +30,33 @@ class Enemy_Base_Class : public Collidable , public std::enable_shared_from_this
         bool is_Moving;
         Texture2D sprite;
         const char* projectile_sprite_path;
+        void Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time);
+        EnemyState current_state;
+        float attack_animation_timer;
+        Object_Manager& om_ref_;
 
     public:
         Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
-            const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height,
-            float cooldown_duration);
+           const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height,
+           float cooldown_duration, Object_Manager& om);
 
         virtual ~Enemy_Base_Class();
 
-        void Take_Damage(int damage_amount);
-        virtual void Range_Attack();
-        virtual void Melee_Attack();
-        virtual void Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time);
+        // --- KI-Schnittstelle ---
+        virtual void Update_AI(float delta_time, Vector2 player_position) = 0;
 
+        // --- Angriffs-Schnittstellen ---
+        virtual void Melee_Attack() = 0;
+        virtual void Range_Attack() = 0;
+
+        // --- Öffentliche Methoden ---
+        void Take_Damage(int damage_amount);
         int Get_Health() const { return enemy_Health; }
         int Get_Damage() const { return enemy_Damage; }
         int Get_Movement_Speed(){return enemy_Movement_Speed;};
 
+        // --- Von Collidable geerbte Methoden ---
         Collision_Type Get_Collision_Type() const override { return Collision_Type::ENEMY; }
-
         void Tick(float delta_time) override;
         void On_Collision(std::shared_ptr<Collidable> other) override;
         void Draw() override;

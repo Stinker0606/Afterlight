@@ -142,7 +142,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/Clion code\/Afterlight\/assets\/Tiled\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
+         "source":"..\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
         }],
  "tilewidth":32,
  "type":"map",

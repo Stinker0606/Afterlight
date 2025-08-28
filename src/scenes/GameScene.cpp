@@ -1,3 +1,4 @@
+/*
 #include "GameScene.h"
 #include <memory>
 #include <string>
@@ -9,7 +10,7 @@
 #include "Renderer.h"
 #include "SpriteAnimated.h"
 
-#include "../game/PlayerClassOne.h"
+#include "../game/PlayerClass.h"
 #include "../core/CollisionManager.h"
 
 using namespace std::string_literals;
@@ -17,7 +18,7 @@ using namespace std::string_literals;
 game::scenes::GameScene::GameScene()
 {
     dtm.Start();
-    this->sp_mp=std::make_shared<Player_Class_One>(sp,objectManager);
+    this->sp_mp=std::make_shared<PlayerClass>(sp,objectManager);
     objectManager.AddObject(sp_mp);
     cam=std::make_shared<Cam>(sp_mp);
     screen.LoadGameObjects(objectManager);
@@ -53,13 +54,13 @@ void game::scenes::GameScene::Update()
 void game::scenes::GameScene::Draw()
 {
     BeginDrawing();
-    ClearBackground(WHITE);
+    ClearBackground((Color){ 0, 32, 36, 255 });
     screen.Draw_Level(this->cam, false);
     BeginMode2D(cam->cam);
 
     for (int i = 0; i < objectManager.managed_objects.size(); ++i) {
         objectManager.managed_objects[i]->Draw();
     }
-
     screen.Draw_Level(this->cam, true);
 }
+*/

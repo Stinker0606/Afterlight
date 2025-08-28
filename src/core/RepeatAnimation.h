@@ -20,8 +20,14 @@ class RepeatAnimation {
     RepeatAnimation(Vector2,const char*,int,int);
         void Next_Frame();
         void First_Frame();
-        void Draw_Current_Frame(Vector2);
 
+    /**
+     * @brief Zeichnet den aktuellen Frame der Animation an einer Position.
+     * @brief Akzeptiert eine Tint-Farbe für visuelle Effekte wie Hit-Feedback.
+     * @param pos Die Position, an der gezeichnet werden soll.
+     * @param tint Die Farbe, mit der das Sprite getönt werden soll (Standard ist WHITE).
+     */
+    void Draw_Current_Frame(Vector2 pos, Color tint = WHITE);
 };
 
 

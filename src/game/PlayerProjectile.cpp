@@ -1,23 +1,37 @@
-//
-// Created by Manza on 7/4/2025.
-//
-
 #include "PlayerProjectile.h"
 
-namespace game {
+#include "AssetManager.h"
+#include "EnemyBaseClass.h"
+#include "CollisionResponse.h"
+#include "raymath.h"
+
+namespace game
+{
     // Konstruktor
-    Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, int damage, const char* sprite_path)
-            : position(start_position),
-              is_active(true),
-              damage(damage) {
+Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, int damage, Facing_Direction facing_dir)
+    : position(start_position),
+      is_active(true),
+      damage(damage),
+      lifetime(game::Config::player_Projectile_Lifetime),
+      facing_direction(facing_dir)
+    {
+        this->velocity.x = direction.x * game::Config::player_Projectile_Speed;
+        this->velocity.y = direction.y * game::Config::player_Projectile_Speed;
 
-        // Die endgültige Geschwindigkeit wird aus Richtung und Speed berechnet
-        this->velocity.x = direction.x * game::Config::player_Class_One_Projectile_Speed;
-        this->velocity.y = direction.y * game::Config::player_Class_One_Projectile_Speed;
+        // Wähle das korrekte Sprite basierend auf der Blickrichtung
+        const char* sprite_path = game::Config::kPlayerProjectileSprite;
+        this->sprite = AssetManager::GetInstance().Load(sprite_path);
 
-        // Lädt die Textur und erstellt die Hitbox basierend auf der Texturgröße
-        this->sprite = LoadTexture(sprite_path);
-        this->hitbox = { position.x, position.y, (float)this->sprite.width, (float)this->sprite.height };
+        // Berechne die Rotation des Sprites aus dem Richtungsvektor
+        this->rotation = atan2f(direction.y, direction.x) * RAD2DEG;
+
+        // Erstelle die Hitbox
+        this->hitbox = {
+            position.x - game::Config::player_Projectile_Hitbox_Width / 2.0f,
+            position.y - game::Config::player_Projectile_Hitbox_Height / 2.0f,
+            (float)game::Config::player_Projectile_Hitbox_Width,
+            (float)game::Config::player_Projectile_Hitbox_Height
+        };
     }
 
     // Destruktor
@@ -28,22 +42,41 @@ namespace game {
     }
 
     // Tick
-    void Player_Projectile::Tick(float delta_time) {
-        if (!is_active) return; // Inaktive Projektile werden nicht bewegt
+    void Player_Projectile::Tick(float delta_time)
+    {
+        if (!is_active) return;
 
-        // Bewegt das Projektil
+        lifetime -= delta_time;
+        if (lifetime <= 0.0f) {
+            this->is_active = false;
+            this->Mark_For_Destruction();
+            return;
+        }
+
         position.x += velocity.x * delta_time;
         position.y += velocity.y * delta_time;
 
-        // Aktualisiert die Hitbox-Position damit sie mitwandert
-        hitbox.x = position.x;
-        hitbox.y = position.y;
+        // Aktualisiere die Hitbox-Position
+        hitbox.x = position.x - hitbox.width / 2.0f;
+        hitbox.y = position.y - hitbox.height / 2.0f;
     }
 
     // Draw
     void Player_Projectile::Draw() {
-        if (!is_active) return; // Inaktive Projektile werden nicht gezeichnet
-        DrawTextureV(sprite, position, WHITE);
+        if (!is_active) return;
+        DrawTexturePro(
+            sprite,
+            (Rectangle){ 0, 0, (float)sprite.width, (float)sprite.height },
+            (Rectangle){ position.x, position.y, (float)sprite.width, (float)sprite.height },
+            (Vector2){ (float)sprite.width / 2, (float)sprite.height / 2 },
+            rotation,
+            WHITE
+        );
+    if (game::Config::kDebugShowHitboxes)
+        {
+        // --- DEBUG: ZEICHNE DIE HITBOX  ---
+        DrawRectangleLinesEx(this->hitbox, 1.0f, RED);
+        }
     }
 
 
@@ -55,9 +88,38 @@ namespace game {
 
     // On_Collision: Definiert was passiert wenn das Projektil etwas trifft
     void Player_Projectile::On_Collision(std::shared_ptr<Collidable> other) {
-        // Wenn es eine Wand oder einen Gegner trifft wird es inaktiv
-        if (other->Get_Collision_Type() == Collision_Type::WALL || other->Get_Collision_Type() == Collision_Type::ENEMY) {
-            is_active = false;
+        // Ignoriere die Kollision, wenn das Projektil bereits inaktiv ist.
+        if (!is_active) return;
+
+        Collision_Type other_type = other->Get_Collision_Type();
+
+        // Wir verwenden einen Switch, um klar zu definieren, womit das Projektil kollidieren soll.
+        switch (other_type)
+        {
+            // FÄLLE, IN DENEN DAS PROJEKTIL ZERSTÖRT WIRD:
+            case Collision_Type::ENEMY:
+            case Collision_Type::ENEMY_SPAWNER:
+            case Collision_Type::WALL:
+            // Hier können später `movWall`, `breakWall` etc. einfach hinzugefügt werden.
+            {
+                /// Füge dem Gegner Schaden zu, falls es einer ist.
+                if (other_type == Collision_Type::ENEMY) {
+                    if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(other)) {
+                        enemy->Take_Damage(this->damage);
+                    }
+                }
+                // Zerstöre das Projektil.
+                is_active = false;
+                this->Mark_For_Destruction();
+                break;
+            }
+
+            // FÄLLE, DIE IGNORIERT WERDEN:
+            default:
+            {
+                // Tue nichts.
+                break;
+            }
         }
     }
 }

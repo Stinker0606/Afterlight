@@ -2,9 +2,11 @@
 
 #include "Texture2d.h"
 
+#include "AssetManager.h"
+
 game::core::Texture2D::Texture2D(const char *filename) {
     // @todo Error handling needed
-    this->texture_ = LoadTexture(filename);
+    this->texture_ = AssetManager::GetInstance().Load(filename);
 }
 
 game::core::Texture2D::~Texture2D() {
