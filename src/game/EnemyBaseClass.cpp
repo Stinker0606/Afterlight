@@ -21,6 +21,7 @@ Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_
     {
     hitbox = {start_position.x, start_position.y, (float)width, (float)height};
     sprite = AssetManager::GetInstance().Load(sprite_path);
+    this->is_animation_active_ = false;
     }
 
 Enemy_Base_Class::~Enemy_Base_Class()
@@ -175,6 +176,11 @@ void Enemy_Base_Class::Draw()
 
     // Setze den Cooldown zurück, damit der Gegner nicht sofort wieder angreift.
     this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
+}
+
+    void Enemy_Base_Class::Set_Animation_Active(bool is_active)
+{
+    this->is_animation_active_ = is_active;
 }
 
 }

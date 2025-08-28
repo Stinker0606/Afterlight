@@ -1,0 +1,26 @@
+#pragma once
+#include <string>
+
+// ===================================================== !ONLY FOR MAD! ================================================
+
+namespace game {
+    class AudioConfig {
+    public:
+        // =============================================== AUDIO PFADE =================================================
+
+        // --- MUSIK ---
+        inline static const std::string kMenuMusicPath = "assets/audio/music/menu_background.ogg";
+        inline static const std::string kIngameMusicPath = "assets/audio/music/ingame_background.ogg";
+
+        // --- SOUND EFFEKTE (für später) ---
+        // inline static const std::string kPlayerShootSfxPath = "assets/audio/sfx/player_shoot.wav";
+
+
+        // =============================================== LAUTSTÄRKE ==================================================
+        // Werte sollten zwischen 0.0f (stumm) and 1.0f (volle Lautstärke) sein.
+
+        inline static constexpr float kMasterVolume = 0.8f;
+        inline static constexpr float kMusicVolume = 0.5f;
+        inline static constexpr float kSfxVolume = 0.9f;
+    };
+}
