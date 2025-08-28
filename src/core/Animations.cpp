@@ -4,8 +4,11 @@
 
 
 #include "Animations.h"
+
+#include "AssetManager.h"
+
 Animations::Animations(Vector2 sprite_size,const char* filename,int FC,int spl) {
-    this->spritesheet= LoadTexture(filename);
+    this->spritesheet = AssetManager::GetInstance().Load(filename);
     this->size=sprite_size;
     this->frame_Count=FC;
     this->sprites_per_line=spl;
