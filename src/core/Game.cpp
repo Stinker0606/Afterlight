@@ -4,6 +4,7 @@
 #include "store.h"
 #include "Stage.h"
 #include "../scenes/MenuScene.h"
+#include "SoundManager.h"
 
 using namespace std::string_literals;
 
@@ -61,6 +62,9 @@ void game::core::Game::Run(const std::string &scene_Name, std::unique_ptr<game::
     {
         if(this->mouse_)
             this->UpdateMousePosition();
+
+        // Aktualisiere die Sound-Streams jeden Frame
+        SoundManager::GetInstance().Update();
 
         // Process input and update current active scene
         game::core::Store::stage->Update();

@@ -4,6 +4,7 @@
 #include "Store.h"
 #include "LevelScene.h"
 #include "AssetManager.h"
+#include "SoundManager.h"
 
 using namespace std::string_literals;
 
@@ -11,6 +12,9 @@ namespace game::scenes
 {
     MenuScene::MenuScene()
     {
+        // Starte die Hauptmenü-Musik
+        SoundManager::GetInstance().PlayMusic("menu_music");
+
         // Lade die Assets über den AssetManager
         logo_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/Afterlight_logo.png");
         selector_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/arrow_ui.png");

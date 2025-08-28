@@ -11,6 +11,7 @@
 #include "scenes/MenuScene.h"
 #include "scenes/LevelScene.h"
 #include "core/Store.h"
+#include "core/SoundManager.h"
 
 using namespace std::string_literals;
 
@@ -24,6 +25,9 @@ int main()
 
     HideCursor();
 
+    // SoundManager initialisieren
+    SoundManager::GetInstance().Init();
+
     // 1. Setze die Start-Map und den Spawnpoint für den Start.
     game::core::Store::next_scene_map = "Tuto_0.json";
     game::core::Store::next_spawn_point = "player_start";
@@ -34,6 +38,9 @@ int main()
 
     // 3. Starte das Spiel mit der MenuScene.
     game.Run("menu"s, std::make_unique<game::scenes::MenuScene>());
+
+    // Alle Sound-Ressourcen am Ende freigeben
+    SoundManager::GetInstance().UnloadAll();
 
     return EXIT_SUCCESS;
 }

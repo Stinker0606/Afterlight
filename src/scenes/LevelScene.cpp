@@ -8,6 +8,8 @@
 #include "../game/Walls.h"
 #include "../game/enemys/enemies_list.h"
 #include "../game/interactables/interact_list.h"
+#include "SoundManager.h"
+#include "MenuScene.h"
 
 using namespace std::string_literals;
 
@@ -15,7 +17,9 @@ namespace game::scenes
 {
     Level1Scene::Level1Scene()
     {
-        // ... (levelScreen.LoadSpecificLevelmap und LoadGameObjects bleiben gleich) ...
+        // Starte die Ingame-Musik
+        SoundManager::GetInstance().PlayMusic("ingame_music");
+
         levelScreen.LoadSpecificLevelmap(game::core::Store::next_scene_map);
         levelScreen.LoadGameObjects(objectManager);
 
@@ -90,12 +94,13 @@ namespace game::scenes
     void Level1Scene::Update()
     {
         // Standard-Engine-Inputs
-/*
-        if (IsKeyPressed(KEY_ESCAPE))
+
+        if (IsKeyPressed(KEY_P))
         {
-            game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
+            game::core::Store::stage->SwitchToNewScene("menu"s, std::make_unique<MenuScene>());
+            return;
         }
-        if (IsKeyPressed(KEY_L)){
+/*        if (IsKeyPressed(KEY_L)){
             ToggleFullscreen();
         }
 */
