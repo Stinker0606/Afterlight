@@ -10,7 +10,7 @@ namespace game {
 
         // --- MUSIK ---
         inline static const std::string kMenuMusicPath = "assets/audio/music/menu_background.ogg";
-        inline static const std::string kIngameMusicPath = "assets/audio/music/ingame_background.ogg";
+        inline static const std::string kIngameMusicPath = "assets/audio/music/ambience lvl 1.mp3";
 
         // --- SOUND EFFEKTE (für später) ---
         // inline static const std::string kPlayerShootSfxPath = "assets/audio/sfx/player_shoot.wav";
@@ -20,7 +20,7 @@ namespace game {
         // Werte sollten zwischen 0.0f (stumm) and 1.0f (volle Lautstärke) sein.
 
         inline static constexpr float kMasterVolume = 0.8f;
-        inline static constexpr float kMusicVolume = 0.5f;
+        inline static constexpr float kMusicVolume = 0.2f;
         inline static constexpr float kSfxVolume = 0.9f;
     };
 }
