@@ -123,6 +123,9 @@ namespace game {
         inline static constexpr float player_Melee_Attack_Anim_Duration = 0.4f; // Dauer der Sweep-Animation
         inline static constexpr float player_Melee_Attack_Cooldown = 6.0f; // Abklingzeit nach einem Sweep
 
+        // Radius in Pixel, in dem sich das Fadenkreuz um den Spieler bewegen kann
+        inline static constexpr float kPlayerAimingRadius = 300.0f;
+
         // ------------------------------------------ PLAYER ANIMATIONS ------------------------------------------------
 
         // Idle

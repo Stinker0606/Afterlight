@@ -1,6 +1,9 @@
 #include "UIManager.h"
 #include "../game/PlayerClass.h"
 #include <string>
+#include "Store.h"
+#include "../config.h.in"
+#include "raymath.h"
 
 UIManager::UIManager()
 {
@@ -11,6 +14,9 @@ UIManager::UIManager()
     score_icon_texture_ = LoadTexture("assets/graphics/ui/UI_Score.png");
     book_icon_texture_ = LoadTexture("assets/graphics/ui/UI_Book.png");
     blessings_icon_texture_ = LoadTexture("assets/graphics/ui/UI_Segen.png");
+
+    // Fadenkreuz des Players
+    reticle_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/reticle2.png");
 
     // Ladet benutzerdefinierte Schriftart.
     pixel_font_ = LoadFont("assets/fonts/PixelOperator.ttf");
@@ -34,7 +40,7 @@ void UIManager::SetPlayer(std::shared_ptr<PlayerClass> player)
     player_ptr_ = player;
 }
 
-void UIManager::DrawUI()
+void UIManager::DrawUI(Camera2D camera)
 {
     if (auto player = player_ptr_.lock())
     {
@@ -99,5 +105,17 @@ void UIManager::DrawUI()
         // Buch
         Vector2 book_pos = { (float)GetScreenWidth() - 190, (float)GetScreenHeight() - 115 };
         DrawTextureEx(book_icon_texture_, book_pos, 0.0f, hp_scale, WHITE);
+
+        // === Fadenkreuz ===
+
+        // 1. Positionen holen
+        Vector2 mouse_pos = game::core::Store::mouse_Position;
+        Vector2 reticle_pos = mouse_pos;
+
+        // 2. Fadenkreuz an der berechneten Position zeichnen
+        // Wir ziehen die halbe Breite/Höhe ab, damit es zentriert ist
+        reticle_pos.x -= reticle_texture_.width / 2.0f;
+        reticle_pos.y -= reticle_texture_.height / 2.0f;
+        DrawTextureV(reticle_texture_, reticle_pos, (Color){ 88, 60, 72, 255 });
     }
 }

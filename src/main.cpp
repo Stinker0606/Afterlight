@@ -22,6 +22,8 @@ int main()
                           game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio,
                           game::Config::kProjectName);
 
+    HideCursor();
+
     // 1. Setze die Start-Map und den Spawnpoint für den Start.
     game::core::Store::next_scene_map = "Swamp_0.json";
     game::core::Store::next_spawn_point = "player_start";

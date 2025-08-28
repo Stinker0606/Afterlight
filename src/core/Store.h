@@ -21,6 +21,9 @@ namespace game::core
         /// @brief The virtual mouse position.
         inline static Vector2 mouse_Position = { };
 
+        /// Die exakte Bildschirm-Position des Fadenkreuzes, berechnet vom UIManager.
+        inline static Vector2 aiming_Position = { };
+
         /// Global game counter. Can be used e.g. for the calculation of animation times.
         inline static long long int ticks = 1;
 

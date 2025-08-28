@@ -268,6 +268,6 @@ namespace game::scenes
         }
         EndMode2D();
         // --- ZEICHNE DIE UI ---
-        uiManager_.DrawUI();
+        uiManager_.DrawUI(sp_cam->cam);
     }
 }

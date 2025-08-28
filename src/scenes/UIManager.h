@@ -14,6 +14,7 @@ private:
     Texture2D score_icon_texture_;
     Texture2D book_icon_texture_;
     Texture2D blessings_icon_texture_;
+    Texture2D reticle_texture_;
 
     // Die benutzerdefinierte Schriftart
     Font pixel_font_;
@@ -27,5 +28,5 @@ public:
     ~UIManager();
 
     void SetPlayer(std::shared_ptr<PlayerClass> player);
-    void DrawUI();
+    void DrawUI(Camera2D camera);
 };

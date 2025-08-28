@@ -367,7 +367,6 @@ void PlayerClass::Tick(float delta_time)
         push_animation_timer -= delta_time;
         if (push_animation_timer <= 0.0f) {
             if (auto locked_block = block_to_push.lock()) {
-                // --- NEUE VORAUSSCHAUENDE PRÜFUNG ---
                 // 1. Berechne, wo der Block nach dem Stoß sein würde.
                 Rectangle future_hitbox = locked_block->Get_Hitbox();
                 future_hitbox.x += push_direction.x * 16.0f;
@@ -375,7 +374,7 @@ void PlayerClass::Tick(float delta_time)
 
                 // 2. Prüfe, ob dieser zukünftige Platz frei ist.
                 bool can_push = true;
-                // KORREKTUR: Benutze den korrekten Member-Pointer 'p_om_'
+                //  Benutze den korrekten Member-Pointer 'p_om_'
                 for (const auto& other_obj : p_om_->managed_objects)
                 {
                     // Ignoriere den Block selbst und den Spieler
@@ -396,7 +395,6 @@ void PlayerClass::Tick(float delta_time)
                 if (can_push) {
                     locked_block->Push(push_direction);
                 }
-                // --- ENDE DER NEUEN LOGIK ---
             }
             player_state = PlayerState::IDLE; // Gehe immer in den Idle-Zustand, egal ob der Push erfolgreich war.
         }
