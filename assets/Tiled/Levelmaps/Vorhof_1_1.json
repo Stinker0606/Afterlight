@@ -14,7 +14,7 @@
             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
-            78, 78, 78, 78, 183, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 63, 63, 63, 63, 63, 63, 63, 79, 79, 78,
+            78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 63, 63, 63, 63, 63, 63, 63, 79, 79, 78,
             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 63, 78, 78, 79, 79, 78, 78, 79, 79, 78,
             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 63, 63, 63, 63, 63, 79, 79, 63, 79, 78, 79, 79, 78,
             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 79, 79, 78, 78, 78, 79, 78, 63, 79, 78, 78, 79, 78,
@@ -84,7 +84,7 @@
             196, 137, 137, 137, 137, 137, 139, 0, 137, 137, 137, 137, 137, 137, 151, 0, 136, 137, 182, 137, 0, 155, 138, 0, 181, 138, 139, 0, 138, 154,
             151, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 151, 0, 151, 0, 166, 0, 0, 0, 0, 166, 0, 0, 0, 0, 169, 245, 0, 154,
             151, 0, 137, 0, 151, 0, 0, 0, 136, 137, 0, 136, 184, 0, 0, 0, 166, 0, 0, 136, 182, 137, 182, 182, 182, 182, 184, 260, 182, 151,
-            151, 0, 0, 136, 214, 139, 0, 137, 151, 0, 0, 151, 0, 0, 136, 182, 184, 0, 136, 184, 0, 0, 0, 0, 0, 0, 0, 260, 0, 154,
+            151, 0, 0, 136, 182, 139, 0, 137, 151, 0, 0, 151, 0, 0, 136, 182, 184, 0, 136, 184, 0, 0, 0, 0, 0, 0, 0, 260, 0, 154,
             151, 0, 137, 184, 0, 151, 0, 0, 166, 0, 0, 0, 0, 0, 166, 0, 0, 0, 166, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 154,
             151, 0, 0, 0, 0, 181, 182, 182, 182, 182, 137, 182, 182, 182, 184, 0, 136, 182, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 154,
             151, 0, 137, 139, 0, 0, 0, 0, 0, 0, 166, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 154,
@@ -108,76 +108,6 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 82, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 355, 0, 0, 0, 0, 0, 0, 0, 0, 0, 355, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 355, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 355, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 355, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 355, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":18,
-         "id":3,
-         "name":"consumables",
-         "opacity":1,
-         "properties":[
-                {
-                 "name":"IsAboveObject",
-                 "type":"bool",
-                 "value":false
-                }],
-         "type":"tilelayer",
-         "visible":true,
-         "width":30,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 81, 0, 0, 81, 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":18,
-         "id":6,
-         "name":"Spawner",
-         "opacity":1,
-         "properties":[
-                {
-                 "name":"IsAboveObject",
-                 "type":"bool",
-                 "value":false
-                }],
-         "type":"tilelayer",
-         "visible":true,
-         "width":30,
-         "x":0,
-         "y":0
-        }, 
-        {
          "draworder":"topdown",
          "id":8,
          "name":"walls",
@@ -185,7 +115,7 @@
                 {
                  "height":577.333333333333,
                  "id":52,
-                 "name":"Wall_1",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -196,7 +126,7 @@
                 {
                  "height":28,
                  "id":55,
-                 "name":"Wall_2",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -207,7 +137,7 @@
                 {
                  "height":32,
                  "id":56,
-                 "name":"Wall_3",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -218,7 +148,7 @@
                 {
                  "height":447.333333333333,
                  "id":57,
-                 "name":"Wall_4",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -229,7 +159,7 @@
                 {
                  "height":9.33333333333333,
                  "id":58,
-                 "name":"Wall_5",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -240,7 +170,7 @@
                 {
                  "height":68.6666666666667,
                  "id":62,
-                 "name":"Wall_9",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -251,7 +181,7 @@
                 {
                  "height":12,
                  "id":63,
-                 "name":"Wall_10",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -262,7 +192,7 @@
                 {
                  "height":29.3333333333333,
                  "id":64,
-                 "name":"Wall_11",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -273,7 +203,7 @@
                 {
                  "height":10.6666666666667,
                  "id":65,
-                 "name":"Wall_12",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -284,7 +214,7 @@
                 {
                  "height":61.3333333333333,
                  "id":67,
-                 "name":"Wall_13",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -295,7 +225,7 @@
                 {
                  "height":282,
                  "id":68,
-                 "name":"Wall_6",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -306,7 +236,7 @@
                 {
                  "height":60,
                  "id":69,
-                 "name":"Wall_7",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -317,7 +247,7 @@
                 {
                  "height":65.3333333333333,
                  "id":70,
-                 "name":"Wall_8",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -328,7 +258,7 @@
                 {
                  "height":11.3333333333333,
                  "id":71,
-                 "name":"Wall_14",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -339,7 +269,7 @@
                 {
                  "height":10.6666666666667,
                  "id":72,
-                 "name":"Wall_15",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -350,7 +280,7 @@
                 {
                  "height":60.6666666666667,
                  "id":73,
-                 "name":"Wall_16",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -361,7 +291,7 @@
                 {
                  "height":10.6666666666667,
                  "id":74,
-                 "name":"Wall_17",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -372,7 +302,7 @@
                 {
                  "height":28,
                  "id":75,
-                 "name":"Wall_18",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -383,7 +313,7 @@
                 {
                  "height":64,
                  "id":76,
-                 "name":"Wall_19",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -394,7 +324,7 @@
                 {
                  "height":9.33333333333334,
                  "id":77,
-                 "name":"Wall_21",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -405,7 +335,7 @@
                 {
                  "height":32.6666666666667,
                  "id":78,
-                 "name":"Wall_20",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -416,7 +346,7 @@
                 {
                  "height":12,
                  "id":79,
-                 "name":"Wall_22",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -427,7 +357,7 @@
                 {
                  "height":10,
                  "id":80,
-                 "name":"Wall_23",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -438,7 +368,7 @@
                 {
                  "height":54.6666666666667,
                  "id":81,
-                 "name":"Wall_24",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -449,7 +379,7 @@
                 {
                  "height":10,
                  "id":83,
-                 "name":"Wall_25",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -460,7 +390,7 @@
                 {
                  "height":51.3333333333333,
                  "id":85,
-                 "name":"Wall_26",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -471,7 +401,7 @@
                 {
                  "height":95.3333333333333,
                  "id":86,
-                 "name":"Wall_27",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -482,7 +412,7 @@
                 {
                  "height":7.33333333333331,
                  "id":87,
-                 "name":"Wall_28",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -493,7 +423,7 @@
                 {
                  "height":10,
                  "id":89,
-                 "name":"Wall_29",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -504,7 +434,7 @@
                 {
                  "height":34,
                  "id":90,
-                 "name":"Wall_30",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -516,7 +446,7 @@
                 {
                  "height":62.6666666666667,
                  "id":91,
-                 "name":"Wall_31",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -527,7 +457,7 @@
                 {
                  "height":13.3333333333333,
                  "id":92,
-                 "name":"Wall_32",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -538,7 +468,7 @@
                 {
                  "height":111.333333333333,
                  "id":93,
-                 "name":"Wall_33",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -549,7 +479,7 @@
                 {
                  "height":9.33333333333334,
                  "id":94,
-                 "name":"Wall_34",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -560,7 +490,7 @@
                 {
                  "height":52.6666666666667,
                  "id":95,
-                 "name":"Wall_35",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -571,7 +501,7 @@
                 {
                  "height":9.33333333333331,
                  "id":96,
-                 "name":"Wall_36",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -582,9 +512,9 @@
                 {
                  "height":84.6666666666666,
                  "id":98,
-                 "name":"Wall_37",
+                 "name":"walls",
                  "rotation":0,
-                 "type":"",
+                 "type":"walls",
                  "visible":true,
                  "width":28,
                  "x":513.333333333333,
@@ -593,7 +523,7 @@
                 {
                  "height":10.6666666666667,
                  "id":99,
-                 "name":"Wall_38",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -604,7 +534,7 @@
                 {
                  "height":52.6666666666666,
                  "id":100,
-                 "name":"Wall_39",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -615,7 +545,7 @@
                 {
                  "height":8.66666666666669,
                  "id":101,
-                 "name":"Wall_40",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -626,7 +556,7 @@
                 {
                  "height":59.3333333333333,
                  "id":102,
-                 "name":"Wall_41",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -637,7 +567,7 @@
                 {
                  "height":8.66666666666669,
                  "id":103,
-                 "name":"Wall_42",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -648,7 +578,7 @@
                 {
                  "height":64,
                  "id":104,
-                 "name":"Wall_43",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -659,7 +589,7 @@
                 {
                  "height":10,
                  "id":105,
-                 "name":"Wall_44",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -670,7 +600,7 @@
                 {
                  "height":8.66666666666669,
                  "id":107,
-                 "name":"Wall_46",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -681,7 +611,7 @@
                 {
                  "height":53.3333333333333,
                  "id":108,
-                 "name":"Wall_45",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -692,7 +622,7 @@
                 {
                  "height":9.33333333333331,
                  "id":109,
-                 "name":"Wall_47",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -703,7 +633,7 @@
                 {
                  "height":50.6666666666667,
                  "id":110,
-                 "name":"Wall_48",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -714,7 +644,7 @@
                 {
                  "height":98,
                  "id":111,
-                 "name":"Wall_49",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -725,7 +655,7 @@
                 {
                  "height":10.6666666666667,
                  "id":112,
-                 "name":"Wall_50",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -736,7 +666,7 @@
                 {
                  "height":8,
                  "id":113,
-                 "name":"Wall_51",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -747,7 +677,7 @@
                 {
                  "height":38,
                  "id":115,
-                 "name":"Wall_53",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -758,7 +688,7 @@
                 {
                  "height":64.6666666666667,
                  "id":117,
-                 "name":"Wall_52",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -769,7 +699,7 @@
                 {
                  "height":7.33333333333337,
                  "id":118,
-                 "name":"Wall_54",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -780,7 +710,7 @@
                 {
                  "height":9.33333333333337,
                  "id":119,
-                 "name":"Wall_55",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -791,7 +721,7 @@
                 {
                  "height":29.3333333333333,
                  "id":120,
-                 "name":"Wall_56",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -802,7 +732,7 @@
                 {
                  "height":8.66666666666663,
                  "id":121,
-                 "name":"Wall_57",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -813,7 +743,7 @@
                 {
                  "height":8.66666666666669,
                  "id":122,
-                 "name":"Wall_58",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -824,7 +754,7 @@
                 {
                  "height":37.3333333333333,
                  "id":124,
-                 "name":"Wall_59",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -835,7 +765,7 @@
                 {
                  "height":7.33333333333337,
                  "id":126,
-                 "name":"Wall_60",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -847,7 +777,7 @@
                 {
                  "height":40,
                  "id":127,
-                 "name":"Wall_61",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -858,7 +788,7 @@
                 {
                  "height":62,
                  "id":128,
-                 "name":"Wall_62",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -869,7 +799,7 @@
                 {
                  "height":98,
                  "id":129,
-                 "name":"Wall_63",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -880,7 +810,7 @@
                 {
                  "height":10,
                  "id":130,
-                 "name":"Wall_64",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -891,7 +821,7 @@
                 {
                  "height":8.66666666666669,
                  "id":131,
-                 "name":"Wall_65",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -902,7 +832,7 @@
                 {
                  "height":8,
                  "id":132,
-                 "name":"Wall_66",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -913,7 +843,7 @@
                 {
                  "height":8.66666666666667,
                  "id":133,
-                 "name":"Wall_67",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
@@ -924,17 +854,110 @@
                 {
                  "height":60.6666666666667,
                  "id":135,
-                 "name":"Wall_68",
+                 "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
                  "width":59.3333333333333,
                  "x":98.6666666666667,
                  "y":10
+                }, 
+                {
+                 "gid":80,
+                 "height":32,
+                 "id":162,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":352,
+                 "y":416
+                }, 
+                {
+                 "gid":80,
+                 "height":32,
+                 "id":163,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":320,
+                 "y":544
+                }, 
+                {
+                 "height":1,
+                 "id":171,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":736,
+                 "y":575
+                }, 
+                {
+                 "gid":64,
+                 "height":32,
+                 "id":177,
+                 "name":"breakWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":480,
+                 "y":320
+                }, 
+                {
+                 "height":61,
+                 "id":189,
+                 "name":"doors",
+                 "properties":[
+                        {
+                         "name":"target_map",
+                         "type":"string",
+                         "value":"\u00dcbergang_1_1.json"
+                        }, 
+                        {
+                         "name":"target_spawn_point",
+                         "type":"string",
+                         "value":"player_start_from_\u00fcbergang_1_1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":12.5,
+                 "x":947,
+                 "y":450.5
+                }, 
+                {
+                 "gid":11,
+                 "height":32,
+                 "id":192,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":896,
+                 "y":480
+                }, 
+                {
+                 "gid":26,
+                 "height":32,
+                 "id":193,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":896,
+                 "y":512
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -944,79 +967,309 @@
          "name":"consumables",
          "objects":[
                 {
-                 "height":20,
-                 "id":136,
-                 "name":"Trank_1",
+                 "gid":82,
+                 "height":32,
+                 "id":178,
+                 "name":"bombCons",
                  "rotation":0,
-                 "type":"healCons",
+                 "type":"",
                  "visible":true,
-                 "width":18.6666666666666,
-                 "x":902.666666666667,
-                 "y":104
+                 "width":32,
+                 "x":704,
+                 "y":64
                 }, 
                 {
-                 "height":22.6666666666667,
-                 "id":137,
-                 "name":"Trank_2",
+                 "gid":355,
+                 "height":32,
+                 "id":179,
+                 "name":"dmgCons",
                  "rotation":0,
-                 "type":"dmgCons",
+                 "type":"",
                  "visible":true,
-                 "width":15.3333333333334,
-                 "x":712.666666666667,
-                 "y":293.333333333333
+                 "width":32,
+                 "x":896,
+                 "y":128
                 }, 
                 {
-                 "height":18.6666666666667,
-                 "id":138,
-                 "name":"Trank_6",
+                 "gid":355,
+                 "height":32,
+                 "id":180,
+                 "name":"dmgCons",
                  "rotation":0,
-                 "type":"healCons",
+                 "type":"",
                  "visible":true,
-                 "width":18,
-                 "x":70.6666666666667,
-                 "y":489.333333333333
+                 "width":32,
+                 "x":704,
+                 "y":320
                 }, 
                 {
-                 "height":22,
-                 "id":139,
-                 "name":"Trank_4",
+                 "gid":355,
+                 "height":32,
+                 "id":181,
+                 "name":"healCons",
                  "rotation":0,
-                 "type":"healCons",
+                 "type":"",
                  "visible":true,
-                 "width":16,
-                 "x":359.333333333333,
-                 "y":294.666666666667
+                 "width":32,
+                 "x":576,
+                 "y":128
                 }, 
                 {
-                 "height":22.6666666666666,
-                 "id":140,
-                 "name":"Trank_5",
+                 "gid":355,
+                 "height":32,
+                 "id":182,
+                 "name":"healCons",
                  "rotation":0,
-                 "type":"dmgCons",
+                 "type":"",
                  "visible":true,
-                 "width":14.6666666666667,
-                 "x":73.3333333333333,
-                 "y":358
+                 "width":32,
+                 "x":64,
+                 "y":512
                 }, 
                 {
-                 "height":23.3333333333333,
-                 "id":141,
-                 "name":"Trank_3",
+                 "gid":355,
+                 "height":32,
+                 "id":183,
+                 "name":"dmgCons",
                  "rotation":0,
-                 "type":"healCons",
+                 "type":"",
                  "visible":true,
-                 "width":13.3333333333334,
-                 "x":584.666666666667,
-                 "y":101.333333333333
+                 "width":32,
+                 "x":64,
+                 "y":384
+                }, 
+                {
+                 "gid":355,
+                 "height":32,
+                 "id":184,
+                 "name":"healCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":352,
+                 "y":320
+                }, 
+                {
+                 "gid":355,
+                 "height":32,
+                 "id":185,
+                 "name":"healCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":416,
+                 "y":320
+                }, 
+                {
+                 "gid":355,
+                 "height":32,
+                 "id":188,
+                 "name":"healCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":480,
+                 "y":544
+                }, 
+                {
+                 "gid":84,
+                 "height":32,
+                 "id":208,
+                 "name":"keyCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":223.333333333333,
+                 "y":160
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":11,
+         "name":"spawner",
+         "objects":[
+                {
+                 "height":23.3333333333333,
+                 "id":194,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":28,
+                 "x":419.333333333333,
+                 "y":164
+                }, 
+                {
+                 "height":24,
+                 "id":195,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":33.3333333333333,
+                 "x":95.3333333333333,
+                 "y":293.333333333333
+                }, 
+                {
+                 "height":20.6666666666667,
+                 "id":196,
+                 "name":"spawn1",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":28.6666666666667,
+                 "x":226.666666666667,
+                 "y":389.333333333333
+                }, 
+                {
+                 "height":22.6666666666666,
+                 "id":197,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32.6666666666667,
+                 "x":130,
+                 "y":390
+                }, 
+                {
+                 "height":20.6666666666667,
+                 "id":198,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":30,
+                 "x":67.3333333333333,
+                 "y":519.333333333333
+                }, 
+                {
+                 "height":21.3333333333334,
+                 "id":199,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":28.6666666666667,
+                 "x":419.333333333333,
+                 "y":516.666666666667
+                }, 
+                {
+                 "height":29.3333333333333,
+                 "id":200,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":30.6666666666666,
+                 "x":386,
+                 "y":383.333333333333
+                }, 
+                {
+                 "height":22,
+                 "id":201,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":27.3333333333333,
+                 "x":580,
+                 "y":325.333333333333
+                }, 
+                {
+                 "height":18.6666666666667,
+                 "id":202,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":26,
+                 "x":484,
+                 "y":39.3333333333333
+                }, 
+                {
+                 "height":25.3333333333333,
+                 "id":203,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":28,
+                 "x":548,
+                 "y":35.3333333333333
+                }, 
+                {
+                 "height":20.6666666666666,
+                 "id":204,
+                 "name":"spawn1",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":29.3333333333333,
+                 "x":804,
+                 "y":294
+                }, 
+                {
+                 "height":25.3333333333333,
+                 "id":205,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":29.3333333333333,
+                 "x":802,
+                 "y":228
+                }, 
+                {
+                 "height":26,
+                 "id":206,
+                 "name":"spawn2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":30.6666666666667,
+                 "x":801.333333333333,
+                 "y":160.666666666667
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":12,
+         "name":"Interactibles",
+         "objects":[
+                {
+                 "height":30,
+                 "id":172,
+                 "name":"player_start_from_vorhof_1_1",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":33.5,
+                 "x":767,
+                 "y":480.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":11,
- "nextobjectid":160,
+ "nextlayerid":13,
+ "nextobjectid":211,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -1024,7 +1277,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Afterlight_All_Level_Tileset.json"
+         "source":"..\/Clion code\/Afterlight\/assets\/Tiled\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
         }],
  "tilewidth":32,
  "type":"map",
