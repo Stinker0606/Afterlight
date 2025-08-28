@@ -107,6 +107,7 @@ namespace game::scenes
         if (auto player = sp_player.lock())
         {
             Vector2 player_position = player->Get_Player_Center();
+            Vector2 player_center = player->Get_Player_Center();
 
             // --- INTELLIGENTE UPDATE-SCHLEIFE ---
             for (const auto& obj : objectManager.managed_objects)
@@ -116,6 +117,18 @@ namespace game::scenes
                 // 1. Versuche, das Objekt in einen Gegner umzuwandeln
                 if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(obj))
                 {
+                    // Prüfe die Distanz zum Spieler, um die Animation zu aktivieren/deaktivieren
+                    Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                    float distance = Vector2Distance(player_center, obj_center);
+
+                    // Wenn der Gegner im sichtbaren Radius ist, schalte die Animation an.
+                    if (distance <= game::Config::kFogNoVisibilityRadius) {
+                        enemy->Set_Animation_Active(true);
+                    }
+                    // Sonst schalte sie aus.
+                    else {
+                        enemy->Set_Animation_Active(false);
+                    }
                     // 2. Rufe die spezifische KI jedes Gegners auf, ohne seinen Typ zu kennen!
                     enemy->Update_AI(dtm.Get_Dt(), player_position);
                 }
@@ -129,7 +142,6 @@ namespace game::scenes
             if (player->Should_Place_Bomb())
             {
                 // Platziere die Bombe auf dem Grid, auf dem der Spieler steht
-                Vector2 player_center = player->Get_Player_Center();
                 Vector2 bomb_pos = {
                     floorf(player_center.x / 32.0f) * 32.0f,
                     floorf(player_center.y / 32.0f) * 32.0f

@@ -31,7 +31,18 @@ void RepeatAnimation::Next_Frame() {
     }
 }
 void RepeatAnimation::Draw_Current_Frame(Vector2 pos, Color tint) {
-    pos.x=pos.x-this->size.x/2;
-    pos.y=pos.y-this->size.y/2;
-    DrawTextureRec(spritesheet, target, pos, tint);
+    Vector2 origin = { this->size.x / 2, this->size.y / 2 };
+    Rectangle dest = { pos.x, pos.y, this->size.x, this->size.y };
+
+    // --- ZEICHENLOGIK ---
+    BeginBlendMode(BLEND_ALPHA);
+    DrawTexturePro(
+        this->spritesheet,  // Die Quell-Textur (das Spritesheet)
+        this->target,       // Der Quell-Ausschnitt (der aktuelle Frame)
+        dest,               // Das Ziel-Rechteck auf dem Bildschirm
+        origin,             // Der Rotations- und Skalierungs-Ursprung (die Mitte)
+        0.0f,               // Keine Rotation
+        tint                // Deine Tint-Farbe mit der korrekten Transparenz
+    );
+    EndBlendMode();
 }

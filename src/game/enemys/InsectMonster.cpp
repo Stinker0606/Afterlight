@@ -174,8 +174,17 @@ namespace enemy
                     this->hitbox.x - game::EnemyConfig::kInsectMonster_visual_offset.x,
                     this->hitbox.y - game::EnemyConfig::kInsectMonster_visual_offset.y
                 };
-                p_current_animation_->Draw_Current_Frame(draw_pos, Fade(WHITE, this->visibility_alpha));
-                p_current_animation_->Next_Frame();
+                Color tint = { 255, 255, 255, (unsigned char)(this->visibility_alpha * 255.0f) };
+                p_current_animation_->Draw_Current_Frame(draw_pos, tint);
+
+                if (this->is_animation_active_) {
+                    // Spiele die Animation nur ab, wenn der Schalter an ist.
+                    p_current_animation_->Next_Frame();
+                } else
+                {
+                    // Ansonsten setze sie auf den Startframe zurück.
+                    p_current_animation_->First_Frame();
+                }
             }
         }
         else
