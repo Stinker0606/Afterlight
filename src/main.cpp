@@ -25,7 +25,7 @@ int main()
     HideCursor();
 
     // 1. Setze die Start-Map und den Spawnpoint für den Start.
-    game::core::Store::next_scene_map = "Swamp_0.json";
+    game::core::Store::next_scene_map = "Tuto_0.json";
     game::core::Store::next_spawn_point = "player_start";
 
     // 2. ERSTELLE DEN SPIELER EINMALIG.
