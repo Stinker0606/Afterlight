@@ -112,7 +112,7 @@ namespace game {
 
         // Ranged Attack (Throw)
         inline static constexpr float player_Projectile_Speed = 80.0; // Projectile Geschwindigkeit
-        inline static constexpr float player_Ranged_Attack_Anim_Duration = 0.5f; // Dauer der Wurfanimation in Sekunden
+        inline static constexpr float player_Ranged_Attack_Anim_Duration = 6.6f; // Dauer der Wurfanimation in Sekunden
         inline static constexpr float player_Ranged_Attack_Cooldown = 4.5f; // Abklingzeit nach einem Wurf
         inline static constexpr float player_Projectile_Lifetime = 12.0f; // Lebensdauer in Sekunden
         inline static constexpr int player_Projectile_Hitbox_Width = 16; // Projectile Hitbox
@@ -120,7 +120,7 @@ namespace game {
         inline static constexpr const char* kPlayerProjectileSprite = "assets/graphics/projectiles/player/Spear.png";
 
         // Melee Attack (Sweep)
-        inline static constexpr float player_Melee_Attack_Anim_Duration = 0.4f; // Dauer der Sweep-Animation
+        inline static constexpr float player_Melee_Attack_Anim_Duration = 6.6f; // Dauer der Sweep-Animation
         inline static constexpr float player_Melee_Attack_Cooldown = 6.0f; // Abklingzeit nach einem Sweep
 
         // Radius in Pixel, in dem sich das Fadenkreuz um den Spieler bewegen kann
@@ -229,21 +229,21 @@ namespace game {
         inline static constexpr int player_Throw_Back_Left_Frames_Per_Line = 63;
 
         // Attack Sweep (Melee)
-        inline static constexpr const char* player_Sweep_Front_Path = "PLACEHOLDER";
-        inline static constexpr int player_Sweep_Front_Frames = 999;
-        inline static constexpr int player_Sweep_Front_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Sweep_Front_Path = "assets/graphics/animations/player/spear_sweep/IMG_3941.PNG";
+        inline static constexpr int player_Sweep_Front_Frames = 50;
+        inline static constexpr int player_Sweep_Front_Frames_Per_Line = 10;
 
-        inline static constexpr const char* player_Sweep_Back_Path = "PLACEHOLDER";
-        inline static constexpr int player_Sweep_Back_Frames = 999;
-        inline static constexpr int player_Sweep_Back_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Sweep_Back_Path = "assets/graphics/animations/player/spear_sweep/IMG_3943.PNG";
+        inline static constexpr int player_Sweep_Back_Frames = 50;
+        inline static constexpr int player_Sweep_Back_Frames_Per_Line = 10;
 
-        inline static constexpr const char* player_Sweep_Left_Path = "PLACEHOLDER";
-        inline static constexpr int player_Sweep_Left_Frames = 999;
-        inline static constexpr int player_Sweep_Left_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Sweep_Left_Path = "assets/graphics/animations/player/spear_sweep/IMG_3944.PNG";
+        inline static constexpr int player_Sweep_Left_Frames = 20;
+        inline static constexpr int player_Sweep_Left_Frames_Per_Line = 10;
 
-        inline static constexpr const char* player_Sweep_Right_Path = "PLACEHOLDER";
-        inline static constexpr int player_Sweep_Right_Frames = 999;
-        inline static constexpr int player_Sweep_Right_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Sweep_Right_Path = "assets/graphics/animations/player/spear_sweep/IMG_3940.PNG";
+        inline static constexpr int player_Sweep_Right_Frames = 50;
+        inline static constexpr int player_Sweep_Right_Frames_Per_Line = 10;
 
         // Pushing
         inline static constexpr const char* player_Push_Front_Path = "assets/graphics/animations/player/push/MC_Push_Front.png";
