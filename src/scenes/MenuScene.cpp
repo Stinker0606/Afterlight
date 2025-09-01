@@ -5,6 +5,7 @@
 #include "LevelScene.h"
 #include "AssetManager.h"
 #include "SoundManager.h"
+#include "../config_audio.h.in"
 
 using namespace std::string_literals;
 
@@ -45,6 +46,7 @@ namespace game::scenes
         // Navigation mit Pfeiltasten - angepasst, um nicht im Kreis zu springen
         if (IsKeyPressed(KEY_DOWN))
         {
+            SoundManager::GetInstance().PlaySfx("ui_navigate");
             if (selected_item_index_ < menu_items_.size() - 1)
             {
                 selected_item_index_++;
@@ -52,6 +54,7 @@ namespace game::scenes
         }
         if (IsKeyPressed(KEY_UP))
         {
+            SoundManager::GetInstance().PlaySfx("ui_navigate");
             if (selected_item_index_ > 0)
             {
                 selected_item_index_--;
@@ -61,6 +64,7 @@ namespace game::scenes
         // Auswahl mit ENTER
         if (IsKeyPressed(KEY_ENTER))
         {
+            SoundManager::GetInstance().PlaySfx("ui_select");
             switch (selected_item_index_)
             {
                 case 0: // Play

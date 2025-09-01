@@ -12,7 +12,55 @@ void SoundManager::Init() {
     music_cache_["menu_music"] = LoadMusicStream(game::AudioConfig::kMenuMusicPath.c_str());
     music_cache_["ingame_music"] = LoadMusicStream(game::AudioConfig::kIngameMusicPath.c_str());
 
-    std::cout << "SoundManager initialisiert und Musik geladen." << std::endl;
+    // Lade die Soundeffekte aus der Config in den Cache
+    // UI
+    sfx_cache_["ui_navigate"] = LoadSound(game::AudioConfig::kUIMenuNavigateSfxPath.c_str());
+    sfx_cache_["ui_select"] = LoadSound(game::AudioConfig::kUIMenuSelectSfxPath.c_str());
+    // Spieler
+    sfx_cache_["player_walk"] = LoadSound(game::AudioConfig::kPlayerWalkSfxPath.c_str());
+    sfx_cache_["player_hit"] = LoadSound(game::AudioConfig::kPlayerHitSfxPath.c_str());
+    sfx_cache_["player_death"] = LoadSound(game::AudioConfig::kPlayerDeathSfxPath.c_str());
+    sfx_cache_["player_throw"] = LoadSound(game::AudioConfig::kPlayerThrowSfxPath.c_str());
+    sfx_cache_["player_sweep"] = LoadSound(game::AudioConfig::kPlayerSweepSfxPath.c_str());
+    sfx_cache_["player_push_block"] = LoadSound(game::AudioConfig::kPlayerPushBlockSfxPath.c_str());
+    sfx_cache_["player_place_bomb"] = LoadSound(game::AudioConfig::kPlayerPlaceBombSfxPath.c_str());
+    // Gegner
+    sfx_cache_["enemy_insect_hit"] = LoadSound(game::AudioConfig::kEnemyInsectHitSfxPath.c_str());
+    sfx_cache_["enemy_insect_death"] = LoadSound(game::AudioConfig::kEnemyInsectDeathSfxPath.c_str());
+    sfx_cache_["enemy_insect_attack"] = LoadSound(game::AudioConfig::kEnemyInsectAttackSfxPath.c_str());
+    sfx_cache_["enemy_sniper_hit"] = LoadSound(game::AudioConfig::kEnemySniperHitSfxPath.c_str());
+    sfx_cache_["enemy_sniper_death"] = LoadSound(game::AudioConfig::kEnemySniperDeathSfxPath.c_str());
+    sfx_cache_["enemy_sniper_shoot"] = LoadSound(game::AudioConfig::kEnemySniperShootSfxPath.c_str());
+    // Projektile
+    sfx_cache_["projectile_hit"] = LoadSound(game::AudioConfig::kPlayerProjectileHitSfxPath.c_str());
+    // Items & Welt
+    sfx_cache_["item_pickup_heal"] = LoadSound(game::AudioConfig::kItemPickupHealthSfxPath.c_str());
+    sfx_cache_["item_pickup_key"] = LoadSound(game::AudioConfig::kItemPickupKeySfxPath.c_str());
+    sfx_cache_["item_pickup_bomb"] = LoadSound(game::AudioConfig::kItemPickupBombSfxPath.c_str());
+    sfx_cache_["item_pickup_damage"] = LoadSound(game::AudioConfig::kItemPickupDamageSfxPath.c_str());
+    sfx_cache_["bomb_explosion"] = LoadSound(game::AudioConfig::kBombExplosionSfxPath.c_str());
+    sfx_cache_["wall_break"] = LoadSound(game::AudioConfig::kWorldWallBreakSfxPath.c_str());
+    sfx_cache_["keywall_open"] = LoadSound(game::AudioConfig::kWorldKeywallOpenSfxPath.c_str());
+    sfx_cache_["door_transition"] = LoadSound(game::AudioConfig::kWorldDoorTransitionSfxPath.c_str());
+
+    std::cout << "SoundManager initialisiert und alle Sounds geladen." << std::endl;
+}
+
+// Spielt einen Soundeffekt ab (mit Limit)
+void SoundManager::PlaySfx(const std::string& name, int max_instances) {
+    if (sfx_cache_.find(name) == sfx_cache_.end()) {
+        std::cerr << "FEHLER: Soundeffekt '" << name << "' nicht gefunden!" << std::endl;
+        return;
+    }
+
+    // Prüfe, ob das Limit für diesen Sound in diesem Frame erreicht ist
+    if (sfx_play_counts_this_frame_[name] >= max_instances) {
+        return; // Limit erreicht, spiele den Sound nicht noch einmal
+    }
+
+    // Spiele den Sound ab und erhöhe den Zähler für diesen Frame
+    PlaySound(sfx_cache_.at(name));
+    sfx_play_counts_this_frame_[name]++;
 }
 
 void SoundManager::PlayMusic(const std::string& name) {
@@ -40,6 +88,8 @@ void SoundManager::Update() {
     if (current_music_ != nullptr) {
         UpdateMusicStream(*current_music_);
     }
+    // Setze die Zähler für den nächsten Frame zurück
+    sfx_play_counts_this_frame_.clear();
 }
 
 void SoundManager::UnloadAll() {
@@ -47,5 +97,11 @@ void SoundManager::UnloadAll() {
         UnloadMusicStream(music);
     }
     music_cache_.clear();
+
+    for (auto const& [name, sound] : sfx_cache_) {
+        UnloadSound(sound);
+    }
+    sfx_cache_.clear();
+
     std::cout << "Alle Sounds und Musikstücke entladen." << std::endl;
 }

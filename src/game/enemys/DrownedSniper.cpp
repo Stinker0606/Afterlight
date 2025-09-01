@@ -1,10 +1,12 @@
 #include "DrownedSniper.h"
-#include "../../config_enemies.h.in"
+#include "../config_enemies.h.in"
 #include "../FacingDirection.h"
 #include "raymath.h"
 #include "../EnemyProjectile.h"
-#include "../../core/Object_Manager.h"
+#include "../core/Object_Manager.h"
 #include "raylib.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -121,8 +123,16 @@ namespace enemy
             this->enemy_Damage,
             game::EnemyConfig::kDrownedSniperProjectileSpriteUp
         );
-
+        SoundManager::GetInstance().PlaySfx("enemy_sniper_shoot");
         om_ref_.AddObject(projectile);
+    }
+
+    void DrownedSniper::PlayHitSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_sniper_hit");
+    }
+
+    void DrownedSniper::PlayDeathSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_sniper_death");
     }
 
     void DrownedSniper::Draw()

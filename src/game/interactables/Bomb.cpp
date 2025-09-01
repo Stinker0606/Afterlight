@@ -3,6 +3,8 @@
 #include "../../scenes/LevelScene.h"
 #include "../../config.h.in"
 #include "AssetManager.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 Bomb::Bomb(Vector2 position, game::scenes::Level1Scene* scene, Object_Manager& om)
     : scene_context(scene), om_ref_(om)
@@ -49,6 +51,8 @@ void Bomb::Draw()
 
 void Bomb::Detonate()
 {
+    SoundManager::GetInstance().PlaySfx("bomb_explosion");
+
     if (scene_context) {
         // Erzeuge eine Explosion an der Position der Bombe
         auto explosion = std::make_shared<Explosion>(Vector2{hitbox.x, hitbox.y}, om_ref_);

@@ -35,10 +35,12 @@ Enemy_Base_Class::~Enemy_Base_Class()
     if (this->enemy_Health <= 0) return;
 
     enemy_Health -= damage_amount;
+    this->PlayHitSound(); // Spiele den Hit-Sound
 
     if (this->enemy_Health <= 0)
     {
         // Logik für die Punktevergabe
+        this->PlayDeathSound(); // Spiele den Todes-Sound
         if (game::core::Store::player) {
             game::core::Store::player->Add_Score(this->enemy_Value);
         }

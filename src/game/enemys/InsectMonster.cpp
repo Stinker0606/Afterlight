@@ -1,10 +1,12 @@
 #include "InsectMonster.h"
-#include "../../core/Object_Manager.h"
+#include "../core/Object_Manager.h"
 #include "../interactables/MeleeHitbox.h"
 #include "raymath.h"
-#include "../../config_enemies.h.in"
+#include "../config_enemies.h.in"
 #include "../FacingDirection.h"
 #include "raylib.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -126,13 +128,24 @@ namespace enemy
             Collision_Type::ENEMY // WICHTIG: Der Besitzer ist ein Gegner
         );
 
-        // 5. Füge die Hitbox der Welt hinzu.
+        // 5. Sound wird gespielt.
+        SoundManager::GetInstance().PlaySfx("enemy_insect_attack");
+
+        // 6. Füge die Hitbox der Welt hinzu.
         om_ref_.AddObject(sweep_hitbox);
     }
 
     // hat kein Range Attack
     void Insect_Monster::Range_Attack()
     {
+    }
+
+    void Insect_Monster::PlayHitSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_insect_hit");
+    }
+
+    void Insect_Monster::PlayDeathSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_insect_death");
     }
 
     void Insect_Monster::Draw()

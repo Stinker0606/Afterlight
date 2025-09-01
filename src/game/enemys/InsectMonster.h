@@ -39,7 +39,7 @@ namespace enemy
         RepeatAnimation anim_melee_right_;
     public:
         /**
-         * @brief Konstruktor für das Insektenmonster.
+         * @brief Konstruktor für den Enemy.
          * @param start_position Die Position, an der der Gegner gespawnt wird.
          */
         Insect_Monster(Vector2 start_position, Object_Manager& om, bool use_fog = true);
@@ -53,7 +53,7 @@ namespace enemy
          */
         void Update_AI(float delta_time, Vector2 player_position) override;
 
-        //  Wir implementieren die Angriffsfunktionen
+        // Angriffsfunktionen
         void Melee_Attack() override;
         void Range_Attack() override;
 
@@ -62,5 +62,9 @@ namespace enemy
          * To Do: Hier wird später die Animationslogik implementiert.
          */
         void Draw() override;
+
+        // Soundfunktionen
+        void PlayHitSound() override;
+        void PlayDeathSound() override;
     };
 }
