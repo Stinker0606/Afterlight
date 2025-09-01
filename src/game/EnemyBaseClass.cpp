@@ -21,6 +21,7 @@ Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_
     {
     hitbox = {start_position.x, start_position.y, (float)width, (float)height};
     sprite = AssetManager::GetInstance().Load(sprite_path);
+    this->is_animation_active_ = false;
     }
 
 Enemy_Base_Class::~Enemy_Base_Class()
@@ -34,10 +35,12 @@ Enemy_Base_Class::~Enemy_Base_Class()
     if (this->enemy_Health <= 0) return;
 
     enemy_Health -= damage_amount;
+    this->PlayHitSound(); // Spiele den Hit-Sound
 
     if (this->enemy_Health <= 0)
     {
         // Logik für die Punktevergabe
+        this->PlayDeathSound(); // Spiele den Todes-Sound
         if (game::core::Store::player) {
             game::core::Store::player->Add_Score(this->enemy_Value);
         }
@@ -175,6 +178,21 @@ void Enemy_Base_Class::Draw()
 
     // Setze den Cooldown zurück, damit der Gegner nicht sofort wieder angreift.
     this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
+}
+
+    void Enemy_Base_Class::Set_Animation_Active(bool is_active)
+{
+    this->is_animation_active_ = is_active;
+}
+
+void Enemy_Base_Class::PlayHitSound() {
+    // Diese Basis-Implementierung ist absichtlich leer.
+    // Die spezifischen Gegner-Klassen (Insect, Sniper, etc.)
+    // überschreiben diese Methode mit ihrem eigenen Sound.
+}
+
+void Enemy_Base_Class::PlayDeathSound() {
+    // Diese Basis-Implementierung ist ebenfalls leer.
 }
 
 }

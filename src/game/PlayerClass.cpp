@@ -5,6 +5,8 @@
 #include <string>
 #include "../game/interactables/interact_list.h"
 #include "interactables/MeleeHitbox.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 using namespace std::string_literals;
 
@@ -89,6 +91,8 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
     {
         if (auto door = std::dynamic_pointer_cast<Door>(other))
         {
+            SoundManager::GetInstance().PlaySfx("door_transition");
+
             // 1. Schreibe die Zieldaten in den globalen Store.
             game::core::Store::next_scene_map = door->Get_Target_Map();
             game::core::Store::next_spawn_point = door->Get_Target_Spawn_Point();
@@ -107,6 +111,8 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
     {
         if (this->Get_Key_Count() > 0)
         {
+            SoundManager::GetInstance().PlaySfx("keywall_open");
+
             this->Use_Key(1);
             // Definiere den Radius und markiere alle Wände in der Nähe zur Zerstörung.
             float search_radius = 72.0f;
@@ -130,6 +136,8 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
     // 1. Die Kollision mit einem Push_Block ist ein Sonderfall, da sie den Spieler-Zustand ändert.
     if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
     {
+        SoundManager::GetInstance().PlaySfx("player_push_block");
+
         player_state = PlayerState::PUSHING;
         push_animation_timer = game::Config::player_Push_Anim_Duration;
         block_to_push = push_block;
@@ -153,6 +161,7 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
 
 void PlayerClass::Ranged_Attack()
 {
+    SoundManager::GetInstance().PlaySfx("player_throw");
     // Nur ausführen wenn die Kamera existiert
     if (auto cam_ptr = sp_camera.lock())
     {
@@ -198,6 +207,7 @@ void PlayerClass::Ranged_Attack()
 
 void PlayerClass::Melee_Attack()
 {
+    SoundManager::GetInstance().PlaySfx("player_sweep");
     float sweep_breite = 16.0f; // Die lange Seite des Angriffs
     float sweep_hoehe = 48.0f;  // Die kurze Seite des Angriffs
     float hitbox_width, hitbox_height;
@@ -304,11 +314,19 @@ void PlayerClass::Tick(float delta_time)
         bomb_cooldown_ -= delta_time;
     }
 
-    // Deine Zustands-Logik (angepasst an if/else if)
+    // --- ZUSTANDS-LOGIK ---
     if (player_state == PlayerState::IDLE || player_state == PlayerState::MOVING)
     {
+        // Setze den Zustand basierend darauf, ob sich der Spieler bewegt hat
         player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
 
+        if (is_Moving)
+        {
+            // Spielt den Lauf-Sound nur einmal pro Frame, um Übersteuerung zu verhindern.
+            SoundManager::GetInstance().PlaySfx("player_walk", 1);
+        }
+
+        // Prüfe auf Spieler-Aktionen
         if (IsMouseButtonPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_RANGED;
             attack_animation_timer = game::Config::player_Ranged_Attack_Anim_Duration;
@@ -521,12 +539,14 @@ void PlayerClass::Take_Damage(int damage)
 
     // LÖSE FEEDBACK NUR BEI SCHADEN AUS
     if (damage > 0) {
+        SoundManager::GetInstance().PlaySfx("player_hit");
         hit_feedback_timer = 0.2f;
         tint_color = (Color){ 88, 60, 72, 255 };
     }
 
     // Stelle sicher, dass die HP nicht unter 0 fallen.
     if (this->player_Health < 0) {
+        SoundManager::GetInstance().PlaySfx("player_death");
         this->player_Health = 0;
         // Hier könntest du später den DYING-Zustand auslösen
         // player_state = PlayerState::DYING;
@@ -563,6 +583,7 @@ int PlayerClass::Get_Bomb_Count() const
 
 void PlayerClass::Use_Bomb()
 {
+    SoundManager::GetInstance().PlaySfx("player_place_bomb");
     bomb_count_--;
     should_place_bomb_ = true; // Signal für die Szene setzen
     bomb_cooldown_ = game::Config::kBombPlacementCooldown; // Cooldown zurücksetzen

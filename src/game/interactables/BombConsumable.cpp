@@ -1,5 +1,7 @@
 #include "BombConsumable.h"
 #include "../PlayerClass.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 BombConsumable::BombConsumable(Vector2 position, int amount, Texture2D tileset, Rectangle source_rect)
     : bomb_amount(amount), tileset_texture(tileset), texture_source_rect(source_rect)
@@ -19,6 +21,8 @@ void BombConsumable::On_Collision(std::shared_ptr<Collidable> other)
 {
     if (other->Get_Collision_Type() == Collision_Type::PLAYER)
     {
+        SoundManager::GetInstance().PlaySfx("item_pickup_bomb");
+
         if (auto player = std::dynamic_pointer_cast<PlayerClass>(other))
         {
             player->Add_Bomb(this->bomb_amount);

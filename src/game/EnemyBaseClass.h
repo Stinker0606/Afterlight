@@ -34,6 +34,7 @@ namespace enemy
         EnemyState current_state;
         float attack_animation_timer;
         Object_Manager& om_ref_;
+        bool is_animation_active_;
 
     public:
         Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
@@ -48,9 +49,12 @@ namespace enemy
         // --- Angriffs-Schnittstellen ---
         virtual void Melee_Attack() = 0;
         virtual void Range_Attack() = 0;
+        void Set_Animation_Active(bool is_active);
 
         // --- Öffentliche Methoden ---
         void Take_Damage(int damage_amount);
+        virtual void PlayHitSound();
+        virtual void PlayDeathSound();
         int Get_Health() const { return enemy_Health; }
         int Get_Damage() const { return enemy_Damage; }
         int Get_Movement_Speed(){return enemy_Movement_Speed;};

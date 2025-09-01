@@ -1,0 +1,63 @@
+#pragma once
+#include <string>
+
+// ===================================================== !ONLY FOR MAD! ================================================
+
+namespace game {
+    class AudioConfig {
+    public:
+        // =============================================== AUDIO PFADE =================================================
+
+        // --- MUSIK ---
+        inline static const std::string kMenuMusicPath = "assets/audio/music/menu_background.ogg";
+        inline static const std::string kIngameMusicPath = "assets/audio/music/ambience lvl 1.mp3";
+
+        // --- SOUND EFFEKTE (SFX) ---
+
+        // -- UI & MENÜ --
+        inline static const std::string kUIMenuNavigateSfxPath = "assets/audio/sfx/ui_navigate.wav";
+        inline static const std::string kUIMenuSelectSfxPath = "assets/audio/sfx/ui_select.wav";
+
+        // -- SPIELER --
+        inline static const std::string kPlayerWalkSfxPath = "assets/audio/sfx/Player/footsteps_grass.mp3";
+        inline static const std::string kPlayerHitSfxPath = "assets/audio/sfx/player_hit.wav";
+        inline static const std::string kPlayerDeathSfxPath = "assets/audio/sfx/player_death.wav";
+        inline static const std::string kPlayerThrowSfxPath = "assets/audio/sfx/player_throw_whoosh.wav";
+        inline static const std::string kPlayerSweepSfxPath = "assets/audio/sfx/player_sweep_slash.wav";
+        inline static const std::string kPlayerPushBlockSfxPath = "assets/audio/sfx/player_push_block.wav";
+        inline static const std::string kPlayerPlaceBombSfxPath = "assets/audio/sfx/player_place_bomb.wav";
+
+        // -- GEGNER: INSEKTENMONSTER --
+        inline static const std::string kEnemyInsectHitSfxPath = "assets/audio/sfx/enemy_insect_hit.wav";
+        inline static const std::string kEnemyInsectDeathSfxPath = "assets/audio/sfx/enemy_insect_death.wav";
+        inline static const std::string kEnemyInsectAttackSfxPath = "assets/audio/sfx/enemy_insect_attack.wav";
+
+        // -- GEGNER: DROWNED SNIPER --
+        inline static const std::string kEnemySniperHitSfxPath = "assets/audio/sfx/enemy_sniper_hit.wav";
+        inline static const std::string kEnemySniperDeathSfxPath = "assets/audio/sfx/enemy_sniper_death.wav";
+        inline static const std::string kEnemySniperShootSfxPath = "assets/audio/sfx/enemy_sniper_shoot.wav";
+
+        // -- PROJEKTILE --
+        inline static const std::string kPlayerProjectileFlySfxPath = "assets/audio/sfx/projectile_spear_fly.wav";
+        inline static const std::string kPlayerProjectileHitSfxPath = "assets/audio/sfx/projectile_spear_hit.wav";
+        inline static const std::string kEnemyProjectileFlySfxPath = "assets/audio/sfx/projectile_enemy_fly.wav";
+        inline static const std::string kEnemyProjectileHitSfxPath = "assets/audio/sfx/projectile_enemy_hit.wav";
+
+        // -- INTERAKTIONEN & WELT --
+        inline static const std::string kItemPickupHealthSfxPath = "assets/audio/sfx/item_pickup_heal.wav";
+        inline static const std::string kItemPickupKeySfxPath = "assets/audio/sfx/item_pickup_key.wav";
+        inline static const std::string kItemPickupBombSfxPath = "assets/audio/sfx/item_pickup_bomb.wav";
+        inline static const std::string kItemPickupDamageSfxPath = "assets/audio/sfx/item_pickup_damage.wav";
+        inline static const std::string kBombExplosionSfxPath = "assets/audio/sfx/Items/Bombe_explosion.mp3";
+        inline static const std::string kWorldWallBreakSfxPath = "assets/audio/sfx/world_wall_break.wav";
+        inline static const std::string kWorldKeywallOpenSfxPath = "assets/audio/sfx/world_keywall_open.wav";
+        inline static const std::string kWorldDoorTransitionSfxPath = "assets/audio/sfx/world_door_transition.wav";
+
+        // =============================================== LAUTSTÄRKE ==================================================
+        // Werte sollten zwischen 0.0f (stumm) and 1.0f (volle Lautstärke) sein.
+
+        inline static constexpr float kMasterVolume = 0.8f;
+        inline static constexpr float kMusicVolume = 0.2f;
+        inline static constexpr float kSfxVolume = 0.9f;
+    };
+}

@@ -42,13 +42,33 @@ namespace enemy
         Vector2 last_player_position_;
 
     public:
+        /**
+         * @brief Konstruktor für den Enemy.
+         * @param start_position Die Position, an der der Gegner gespawnt wird.
+         */
         DrownedSniper(Vector2 start_position, Object_Manager& om, bool use_fog = true);
         ~DrownedSniper() override = default;
 
+        /**
+         * @brief Die Update-Methode wird jeden Frame aufgerufen.
+         * Hier wird die KI gesteuert (z.B. wann der Gegner angreift).
+         * @param delta_time Die Zeit seit dem letzten Frame.
+         * @param player_position Die aktuelle Position des Spielers.
+         */
         void Update_AI(float delta_time, Vector2 player_position) override;
+
+        // Angriffsfunktionen
         void Melee_Attack() override {}; // Hat keinen Nahkampfangriff
         void Range_Attack() override;
 
+        /**
+         * @brief Zeichnet das Insektenmonster.
+         * To Do: Hier wird später die Animationslogik implementiert.
+         */
         void Draw() override;
+
+        // Soundfunktionen
+        void PlayHitSound() override;
+        void PlayDeathSound() override;
     };
 }

@@ -1,10 +1,12 @@
 #include "DrownedSniper.h"
-#include "../../config_enemies.h.in"
+#include "../config_enemies.h.in"
 #include "../FacingDirection.h"
 #include "raymath.h"
 #include "../EnemyProjectile.h"
-#include "../../core/Object_Manager.h"
+#include "../core/Object_Manager.h"
 #include "raylib.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -121,8 +123,16 @@ namespace enemy
             this->enemy_Damage,
             game::EnemyConfig::kDrownedSniperProjectileSpriteUp
         );
-
+        SoundManager::GetInstance().PlaySfx("enemy_sniper_shoot");
         om_ref_.AddObject(projectile);
+    }
+
+    void DrownedSniper::PlayHitSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_sniper_hit");
+    }
+
+    void DrownedSniper::PlayDeathSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_sniper_death");
     }
 
     void DrownedSniper::Draw()
@@ -179,12 +189,21 @@ namespace enemy
                     this->hitbox.x - game::EnemyConfig::kDrownedSniper_visual_offset.x,
                     this->hitbox.y - game::EnemyConfig::kDrownedSniper_visual_offset.y
                 };
-                p_current_animation_->Draw_Current_Frame(draw_pos, Fade(WHITE, this->visibility_alpha));
+                Color tint = { 255, 255, 255, (unsigned char)(this->visibility_alpha * 255.0f) };
+                p_current_animation_->Draw_Current_Frame(draw_pos, tint);
 
-                if(anim_state_ == AnimationState::RELOADING && this->attack_Cooldown_Timer <= 0.0f) {
-                    p_current_animation_->First_Frame(); // Bleibe auf dem ersten Frame, während gezielt wird
-                } else {
-                    p_current_animation_->Next_Frame(); // Spiele die Animation normal ab
+                if (this->is_animation_active_) {
+                    // Wenn der Sniper zielt, bleibt er auf dem ersten Frame stehen.
+                    if(anim_state_ == AnimationState::RELOADING && this->attack_Cooldown_Timer <= 0.0f) {
+                        p_current_animation_->First_Frame();
+                    } else {
+                        // Ansonsten spiele die Animation normal ab.
+                        p_current_animation_->Next_Frame();
+                    }
+                }
+                else {
+                    // Wenn der Schalter aus ist, setze die Animation auf den Startframe zurück.
+                    p_current_animation_->First_Frame();
                 }
             }
         }

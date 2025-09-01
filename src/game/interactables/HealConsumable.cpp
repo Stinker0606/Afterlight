@@ -1,5 +1,7 @@
 #include "HealConsumable.h"
 #include "../PlayerClass.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 HealConsumable::HealConsumable(Vector2 position, int healAmount, Texture2D tileset, Rectangle source_rect)
     : heal_amount(healAmount), tileset_texture(tileset), texture_source_rect(source_rect)
@@ -24,6 +26,8 @@ void HealConsumable::On_Collision(std::shared_ptr<Collidable> other)
 {
     if (other->Get_Collision_Type() == Collision_Type::PLAYER)
     {
+        SoundManager::GetInstance().PlaySfx("item_pickup_heal");
+
         // Wir casten zur PlayerClass, um Heal() aufzurufen
         if (auto player = std::dynamic_pointer_cast<PlayerClass>(other))
         {

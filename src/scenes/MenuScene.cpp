@@ -4,6 +4,8 @@
 #include "Store.h"
 #include "LevelScene.h"
 #include "AssetManager.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 using namespace std::string_literals;
 
@@ -11,6 +13,9 @@ namespace game::scenes
 {
     MenuScene::MenuScene()
     {
+        // Starte die Hauptmenü-Musik
+        SoundManager::GetInstance().PlayMusic("menu_music");
+
         // Lade die Assets über den AssetManager
         logo_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/Afterlight_logo.png");
         selector_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/arrow_ui.png");
@@ -41,6 +46,7 @@ namespace game::scenes
         // Navigation mit Pfeiltasten - angepasst, um nicht im Kreis zu springen
         if (IsKeyPressed(KEY_DOWN))
         {
+            SoundManager::GetInstance().PlaySfx("ui_navigate");
             if (selected_item_index_ < menu_items_.size() - 1)
             {
                 selected_item_index_++;
@@ -48,6 +54,7 @@ namespace game::scenes
         }
         if (IsKeyPressed(KEY_UP))
         {
+            SoundManager::GetInstance().PlaySfx("ui_navigate");
             if (selected_item_index_ > 0)
             {
                 selected_item_index_--;
@@ -57,6 +64,7 @@ namespace game::scenes
         // Auswahl mit ENTER
         if (IsKeyPressed(KEY_ENTER))
         {
+            SoundManager::GetInstance().PlaySfx("ui_select");
             switch (selected_item_index_)
             {
                 case 0: // Play

@@ -12,6 +12,7 @@
 
 // --- EINGÄNGE (Vom Vertex-Shader) ---
 in vec2 fragTexCoord;
+in vec4 fragColor; // <-- NEUE ZEILE: Empfängt die "tint"-Farbe aus C++
 
 // --- UNIFORMS (Parameter von der CPU) ---
 uniform sampler2D texture0;
@@ -68,28 +69,26 @@ void main()
     // --- PIXEL-TEXTUR FÜR DEN NEBEL ---
     float pixelSize = 4.0;
     vec2 pixelGridPos = floor(pixelPos / pixelSize);
-
-    // HIER IST DIE ÄNDERUNG:
-    // Wir definieren einen festen Vektor für die Richtung (oben rechts -> unten links ist (-1, 1))
-    // und multiplizieren ihn mit einer sehr kleinen, zeitbasierten Geschwindigkeit.
     vec2 pixelMovement = vec2(-1.0, 1.0) * time * 0.000005;
     float pixelNoise = rand(pixelGridPos + pixelMovement);
-
-    // Modifiziere die Nebelfarbe basierend auf diesem Rauschen.
     fogColor.rgb -= pixelNoise * 0.06;
 
-
     // 5. Mische die Originalfarbe mit der (jetzt texturierten) Nebelfarbe.
-    vec4 colorWithFog = mix(originalColor, fogColor, fogFactor);
+    // WICHTIG: Multipliziere die Originalfarbe mit der Tint-Farbe.
+    vec4 finalOriginalColor = originalColor * fragColor;
+    vec4 colorWithFog = mix(finalOriginalColor, fogColor, fogFactor);
 
     // 6. Selektive Transparenz (Fading) basierend auf der Maske.
-    float finalAlpha = originalColor.a;
+    // HIER IST DIE ÄNDERUNG:
+    // Wir nehmen die Transparenz aus der multiplizierten Farbe,
+    // nicht nur aus dem Original.
+    float finalAlpha = finalOriginalColor.a;
     if (maskValue > 0.0)
     {
         float startFadeRadius = 50.0;
         float endFadeRadius = 300.0;
         float distanceAlpha = 1.0 - smoothstep(startFadeRadius, endFadeRadius, dist);
-        finalAlpha = originalColor.a * distanceAlpha;
+        finalAlpha = finalOriginalColor.a * distanceAlpha;
     }
 
     // 7. Setze die endgültige Farbe zusammen.

@@ -73,7 +73,7 @@ void UIManager::DrawUI(Camera2D camera)
         draw_text_with_outline(pixel_font_bold_, health_text, { health_pos.x + 30, health_pos.y + 85 }, 30, 1, BLACK);
 
         // Score
-        Vector2 score_pos = { 10, 155 };
+        Vector2 score_pos = { 16, 155 };
         DrawTextureEx(score_icon_texture_, score_pos, 0.0f, hp_scale, WHITE);
         std::string score_text = std::to_string(player->Get_Score());
         draw_text_with_outline(pixel_font_, score_text, { score_pos.x + 55, score_pos.y + 5 }, 28, 1, BLACK);

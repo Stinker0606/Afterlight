@@ -8,6 +8,8 @@
 #include "../game/Walls.h"
 #include "../game/enemys/enemies_list.h"
 #include "../game/interactables/interact_list.h"
+#include "SoundManager.h"
+#include "MenuScene.h"
 
 using namespace std::string_literals;
 
@@ -15,7 +17,9 @@ namespace game::scenes
 {
     Level1Scene::Level1Scene()
     {
-        // ... (levelScreen.LoadSpecificLevelmap und LoadGameObjects bleiben gleich) ...
+        // Starte die Ingame-Musik
+        SoundManager::GetInstance().PlayMusic("ingame_music");
+
         levelScreen.LoadSpecificLevelmap(game::core::Store::next_scene_map);
         levelScreen.LoadGameObjects(objectManager);
 
@@ -90,18 +94,20 @@ namespace game::scenes
     void Level1Scene::Update()
     {
         // Standard-Engine-Inputs
-/*
-        if (IsKeyPressed(KEY_ESCAPE))
+
+        if (IsKeyPressed(KEY_P))
         {
-            game::core::Store::stage->SwitchToNewScene("pause"s, std::make_unique<PauseScene>());
+            game::core::Store::stage->SwitchToNewScene("menu"s, std::make_unique<MenuScene>());
+            return;
         }
-        if (IsKeyPressed(KEY_L)){
+/*        if (IsKeyPressed(KEY_L)){
             ToggleFullscreen();
         }
 */
         if (auto player = sp_player.lock())
         {
             Vector2 player_position = player->Get_Player_Center();
+            Vector2 player_center = player->Get_Player_Center();
 
             // --- INTELLIGENTE UPDATE-SCHLEIFE ---
             for (const auto& obj : objectManager.managed_objects)
@@ -111,6 +117,18 @@ namespace game::scenes
                 // 1. Versuche, das Objekt in einen Gegner umzuwandeln
                 if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(obj))
                 {
+                    // Prüfe die Distanz zum Spieler, um die Animation zu aktivieren/deaktivieren
+                    Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                    float distance = Vector2Distance(player_center, obj_center);
+
+                    // Wenn der Gegner im sichtbaren Radius ist, schalte die Animation an.
+                    if (distance <= 99999999) {
+                        enemy->Set_Animation_Active(true);
+                    }
+                    // Sonst schalte sie aus.
+                    else {
+                        enemy->Set_Animation_Active(false);
+                    }
                     // 2. Rufe die spezifische KI jedes Gegners auf, ohne seinen Typ zu kennen!
                     enemy->Update_AI(dtm.Get_Dt(), player_position);
                 }
@@ -124,7 +142,6 @@ namespace game::scenes
             if (player->Should_Place_Bomb())
             {
                 // Platziere die Bombe auf dem Grid, auf dem der Spieler steht
-                Vector2 player_center = player->Get_Player_Center();
                 Vector2 bomb_pos = {
                     floorf(player_center.x / 32.0f) * 32.0f,
                     floorf(player_center.y / 32.0f) * 32.0f

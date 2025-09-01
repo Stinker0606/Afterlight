@@ -1,10 +1,12 @@
 #include "InsectMonster.h"
-#include "../../core/Object_Manager.h"
+#include "../core/Object_Manager.h"
 #include "../interactables/MeleeHitbox.h"
 #include "raymath.h"
-#include "../../config_enemies.h.in"
+#include "../config_enemies.h.in"
 #include "../FacingDirection.h"
 #include "raylib.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -83,7 +85,7 @@ namespace enemy
         this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
 
         // 1. Definiere die Standardmaße für einen horizontalen Sweep.
-        float sweep_width = 48.0f;
+        float sweep_width = 32.0f;
         float sweep_height = 48.0f;
         float hitbox_width, hitbox_height;
         Vector2 hitbox_pos;
@@ -92,7 +94,7 @@ namespace enemy
         Vector2 enemy_center = this->Get_Hitbox_Center();
         Vector2 direction = Vector2Normalize({ last_player_position_.x - enemy_center.x, last_player_position_.y - enemy_center.y });
 
-        float offset = 18.0f; // Wie weit vor dem Gegner die Hitbox erscheint.
+        float offset = 12.0f; // Wie weit vor dem Gegner die Hitbox erscheint.
 
         // 3. Bestimme die primäre Angriffsrichtung (horizontal vs. vertikal)
         if (fabs(direction.x) > fabs(direction.y))
@@ -126,13 +128,24 @@ namespace enemy
             Collision_Type::ENEMY // WICHTIG: Der Besitzer ist ein Gegner
         );
 
-        // 5. Füge die Hitbox der Welt hinzu.
+        // 5. Sound wird gespielt.
+        SoundManager::GetInstance().PlaySfx("enemy_insect_attack");
+
+        // 6. Füge die Hitbox der Welt hinzu.
         om_ref_.AddObject(sweep_hitbox);
     }
 
     // hat kein Range Attack
     void Insect_Monster::Range_Attack()
     {
+    }
+
+    void Insect_Monster::PlayHitSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_insect_hit");
+    }
+
+    void Insect_Monster::PlayDeathSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_insect_death");
     }
 
     void Insect_Monster::Draw()
@@ -174,8 +187,17 @@ namespace enemy
                     this->hitbox.x - game::EnemyConfig::kInsectMonster_visual_offset.x,
                     this->hitbox.y - game::EnemyConfig::kInsectMonster_visual_offset.y
                 };
-                p_current_animation_->Draw_Current_Frame(draw_pos, Fade(WHITE, this->visibility_alpha));
-                p_current_animation_->Next_Frame();
+                Color tint = { 255, 255, 255, (unsigned char)(this->visibility_alpha * 255.0f) };
+                p_current_animation_->Draw_Current_Frame(draw_pos, tint);
+
+                if (this->is_animation_active_) {
+                    // Spiele die Animation nur ab, wenn der Schalter an ist.
+                    p_current_animation_->Next_Frame();
+                } else
+                {
+                    // Ansonsten setze sie auf den Startframe zurück.
+                    p_current_animation_->First_Frame();
+                }
             }
         }
         else
