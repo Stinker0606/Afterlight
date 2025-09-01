@@ -58,6 +58,6 @@ namespace game {
 
         inline static constexpr float kMasterVolume = 0.8f;
         inline static constexpr float kMusicVolume = 0.2f;
-        inline static constexpr float kSfxVolume = 0.9f;
+        inline static constexpr float kSfxVolume = 0.4f;
     };
 }
