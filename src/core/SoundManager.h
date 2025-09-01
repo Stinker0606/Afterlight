@@ -14,8 +14,9 @@ public:
     // Spielt ein geladenes Musikstück in einer Endlosschleife ab.
     void PlayMusic(const std::string& name);
 
-    // Stoppt die aktuell spielende Musik.
+    // Stoppt den aktuellen Sound.
     void StopCurrentMusic();
+    void StopSfx(const std::string& name);
 
     // Methode für Soundeffekte
     void PlaySfx(const std::string& name, int max_instances = 3); // MAD FRAGEN
