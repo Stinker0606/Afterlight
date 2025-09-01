@@ -69,7 +69,7 @@ namespace game {
 // WICHTIG -> 6.0f sind 1 SEKUNDE
 
         // Heal Item
-        inline static constexpr int kItemHealConsDefaultAmount = 25; // Standard-Heilmenge - PLACEHOLDER WERT
+        inline static constexpr int kItemHealConsDefaultAmount = 100; // Standard-Heilmenge - PLACEHOLDER WERT
 
         // DMG Item
         inline static constexpr int kItemDmgConsDefaultAmount = 10;  // Standard-Schadensmenge - PLACEHOLDER WERT
@@ -100,7 +100,7 @@ namespace game {
         inline static constexpr Vector2 player_animation_size = {100, 100}; // NICHT ÄNDERN!
 
         // Player Stats
-        inline static constexpr int player_Max_Health = 600;
+        inline static constexpr int player_Max_Health = 801;
         inline static constexpr float player_Movement_Speed = 18.0;
         inline static constexpr int player_Melee_Damage = 100;
         inline static constexpr int player_Projectile_Damage = 75;

@@ -59,14 +59,14 @@ namespace game {
         // Werte sollten zwischen 0.0f (stumm) and 1.0f (volle Lautstärke) sein.
 
         inline static constexpr float kMasterVolume = 0.8f;
-        inline static constexpr float kMusicVolume = 0.2f;
-        inline static constexpr float kSfxVolume = 0.4f;
+        inline static constexpr float kMusicVolume = 0.3f;
+        inline static constexpr float kSfxVolume = 0.2f;
 
         // ============================================= SOUND SETTINGS ================================================
         //Der Wert (X.X f) bestimmt den Rhythmus.
         // Ein höherer Wert bedeutet eine größere Pause zwischen den Schritten.
 
-        inline static constexpr float kWalk_Sound_Timer = 4.2f;
+        inline static constexpr float kWalk_Sound_Timer = 4.6f;
 
     };
 }
