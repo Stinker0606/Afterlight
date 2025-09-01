@@ -185,4 +185,14 @@ void Enemy_Base_Class::Draw()
     this->is_animation_active_ = is_active;
 }
 
+void Enemy_Base_Class::PlayHitSound() {
+    // Diese Basis-Implementierung ist absichtlich leer.
+    // Die spezifischen Gegner-Klassen (Insect, Sniper, etc.)
+    // überschreiben diese Methode mit ihrem eigenen Sound.
+}
+
+void Enemy_Base_Class::PlayDeathSound() {
+    // Diese Basis-Implementierung ist ebenfalls leer.
+}
+
 }
