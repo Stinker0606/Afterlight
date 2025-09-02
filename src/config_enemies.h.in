@@ -405,6 +405,20 @@ namespace game {
 
         // ------------------------------------------------ VORHOF -----------------------------------------------------
 
+        // ========================================= ENEMY ANIMATION TIMINGS ===========================================
+        // Jeder Wert gibt an, wie viele Ticks (Frames) ein Animationsbild angezeigt wird.
+        // Bei 60 FPS sind 6 Ticks = 0.1 Sekunden.
+        // =============================================================================================================
+
+        // -- DROWNED SNIPER --
+        // Reload (9 Frames): Ein gleichmäßiger Ladevorgang ohne lange Pause.
+        inline static const std::vector<int> kDrownedSniperReloadTimings = { 8, 8, 9, 9, 10, 10, 12, 12, 15 };
+
+        // Attack (12 Frames): Zuerst langsam, der Schuss (Frame 5) ist sehr schnell, dann klingt die Animation langsam aus.
+        inline static const std::vector<int> kDrownedSniperAttackTimings = { 8, 7, 6, 5, 4, 3, 5, 6, 7, 8, 10, 12 };
+
+        // Death (10 Frames): Beginnt langsam, wird in der Mitte schneller und endet mit einer langen Pause am Boden.
+        inline static const std::vector<int> kDrownedSniperDeathTimings = { 8, 6, 5, 4, 4, 5, 6, 8, 10, 60 };
 
     };
 }

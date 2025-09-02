@@ -44,8 +44,8 @@ namespace game {
 // ----------------------------------------------- IMPORTANT SETTINGS --------------------------------------------------
 
         // NEBEL SETTINGS - NICHT ÄNDERN !
-        inline static constexpr float kFogFullVisibilityRadius = 50.0; // Innerhalb dieses Radius ist alles 100% sichtbar - useFog
-        inline static constexpr float kFogNoVisibilityRadius = 85.0;   // Außerhalb dieses Radius ist alles 0% sichtbar - useFog
+        inline static constexpr float kFogFullVisibilityRadius = 1.0; // Innerhalb dieses Radius ist alles 100% sichtbar - useFog
+        inline static constexpr float kFogNoVisibilityRadius = 135.0;   // Außerhalb dieses Radius ist alles 0% sichtbar - useFog
         inline static constexpr float kFogPlayerCenterOffsetY = -15.0; // Wert verschiebt den Kreis
 
         // Cam Settings

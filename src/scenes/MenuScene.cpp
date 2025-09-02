@@ -44,7 +44,7 @@ namespace game::scenes
     void MenuScene::Update()
     {
         // Navigation mit Pfeiltasten - angepasst, um nicht im Kreis zu springen
-        if (IsKeyPressed(KEY_DOWN))
+        if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
         {
             SoundManager::GetInstance().PlaySfx("ui_navigate");
             if (selected_item_index_ < menu_items_.size() - 1)
@@ -52,7 +52,7 @@ namespace game::scenes
                 selected_item_index_++;
             }
         }
-        if (IsKeyPressed(KEY_UP))
+        if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
         {
             SoundManager::GetInstance().PlaySfx("ui_navigate");
             if (selected_item_index_ > 0)
