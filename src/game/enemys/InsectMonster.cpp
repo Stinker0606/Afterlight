@@ -28,54 +28,66 @@ namespace enemy
             game::EnemyConfig::kInsectMonsterHitboxHeight,
             game::EnemyConfig::kInsectMonsterAttackCooldown
             , om ),
-            anim_fly_front_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyFrontPath, game::EnemyConfig::kInsectMonsterFlyFrontFrames, game::EnemyConfig::kInsectMonsterFlyFrontFramesPerLine),
-            anim_fly_back_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyBackPath, game::EnemyConfig::kInsectMonsterFlyBackFrames, game::EnemyConfig::kInsectMonsterFlyBackFramesPerLine),
-            anim_fly_left_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyLeftPath, game::EnemyConfig::kInsectMonsterFlyLeftFrames, game::EnemyConfig::kInsectMonsterFlyLeftFramesPerLine),
-            anim_fly_right_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyRightPath, game::EnemyConfig::kInsectMonsterFlyRightFrames, game::EnemyConfig::kInsectMonsterFlyRightFramesPerLine),
-            anim_death_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterDeathPath, game::EnemyConfig::kInsectMonsterDeathFrames, game::EnemyConfig::kInsectMonsterDeathFramesPerLine),
-            anim_melee_front_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeFrontPath, game::EnemyConfig::kInsectMonsterMeleeFrontFrames, game::EnemyConfig::kInsectMonsterMeleeFrontFramesPerLine),
-            anim_melee_back_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeBackPath, game::EnemyConfig::kInsectMonsterMeleeBackFrames, game::EnemyConfig::kInsectMonsterMeleeBackFramesPerLine),
-            anim_melee_left_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeLeftPath, game::EnemyConfig::kInsectMonsterMeleeLeftFrames, game::EnemyConfig::kInsectMonsterMeleeLeftFramesPerLine),
-            anim_melee_right_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeRightPath, game::EnemyConfig::kInsectMonsterMeleeRightFrames, game::EnemyConfig::kInsectMonsterMeleeRightFramesPerLine),
-            attack_animation_timer(0.0f)
-    {
+            anim_fly_front_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyFrontPath, game::EnemyConfig::kInsectMonsterFlyFrontFrames, game::EnemyConfig::kInsectMonsterFlyFrontFramesPerLine, game::EnemyConfig::kInsectMonsterHoverTimings, true),
+            anim_fly_back_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyBackPath, game::EnemyConfig::kInsectMonsterFlyBackFrames, game::EnemyConfig::kInsectMonsterFlyBackFramesPerLine, game::EnemyConfig::kInsectMonsterHoverTimings, true),
+            anim_fly_left_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyLeftPath, game::EnemyConfig::kInsectMonsterFlyLeftFrames, game::EnemyConfig::kInsectMonsterFlyLeftFramesPerLine, game::EnemyConfig::kInsectMonsterHoverTimings, true),
+            anim_fly_right_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterFlyRightPath, game::EnemyConfig::kInsectMonsterFlyRightFrames, game::EnemyConfig::kInsectMonsterFlyRightFramesPerLine, game::EnemyConfig::kInsectMonsterHoverTimings, true),
+            anim_death_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterDeathPath, game::EnemyConfig::kInsectMonsterDeathFrames, game::EnemyConfig::kInsectMonsterDeathFramesPerLine, game::EnemyConfig::kInsectMonsterDeathTimings, false),
+            anim_melee_front_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeFrontPath, game::EnemyConfig::kInsectMonsterMeleeFrontFrames, game::EnemyConfig::kInsectMonsterMeleeFrontFramesPerLine, game::EnemyConfig::kInsectMonsterAttackTimings, false),
+            anim_melee_back_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeBackPath, game::EnemyConfig::kInsectMonsterMeleeBackFrames, game::EnemyConfig::kInsectMonsterMeleeBackFramesPerLine, game::EnemyConfig::kInsectMonsterAttackTimings, false),
+            anim_melee_left_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeLeftPath, game::EnemyConfig::kInsectMonsterMeleeLeftFrames, game::EnemyConfig::kInsectMonsterMeleeLeftFramesPerLine, game::EnemyConfig::kInsectMonsterAttackTimings, false),
+            anim_melee_right_(game::EnemyConfig::kInsectMonsterAnimSize, game::EnemyConfig::kInsectMonsterMeleeRightPath, game::EnemyConfig::kInsectMonsterMeleeRightFrames, game::EnemyConfig::kInsectMonsterMeleeRightFramesPerLine, game::EnemyConfig::kInsectMonsterAttackTimings, false)
+        {
         this->useFog = true;
         this->anim_state_ = AnimationState::FLYING; // Startzustand
         this->p_current_animation_ = &anim_fly_front_; // Standard-Animation
+        this->melee_hitbox_spawned_ = false;
     }
 
     void Insect_Monster::Update_AI(float delta_time, Vector2 player_position)
     {
-        // Wenn der Gegner tot ist, mache nichts mehr.
-        if (anim_state_ == AnimationState::DYING) return;
-
-        // Prüfe, ob der Gegner sterben sollte.
-        if (this->enemy_Health <= 0) {
+        // --- 1. Todes-Logik ---
+        if (anim_state_ != AnimationState::DYING && this->enemy_Health <= 0) {
             anim_state_ = AnimationState::DYING;
-            this->attack_animation_timer = 9999.0f; // Verhindere weitere Aktionen
+            anim_death_.Reset();
+        }
+        if (anim_state_ == AnimationState::DYING) {
+            if (anim_death_.Is_Finished()) {
+                this->Mark_For_Destruction();
+            }
             return;
         }
 
+        // --- 2. Timer und Position aktualisieren ---
+        last_player_position_ = player_position;
         Enemy_Base_Class::Tick(delta_time);
 
-        if (attack_animation_timer > 0.0f) {
-            attack_animation_timer -= delta_time;
-            if (attack_animation_timer <= 0.0f) {
-                anim_state_ = AnimationState::FLYING; // Zurück zum Fliegen nach dem Angriff
-            }
-        } else {
-            Pathfinding(player_position.x, player_position.y, delta_time);
-            last_player_position_ = player_position;
-        }
-
-        Vector2 enemy_center = this->Get_Hitbox_Center();
-        float distance_to_player = Vector2Distance(enemy_center, player_position);
-
-        if (distance_to_player <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f && attack_animation_timer <= 0.0f)
+        // --- 3. Zustands-Logik ---
+        switch (anim_state_)
         {
-            anim_state_ = AnimationState::ATTACKING; // Setze den Angriffszustand
-            attack_animation_timer = 0.8f;
-            this->Melee_Attack();
+            case AnimationState::FLYING:
+                Pathfinding(player_position.x, player_position.y, delta_time);
+            if (Vector2Distance(Get_Hitbox_Center(), player_position) <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f)
+            {
+                anim_state_ = AnimationState::ATTACKING;
+                // Setze alle Angriffs-Animationen zurück
+                melee_hitbox_spawned_ = false;
+                anim_melee_front_.Reset(); anim_melee_back_.Reset(); anim_melee_left_.Reset(); anim_melee_right_.Reset();
+            }
+            break;
+
+            case AnimationState::ATTACKING:
+            // Löse den Angriff jetzt bei Frame 20 aus. Das ist weiter in der Mitte der Animation.
+                if (p_current_animation_ != nullptr && p_current_animation_->Get_Current_Frame() == 18 && !melee_hitbox_spawned_) {
+                    this->Melee_Attack();
+                    melee_hitbox_spawned_ = true;
+                }
+            // Wenn die Animation fertig ist, gehe zurück zum Fliegen.
+            if (p_current_animation_ != nullptr && p_current_animation_->Is_Finished()) {
+                anim_state_ = AnimationState::FLYING;
+                this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
+            }
+            break;
         }
     }
 
@@ -94,7 +106,7 @@ namespace enemy
         Vector2 enemy_center = this->Get_Hitbox_Center();
         Vector2 direction = Vector2Normalize({ last_player_position_.x - enemy_center.x, last_player_position_.y - enemy_center.y });
 
-        float offset = 12.0f; // Wie weit vor dem Gegner die Hitbox erscheint.
+        float offset = 13.0f; // Wie weit vor dem Gegner die Hitbox erscheint.
 
         // 3. Bestimme die primäre Angriffsrichtung (horizontal vs. vertikal)
         if (fabs(direction.x) > fabs(direction.y))
@@ -123,7 +135,7 @@ namespace enemy
         // 4. Erstelle die Hitbox mit der korrekten Form und Position.
         auto sweep_hitbox = std::make_shared<MeleeHitbox>(
             Rectangle{ hitbox_pos.x, hitbox_pos.y, hitbox_width, hitbox_height },
-            0.2f, // Lebensdauer
+            2.0f, // Lebensdauer
             this->enemy_Damage,
             Collision_Type::ENEMY // WICHTIG: Der Besitzer ist ein Gegner
         );
@@ -191,19 +203,16 @@ namespace enemy
                 p_current_animation_->Draw_Current_Frame(draw_pos, tint);
 
                 if (this->is_animation_active_) {
-                    // Spiele die Animation nur ab, wenn der Schalter an ist.
                     p_current_animation_->Next_Frame();
-                } else
-                {
-                    // Ansonsten setze sie auf den Startframe zurück.
-                    p_current_animation_->First_Frame();
+                } else {
+                    p_current_animation_->Reset();
                 }
             }
-        }
-        else
-        {
-            // --- LOGIK FÜR PLATZHALTER ---
-            DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
+            else
+            {
+                // Fallback auf Platzhalter-Sprite
+                DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
+            }
         }
     }
 }

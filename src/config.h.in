@@ -44,8 +44,8 @@ namespace game {
 // ----------------------------------------------- IMPORTANT SETTINGS --------------------------------------------------
 
         // NEBEL SETTINGS - NICHT ÄNDERN !
-        inline static constexpr float kFogFullVisibilityRadius = 50.0; // Innerhalb dieses Radius ist alles 100% sichtbar - useFog
-        inline static constexpr float kFogNoVisibilityRadius = 85.0;   // Außerhalb dieses Radius ist alles 0% sichtbar - useFog
+        inline static constexpr float kFogFullVisibilityRadius = 1.0; // Innerhalb dieses Radius ist alles 100% sichtbar - useFog
+        inline static constexpr float kFogNoVisibilityRadius = 135.0;   // Außerhalb dieses Radius ist alles 0% sichtbar - useFog
         inline static constexpr float kFogPlayerCenterOffsetY = -15.0; // Wert verschiebt den Kreis
 
         // Cam Settings
@@ -69,7 +69,7 @@ namespace game {
 // WICHTIG -> 6.0f sind 1 SEKUNDE
 
         // Heal Item
-        inline static constexpr int kItemHealConsDefaultAmount = 25; // Standard-Heilmenge - PLACEHOLDER WERT
+        inline static constexpr int kItemHealConsDefaultAmount = 100; // Standard-Heilmenge - PLACEHOLDER WERT
 
         // DMG Item
         inline static constexpr int kItemDmgConsDefaultAmount = 10;  // Standard-Schadensmenge - PLACEHOLDER WERT
@@ -100,7 +100,7 @@ namespace game {
         inline static constexpr Vector2 player_animation_size = {100, 100}; // NICHT ÄNDERN!
 
         // Player Stats
-        inline static constexpr int player_Max_Health = 600;
+        inline static constexpr int player_Max_Health = 801;
         inline static constexpr float player_Movement_Speed = 18.0;
         inline static constexpr int player_Melee_Damage = 100;
         inline static constexpr int player_Projectile_Damage = 75;
@@ -122,9 +122,6 @@ namespace game {
         // Melee Attack (Sweep)
         inline static constexpr float player_Melee_Attack_Anim_Duration = 6.6f; // Dauer der Sweep-Animation
         inline static constexpr float player_Melee_Attack_Cooldown = 6.0f; // Abklingzeit nach einem Sweep
-
-        // Radius in Pixel, in dem sich das Fadenkreuz um den Spieler bewegen kann
-        inline static constexpr float kPlayerAimingRadius = 300.0f;
 
         // ------------------------------------------ PLAYER ANIMATIONS ------------------------------------------------
 
@@ -285,7 +282,7 @@ namespace game {
         inline static constexpr bool kDebugShowFog = true; // Set to 'false' to disable fog
 
         // for ALL hitboxes
-        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
+        inline static constexpr bool kDebugShowHitboxes = true; // Set to 'true' to show all hitboxes
 
         // ------------------------------------------- LEVEL SETTINGS --------------------------------------------------
 

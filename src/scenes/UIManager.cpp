@@ -8,7 +8,9 @@
 UIManager::UIManager()
 {
     // Ladet die Grafiken für die UI.
-    health_bar_texture_ = LoadTexture("assets/graphics/ui/UI_Trank.png");
+    health_full_texture_ = LoadTexture("assets/graphics/ui/Trank_voll.png");
+    health_medium_texture_ = LoadTexture("assets/graphics/ui/Trank_mittel.png");
+    health_low_texture_ = LoadTexture("assets/graphics/ui/Trank_leer.png");
     key_icon_texture_ = LoadTexture("assets/graphics/ui/UI_Schlussel.png");
     bomb_icon_texture_ = LoadTexture("assets/graphics/ui/UI_Bombe.png");
     score_icon_texture_ = LoadTexture("assets/graphics/ui/UI_Score.png");
@@ -26,7 +28,9 @@ UIManager::UIManager()
 UIManager::~UIManager()
 {
     // Entlade alle Texturen und die Schriftart
-    UnloadTexture(health_bar_texture_);
+    UnloadTexture(health_full_texture_);
+    UnloadTexture(health_medium_texture_);
+    UnloadTexture(health_low_texture_);
     UnloadTexture(key_icon_texture_);
     UnloadTexture(bomb_icon_texture_);
     UnloadTexture(score_icon_texture_);
@@ -68,7 +72,23 @@ void UIManager::DrawUI(Camera2D camera)
 
         // Lebensanzeige
         Vector2 health_pos = { 10, 10 };
-        DrawTextureEx(health_bar_texture_, health_pos, 0.0f, hp_scale, WHITE);
+
+        // 1. Berechne die prozentuale Gesundheit
+        float health_percent = player->GetHealth() / player->GetMaxHealth();
+        Texture2D current_health_texture;
+
+        // 2. Wähle die richtige Textur basierend auf dem Prozentsatz
+        if (health_percent > 0.66f) { // Mehr als 66% Leben -> voller Trank
+            current_health_texture = health_full_texture_;
+        } else if (health_percent > 0.33f) { // Mehr als 33% Leben -> mittlerer Trank
+            current_health_texture = health_medium_texture_;
+        } else { // 33% oder weniger -> fast leerer Trank
+            current_health_texture = health_low_texture_;
+        }
+
+        // 3. Zeichne die ausgewählte Textur
+        DrawTextureEx(current_health_texture, health_pos, 0.0f, hp_scale, WHITE);
+
         std::string health_text = std::to_string((int)player->GetHealth());
         draw_text_with_outline(pixel_font_bold_, health_text, { health_pos.x + 30, health_pos.y + 85 }, 30, 1, BLACK);
 

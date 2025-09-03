@@ -73,6 +73,7 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager* om)
     p_current_animation = &anim_Idle_Front;
     this->useFog = true;
     this->melee_hitbox_spawned_ = false;
+    this->walk_sound_timer_ = 0.0f;
 }
 
 void PlayerClass::Set_Camera(std::shared_ptr<Cam> camera)
@@ -309,21 +310,34 @@ void PlayerClass::Tick(float delta_time)
         hit_feedback_timer -= delta_time;
         if (hit_feedback_timer <= 0.0f) { tint_color = WHITE; }
     }
-    // Bomben-Cooldown-Timer aktualisieren
+    // Bomben-Cooldown-Timer
     if (bomb_cooldown_ > 0.0f) {
         bomb_cooldown_ -= delta_time;
+    }
+    // Walk-Sound-Timer
+    if (walk_sound_timer_ > 0.0f) {
+        walk_sound_timer_ -= delta_time;
     }
 
     // --- ZUSTANDS-LOGIK ---
     if (player_state == PlayerState::IDLE || player_state == PlayerState::MOVING)
     {
-        // Setze den Zustand basierend darauf, ob sich der Spieler bewegt hat
         player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
 
+        // --- FINALE LOGIK FÜR DEN LAUF-SOUND ---
         if (is_Moving)
         {
-            // Spielt den Lauf-Sound nur einmal pro Frame, um Übersteuerung zu verhindern.
-            SoundManager::GetInstance().PlaySfx("player_walk", 1);
+            // Wenn der Spieler sich bewegt, spiele den Sound rhythmisch ab.
+            // Der Timer sorgt für den Abstand zwischen den Schritten.
+            if (walk_sound_timer_ <= 0.0f) {
+                SoundManager::GetInstance().PlaySfx("player_walk", 1);
+                walk_sound_timer_ = game::AudioConfig::kWalk_Sound_Timer;
+            }
+        }
+        else
+        {
+            // Wenn der Spieler STEHT, stoppe den Lauf-Sound sofort.
+            SoundManager::GetInstance().StopSfx("player_walk");
         }
 
         // Prüfe auf Spieler-Aktionen

@@ -105,3 +105,13 @@ void SoundManager::UnloadAll() {
 
     std::cout << "Alle Sounds und Musikstücke entladen." << std::endl;
 }
+
+void SoundManager::StopSfx(const std::string& name)
+{
+    // Prüfe, ob der Sound überhaupt im Cache existiert
+    if (sfx_cache_.count(name))
+    {
+        // Stoppe alle laufenden Instanzen dieses Sounds
+        StopSound(sfx_cache_.at(name));
+    }
+}

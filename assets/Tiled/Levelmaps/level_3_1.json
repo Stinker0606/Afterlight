@@ -300,7 +300,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"ALLE_TILESETS.tsx"
+         "source":"../tilesets/Afterlight_All_Level_Tileset_test.tsj"
         }],
  "tilewidth":32,
  "type":"map",
