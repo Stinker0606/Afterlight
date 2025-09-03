@@ -8,6 +8,7 @@
 #include "Cam.h"
 #include "Object_Manager.h"
 #include "CollisionManager.h"
+#include "FogManager.h"
 
 
 
@@ -19,6 +20,7 @@ public:
     void Draw_Level(std::shared_ptr<Cam>, bool aboveObjects) ;
     void LoadGameObjects(Object_Manager& g_objectManager);
     void Load_Levelmap();
+    void UpdateFog(Vector2 playerPosition, float deltaTime);
 
 private:
     bool includeEnemySpawnersAsCollidables=false;
@@ -27,6 +29,9 @@ private:
     int* Level_Nbr_Ptr = nullptr;
     bool loaded;
 
+    // Fog management
+    FogManager fogManager;
+    std::string Load_Levelmap() const;
 };
 
 
