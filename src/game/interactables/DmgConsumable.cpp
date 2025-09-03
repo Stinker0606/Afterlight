@@ -1,5 +1,7 @@
 #include "DmgConsumable.h"
 #include "../PlayerBaseClass.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 DmgConsumable::DmgConsumable(Vector2 position, int damageAmount, Texture2D tileset, Rectangle source_rect)
     : damage_amount(damageAmount), tileset_texture(tileset), texture_source_rect(source_rect)
@@ -24,6 +26,8 @@ void DmgConsumable::On_Collision(std::shared_ptr<Collidable> other)
 {
     if (other->Get_Collision_Type() == Collision_Type::PLAYER)
     {
+        SoundManager::GetInstance().PlaySfx("item_pickup_damage");
+
         if (auto player = std::dynamic_pointer_cast<Player_Base_Class>(other))
         {
             ApplyEffect(player.get());

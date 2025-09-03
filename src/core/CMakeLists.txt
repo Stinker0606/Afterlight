@@ -35,6 +35,8 @@ add_library(core STATIC
         AssetManager.cpp
         SoundManager.cpp
         SoundManager.h
+        ControllableAnimations.cpp
+        ControllableAnimations.h
 
         # --- GAMEPLAY-LOGIK (gehört logisch zusammen) ---
         ../game/Collidable.h

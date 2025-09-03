@@ -27,9 +27,10 @@ private:
     int score_ = 0;
 
     // --- Timer für Zustände ---
-    float attack_animation_timer; // Timer für die Dauer von Angriffs-Animationen
-    float hit_feedback_timer;     // Timer für die Dauer des roten Aufleuchtens -> not working under shader
-    float push_cooldown_timer;    // Cooldown nach einer Schiebe-Aktion
+    float attack_animation_timer;   // Timer für die Dauer von Angriffs-Animationen
+    float hit_feedback_timer;       // Timer für die Dauer des roten Aufleuchtens -> not working under shader
+    float push_cooldown_timer;      // Cooldown nach einer Schiebe-Aktion
+    float walk_sound_timer_ = 0.0f; // Timer für den Lauf-Sound
 
     // --- PUSH WALL ---
     float push_animation_timer; // Eigener Timer für die Push-Animation

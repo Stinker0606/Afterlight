@@ -122,7 +122,7 @@ namespace game::scenes
                     float distance = Vector2Distance(player_center, obj_center);
 
                     // Wenn der Gegner im sichtbaren Radius ist, schalte die Animation an.
-                    if (distance <= game::Config::kFogNoVisibilityRadius) {
+                    if (distance <= 99999999) {
                         enemy->Set_Animation_Active(true);
                     }
                     // Sonst schalte sie aus.
