@@ -5,7 +5,7 @@
 #include "ControllableAnimations.h"
 #include "AssetManager.h"
 
-ControllableAnimations::ControllableAnimations(Vector2 sprite_size, const char* filename, int FC, int spl, std::vector<int> ft) {
+ControllableAnimations::ControllableAnimations(Vector2 sprite_size, const char* filename, int FC, int spl, std::vector<int> ft, bool loops) {
     // Lade die Textur über den AssetManager, um Duplikate zu vermeiden.
     this->spritesheet = AssetManager::GetInstance().Load(filename);
     this->size = sprite_size;
@@ -13,6 +13,7 @@ ControllableAnimations::ControllableAnimations(Vector2 sprite_size, const char* 
     this->sprites_per_line = spl;
     this->target = Rectangle{1, 1, this->size.x, this->size.y};
     this->frame_timings_ = ft;
+    this->is_looping_ = loops;
 }
 
 void ControllableAnimations::Reset() {
@@ -36,8 +37,12 @@ void ControllableAnimations::Next_Frame() {
 
         // Prüfe, ob die Animation mit diesem Frame zu Ende ist.
         if (current_Frame >= frame_Count) {
-            is_finished_ = true;
-            return; // Beende die Funktion hier.
+            if (is_looping_) {
+                Reset(); // Wenn es ein Loop ist, fange von vorne an.
+            } else {
+                is_finished_ = true; // Ansonsten beende die Animation.
+            }
+            return;
         }
 
         // Gehe zum nächsten Frame im Spritesheet

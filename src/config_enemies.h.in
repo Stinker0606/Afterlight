@@ -73,17 +73,17 @@ namespace game {
 
         // -- Hover/Fly Animations --
         inline static constexpr const char* kInsectMonsterFlyFrontPath = "assets/graphics/animations/insekten_Monster/Move/Insect_hover_Front.png";
-        inline static constexpr int kInsectMonsterFlyFrontFrames = 36;
-        inline static constexpr int kInsectMonsterFlyFrontFramesPerLine = 36;
+        inline static constexpr int kInsectMonsterFlyFrontFrames = 20;
+        inline static constexpr int kInsectMonsterFlyFrontFramesPerLine = 20;
         inline static constexpr const char* kInsectMonsterFlyBackPath = "assets/graphics/animations/insekten_Monster/Move/Insect_hover_Back.png";
-        inline static constexpr int kInsectMonsterFlyBackFrames = 36;
-        inline static constexpr int kInsectMonsterFlyBackFramesPerLine = 36;
+        inline static constexpr int kInsectMonsterFlyBackFrames = 20;
+        inline static constexpr int kInsectMonsterFlyBackFramesPerLine = 20;
         inline static constexpr const char* kInsectMonsterFlyLeftPath = "assets/graphics/animations/insekten_Monster/Move/Insect_hover_Left.png";
-        inline static constexpr int kInsectMonsterFlyLeftFrames = 36;
-        inline static constexpr int kInsectMonsterFlyLeftFramesPerLine = 36;
+        inline static constexpr int kInsectMonsterFlyLeftFrames = 20;
+        inline static constexpr int kInsectMonsterFlyLeftFramesPerLine = 20;
         inline static constexpr const char* kInsectMonsterFlyRightPath = "assets/graphics/animations/insekten_Monster/Move/Insect_hover_Right.png";
-        inline static constexpr int kInsectMonsterFlyRightFrames = 36;
-        inline static constexpr int kInsectMonsterFlyRightFramesPerLine = 36;
+        inline static constexpr int kInsectMonsterFlyRightFrames = 20;
+        inline static constexpr int kInsectMonsterFlyRightFramesPerLine = 20;
 
         // -- Death Animation --
         inline static constexpr const char* kInsectMonsterDeathPath = "assets/graphics/enemies/insect_monster/death.png";
@@ -410,7 +410,22 @@ namespace game {
         // Bei 60 FPS sind 6 Ticks = 0.1 Sekunden.
         // =============================================================================================================
 
+        // -- INSECT MONSTER --
+
+        // Hover (20 Frames): Alle Werte halbiert für doppelte Geschwindigkeit.
+        inline static const std::vector<int> kInsectMonsterHoverTimings = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
+        // Attack (36 Frames): Deutlich beschleunigt für einen aggressiveren Angriff.
+        inline static const std::vector<int> kInsectMonsterAttackTimings = {
+            3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3,
+            3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5
+        };
+
+        // Death (12 Frames): Ähnlich wie beim Sniper.
+        inline static const std::vector<int> kInsectMonsterDeathTimings = { 8, 6, 5, 4, 4, 5, 6, 8, 10, 12, 15, 60 };
+
         // -- DROWNED SNIPER --
+
         // Reload (9 Frames): Ein gleichmäßiger Ladevorgang ohne lange Pause.
         inline static const std::vector<int> kDrownedSniperReloadTimings = { 8, 8, 9, 9, 10, 10, 12, 12, 15 };
 
