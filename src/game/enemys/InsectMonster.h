@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../EnemyBaseClass.h"
-#include "../../core/RepeatAnimation.h"
+#include "../core/ControllableAnimations.h"
 
 class Object_Manager;
 
@@ -17,29 +17,29 @@ namespace enemy
     private:
         enum class AnimationState { FLYING, ATTACKING, DYING };
         AnimationState anim_state_;
-        float attack_animation_timer;
         Vector2 last_player_position_;
-        RepeatAnimation* p_current_animation_;
+        ControllableAnimations* p_current_animation_;
+        bool melee_hitbox_spawned_; // Merkt sich, ob die Hitbox für diesen Angriff schon erstellt wurde.
 
         // --- ANIMATIONS ---
 
         // Fly
-        RepeatAnimation anim_fly_front_;
-        RepeatAnimation anim_fly_back_;
-        RepeatAnimation anim_fly_left_;
-        RepeatAnimation anim_fly_right_;
+        ControllableAnimations anim_fly_front_;
+        ControllableAnimations anim_fly_back_;
+        ControllableAnimations anim_fly_left_;
+        ControllableAnimations anim_fly_right_;
 
         // Death
-        RepeatAnimation anim_death_;
+        ControllableAnimations anim_death_;
 
         // Attack
-        RepeatAnimation anim_melee_front_;
-        RepeatAnimation anim_melee_back_;
-        RepeatAnimation anim_melee_left_;
-        RepeatAnimation anim_melee_right_;
+        ControllableAnimations anim_melee_front_;
+        ControllableAnimations anim_melee_back_;
+        ControllableAnimations anim_melee_left_;
+        ControllableAnimations anim_melee_right_;
     public:
         /**
-         * @brief Konstruktor für das Insektenmonster.
+         * @brief Konstruktor für den Enemy.
          * @param start_position Die Position, an der der Gegner gespawnt wird.
          */
         Insect_Monster(Vector2 start_position, Object_Manager& om, bool use_fog = true);
@@ -53,7 +53,7 @@ namespace enemy
          */
         void Update_AI(float delta_time, Vector2 player_position) override;
 
-        //  Wir implementieren die Angriffsfunktionen
+        // Angriffsfunktionen
         void Melee_Attack() override;
         void Range_Attack() override;
 
@@ -62,5 +62,9 @@ namespace enemy
          * To Do: Hier wird später die Animationslogik implementiert.
          */
         void Draw() override;
+
+        // Soundfunktionen
+        void PlayHitSound() override;
+        void PlayDeathSound() override;
     };
 }

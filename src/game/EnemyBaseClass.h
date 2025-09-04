@@ -53,6 +53,8 @@ namespace enemy
 
         // --- Öffentliche Methoden ---
         void Take_Damage(int damage_amount);
+        virtual void PlayHitSound();
+        virtual void PlayDeathSound();
         int Get_Health() const { return enemy_Health; }
         int Get_Damage() const { return enemy_Damage; }
         int Get_Movement_Speed(){return enemy_Movement_Speed;};

@@ -35,10 +35,12 @@ Enemy_Base_Class::~Enemy_Base_Class()
     if (this->enemy_Health <= 0) return;
 
     enemy_Health -= damage_amount;
+    this->PlayHitSound(); // Spiele den Hit-Sound
 
     if (this->enemy_Health <= 0)
     {
         // Logik für die Punktevergabe
+        this->PlayDeathSound(); // Spiele den Todes-Sound
         if (game::core::Store::player) {
             game::core::Store::player->Add_Score(this->enemy_Value);
         }
@@ -181,6 +183,16 @@ void Enemy_Base_Class::Draw()
     void Enemy_Base_Class::Set_Animation_Active(bool is_active)
 {
     this->is_animation_active_ = is_active;
+}
+
+void Enemy_Base_Class::PlayHitSound() {
+    // Diese Basis-Implementierung ist absichtlich leer.
+    // Die spezifischen Gegner-Klassen (Insect, Sniper, etc.)
+    // überschreiben diese Methode mit ihrem eigenen Sound.
+}
+
+void Enemy_Base_Class::PlayDeathSound() {
+    // Diese Basis-Implementierung ist ebenfalls leer.
 }
 
 }

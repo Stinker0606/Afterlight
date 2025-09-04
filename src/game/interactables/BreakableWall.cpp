@@ -1,5 +1,7 @@
 #include "BreakableWall.h"
 #include "Explosion.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 BreakableWall::BreakableWall(Vector2 position, Texture2D tileset, Rectangle source_rect)
     : tileset_texture(tileset), texture_source_rect(source_rect)
@@ -16,6 +18,8 @@ void BreakableWall::Draw()
 
 void BreakableWall::On_Collision(std::shared_ptr<Collidable> other)
 {
+    SoundManager::GetInstance().PlaySfx("wall_break", 1); // Limit auf 1, falls viele Wände gleichzeitig brechen
+
     // Zerstörbare Wände reagieren NUR auf Explosionen.
     if (std::dynamic_pointer_cast<Explosion>(other))
     {

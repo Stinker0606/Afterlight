@@ -8,7 +8,9 @@ class UIManager
 {
 private:
     // Texturen für UI-Elemente
-    Texture2D health_bar_texture_;
+    Texture2D health_full_texture_;
+    Texture2D health_medium_texture_;
+    Texture2D health_low_texture_;
     Texture2D key_icon_texture_;
     Texture2D bomb_icon_texture_;
     Texture2D score_icon_texture_;

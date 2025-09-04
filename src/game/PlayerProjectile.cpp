@@ -1,9 +1,10 @@
 #include "PlayerProjectile.h"
-
 #include "AssetManager.h"
 #include "EnemyBaseClass.h"
 #include "CollisionResponse.h"
 #include "raymath.h"
+#include "SoundManager.h"
+#include "../config_audio.h.in"
 
 namespace game
 {
@@ -100,8 +101,9 @@ Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, 
             case Collision_Type::ENEMY:
             case Collision_Type::ENEMY_SPAWNER:
             case Collision_Type::WALL:
-            // Hier können später `movWall`, `breakWall` etc. einfach hinzugefügt werden.
             {
+                SoundManager::GetInstance().PlaySfx("projectile_hit");
+
                 /// Füge dem Gegner Schaden zu, falls es einer ist.
                 if (other_type == Collision_Type::ENEMY) {
                     if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(other)) {
