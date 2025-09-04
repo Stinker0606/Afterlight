@@ -689,18 +689,6 @@
          "name":"consumables",
          "objects":[
                 {
-                 "gid":370,
-                 "height":32,
-                 "id":91,
-                 "name":"keyCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":896,
-                 "y":576
-                }, 
-                {
                  "gid":107,
                  "height":32,
                  "id":92,
@@ -759,6 +747,30 @@
                  "width":32,
                  "x":512,
                  "y":320
+                }, 
+                {
+                 "gid":84,
+                 "height":32,
+                 "id":100,
+                 "name":"keyCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":896,
+                 "y":576
+                }, 
+                {
+                 "gid":84,
+                 "height":32,
+                 "id":101,
+                 "name":"keyCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1032,12 +1044,12 @@
                         {
                          "name":"target_Map",
                          "type":"string",
-                         "value":"Castle_1_1"
+                         "value":"level_3_1.json"
                         }, 
                         {
                          "name":"target_spawn_point",
                          "type":"string",
-                         "value":"player_start_from_Castle_1_1"
+                         "value":"player_start_from_level_3_1_a"
                         }],
                  "rotation":0,
                  "type":"doors",
@@ -1053,7 +1065,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":97,
+ "nextobjectid":102,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -1061,7 +1073,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
+         "source":"..\/Clion code\/Afterlight\/assets\/Tiled\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
         }],
  "tilewidth":32,
  "type":"map",
