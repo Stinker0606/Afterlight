@@ -356,9 +356,13 @@ void PlayerClass::Update_Animation_Pointer()
         }
     // Synchronisiere den Frame-Fortschritt, wenn sich die Animation geändert hat
     if (p_current_animation != old_animation_ptr && old_controllable) {
-        auto* new_controllable = static_cast<ControllableAnimations*>(p_current_animation);
-        if (new_controllable) {
-            new_controllable->SetProgress(old_controllable->Get_Current_Frame(), old_controllable->Get_Frame_Progress());
+        // Funktioniert nur, wenn die Animationen die gleiche Länge haben
+        if (static_cast<ControllableAnimations*>(p_current_animation)->Get_Frame_Count() == old_controllable->Get_Frame_Count())
+        {
+            auto* new_controllable = static_cast<ControllableAnimations*>(p_current_animation);
+            if (new_controllable) {
+                new_controllable->SetProgress(old_controllable->Get_Current_Frame(), old_controllable->Get_Frame_Progress());
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ public:
 
     void SetProgress(int frame, int frame_progress);
     int Get_Frame_Progress() const { return frame_progress_counter_; }
+    int Get_Frame_Count() const { return frame_Count; }
     void Reset();
 
     bool Is_Finished() const;
