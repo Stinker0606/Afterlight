@@ -75,3 +75,16 @@ void ControllableAnimations::Draw_Current_Frame(Vector2 pos, Color tint) {
 bool ControllableAnimations::Is_Finished() const {
     return this->is_finished_;
 }
+
+void ControllableAnimations::SetProgress(int frame, int frame_progress) {
+    if (frame >= 0 && frame < this->frame_Count) {
+        this->current_Frame = frame;
+        this->frame_progress_counter_ = frame_progress;
+
+        // Aktualisiere das 'target' Rechteck, damit es zum neuen Frame passt.
+        int row = frame / this->sprites_per_line;
+        int col = frame % this->sprites_per_line;
+        this->target.x = 1 + col * this->size.x;
+        this->target.y = 1 + row * this->size.y;
+    }
+}

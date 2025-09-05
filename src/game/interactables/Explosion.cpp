@@ -10,7 +10,9 @@ Explosion::Explosion(Vector2 position, Object_Manager& om)
           game::Config::kExplosionAnimationSize,
           game::Config::kExplosionAnimationPath,
           game::Config::kExplosionAnimationFrames,
-          game::Config::kExplosionAnimationFramesPerLine
+          game::Config::kExplosionAnimationFramesPerLine,
+          game::Config::kExplosionTimings,
+          false
       )
 {
     // Die Explosion ist ein 3x3 Kachel großes Feld (96x96), zentriert auf der Bombe

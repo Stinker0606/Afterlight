@@ -27,7 +27,10 @@ public:
     void Next_Frame();
     void Draw_Current_Frame(Vector2 pos, Color tint = WHITE);
 
+    void SetProgress(int frame, int frame_progress);
+    int Get_Frame_Progress() const { return frame_progress_counter_; }
     void Reset();
+
     bool Is_Finished() const;
     int Get_Current_Frame() const { return current_Frame; }
 };
