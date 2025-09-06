@@ -5,6 +5,8 @@ namespace enemy {
     enum class EnemyType {
         INSECT_MONSTER,
         DROWNED_SNIPER,
+        WALKING_CORPSE,
+        WOOD_SNIPER,
         // ... hier weitere Typen hinzufügen
     };
 }
@@ -13,5 +15,7 @@ namespace enemy {
 
 #include "InsectMonster.h"
 #include "DrownedSniper.h"
+#include "WalkingCorpse.h"
+#include "WoodSniper.h"
 
 // #include "NeuerGegner.h" // Hier kommen zukünftige Gegner hin

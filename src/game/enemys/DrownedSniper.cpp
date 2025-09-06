@@ -203,10 +203,10 @@ namespace enemy
                     p_current_animation_->Reset();
                 }
             }
-            else
-            {
-                DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
-            }
+        }
+        else
+        {
+            DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
         }
     }
 }

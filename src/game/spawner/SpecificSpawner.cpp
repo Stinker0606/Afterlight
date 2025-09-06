@@ -59,7 +59,7 @@ void SpecificSpawner::Draw()
 
 void SpecificSpawner::On_Collision(std::shared_ptr<Collidable> other)
 {
-    if (other->Get_Collision_Type() == Collision_Type::PLAYER_PROJECTILE) {
+    if (other->Get_Collision_Type() == Collision_Type::PLAYER_PROJECTILE || other->Get_Collision_Type() == Collision_Type::PLAYER_MELEE_HITBOX) {
         this->health_--;
         if (health_ <= 0) {
             this->Mark_For_Destruction();

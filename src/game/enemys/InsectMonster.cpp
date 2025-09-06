@@ -208,11 +208,11 @@ namespace enemy
                     p_current_animation_->Reset();
                 }
             }
-            else
-            {
-                // Fallback auf Platzhalter-Sprite
-                DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
-            }
+        }
+        else
+        {
+            // Fallback auf Platzhalter-Sprite
+            DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
         }
     }
 }

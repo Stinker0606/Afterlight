@@ -14,8 +14,6 @@ namespace game {
         inline static const std::string kMenuMusicPath = "assets/audio/music/menu_background.ogg";
         inline static const std::string kIngameMusicPath = "assets/audio/music/ambience lvl 1.mp3";
 
-        // --- SOUND EFFEKTE (SFX) ---
-
         // -- UI & MENÜ --
         inline static const std::string kUIMenuNavigateSfxPath = "assets/audio/sfx/ui_navigate.wav";
         inline static const std::string kUIMenuSelectSfxPath = "assets/audio/sfx/ui_select.wav";
@@ -39,9 +37,20 @@ namespace game {
         inline static const std::string kEnemySniperDeathSfxPath = "assets/audio/sfx/enemy_sniper_death.wav";
         inline static const std::string kEnemySniperShootSfxPath = "assets/audio/sfx/enemy_sniper_shoot.wav";
 
+        // GEGNER: WOOD SNIPER
+        inline static const std::string kEnemyWoodSniperHitSfxPath = "assets/audio/sfx/enemy_sniper_hit.wav";
+        inline static const std::string kEnemyWoodSniperDeathSfxPath = "assets/audio/sfx/enemy_sniper_death.wav";
+        inline static const std::string kEnemyWoodSniperShootSfxPath = "assets/audio/sfx/enemy_sniper_shoot.wav";
+
+        // GEGNER: WALKING CORPSE
+        inline static const std::string kEnemyCorpseHitSfxPath = "assets/audio/sfx/enemy_corpse_hit.wav";
+        inline static const std::string kEnemyCorpseDeathSfxPath = "assets/audio/sfx/enemy_corpse_death.wav";
+        inline static const std::string kEnemyCorpseAttackSfxPath = "assets/audio/sfx/enemy_corpse_attack.wav";
+
         // -- PROJEKTILE --
         inline static const std::string kPlayerProjectileFlySfxPath = "assets/audio/sfx/projectile_spear_fly.wav";
         inline static const std::string kPlayerProjectileHitSfxPath = "assets/audio/sfx/projectile_spear_hit.wav";
+
         inline static const std::string kEnemyProjectileFlySfxPath = "assets/audio/sfx/projectile_enemy_fly.wav";
         inline static const std::string kEnemyProjectileHitSfxPath = "assets/audio/sfx/projectile_enemy_hit.wav";
 

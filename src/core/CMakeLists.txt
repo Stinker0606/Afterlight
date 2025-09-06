@@ -91,6 +91,12 @@ add_library(core STATIC
         ../game/enemys/DrownedSniper.h
         ../game/spawner/SpecificSpawner.cpp
         ../game/spawner/SpecificSpawner.h
+        ../game/enemys/WalkingCorpse.cpp
+        ../game/enemys/WalkingCorpse.h
+        ../game/enemys/WoodSniper.cpp
+        ../game/enemys/WoodSniper.h
+        ../game/spawner/Level2Spawner.cpp
+        ../game/spawner/Level2Spawner.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
