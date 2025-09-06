@@ -260,9 +260,18 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                         if (enemy_name == "sniper") {
                             type = enemy::EnemyType::DROWNED_SNIPER;
                             max_enemies = game::EnemyConfig::kDrownedSniper_MaxSpawnCount;
+                        } else if (enemy_name == "sniper2") {
+                            type = enemy::EnemyType::WOOD_SNIPER;
+                            max_enemies = game::EnemyConfig::kWoodSniper_MaxSpawnCount;
                         } else if (enemy_name == "insect") {
                             type = enemy::EnemyType::INSECT_MONSTER;
                             max_enemies = game::EnemyConfig::kInsectMonster_MaxSpawnCount;
+                        } else if (enemy_name == "Corpse") {
+                            type = enemy::EnemyType::WALKING_CORPSE;
+                            max_enemies = game::EnemyConfig::kWalkingCorpse_MaxSpawnCount;
+                        } else if (enemy_name == "Corpse2") {
+                            type = enemy::EnemyType::CORPSE;
+                            max_enemies = game::EnemyConfig::kCorpse_MaxSpawnCount;
                         } else {
                             found = false;
                         }

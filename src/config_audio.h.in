@@ -27,25 +27,34 @@ namespace game {
         inline static const std::string kPlayerPushBlockSfxPath = "assets/audio/sfx/player_push_block.wav";
         inline static const std::string kPlayerPlaceBombSfxPath = "assets/audio/sfx/player_place_bomb.wav";
 
-        // -- GEGNER: INSEKTENMONSTER --
+// ====================================================== ENEMIES ======================================================
+
+        // GEGNER: INSEKTENMONSTER --
         inline static const std::string kEnemyInsectHitSfxPath = "assets/audio/sfx/enemy_insect_hit.wav";
         inline static const std::string kEnemyInsectDeathSfxPath = "assets/audio/sfx/enemy_insect_death.wav";
         inline static const std::string kEnemyInsectAttackSfxPath = "assets/audio/sfx/enemy_insect_attack.wav";
 
-        // -- GEGNER: DROWNED SNIPER --
+        // GEGNER: DROWNED SNIPER --
         inline static const std::string kEnemySniperHitSfxPath = "assets/audio/sfx/enemy_sniper_hit.wav";
         inline static const std::string kEnemySniperDeathSfxPath = "assets/audio/sfx/enemy_sniper_death.wav";
         inline static const std::string kEnemySniperShootSfxPath = "assets/audio/sfx/enemy_sniper_shoot.wav";
 
-        // GEGNER: WOOD SNIPER
+        // GEGNER: WOOD SNIPER (Level 2)
         inline static const std::string kEnemyWoodSniperHitSfxPath = "assets/audio/sfx/enemy_sniper_hit.wav";
         inline static const std::string kEnemyWoodSniperDeathSfxPath = "assets/audio/sfx/enemy_sniper_death.wav";
         inline static const std::string kEnemyWoodSniperShootSfxPath = "assets/audio/sfx/enemy_sniper_shoot.wav";
 
-        // GEGNER: WALKING CORPSE
+        // GEGNER: WALKING CORPSE (Level 2)
         inline static const std::string kEnemyCorpseHitSfxPath = "assets/audio/sfx/enemy_corpse_hit.wav";
         inline static const std::string kEnemyCorpseDeathSfxPath = "assets/audio/sfx/enemy_corpse_death.wav";
         inline static const std::string kEnemyCorpseAttackSfxPath = "assets/audio/sfx/enemy_corpse_attack.wav";
+
+        // GEGNER: CORPSE (Level 3)
+        inline static const std::string kEnemyL3CorpseHitSfxPath = "assets/audio/sfx/enemy_corpse_hit.wav";
+        inline static const std::string kEnemyL3CorpseDeathSfxPath = "assets/audio/sfx/enemy_corpse_death.wav";
+        inline static const std::string kEnemyL3CorpseAttackSfxPath = "assets/audio/sfx/enemy_corpse_attack.wav";
+
+// =====================================================================================================================
 
         // -- PROJEKTILE --
         inline static const std::string kPlayerProjectileFlySfxPath = "assets/audio/sfx/projectile_spear_fly.wav";

@@ -32,9 +32,14 @@ namespace game {
 
         // Gegner-spezifische Ausnahmen für die maximale Anzahl.
         // Hiermit stellen wir sicher, dass z.B. Sniper standardmäßig nur einmal spawnen.
-        inline static constexpr int kDrownedSniper_MaxSpawnCount = 1;
-        inline static constexpr int kInsectMonster_MaxSpawnCount = 5;
 
+        inline static constexpr int kInsectMonster_MaxSpawnCount = 5;
+        inline static constexpr int kDrownedSniper_MaxSpawnCount = 1;
+
+        inline static constexpr int kWoodSniper_MaxSpawnCount = 1;
+        inline static constexpr int kWalkingCorpse_MaxSpawnCount = 5;
+
+        inline static constexpr int kCorpse_MaxSpawnCount = 5;
 
         // =============================================== SPAWNERS - LEVEL 1 ==========================================
 
@@ -339,7 +344,7 @@ namespace game {
 // ------------------------------------------------------------ VORHOF ------------------------------------------------------------------------------------------------------
 
         // ====================================================================================
-        // LAUFENDE LEICHE (Standard-Nahkämpfer Level 2)
+        // LAUFENDE LEICHE (Standard-Nahkämpfer - Level 2)
         // ====================================================================================
 
         inline static constexpr const char* kWalkingCorpseSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
@@ -390,7 +395,7 @@ namespace game {
         inline static constexpr int kWalkingCorpseAttackRightFramesPerLine = 36;
 
         // ====================================================================================
-        // WOOD SNIPER (Stationärer 8-Fernkämpfer)
+        // WOOD SNIPER (Stationärer 8-Fernkämpfer - Level 2)
         // ====================================================================================
 
         inline static constexpr const char* kWoodSniperSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
@@ -478,8 +483,60 @@ namespace game {
 // ------------------------------------------------------------ SCHLOSS ------------------------------------------------------------------------------------------------------
 
         // ====================================================================================
+        // LEICHE (Standard-Nahkämpfer - Level 3)
+        // ====================================================================================
+
+        inline static constexpr const char* kCorpseSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
+
+        // -- Stats --
+        inline static constexpr int kCorpseHealth = 50;
+        inline static constexpr float kCorpseMovementSpeed = 6.0f;
+        inline static constexpr int kCorpseDamage = 10;
+        inline static constexpr float kCorpseAttackCooldown = 6.0f;
+        inline static constexpr float kCorpseAttackRange = 48.0f;
+        inline static constexpr int kCorpseValue = 15;
+        inline static constexpr int kCorpseHitboxWidth = 30;
+        inline static constexpr int kCorpseHitboxHeight = 30;
+        inline static constexpr Vector2 kCorpseAnimSize = {96, 96};
+        inline static constexpr Vector2 kCorpse_visual_offset = {-32, -48};
+
+        // -- Walk Animations (4 Richtungen) --
+        inline static constexpr const char* kCorpseWalkFrontPath = "assets/graphics/animations/corpse/walk_front.png";
+        inline static constexpr int kCorpseWalkFrontFrames = 20;
+        inline static constexpr int kCorpseWalkFrontFramesPerLine = 20;
+        inline static constexpr const char* kCorpseWalkBackPath = "assets/graphics/animations/corpse/walk_back.png";
+        inline static constexpr int kCorpseWalkBackFrames = 20;
+        inline static constexpr int kCorpseWalkBackFramesPerLine = 20;
+        inline static constexpr const char* kCorpseWalkLeftPath = "assets/graphics/animations/corpse/walk_left.png";
+        inline static constexpr int kCorpseWalkLeftFrames = 20;
+        inline static constexpr int kCorpseWalkLeftFramesPerLine = 20;
+        inline static constexpr const char* kCorpseWalkRightPath = "assets/graphics/animations/corpse/walk_right.png";
+        inline static constexpr int kCorpseWalkRightFrames = 20;
+        inline static constexpr int kCorpseWalkRightFramesPerLine = 20;
+
+        // -- Death Animation --
+        inline static constexpr const char* kCorpseDeathPath = "assets/graphics/animations/corpse/death.png";
+        inline static constexpr int kCorpseDeathFrames = 12;
+        inline static constexpr int kCorpseDeathFramesPerLine = 12;
+
+        // -- Melee "Sweep" Attack Animations (4 Richtungen) --
+        inline static constexpr const char* kCorpseAttackFrontPath = "assets/graphics/animations/corpse/attack_front.png";
+        inline static constexpr int kCorpseAttackFrontFrames = 36;
+        inline static constexpr int kCorpseAttackFrontFramesPerLine = 36;
+        inline static constexpr const char* kCorpseAttackBackPath = "assets/graphics/animations/corpse/attack_back.png";
+        inline static constexpr int kCorpseAttackBackFrames = 36;
+        inline static constexpr int kCorpseAttackBackFramesPerLine = 36;
+        inline static constexpr const char* kCorpseAttackLeftPath = "assets/graphics/animations/corpse/attack_left.png";
+        inline static constexpr int kCorpseAttackLeftFrames = 36;
+        inline static constexpr int kCorpseAttackLeftFramesPerLine = 36;
+        inline static constexpr const char* kCorpseAttackRightPath = "assets/graphics/animations/corpse/attack_right.png";
+        inline static constexpr int kCorpseAttackRightFrames = 36;
+        inline static constexpr int kCorpseAttackRightFramesPerLine = 36;
+
+        // ====================================================================================
         // MIMIC (Getarnter Gegner)
         // ====================================================================================
+
         inline static constexpr int kMimicHealth = 150;
         inline static constexpr float kMimicMovementSpeed = 10.0f;
         inline static constexpr int kMimicDamage = 40;
@@ -561,5 +618,18 @@ namespace game {
         // Death (10 Frames)
         inline static const std::vector<int> kWoodSniperDeathTimings = { 8, 6, 5, 4, 4, 5, 6, 8, 10, 60 };
 
+        // -- CORPSE --
+
+       // Walk (20 Frames)
+        inline static const std::vector<int> kCorpseWalkTimings = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
+        // Attack (36 Frames)
+        inline static const std::vector<int> kCorpseAttackTimings = {
+        3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3,
+        3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5
+        };
+
+        // Death (12 Frames)
+        inline static const std::vector<int> kCorpseDeathTimings = { 8, 6, 5, 4, 4, 5, 6, 8, 10, 12, 15, 60 };
     };
 }

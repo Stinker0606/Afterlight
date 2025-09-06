@@ -7,6 +7,8 @@ namespace enemy {
         DROWNED_SNIPER,
         WALKING_CORPSE,
         WOOD_SNIPER,
+        CORPSE,
+        MIMIC,
         // ... hier weitere Typen hinzufügen
     };
 }
@@ -17,5 +19,7 @@ namespace enemy {
 #include "DrownedSniper.h"
 #include "WalkingCorpse.h"
 #include "WoodSniper.h"
+#include "Corpse.h"
+
 
 // #include "NeuerGegner.h" // Hier kommen zukünftige Gegner hin

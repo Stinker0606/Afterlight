@@ -16,6 +16,7 @@ void SoundManager::Init() {
     // UI
     sfx_cache_["ui_navigate"] = LoadSound(game::AudioConfig::kUIMenuNavigateSfxPath.c_str());
     sfx_cache_["ui_select"] = LoadSound(game::AudioConfig::kUIMenuSelectSfxPath.c_str());
+
     // Spieler
     sfx_cache_["player_walk"] = LoadSound(game::AudioConfig::kPlayerWalkSfxPath.c_str());
     sfx_cache_["player_hit"] = LoadSound(game::AudioConfig::kPlayerHitSfxPath.c_str());
@@ -24,15 +25,38 @@ void SoundManager::Init() {
     sfx_cache_["player_sweep"] = LoadSound(game::AudioConfig::kPlayerSweepSfxPath.c_str());
     sfx_cache_["player_push_block"] = LoadSound(game::AudioConfig::kPlayerPushBlockSfxPath.c_str());
     sfx_cache_["player_place_bomb"] = LoadSound(game::AudioConfig::kPlayerPlaceBombSfxPath.c_str());
-    // Gegner
+
+    // Gegner: Insektenmonster
     sfx_cache_["enemy_insect_hit"] = LoadSound(game::AudioConfig::kEnemyInsectHitSfxPath.c_str());
     sfx_cache_["enemy_insect_death"] = LoadSound(game::AudioConfig::kEnemyInsectDeathSfxPath.c_str());
     sfx_cache_["enemy_insect_attack"] = LoadSound(game::AudioConfig::kEnemyInsectAttackSfxPath.c_str());
+
+    // Gegner: Drowned Sniper
     sfx_cache_["enemy_sniper_hit"] = LoadSound(game::AudioConfig::kEnemySniperHitSfxPath.c_str());
     sfx_cache_["enemy_sniper_death"] = LoadSound(game::AudioConfig::kEnemySniperDeathSfxPath.c_str());
     sfx_cache_["enemy_sniper_shoot"] = LoadSound(game::AudioConfig::kEnemySniperShootSfxPath.c_str());
+
+    // Gegner: Wood Sniper
+    sfx_cache_["enemy_wood_sniper_hit"] = LoadSound(game::AudioConfig::kEnemyWoodSniperHitSfxPath.c_str());
+    sfx_cache_["enemy_wood_sniper_death"] = LoadSound(game::AudioConfig::kEnemyWoodSniperDeathSfxPath.c_str());
+    sfx_cache_["enemy_wood_sniper_shoot"] = LoadSound(game::AudioConfig::kEnemyWoodSniperShootSfxPath.c_str());
+
+    // Gegner: Walking Corpse
+    sfx_cache_["enemy_corpse_hit"] = LoadSound(game::AudioConfig::kEnemyCorpseHitSfxPath.c_str());
+    sfx_cache_["enemy_corpse_death"] = LoadSound(game::AudioConfig::kEnemyCorpseDeathSfxPath.c_str());
+    sfx_cache_["enemy_corpse_attack"] = LoadSound(game::AudioConfig::kEnemyCorpseAttackSfxPath.c_str());
+
+    // Gegner: Corpse Lvl3
+    sfx_cache_["enemy_l3_corpse_hit"] = LoadSound(game::AudioConfig::kEnemyL3CorpseHitSfxPath.c_str());
+    sfx_cache_["enemy_l3_corpse_death"] = LoadSound(game::AudioConfig::kEnemyL3CorpseDeathSfxPath.c_str());
+    sfx_cache_["enemy_l3_corpse_attack"] = LoadSound(game::AudioConfig::kEnemyL3CorpseAttackSfxPath.c_str());
+
     // Projektile
-    sfx_cache_["projectile_hit"] = LoadSound(game::AudioConfig::kPlayerProjectileHitSfxPath.c_str());
+    sfx_cache_["projectile_player_fly"] = LoadSound(game::AudioConfig::kPlayerProjectileFlySfxPath.c_str());
+    sfx_cache_["projectile_player_hit"] = LoadSound(game::AudioConfig::kPlayerProjectileHitSfxPath.c_str());
+    sfx_cache_["projectile_enemy_fly"] = LoadSound(game::AudioConfig::kEnemyProjectileFlySfxPath.c_str());
+    sfx_cache_["projectile_enemy_hit"] = LoadSound(game::AudioConfig::kEnemyProjectileHitSfxPath.c_str());
+
     // Items & Welt
     sfx_cache_["item_pickup_heal"] = LoadSound(game::AudioConfig::kItemPickupHealthSfxPath.c_str());
     sfx_cache_["item_pickup_key"] = LoadSound(game::AudioConfig::kItemPickupKeySfxPath.c_str());
