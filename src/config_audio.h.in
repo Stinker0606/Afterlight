@@ -70,7 +70,7 @@ namespace game {
         inline static const std::string kItemPickupDamageSfxPath = "assets/audio/sfx/item_pickup_damage.wav";
         inline static const std::string kBombExplosionSfxPath = "assets/audio/sfx/Items/Bombe_explosion.mp3";                  //done
         inline static const std::string kWorldWallBreakSfxPath = "assets/audio/sfx/world_wall_break.wav";
-        inline static const std::string kWorldKeywallOpenSfxPath = "assets/audio/sfx/world_keywall_open.wav";
+        inline static const std::string kWorldKeywallOpenSfxPath = "assets/audio/sfx/Objects/CreakDoor.mp3";                  //done
         inline static const std::string kWorldDoorTransitionSfxPath = "assets/audio/sfx/world_door_transition.wav";
 
         // =============================================== LAUTSTÄRKE ==================================================
@@ -84,7 +84,7 @@ namespace game {
         //Der Wert (X.X f) bestimmt den Rhythmus.
         // Ein höherer Wert bedeutet eine größere Pause zwischen den Schritten.
 
-        inline static constexpr float kWalk_Sound_Timer = 4.6f;
+        inline static constexpr float kWalk_Sound_Timer = 8.0f;
 
     };
 }
