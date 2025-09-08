@@ -27,12 +27,10 @@ uniform float fogStrength;
 out vec4 finalColor;
 
 // --- RAUSCH-FUNKTIONEN ---
-// Erzeugt einen pseudo-zufälligen Wert (Hash)
 float rand(vec2 co) {
     return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
-// Erzeugt ein weiches "Value Noise"
 float noise(vec2 pos) {
     vec2 i = floor(pos);
     vec2 f = fract(pos);
@@ -44,18 +42,14 @@ float noise(vec2 pos) {
     return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
 }
 
-// **NEU**: Funktion für "Fractal Brownian Motion" (fBm)
-// Erzeugt ein komplexeres Rauschmuster durch Überlagerung mehrerer Rausch-Ebenen
-// (sog. "Oktaven"), um eine wolkenartige Struktur zu schaffen.
 float fbm(vec2 p) {
     float value = 0.0;
     float amplitude = 0.5;
     float frequency = 2.0;
 
-    // 4 Oktaven erzeugen ein gutes Maß an Details
     for (int i = 0; i < 4; i++) {
         value += amplitude * noise(p * frequency);
-        frequency *= 2.1; // Leichte Variation in der Frequenz erzeugt interessantere Muster
+        frequency *= 2.1;
         amplitude *= 0.45;
     }
     return value;
@@ -72,28 +66,24 @@ void main()
     float maskValue = texture(fogMask, fragTexCoord).r;
     vec2 pixelPos = vec2(gl_FragCoord.x, resolution.y - gl_FragCoord.y);
 
-    // 2. **NEUE NEBEL-LOGIK: Globale Nebeldichte**
-    // Wir erzeugen eine große, langsam wogende Rausch-Textur für den gesamten Bildschirm.
-    vec2 fogMotion = vec2(time * 0.02, time * 0.01); // Langsame Bewegung
-    // Skalierung des Rauschens, um die "Größe" der Nebelschwaden zu bestimmen.
+    // 2. Globale Nebeldichte
+    vec2 fogMotion = vec2(time * 0.02, time * 0.01);
     float fogNoise = fbm((pixelPos / resolution) * 3.5 + fogMotion);
 
-    // 3. **Sichtkreis des Spielers**
-    // Berechne die Distanz zum Spieler wie zuvor.
+    // 3. Sichtkreis des Spielers
     float dist = length(pixelPos - playerPos);
-    // Erzeuge einen weichen Übergang für den Sichtkreis. Dieser wird jetzt als "Loch" in den globalen Nebel geschnitten.
-    float visibilityCircle = 1.0 - smoothstep(80.0, 280.0, dist);
 
-    // 4. **Kombiniere globalen Nebel und Sichtkreis**
-    // Der finale Nebelfaktor ist die Dichte des globalen Nebels,
-    // reduziert um den Sichtkreis des Spielers.
-    float fogFactor = fogNoise - visibilityCircle;
-
-    // Wende die globale Stärke an und klemme das Ergebnis, damit es nicht negativ wird oder zu stark.
-    fogFactor = clamp(fogFactor * fogStrength, 0.0, 0.85);
+    // NEU: Animiertes Rauschen nur für den Rand des Sichtkreises
+    float edgeNoise = noise(pixelPos * 0.015 + time * 0.2) * 15.0;
+    // NEU: Wende das Rauschen auf den Sichtkreis an
+    float visibilityCircle = 1.0 - smoothstep(100.0, 200.0, dist - edgeNoise);
 
 
-    // 5. Definiere die Basis-Farbe des Nebels (wie im Original-Shader).
+    // 4. Kombiniere globalen Nebel und Sichtkreis
+    float fogFactor = fogNoise * 0.6 + 0.4 - visibilityCircle;
+    fogFactor = clamp(fogFactor * fogStrength, 0.0, 0.98);
+
+    // 5. Definiere die Basis-Farbe des Nebels.
     vec4 fogColor = vec4(0.6, 0.6, 0.6, 1.0);
 
     // --- PIXEL-TEXTUR FÜR DEN NEBEL (bleibt erhalten) ---
@@ -111,7 +101,6 @@ void main()
     float finalAlpha = finalOriginalColor.a;
     if (maskValue > 0.0)
     {
-        // Das Fading am Rand des Sichtkreises bleibt erhalten.
         float startFadeRadius = 50.0;
         float endFadeRadius = 300.0;
         float distanceAlpha = 1.0 - smoothstep(startFadeRadius, endFadeRadius, dist);

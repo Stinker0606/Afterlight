@@ -38,7 +38,7 @@ Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, 
     // Destruktor
     Player_Projectile::~Player_Projectile() {
         if (sprite.id > 0) {
-            UnloadTexture(sprite);
+            //UnloadTexture(sprite);
         }
     }
 

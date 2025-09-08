@@ -43,7 +43,7 @@ void LevelScreen::Load_Levelmap() {
         if (image_Path_Raw.substr(0, 3) == "../") {
             image_Path_Raw = image_Path_Raw.substr(3);
         }
-        std::string image_Path = "../../assets/Tiled/" + image_Path_Raw;
+        std::string image_Path = "assets/Tiled/" + image_Path_Raw;
         tileatlas_Texture = LoadTexture(image_Path.c_str());
         if (tileatlas_Texture.id == 0) {
             std::cerr << "FEHLER: Konnte das Tileset nicht laden: " << image_Path << std::endl;
@@ -54,7 +54,7 @@ void LevelScreen::Load_Levelmap() {
 
 void LevelScreen::LoadSpecificLevelmap(const std::string& map_filename) {
     tson::Tileson parser;
-    std::string levelmap_Path = "../../assets/Tiled/Levelmaps/" + map_filename;
+    std::string levelmap_Path = "assets/Tiled/Levelmaps/" + map_filename;
 
     map = parser.parse(levelmap_Path);
 
@@ -68,7 +68,7 @@ void LevelScreen::LoadSpecificLevelmap(const std::string& map_filename) {
         if (image_Path_Raw.substr(0, 3) == "../") {
             image_Path_Raw = image_Path_Raw.substr(3);
         }
-        std::string image_Path = "../../assets/Tiled/" + image_Path_Raw;
+        std::string image_Path = "assets/Tiled/" + image_Path_Raw;
         tileatlas_Texture = LoadTexture(image_Path.c_str());
         if (tileatlas_Texture.id == 0) {
             std::cerr << "FEHLER: Konnte das Tileset nicht laden: " << image_Path << std::endl;

@@ -113,7 +113,7 @@ void FogManager::LoadFogShader()
 {
     if (game::Config::kDebugShowFog)
     {
-        fogShader = LoadShader(0, "assets/shaders/fog.fs");
+        fogShader = LoadShader(0, "assets/shaders/fog3.fs");
     }
 
     if (fogShader.id != 0)
