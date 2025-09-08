@@ -83,6 +83,8 @@ void SoundManager::PlaySfx(const std::string& name, int max_instances) {
     }
 
     // Spiele den Sound ab und erhöhe den Zähler für diesen Frame
+    Sound& sound = sfx_cache_.at(name);
+    SetSoundVolume(sound, game::AudioConfig::kSfxVolume * game::AudioConfig::kMasterVolume);
     PlaySound(sfx_cache_.at(name));
     sfx_play_counts_this_frame_[name]++;
 }

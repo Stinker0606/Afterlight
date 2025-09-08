@@ -437,7 +437,9 @@ void PlayerClass::Tick(float delta_time)
         // Prüfe auf Spieler-Aktionen
         if (IsMouseButtonPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_RANGED;
-            has_fired_projectile_ = false; // Setze die Kontrolle vor jedem Wurf zurück.
+            is_Moving = false;
+            ranged_Cooldown = game::Config::player_Ranged_Attack_Cooldown;
+            has_fired_projectile_ = false;
             Update_Animation_Pointer(); // Wähle die Start-Animation
             static_cast<ControllableAnimations*>(p_current_animation)->Reset(); // Setze sie zurück
         } else if (IsMouseButtonPressed(game::Config::key_Melee_Attack) && melee_Cooldown <= 0.0f) {
@@ -455,17 +457,18 @@ void PlayerClass::Tick(float delta_time)
     else if (player_state == PlayerState::ATTACKING_RANGED)
     {
         ControllableAnimations* current = static_cast<ControllableAnimations*>(p_current_animation);
-        if (current && current->Get_Current_Frame() == 40) {
+        if (current && current->Get_Current_Frame() == 6 && !has_fired_projectile_) {
             this->Ranged_Attack();
+            has_fired_projectile_ = true;
         }
+
         if (current && current->Is_Finished()) {
             player_state = PlayerState::IDLE;
         }
     }
     else if (player_state == PlayerState::ATTACKING_MELEE) {
         ControllableAnimations* current = static_cast<ControllableAnimations*>(p_current_animation);
-        // Die Hitbox erscheint bei Frame 4.
-        if (current && current->Get_Current_Frame() == 4 && !melee_hitbox_spawned_) {
+        if (current && current->Get_Current_Frame() == 2 && !melee_hitbox_spawned_) {
             this->Melee_Attack();
             melee_hitbox_spawned_ = true;
         }
