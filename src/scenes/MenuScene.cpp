@@ -80,6 +80,7 @@ namespace game::scenes
                 case 3: // Quit
                     // Schließt die Anwendung. CloseWindow() setzt das Flag, das die Hauptschleife in Game.cpp beendet.
                     CloseWindow();
+                    exit(0);
                     break;
             }
         }
