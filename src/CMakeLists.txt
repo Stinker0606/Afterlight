@@ -36,6 +36,26 @@ COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_LIST_DIR}/../cmake/copy-assets.cmak
 )
 add_dependencies(${PROJECT_NAME} copy_assets)
 
+# Wichtige System-DLLs für Windows finden und mitliefern
+if(WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    # Finde das Verzeichnis, in dem der Compiler und seine DLLs liegen
+    get_filename_component(MINGW_BIN_DIR ${CMAKE_CXX_COMPILER} DIRECTORY)
+
+    # Liste der DLLs, die wir brauchen
+    set(MINGW_REQUIRED_DLLS
+            "libgcc_s_seh-1.dll"
+            "libstdc++-6.dll"
+            "libwinpthread-1.dll"
+    )
+
+    # Gehe durch die Liste und füge für jede gefundene DLL einen Installationsbefehl hinzu
+    foreach(DLL_NAME ${MINGW_REQUIRED_DLLS})
+        if(EXISTS "${MINGW_BIN_DIR}/${DLL_NAME}")
+            install(FILES "${MINGW_BIN_DIR}/${DLL_NAME}" DESTINATION "${PROJECT_NAME}_Bundle")
+        endif()
+    endforeach()
+endif()
+
 if (APPLE)
 target_link_libraries(${PROJECT_NAME} "-framework IOKit")
 target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
