@@ -17,7 +17,8 @@ namespace game {
 
         // -- UI & MENÜ --
         inline static const std::string kUIMenuNavigateSfxPath = "assets/audio/sfx/ui_navigate.wav";
-        inline static const std::string kUIMenuSelectSfxPath = "assets/audio/sfx/System/SelectPlayButton.mp3";                //done
+        inline static const std::string kUIMenuSelectSfxPath = "assets/audio/sfx/System/SelectButton.mp3";
+        inline static const std::string kGameStartSfxPath = "assets/audio/sfx/System/SelectPlayButton.mp3";                 //done
 
         // -- SPIELER --
         inline static const std::string kPlayerWalkSfxPath = "assets/audio/sfx/Player/footsteps_grass.mp3";                 //done

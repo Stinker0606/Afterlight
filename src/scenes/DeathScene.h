@@ -29,6 +29,10 @@ namespace game::scenes
 
         float time_ = 0.0f; // Hinzugefügt, um die Zeit für Animationen zu verfolgen
 
+        bool is_transitioning_ = false;
+        float transition_alpha_ = 0.0f;
+        const float transition_duration_ = 0.8f;
+
         // Farben für die UI
         Color background_color_ = { 10, 20, 25, 255 }; // Etwas dunkler für mehr Kontrast
         Color text_color_ = { 216, 176, 168, 150 };

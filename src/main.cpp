@@ -8,6 +8,7 @@
 #include <Game.h>
 #include "scenes/Screen.h"
 #include "config.h.in"
+#include "SplashScreenScene.h"
 #include "scenes/MenuScene.h"
 #include "scenes/LevelScene.h"
 #include "core/Store.h"
@@ -25,6 +26,11 @@ int main()
 
     HideCursor();
 
+    // Zeichne sofort einen schwarzen Frame, um den weißen Blitz zu verhindern
+    BeginDrawing();
+    ClearBackground(BLACK);
+    EndDrawing();
+
     // SoundManager initialisieren
     SoundManager::GetInstance().Init();
 
@@ -37,7 +43,7 @@ int main()
     game::core::Store::player = std::make_shared<PlayerClass>(Vector2{0,0}, nullptr);
 
     // 3. Starte das Spiel mit der MenuScene.
-    game.Run("menu"s, std::make_unique<game::scenes::MenuScene>());
+    game.Run("splash"s, std::make_unique<game::scenes::SplashScreenScene>());
 
     // Alle Sound-Ressourcen am Ende freigeben
     SoundManager::GetInstance().UnloadAll();

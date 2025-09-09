@@ -17,6 +17,7 @@ void SoundManager::Init() {
     // UI
     sfx_cache_["ui_navigate"] = LoadSound(game::AudioConfig::kUIMenuNavigateSfxPath.c_str());
     sfx_cache_["ui_select"] = LoadSound(game::AudioConfig::kUIMenuSelectSfxPath.c_str());
+    sfx_cache_["game_start"] = LoadSound(game::AudioConfig::kGameStartSfxPath.c_str());
 
     // Spieler
     sfx_cache_["player_walk"] = LoadSound(game::AudioConfig::kPlayerWalkSfxPath.c_str());

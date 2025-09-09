@@ -14,6 +14,8 @@ namespace game::scenes
         void Update() override;
         void Draw() override;
 
+        void TriggerFadeIn();
+
     private:
         Texture2D logo_texture_;
         Texture2D selector_texture_;
@@ -23,6 +25,13 @@ namespace game::scenes
         int selected_item_index_;
 
         float time_ = 0.0f;
+
+        bool is_fading_in_ = false;
+        float fade_in_alpha_ = 1.0f;
+
+        bool is_transitioning_ = false;
+        float transition_alpha_ = 0.0f;
+        const float transition_duration_ = 0.8f;
 
         Color background_color_;
         Color text_color_;

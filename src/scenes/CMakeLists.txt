@@ -22,6 +22,8 @@ add_library(scenes STATIC
         UIManager.h
         DeathScene.cpp
         DeathScene.h
+        SplashScreenScene.cpp
+        SplashScreenScene.h
 )
 
 target_include_directories(scenes PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

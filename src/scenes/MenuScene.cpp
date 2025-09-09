@@ -45,8 +45,27 @@ namespace game::scenes
         UnloadFont(menu_font_);
     }
 
+    void MenuScene::TriggerFadeIn()
+    {
+        is_fading_in_ = true;
+        fade_in_alpha_ = 1.0f;
+    }
+
     void MenuScene::Update()
     {
+        if (is_fading_in_)
+        {
+            fade_in_alpha_ -= GetFrameTime() / 1.5f; // Fade-In über 1 Sekunde
+            if (fade_in_alpha_ <= 0.0f)
+            {
+                fade_in_alpha_ = 0.0f;
+                is_fading_in_ = false;
+            }
+            return; // Stoppe weitere Updates während des Fadens
+        }
+
+        if (!is_transitioning_)
+        {
         // Zeit für die Animation aktualisieren
         time_ += GetFrameTime();
 
@@ -96,17 +115,19 @@ namespace game::scenes
         // Auswahl mit ENTER
         if (IsKeyPressed(KEY_ENTER) || (is_mouse_over_item && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)))
         {
-            SoundManager::GetInstance().PlaySfx("ui_select");
             switch (selected_item_index_)
             {
                 case 0: // Play
                     // Wechsle zur Haupt-Spielszene (Level1Scene)
-                    game::core::Store::stage->ReplaceWithNewScene("menu"s, "gameplay"s, std::make_unique<Level1Scene>());
+                    is_transitioning_ = true;
+                    SoundManager::GetInstance().PlaySfx("game_start");
                     break;
                 case 1: // Settings
+                    SoundManager::GetInstance().PlaySfx("ui_select");
                     // Noch keine Funktion
                     break;
                 case 2: // Credits
+                    SoundManager::GetInstance().PlaySfx("ui_select");
                     // Noch keine Funktion
                     break;
                 case 3: // Quit
@@ -114,6 +135,16 @@ namespace game::scenes
                     CloseWindow();
                     exit(0);
                     break;
+            }
+        }
+    }
+        else // Wenn wir in einer Transition sind:
+        {
+            transition_alpha_ += GetFrameTime() / transition_duration_;
+            if (transition_alpha_ >= 1.0f)
+            {
+                // Wenn der Bildschirm schwarz ist, wechsle die Szene
+                game::core::Store::stage->ReplaceWithNewScene("menu"s, "gameplay"s, std::make_unique<Level1Scene>());
             }
         }
     }
@@ -189,6 +220,16 @@ namespace game::scenes
                 0.0f,
                 Color{ 88, 60, 72, 255 }
             );
+
+            if (is_transitioning_)
+            {
+                DrawRectangle(0, 0, game::Config::kStageWidth, game::Config::kStageHeight, Fade(BLACK, transition_alpha_));
+            }
+
+            if (is_fading_in_)
+            {
+                DrawRectangle(0, 0, game::Config::kStageWidth, game::Config::kStageHeight, Fade(BLACK, fade_in_alpha_));
+            }
         }
     }
 }
