@@ -4,30 +4,51 @@
 
 #include <valarray>
 #include "EnemyBaseClass.h"
+#include <iostream>
+#include "Store.h"
+#include "AssetManager.h"
 #include "CollisionManager.h"
 #include "CollisionResponse.h"
 #include "PlayerBaseClass.h"
+#include <valarray>
 
 namespace enemy
 {
 Enemy_Base_Class::Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
-    const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height, float cooldown_Duration)
+    const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height, float cooldown_Duration, Object_Manager& om)
     : enemy_Name(name), enemy_Health(health), enemy_Movement_Speed(movement_speed), enemy_Damage(damage),
-      enemy_Value(value),attack_Cooldown_Duration(cooldown_Duration), attack_Cooldown_Timer(0.0f), is_Moving(false)
+      enemy_Value(value),attack_Cooldown_Duration(cooldown_Duration), attack_Cooldown_Timer(0.0f), is_Moving(false), om_ref_(om)
     {
     hitbox = {start_position.x, start_position.y, (float)width, (float)height};
-    sprite = LoadTexture(sprite_path);
+    sprite = AssetManager::GetInstance().Load(sprite_path);
+    this->is_animation_active_ = false;
     }
 
 Enemy_Base_Class::~Enemy_Base_Class()
 {
-    UnloadTexture(sprite);
+    //UnloadTexture(sprite);
 }
 
-void Enemy_Base_Class::Take_Damage(int damage_amount)
+    void Enemy_Base_Class::Take_Damage(int damage_amount)
 {
+    // Verhindere, dass bereits tote Gegner mehrfach Punkte geben
+    if (this->enemy_Health <= 0) return;
+
     enemy_Health -= damage_amount;
+    this->PlayHitSound(); // Spiele den Hit-Sound
+
+    if (this->enemy_Health <= 0)
+    {
+        // Logik für die Punktevergabe
+        this->PlayDeathSound(); // Spiele den Todes-Sound
+        if (game::core::Store::player) {
+            game::core::Store::player->Add_Score(this->enemy_Value);
+        }
+
+        this->Mark_For_Destruction();
+    }
 }
+
 
 void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time)
 {
@@ -38,10 +59,14 @@ void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Positio
     // Berechnet die exakte Distanz zum Ziel.
     float distance_To_Target = std::sqrt(delta_Vector_X * delta_Vector_X + delta_Vector_Y * delta_Vector_Y);
 
+    // Wir holen uns die Angriffsreichweite.
+    float attack_Range = 25.0; // 0,5 Tiles
+
     // Sicherheitscheck, um eine Division durch Null (Fehler den ich bei meinem Test oft hatte) zu verhindern.
     // Die Bewegung wird nur ausgeführt, wenn der Gegner sein Ziel noch nicht erreicht hat.
-    if (distance_To_Target > 0.01f)
+    if (distance_To_Target > attack_Range)
     {
+        is_Moving = true; // Der Gegner will sich bewegen
         // Normalisiert den Vektor: Macht den Pfeil zur reinen Richtung, indem seine Länge auf 1 gekürzt wird.
         // Dies ist der entscheidende Schritt für eine konstante Geschwindigkeit.
         float normalized_Direction_X = delta_Vector_X / distance_To_Target;
@@ -58,7 +83,11 @@ void Enemy_Base_Class::Pathfinding(float target_Position_X, float target_Positio
         this->hitbox.y += normalized_Direction_Y * movement_Step_Size;
 
     }
-    is_Moving= true;
+    else
+    {
+        // Wenn du in Reichweite bist, bewege dich nicht.
+        is_Moving = false;
+    }
 }
 
 //Core Methoden
@@ -77,7 +106,6 @@ void Enemy_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
     switch(other_Type)
     {
         case Collision_Type::WALL:
-        case Collision_Type::ENEMY_SPAWNER:
         case Collision_Type::PLAYER:
         {
             if (this->is_Moving)
@@ -109,7 +137,7 @@ void Enemy_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
             CollisionResponse::Mark_For_Destruction(other);*/
             break;
         }
-
+        case Collision_Type::ENEMY_SPAWNER:
         case Collision_Type::CONSUMABLE:
         {
             /* // Wir brauchen eine Basis-Klasse "Consumable", von der alle Items erben.
@@ -138,6 +166,33 @@ void Enemy_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
 }
 void Enemy_Base_Class::Draw()
 {
-
 }
+    void Enemy_Base_Class::Range_Attack()
+{
+}
+
+    void Enemy_Base_Class::Melee_Attack()
+{
+    // Hier wird später die Logik für den Sweep-Angriff implementiert
+    // (z.B. eine temporäre Hitbox vor dem Gegner erstellen).
+
+    // Setze den Cooldown zurück, damit der Gegner nicht sofort wieder angreift.
+    this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
+}
+
+    void Enemy_Base_Class::Set_Animation_Active(bool is_active)
+{
+    this->is_animation_active_ = is_active;
+}
+
+void Enemy_Base_Class::PlayHitSound() {
+    // Diese Basis-Implementierung ist absichtlich leer.
+    // Die spezifischen Gegner-Klassen (Insect, Sniper, etc.)
+    // überschreiben diese Methode mit ihrem eigenen Sound.
+}
+
+void Enemy_Base_Class::PlayDeathSound() {
+    // Diese Basis-Implementierung ist ebenfalls leer.
+}
+
 }

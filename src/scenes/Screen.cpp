@@ -50,7 +50,16 @@ void Screen::Load_Levelmap() {
         }
         break;
     }
+    // Nebel-Initialisierung nach der Schleife aufrufen
+    std::string mapName = levelmap_Path;
+    Vector2 resolution = {static_cast<float>(game::Config::kStageWidth),
+                         static_cast<float>(game::Config::kStageHeight)};
+    fogManager.InitializeFog(mapName, resolution);
+
+    //  Flag setzen, damit nicht erneut geladen wird
+    this->loaded = true;
 }
+
 
 //Every Tilelayer need to posses a boolean IsAboveObjects = true if it should be rendered after the objects
 //Draw_Level() function calls now need to look loke this
@@ -61,6 +70,12 @@ void Screen::Load_Levelmap() {
 
 //Draw_Level(false) only draws Tilelayer that are below the objects
 //while Draw_Level(true) only draws the ones above the Objects
+
+void Screen::UpdateFog(Vector2 playerPosition, float deltaTime)
+{
+    fogManager.Update(playerPosition, deltaTime);
+}
+
 
 void Screen::Draw_Level(std::shared_ptr<Cam> kamera,bool aboveObjects) {
 
@@ -86,6 +101,10 @@ void Screen::Draw_Level(std::shared_ptr<Cam> kamera,bool aboveObjects) {
         }
         if (isAbove != aboveObjects)
             continue;
+
+        // Begin fog rendering if active
+        fogManager.BeginFogMode();
+        BeginBlendMode(BLEND_ALPHA);
 
         //get Tilelayer Data
         auto &tile_Layer = layer.getTileData();
@@ -124,6 +143,11 @@ void Screen::Draw_Level(std::shared_ptr<Cam> kamera,bool aboveObjects) {
             }
         }
     }
+
+    EndBlendMode();
+    // End fog rendering
+    fogManager.EndFogMode();
+
     EndMode2D();
 }
 
