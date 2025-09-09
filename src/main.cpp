@@ -18,6 +18,7 @@ using namespace std::string_literals;
 
 int main()
 {
+    SetConfigFlags(FLAG_WINDOW_HIDDEN);
 
     game::core::Game game(game::Config::kStageWidth, game::Config::kStageHeight, game::Config::kFullScreen,
                           game::Config::kTargetFps, game::Config::kWindowFlags, game::Config::kTextureFilter,
@@ -25,11 +26,6 @@ int main()
                           game::Config::kProjectName);
 
     HideCursor();
-
-    // Zeichne sofort einen schwarzen Frame, um den weißen Blitz zu verhindern
-    BeginDrawing();
-    ClearBackground(BLACK);
-    EndDrawing();
 
     // SoundManager initialisieren
     SoundManager::GetInstance().Init();

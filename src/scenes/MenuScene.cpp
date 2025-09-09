@@ -55,7 +55,7 @@ namespace game::scenes
     {
         if (is_fading_in_)
         {
-            fade_in_alpha_ -= GetFrameTime() / 1.5f; // Fade-In über 1 Sekunde
+            fade_in_alpha_ -= GetFrameTime() / 3.2f; // Fade-In über 1 Sekunde
             if (fade_in_alpha_ <= 0.0f)
             {
                 fade_in_alpha_ = 0.0f;
