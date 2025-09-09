@@ -13,6 +13,7 @@ namespace game {
         // --- MUSIK ---
         inline static const std::string kMenuMusicPath = "assets/audio/music/menu_background.ogg";
         inline static const std::string kIngameMusicPath = "assets/audio/music/ambience lvl 1.mp3";                       //done
+        inline static const std::string kDeathMusicPath = "assets/audio/music/death_screen.ogg";
 
         // -- UI & MENÜ --
         inline static const std::string kUIMenuNavigateSfxPath = "assets/audio/sfx/ui_navigate.wav";

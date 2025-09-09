@@ -10,6 +10,7 @@
 #include "../game/interactables/interact_list.h"
 #include "SoundManager.h"
 #include "MenuScene.h"
+#include "DeathScene.h"
 
 using namespace std::string_literals;
 
@@ -103,130 +104,150 @@ namespace game::scenes
             game::core::Store::stage->SwitchToNewScene("menu"s, std::make_unique<MenuScene>());
             return;
         }
-/*        if (IsKeyPressed(KEY_L)){
-            ToggleFullscreen();
-        }
-*/
         if (auto player = sp_player.lock())
         {
-            Vector2 player_position = player->Get_Player_Center();
-            Vector2 player_center = player->Get_Player_Center();
-
-            // --- INTELLIGENTE UPDATE-SCHLEIFE ---
-            for (const auto& obj : objectManager.managed_objects)
+            // 1. Prüfe, ob der Spieler gestorben ist und das Spiel noch nicht eingefroren ist.
+            if (player->GetHealth() <= 0 && !is_frozen_)
             {
-                if (!obj) continue;
+                is_frozen_ = true; // Friere das Spiel ein
+                SoundManager::GetInstance().StopCurrentMusic();
+                SoundManager::GetInstance().PlaySfx("player_death");
+            }
 
-                // 1. Versuche, das Objekt in einen Gegner umzuwandeln
-                if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(obj))
+            // 2. Wenn das Spiel eingefroren ist, kümmere dich um die Überblendung.
+            if (is_frozen_)
+            {
+                // Erhöhe die Transparenz über Zeit
+                fade_to_black_alpha_ += GetFrameTime() / fade_duration_;
+                if (fade_to_black_alpha_ >= 1.4f)
                 {
-                    // Prüfe die Distanz zum Spieler, um die Animation zu aktivieren/deaktivieren
-                    Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
-                    float distance = Vector2Distance(player_center, obj_center);
+                    // Wenn die Überblendung komplett ist, wechsle zur DeathScene.
+                    game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "death"s, std::make_unique<DeathScene>(player->Get_Score()));
+                    return;
+                }
+            }
+            // 3. Die gesamte restliche Spiellogik wird nur ausgeführt, wenn das Spiel NICHT eingefroren ist.
+            else
+            {
+                Vector2 player_position = player->Get_Player_Center();
+                Vector2 player_center = player->Get_Player_Center();
 
-                    // Wenn der Gegner im sichtbaren Radius ist, schalte die Animation an.
-                    if (distance <= 99999999) {
-                        enemy->Set_Animation_Active(true);
+                // --- INTELLIGENTE UPDATE-SCHLEIFE ---
+                for (const auto& obj : objectManager.managed_objects)
+                {
+                    if (!obj) continue;
+
+                    // 1. Versuche, das Objekt in einen Gegner umzuwandeln
+                    if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(obj))
+                    {
+                        // Prüfe die Distanz zum Spieler, um die Animation zu aktivieren/deaktivieren
+                        Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                        float distance = Vector2Distance(player_center, obj_center);
+
+                        // Wenn der Gegner im sichtbaren Radius ist, schalte die Animation an.
+                        if (distance <= 99999999) {
+                            enemy->Set_Animation_Active(true);
+                        }
+                        // Sonst schalte sie aus.
+                        else {
+                            enemy->Set_Animation_Active(false);
+                        }
+                        // 2. Rufe die spezifische KI jedes Gegners auf, ohne seinen Typ zu kennen!
+                        enemy->Update_AI(dtm.Get_Dt(), player_position);
                     }
-                    // Sonst schalte sie aus.
-                    else {
-                        enemy->Set_Animation_Active(false);
+                    else
+                    {
+                        // 3. WENN es KEIN Gegner ist, rufe die normale Tick-Methode auf.
+                        obj->Tick(dtm.Get_Dt());
                     }
-                    // 2. Rufe die spezifische KI jedes Gegners auf, ohne seinen Typ zu kennen!
-                    enemy->Update_AI(dtm.Get_Dt(), player_position);
+                }
+
+                if (player->Should_Place_Bomb())
+                {
+                    // Platziere die Bombe auf dem Grid, auf dem der Spieler steht
+                    Vector2 bomb_pos = {
+                        floorf(player_center.x / 32.0f) * 32.0f,
+                        floorf(player_center.y / 32.0f) * 32.0f
+                    };
+                    auto bomb = std::make_shared<Bomb>(bomb_pos, this, objectManager);
+                    Add_Object_To_Waitlist(bomb);
+                }
+
+                // --- "useFog"-Logik ---
+                if (fogManager.IsFogActive())
+                {
+                    // WENN der Nebel AN ist, berechne die Transparenz basierend auf der Distanz.
+                    Vector2 player_center = player->Get_Player_Center();
+                    for (const auto& obj : objectManager.managed_objects) {
+                        if (obj && obj->Get_Use_Fog()) {
+                            Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                            float distance = Vector2Distance(player_center, obj_center);
+                            float alpha = 1.0f;
+                            if (distance > game::Config::kFogFullVisibilityRadius) {
+                                alpha = 1.0f - (distance - game::Config::kFogFullVisibilityRadius) / (game::Config::kFogNoVisibilityRadius - game::Config::kFogFullVisibilityRadius);
+                            }
+                            obj->Set_Visibility_Alpha(Clamp(alpha, 0.0f, 1.0f));
+                        } else if (obj) {
+                            // Objekte ohne useFog sind im Nebel immer voll sichtbar.
+                            obj->Set_Visibility_Alpha(1.0f);
+                        }
+                    }
                 }
                 else
                 {
-                    // 3. WENN es KEIN Gegner ist, rufe die normale Tick-Methode auf.
-                    obj->Tick(dtm.Get_Dt());
-                }
-            }
-
-            if (player->Should_Place_Bomb())
-            {
-                // Platziere die Bombe auf dem Grid, auf dem der Spieler steht
-                Vector2 bomb_pos = {
-                    floorf(player_center.x / 32.0f) * 32.0f,
-                    floorf(player_center.y / 32.0f) * 32.0f
-                };
-                auto bomb = std::make_shared<Bomb>(bomb_pos, this, objectManager);
-                Add_Object_To_Waitlist(bomb);
-            }
-
-            // --- "useFog"-Logik ---
-            if (fogManager.IsFogActive())
-            {
-                // WENN der Nebel AN ist, berechne die Transparenz basierend auf der Distanz.
-                Vector2 player_center = player->Get_Player_Center();
-                for (const auto& obj : objectManager.managed_objects) {
-                    if (obj && obj->Get_Use_Fog()) {
-                        Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
-                        float distance = Vector2Distance(player_center, obj_center);
-                        float alpha = 1.0f;
-                        if (distance > game::Config::kFogFullVisibilityRadius) {
-                            alpha = 1.0f - (distance - game::Config::kFogFullVisibilityRadius) / (game::Config::kFogNoVisibilityRadius - game::Config::kFogFullVisibilityRadius);
+                    // WENN der Nebel AUS ist, setze ALLE Objekte auf 100% Sichtbarkeit.
+                    for (const auto& obj : objectManager.managed_objects) {
+                        if (obj) {
+                            obj->Set_Visibility_Alpha(1.0f);
                         }
-                        obj->Set_Visibility_Alpha(Clamp(alpha, 0.0f, 1.0f));
-                    } else if (obj) {
-                        // Objekte ohne useFog sind im Nebel immer voll sichtbar.
-                        obj->Set_Visibility_Alpha(1.0f);
                     }
                 }
-            }
-            else
-            {
-                // WENN der Nebel AUS ist, setze ALLE Objekte auf 100% Sichtbarkeit.
-                for (const auto& obj : objectManager.managed_objects) {
-                    if (obj) {
-                        obj->Set_Visibility_Alpha(1.0f);
-                    }
+
+                objectManager.Cleanup_Objects();
+
+                for (const auto& new_obj : objects_to_add_list_) {
+                    objectManager.AddObject(new_obj);
                 }
+                objects_to_add_list_.clear();
+
+                // Aktualisiere Kamera und Kollisionen
+                p_cm->Check_Collisions();
+                sp_cam->Cam_Movement(dtm.Get_Dt());
+
+                // --- KAMERA-BEGRENZUNG ---
+                {
+                    // 1. Hole die halbe Bildschirmgröße. Die Kamera schaut von der Mitte aus.
+                    float screen_half_width = game::Config::kStageWidth / 2.0f;
+                    float screen_half_height = game::Config::kStageHeight / 2.0f;
+
+                    // 2. Berücksichtige den Zoom-Faktor.
+                    float zoomed_half_width = screen_half_width / sp_cam->cam.zoom;
+                    float zoomed_half_height = screen_half_height / sp_cam->cam.zoom;
+
+                    // 3. Berechne die minimal und maximal erlaubten Koordinaten für das KAMERA-ZIEL.
+                    float min_cam_x = game::Config::kWorldBoundsMinX + zoomed_half_width;
+                    float max_cam_x = game::Config::kWorldBoundsMaxX - zoomed_half_width;
+                    float min_cam_y = game::Config::kWorldBoundsMinY + zoomed_half_height;
+                    float max_cam_y = game::Config::kWorldBoundsMaxY - zoomed_half_height;
+
+                    // 4. "Klemme" die aktuelle Zielposition der Kamera an diese Grenzen.
+                    sp_cam->cam.target.x = Clamp(sp_cam->cam.target.x, min_cam_x, max_cam_x);
+                    sp_cam->cam.target.y = Clamp(sp_cam->cam.target.y, min_cam_y, max_cam_y);
+                }
+
+                // --- NEBEL-UPDATE ---
+                // Wir müssen die WELT-Position des Spielers in BILDSCHIRM-Koordinaten umrechnen.
+                Vector2 player_world_pos = player->Get_Player_Center();
+                Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, sp_cam->cam);
+
+                // Übergib die korrekten Bildschirm-Koordinaten an den FogManager.
+                if (fogManager.IsFogActive()) {
+                    fogManager.Update(player_screen_pos, dtm.Get_Dt());
+                }
+
+                // Aufräumen und Zeit aktualisieren
+                dtm.Update();
             }
-
-            objectManager.Cleanup_Objects();
-
-            for (const auto& new_obj : objects_to_add_list_) {
-                objectManager.AddObject(new_obj);
-            }
-            objects_to_add_list_.clear();
-
-            // Aktualisiere Kamera und Kollisionen
-            p_cm->Check_Collisions();
-            sp_cam->Cam_Movement(dtm.Get_Dt());
-
-            // --- KAMERA-BEGRENZUNG ---
-            {
-                // 1. Hole die halbe Bildschirmgröße. Die Kamera schaut von der Mitte aus.
-                float screen_half_width = game::Config::kStageWidth / 2.0f;
-                float screen_half_height = game::Config::kStageHeight / 2.0f;
-
-                // 2. Berücksichtige den Zoom-Faktor.
-                float zoomed_half_width = screen_half_width / sp_cam->cam.zoom;
-                float zoomed_half_height = screen_half_height / sp_cam->cam.zoom;
-
-                // 3. Berechne die minimal und maximal erlaubten Koordinaten für das KAMERA-ZIEL.
-                float min_cam_x = game::Config::kWorldBoundsMinX + zoomed_half_width;
-                float max_cam_x = game::Config::kWorldBoundsMaxX - zoomed_half_width;
-                float min_cam_y = game::Config::kWorldBoundsMinY + zoomed_half_height;
-                float max_cam_y = game::Config::kWorldBoundsMaxY - zoomed_half_height;
-
-                // 4. "Klemme" die aktuelle Zielposition der Kamera an diese Grenzen.
-                sp_cam->cam.target.x = Clamp(sp_cam->cam.target.x, min_cam_x, max_cam_x);
-                sp_cam->cam.target.y = Clamp(sp_cam->cam.target.y, min_cam_y, max_cam_y);
-            }
-
-            // --- NEBEL-UPDATE ---
-            // Wir müssen die WELT-Position des Spielers in BILDSCHIRM-Koordinaten umrechnen.
-            Vector2 player_world_pos = player->Get_Player_Center();
-            Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, sp_cam->cam);
-
-            // Übergib die korrekten Bildschirm-Koordinaten an den FogManager.
-            if (fogManager.IsFogActive()) {
-                fogManager.Update(player_screen_pos, dtm.Get_Dt());
-            }
-
-            // Aufräumen und Zeit aktualisieren
-            dtm.Update();
         }
     }
 
@@ -287,7 +308,13 @@ namespace game::scenes
             }
         }
         EndMode2D();
+
         // --- ZEICHNE DIE UI ---
         uiManager_.DrawUI(sp_cam->cam);
+
+        if (is_frozen_)
+        {
+            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, fade_to_black_alpha_));
+        }
     }
 }

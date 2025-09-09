@@ -33,9 +33,9 @@ namespace game::scenes
         selected_item_index_ = 0; // "Play" ist zu Beginn ausgewählt
 
         // Definiere die Farben (basierend auf deinem Feedback)
-        background_color_ = { 0, 44, 56, 255 };      // #002c38
-        text_color_ = { 68, 52, 68, 255 };          // #443444
-        selected_text_color_ = { 216, 176, 168, 255 }; // #d8b0a8
+        background_color_ = { 0, 44, 56, 255 };
+        text_color_ = { 68, 52, 68, 255 };
+        selected_text_color_ = { 216, 176, 168, 255 };
     }
 
     MenuScene::~MenuScene()
@@ -147,7 +147,7 @@ namespace game::scenes
 
             Color current_color = (i == selected_item_index_) ? selected_text_color_ : text_color_;
 
-            // Auswahl-Pfeil zeichnen (skaliert)
+            // Auswahl-Pfeil zeichnen
             if (i == selected_item_index_)
             {
                 float selector_scale = 3.5f; // Skalierungsfaktor für den Pfeil

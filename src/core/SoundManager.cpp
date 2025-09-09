@@ -11,6 +11,7 @@ void SoundManager::Init() {
     // Lade alle Musikstücke aus der Config in den Cache.
     music_cache_["menu_music"] = LoadMusicStream(game::AudioConfig::kMenuMusicPath.c_str());
     music_cache_["ingame_music"] = LoadMusicStream(game::AudioConfig::kIngameMusicPath.c_str());
+    music_cache_["death_music"] = LoadMusicStream(game::AudioConfig::kDeathMusicPath.c_str());
 
     // Lade die Soundeffekte aus der Config in den Cache
     // UI

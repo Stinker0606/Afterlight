@@ -582,8 +582,6 @@ void PlayerClass::Take_Damage(int damage)
     if (this->player_Health < 0) {
         SoundManager::GetInstance().PlaySfx("player_death");
         this->player_Health = 0;
-        // Hier könntest du später den DYING-Zustand auslösen
-        // player_state = PlayerState::DYING;
     }
 }
 

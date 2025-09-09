@@ -49,7 +49,6 @@ namespace game::scenes
         LevelScreen levelScreen{&level_Nbr}; // Wir benutzen unsere erweiterbare LevelScreen
 
         // Listen, die der EnemySpawner aus der Basis-Engine benötigt
-        // ---------------------------------------------------------------------
         // Eine Liste, die alle Hindernisse für die Spawner enthält.
         std::vector<Rectangle> obstacle_list_for_spawner;
 
@@ -58,7 +57,11 @@ namespace game::scenes
 
         // Eine Liste, die alle unsere Spawner-Objekte verwaltet.
         std::vector<std::unique_ptr<Enemy_Spawner>> spawner_list;
-        // ---------------------------------------------------------------------
+
+        // --- Zustandsvariablen für den Tod ---
+        bool is_frozen_ = false;            // Friert das Spiel ein, wenn true
+        float fade_to_black_alpha_ = 0.0f;  // Die aktuelle Transparenz für die Überblendung
+        float fade_duration_ = 2.0f;        // Dauer der Überblendung in Sekunden
 
     public:
         /**
