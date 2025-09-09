@@ -230,7 +230,7 @@ namespace game::scenes
     void Level1Scene::Draw()
     {
         BeginDrawing();
-        ClearBackground((Color){ 0, 32, 36, 255 }); // Hintergrundfarbe
+        ClearBackground(Color{ 0, 32, 36, 255 }); // Hintergrundfarbe
 
         BeginMode2D(sp_cam->cam);
         {

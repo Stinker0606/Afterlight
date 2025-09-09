@@ -67,9 +67,9 @@ Player_Projectile::Player_Projectile(Vector2 start_position, Vector2 direction, 
         if (!is_active) return;
         DrawTexturePro(
             sprite,
-            (Rectangle){ 0, 0, (float)sprite.width, (float)sprite.height },
-            (Rectangle){ position.x, position.y, (float)sprite.width, (float)sprite.height },
-            (Vector2){ (float)sprite.width / 2, (float)sprite.height / 2 },
+            Rectangle{ 0, 0, (float)sprite.width, (float)sprite.height },
+            Rectangle{ position.x, position.y, (float)sprite.width, (float)sprite.height },
+            Vector2{ (float)sprite.width / 2, (float)sprite.height / 2 },
             rotation,
             WHITE
         );

@@ -575,7 +575,7 @@ void PlayerClass::Take_Damage(int damage)
     if (damage > 0) {
         SoundManager::GetInstance().PlaySfx("player_hit");
         hit_feedback_timer = 0.2f;
-        tint_color = (Color){ 88, 60, 72, 255 };
+        tint_color = Color{ 88, 60, 72, 255 };
     }
 
     // Stelle sicher, dass die HP nicht unter 0 fallen.
