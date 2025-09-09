@@ -12,5 +12,7 @@
 #include "BreakableWall.h"
 #include "KeyWall.h"
 #include "Door.h"
+#include "WeaponItem.h"
+#include "Statue.h"
 
 // #include "Interactable.h" // Hier kommen zukünftige neue Interables hin

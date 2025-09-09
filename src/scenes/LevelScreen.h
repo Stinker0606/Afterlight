@@ -58,6 +58,9 @@ public:
     // Der Key ist der Name (z.B. "player_start_from_Test1"), der Value ist die Position.
     std::map<std::string, Vector2> spawn_points_;
 
+    // Eine öffentliche Getter-Funktion, die die private Textur zurückgibt.
+    Texture2D GetTileAtlasTexture() const;
+
 private:
     Texture2D tileatlas_Texture;
     std::unique_ptr<tson::Map> map;

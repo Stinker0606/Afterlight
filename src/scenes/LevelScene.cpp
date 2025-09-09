@@ -80,6 +80,13 @@ namespace game::scenes
 
         // 10. Zeitmessung starten
         dtm.Start();
+
+        // Finde alle Statuen im Level und speichere sie in unserer Liste
+        for (const auto& obj : objectManager.managed_objects) {
+            if (auto statue = std::dynamic_pointer_cast<Statue>(obj)) {
+                statues_in_level_.push_back(statue);
+            }
+        }
     }
 
     Level1Scene::~Level1Scene()
@@ -104,6 +111,7 @@ namespace game::scenes
             game::core::Store::stage->SwitchToNewScene("menu"s, std::make_unique<MenuScene>());
             return;
         }
+
         if (auto player = sp_player.lock())
         {
             // 1. Prüfe, ob der Spieler gestorben ist und das Spiel noch nicht eingefroren ist.
@@ -159,6 +167,30 @@ namespace game::scenes
                     {
                         // 3. WENN es KEIN Gegner ist, rufe die normale Tick-Methode auf.
                         obj->Tick(dtm.Get_Dt());
+                    }
+
+                    // Logik zur Überprüfung des Rätsels
+                    if (!puzzle_solved_ && !statues_in_level_.empty()) {
+                        bool all_statues_solved = true;
+                        for (const auto& weak_statue : statues_in_level_) {
+                            if (auto statue = weak_statue.lock()) {
+                                if (!statue->IsSolved()) {
+                                    all_statues_solved = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (all_statues_solved) {
+                            puzzle_solved_ = true;
+                            Vector2 key_pos = levelScreen.spawn_points_["key_spawn_point"];
+                            Rectangle key_source_rect = {1, 1, 32, 32 }; // 1, 1, muss geändert werden in den Koordinaten des Spawn Key Points
+
+                            auto key_item = std::make_shared<KeyConsumable>(key_pos, 1, levelScreen.GetTileAtlasTexture(), key_source_rect);
+
+                            Add_Object_To_Waitlist(key_item);
+                            SoundManager::GetInstance().PlaySfx("game_start");
+                        }
                     }
                 }
 

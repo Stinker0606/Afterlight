@@ -639,3 +639,15 @@ int PlayerClass::Get_Score() const
 {
     return this->score_;
 }
+
+void PlayerClass::SetHeldWeapon(int weapon_id) {
+    held_weapon_id_ = weapon_id;
+}
+
+int PlayerClass::GetHeldWeapon() const {
+    return held_weapon_id_;
+}
+
+void PlayerClass::ClearHeldWeapon() {
+    held_weapon_id_ = -1;
+}

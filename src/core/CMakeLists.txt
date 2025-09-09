@@ -99,6 +99,10 @@ add_library(core STATIC
         ../game/spawner/Level2Spawner.h
         ../game/enemys/Corpse.cpp
         ../game/enemys/Corpse.h
+        ../game/interactables/WeaponItem.cpp
+        ../game/interactables/WeaponItem.h
+        ../game/interactables/Statue.cpp
+        ../game/interactables/Statue.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

@@ -32,7 +32,7 @@ namespace game::scenes
         selected_item_index_ = 0;
 
         // Farben
-        text_color_ = { 68, 52, 68, 255 };
+        text_color_ = { 88, 60, 72, 255 };
         selected_text_color_ = { 216, 176, 168, 255 };
         cursor_color_ = { 88, 60, 72, 255 };
     }

@@ -106,6 +106,9 @@ private:
     // Ein schwacher Zeiger auf die Kamera, um die Mausposition umzurechnen.
     std::weak_ptr<Cam> sp_camera;
 
+    // Hält die ID der getragenen Waffe. -1 bedeutet, keine Waffe wird getragen.
+    int held_weapon_id_ = -1;
+
 public:
     /**
      * @brief Konstruktor für unseren Spieler.
@@ -159,4 +162,9 @@ public:
     // --- METHODEN FÜR DEN SCORE ---
     void Add_Score(int amount);
     int Get_Score() const;
+
+    // Methoden zum Verwalten der getragenen Waffe
+    void SetHeldWeapon(int weapon_id);
+    int GetHeldWeapon() const;
+    void ClearHeldWeapon();
 };

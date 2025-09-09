@@ -12,6 +12,8 @@
 #include <vector>
 #include "UIManager.h"
 #include "../game/spawner/Level1Spawner.h"
+#include "../game/interactables/Statue.h"
+#include "../game/interactables/KeyConsumable.h"
 
 namespace game::scenes
 {
@@ -62,6 +64,9 @@ namespace game::scenes
         bool is_frozen_ = false;            // Friert das Spiel ein, wenn true
         float fade_to_black_alpha_ = 0.0f;  // Die aktuelle Transparenz für die Überblendung
         float fade_duration_ = 2.0f;        // Dauer der Überblendung in Sekunden
+
+        bool puzzle_solved_ = false;
+        std::vector<std::weak_ptr<Statue>> statues_in_level_;
 
     public:
         /**

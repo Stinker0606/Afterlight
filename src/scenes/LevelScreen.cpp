@@ -97,6 +97,12 @@ void LevelScreen::Hide_Tiles_In_Area(Rectangle area_to_hide)
     }
 }
 
+// Implementierung der Getter-Funktion
+Texture2D LevelScreen::GetTileAtlasTexture() const
+{
+    return this->tileatlas_Texture;
+}
+
 void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
     if (map == nullptr) return;
     // Die Funktion kümmert sich NUR noch um das Zeichnen der Kacheln.
@@ -234,6 +240,49 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     // Erstelle die Hitbox und das Door-Objekt.
                     Rectangle rect = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
                     new_object = std::make_shared<Door>(rect, target_map, target_spawn);
+                }
+                else if (object_name == "statue")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
+                        if (tile) {
+                            int id = object.getProp("correct_weapon_id")->getValue<int>();
+                            std::string path_with_weapon = object.getProp("sprite_with_weapon")->getValue<std::string>();
+                            Texture2D tex_with = AssetManager::GetInstance().Load(path_with_weapon.c_str());
+
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y - (float)drawing_rect.height};
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+
+                            new_object = std::make_shared<Statue>(pos, id, tex_with, this->tileatlas_Texture, source_rect);
+                        }
+                    }
+                }
+                else if (object_name == "weapon")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
+                        if (tile) {
+                            int id = object.getProp("weapon_id")->getValue<int>();
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y - (float)drawing_rect.height};
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+
+                            new_object = std::make_shared<WeaponItem>(pos, id, this->tileatlas_Texture, source_rect);
+                        }
+                    }
+                }
+                else if (object_name == "key_spawn_point")
+                {
+                    spawn_points_[object_name] = {(float)object.getPosition().x, (float)object.getPosition().y};
                 }
                 // Erkennt den Standard-Startpunkt UND alle benannten Startpunkte
                 else if (object_name == "player_start" || object_name.rfind("player_start_", 0) == 0)
@@ -403,7 +452,6 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                         }
                     }
                 }
-
                 if (new_object != nullptr) {
                     if (object.getProperties().hasProperty("useFog")) {
                         new_object->Set_Use_Fog(object.getProperties().getValue<bool>("useFog"));
