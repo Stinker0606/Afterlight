@@ -55,10 +55,10 @@ void ControllableAnimations::Next_Frame() {
     }
 }
 
-void ControllableAnimations::Draw_Current_Frame(Vector2 pos, Color tint) {
+    void ControllableAnimations::Draw_Current_Frame(Vector2 pos, Color tint, float scale) {
     // Diese Draw-Methode ist robust und funktioniert mit dem Nebel-Shader.
-    Vector2 origin = { this->size.x / 2, this->size.y / 2 };
-    Rectangle dest = { pos.x, pos.y, this->size.x, this->size.y };
+    Rectangle dest = { pos.x, pos.y, this->size.x * scale, this->size.y * scale };
+    Vector2 origin = { (this->size.x * scale) / 2, (this->size.y * scale) / 2 };
 
     BeginBlendMode(BLEND_ALPHA);
     DrawTexturePro(

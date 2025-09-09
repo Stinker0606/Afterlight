@@ -22,6 +22,8 @@ namespace game::scenes
         std::vector<std::string> menu_items_;
         int selected_item_index_;
 
+        float time_ = 0.0f;
+
         Color background_color_;
         Color text_color_;
         Color selected_text_color_;

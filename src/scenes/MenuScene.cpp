@@ -1,6 +1,7 @@
 #include "MenuScene.h"
 #include <string>
 #include <raylib.h>
+#include <cmath>
 #include "Store.h"
 #include "LevelScene.h"
 #include "AssetManager.h"
@@ -46,6 +47,9 @@ namespace game::scenes
 
     void MenuScene::Update()
     {
+        // Zeit für die Animation aktualisieren
+        time_ += GetFrameTime();
+
         // Navigation mit Pfeiltasten - angepasst, um nicht im Kreis zu springen
         if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
         {
@@ -118,12 +122,12 @@ namespace game::scenes
     {
         ClearBackground(background_color_);
 
-        // --- Logo zeichnen (skaliert und neu positioniert) ---
-        float scale = 0.7f; // Skalierungsfaktor für das Logo (kannst du anpassen)
+        // --- Logo zeichnen ---
+        float scale = 0.7f; // Skalierungsfaktor für das Logo
         float logo_width = logo_texture_.width * scale;
         float logo_height = logo_texture_.height * scale;
         float logo_x = (GetScreenWidth() / 2.0f) - (logo_width / 2.0f);
-        float logo_y = -180; // Weiter nach oben verschoben
+        float logo_y = -180;
 
         DrawTexturePro(
             logo_texture_,
@@ -135,9 +139,9 @@ namespace game::scenes
         );
 
         // --- Menüpunkte zeichnen ---
-        float font_size = 120; // Schriftgröße erhöht
-        int initial_y = 420; // Position nach unten angepasst, um Platz für das Logo zu schaffen
-        int spacing = 110;    // Abstand zwischen den Punkten vergrößert
+        float font_size = 120;
+        int initial_y = 420;
+        int spacing = 110;
 
         for (int i = 0; i < menu_items_.size(); ++i)
         {
@@ -150,10 +154,11 @@ namespace game::scenes
             // Auswahl-Pfeil zeichnen
             if (i == selected_item_index_)
             {
+                float selector_offset_x = sin(time_ * 2.5f) * 5.0f; // Schwingt 5 Pixel nach links und rechts
                 float selector_scale = 3.5f; // Skalierungsfaktor für den Pfeil
                 float selector_width = selector_texture_.width * selector_scale;
                 float selector_height = selector_texture_.height * selector_scale;
-                float selector_x = text_x - selector_width - 30; // Abstand angepasst
+                float selector_x = text_x - selector_width - 30 + selector_offset_x;
                 float selector_y = text_y + (text_size.y / 2.0f) - (selector_height / 2.0f);
 
                 DrawTexturePro(

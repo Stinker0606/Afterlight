@@ -3,6 +3,8 @@
 #include "Scene.h"
 #include <vector>
 #include <string>
+#include <raymath.h>
+#include "../core/ControllableAnimations.h"
 
 namespace game::scenes
 {
@@ -19,17 +21,23 @@ namespace game::scenes
     private:
         int score_;
         Font death_font_;
-        Texture2D death_image_;
         Texture2D selector_texture_;
+        ControllableAnimations death_animation_;
 
         std::vector<std::string> menu_items_;
         int selected_item_index_;
 
+        float time_ = 0.0f; // Hinzugefügt, um die Zeit für Animationen zu verfolgen
+
         // Farben für die UI
-        Color background_color_ = { 0, 44, 56, 255 };
+        Color background_color_ = { 10, 20, 25, 255 }; // Etwas dunkler für mehr Kontrast
         Color text_color_ = { 216, 176, 168, 150 };
         Color selected_text_color_ = { 216, 176, 168, 255 };
         Color primary_text_color_ = { 252, 252, 252, 255 };
         Color cursor_color_ = { 88, 60, 72, 255 };
+
+        // Neue Farben für den Flammeneffekt, passend zur Farbpalette
+        Color flame_outer_color_ = { 200, 80, 40, 255 };
+        Color flame_inner_color_ = { 255, 180, 50, 255 };
     };
 }
