@@ -94,7 +94,7 @@ namespace game::scenes
         DrawTextEx(death_font_, title, {(game::Config::kStageWidth / 2.0f) - (title_size.x / 2.0f), game::Config::kStageHeight * 0.1f}, title_font_size, 2, primary_text_color_);
 
         // --- Bild in der Mitte ---
-        float image_scale = 8.0f; // Bild vergrößert
+        float image_scale = 8.5f; // Bild vergrößert
         float scaled_width = death_image_.width * image_scale;
         float scaled_height = death_image_.height * image_scale;
         Vector2 image_pos = {
@@ -109,7 +109,7 @@ namespace game::scenes
         Vector2 score_size = MeasureTextEx(death_font_, score_text.c_str(), score_font_size, 2);
         Vector2 score_pos = {
             (game::Config::kStageWidth / 2.0f) - (score_size.x / 2.0f),
-            image_pos.y + scaled_height + 5 // Weiter nach unten
+            image_pos.y + scaled_height - 75
         };
         DrawTextEx(death_font_, score_text.c_str(), score_pos, score_font_size, 2, primary_text_color_);
 
@@ -138,7 +138,7 @@ namespace game::scenes
         }
 
         // --- Custom Cursor ---
-        float cursor_scale = 1.5f;
+        float cursor_scale = 1.3f;
         Texture2D cursor_texture = AssetManager::GetInstance().Load("assets/graphics/ui/cursor.png");
         DrawTextureEx(cursor_texture, game::core::Store::mouse_Position, 0.0f, cursor_scale, cursor_color_);
     }
