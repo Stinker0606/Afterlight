@@ -433,10 +433,6 @@
  "tileheight":32,
  "tilesets":[
         {
-         "firstgid":1,
-         "source":"ALLE_TILESETS.tsx"
-        }, 
-        {
          "firstgid":249,
          "source":"..\/..\/Afterlight\/assets\/Tiled\/Tilesets\/Afterlight_All_Level_Tileset.json"
         }],
