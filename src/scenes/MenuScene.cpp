@@ -25,7 +25,7 @@ namespace game::scenes
         selector_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/arrow_ui.png");
 
         // Lade die Schriftart, die bereits im Projekt ist
-        menu_font_ = LoadFont("assets/fonts/PixelOperator.ttf");
+        menu_font_ = LoadFontEx("assets/fonts/alagard.ttf", 250, nullptr, 0);
         // Setze den Texturfilter für die Schriftart auf FILTER_POINT für scharfe Pixel
         SetTextureFilter(menu_font_.texture, TEXTURE_FILTER_POINT);
 
@@ -74,7 +74,7 @@ namespace game::scenes
         {
             float font_size = 120;
             int initial_y = 420;
-            int spacing = 110;
+            int spacing = 140;
             Vector2 text_size = MeasureTextEx(menu_font_, menu_items_[i].c_str(), font_size, 2);
             float text_x = (GetScreenWidth() / 2.0f) - (text_size.x / 2.0f);
             float text_y = initial_y + (i * spacing);
@@ -141,7 +141,7 @@ namespace game::scenes
         // --- Menüpunkte zeichnen ---
         float font_size = 120;
         int initial_y = 420;
-        int spacing = 110;
+        int spacing = 140;
 
         for (int i = 0; i < menu_items_.size(); ++i)
         {
