@@ -11,7 +11,7 @@ namespace game {
         // =============================================== AUDIO PFADE =================================================
 
         // --- MUSIK ---
-        inline static const std::string kMenuMusicPath = "assets/audio/music/menu_background.ogg";
+        inline static const std::string kMenuMusicPath = "assets/audio/music/MainMenu.mp3";                                //done
         inline static const std::string kIngameMusicPath = "assets/audio/music/ambience lvl 1.mp3";                       //done
         inline static const std::string kDeathMusicPath = "assets/audio/music/death_screen.ogg";
 
@@ -81,7 +81,7 @@ namespace game {
         // Werte sollten zwischen 0.0f (stumm) and 1.0f (volle Lautstärke) sein.
 
         inline static constexpr float kMasterVolume = 0.75f;
-        inline static constexpr float kMusicVolume = 0.50f;
+        inline static constexpr float kMusicVolume = 0.35f;
         inline static constexpr float kSfxVolume = 0.25f;
 
         // ============================================= SOUND SETTINGS ================================================
