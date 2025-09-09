@@ -44,7 +44,7 @@ namespace game {
         // =============================================== SPAWNERS - LEVEL 1 ==========================================
 
         inline static constexpr float kSpawner1_SpawnRate = 30.0f; // Spawnt alle XX Sekunden einen Gegner.
-        inline static constexpr int kSpawner1_MaxEnemies = 4;     // Jeder Spawner darf maximal XX Gegner gleichzeitig aktiv haben.
+        inline static constexpr int kSpawner1_MaxEnemies = 3;     // Jeder Spawner darf maximal XX Gegner gleichzeitig aktiv haben.
 
         // Der Pool an Gegnern die dieser Spawner erzeugen kann.
         // Die Summe der 'weight'-Werte ist die Basis für die prozentuale Chance.
