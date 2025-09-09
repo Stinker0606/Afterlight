@@ -123,6 +123,8 @@ namespace enemy
         SoundManager::GetInstance().PlaySfx("enemy_wood_sniper_death");
     }
 
+    void WoodSniper::PlayMoveSound() {}
+
     void WoodSniper::Draw()
     {
         if (game::EnemyConfig::kUseEnemyAnimations)

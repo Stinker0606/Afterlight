@@ -8,6 +8,7 @@ using namespace std::string_literals;
 
 game::scenes::PauseScene::PauseScene()
 {
+    HideCursor();
     // Your scene initialization code here...
 }
 
@@ -28,4 +29,12 @@ void game::scenes::PauseScene::Draw()
     // Your scene drawing code here...
     // Note that scene-actors are drawn automatically
     DrawText("Pause - press ENTER to re-enter the game scene", 10, 10, 30, LIGHTGRAY);
+
+    // --- Custom Cursor zeichnen ---
+    DrawTexture(
+        AssetManager::GetInstance().Load("assets/graphics/ui/cursor.png"),
+        (int)GetMousePosition().x,
+        (int)GetMousePosition().y,
+        Color{ 88, 60, 72, 255 }
+    );
 }

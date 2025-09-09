@@ -136,6 +136,6 @@ void UIManager::DrawUI(Camera2D camera)
         // Wir ziehen die halbe Breite/Höhe ab, damit es zentriert ist
         reticle_pos.x -= reticle_texture_.width / 2.0f;
         reticle_pos.y -= reticle_texture_.height / 2.0f;
-        DrawTextureV(reticle_texture_, reticle_pos, (Color){ 88, 60, 72, 255 });
+        DrawTextureV(reticle_texture_, reticle_pos, Color{ 88, 60, 72, 255 });
     }
 }

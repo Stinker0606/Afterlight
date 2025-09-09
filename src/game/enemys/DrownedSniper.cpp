@@ -135,6 +135,8 @@ namespace enemy
         SoundManager::GetInstance().PlaySfx("enemy_sniper_death");
     }
 
+    void DrownedSniper::PlayMoveSound() {}
+
     void DrownedSniper::Draw()
     {
         if (game::EnemyConfig::kUseEnemyAnimations)

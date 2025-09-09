@@ -48,5 +48,6 @@ namespace enemy
 
         void PlayHitSound() override;
         void PlayDeathSound() override;
+        void PlayMoveSound() override;
     };
 }

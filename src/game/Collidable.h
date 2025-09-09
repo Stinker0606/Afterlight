@@ -20,7 +20,8 @@ enum class Collision_Type
     ENEMY_SPAWNER,
     PLAYER_MELEE_HITBOX,
     ENEMY_MELEE_HITBOX,
-    PORTAL
+    PORTAL,
+    NONE
 };
 
 class Collidable : public std::enable_shared_from_this<Collidable>

@@ -230,7 +230,7 @@ namespace game {
         inline static constexpr int player_Sweep_Front_Frames_Per_Line = 3;
 
         inline static constexpr const char* player_Sweep_Back_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Back.png";
-        inline static constexpr int player_Sweep_Back_Frames = 5;
+        inline static constexpr int player_Sweep_Back_Frames = 3;
         inline static constexpr int player_Sweep_Back_Frames_Per_Line = 3;
 
         inline static constexpr const char* player_Sweep_Left_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Left.png";

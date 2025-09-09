@@ -145,6 +145,10 @@ namespace enemy
         SoundManager::GetInstance().PlaySfx("enemy_corpse_death");
     }
 
+    void WalkingCorpse::PlayMoveSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_corpse_move", 1);
+    }
+
     void WalkingCorpse::Draw()
     {
         if (game::EnemyConfig::kUseEnemyAnimations)

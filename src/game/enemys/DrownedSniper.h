@@ -69,5 +69,6 @@ namespace enemy
         // Soundfunktionen
         void PlayHitSound() override;
         void PlayDeathSound() override;
+        void PlayMoveSound() override;
     };
 }

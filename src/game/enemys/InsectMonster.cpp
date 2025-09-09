@@ -160,6 +160,10 @@ namespace enemy
         SoundManager::GetInstance().PlaySfx("enemy_insect_death");
     }
 
+    void Insect_Monster::PlayMoveSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_insect_move", 1);
+    }
+
     void Insect_Monster::Draw()
     {
         if (game::EnemyConfig::kUseEnemyAnimations)

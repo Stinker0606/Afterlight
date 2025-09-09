@@ -17,6 +17,9 @@ namespace game::scenes
 {
     Level1Scene::Level1Scene()
     {
+        // Verbirgt den Cursor wieder
+        HideCursor();
+
         // Starte die Ingame-Musik
         SoundManager::GetInstance().PlayMusic("ingame_music");
 

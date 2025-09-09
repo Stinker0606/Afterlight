@@ -28,6 +28,7 @@ namespace enemy
         float attack_Cooldown_Timer;
         int enemy_Value;
         bool is_Moving;
+        float move_sound_timer_;
         Texture2D sprite;
         const char* projectile_sprite_path;
         void Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time);
@@ -55,6 +56,7 @@ namespace enemy
         void Take_Damage(int damage_amount);
         virtual void PlayHitSound();
         virtual void PlayDeathSound();
+        virtual void PlayMoveSound();
         int Get_Health() const { return enemy_Health; }
         int Get_Damage() const { return enemy_Damage; }
         int Get_Movement_Speed(){return enemy_Movement_Speed;};

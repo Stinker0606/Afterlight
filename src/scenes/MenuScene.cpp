@@ -13,6 +13,9 @@ namespace game::scenes
 {
     MenuScene::MenuScene()
     {
+        // Startet den Cursor
+        HideCursor();
+
         // Starte die Hauptmenü-Musik
         SoundManager::GetInstance().PlayMusic("menu_music");
 
@@ -61,8 +64,33 @@ namespace game::scenes
             }
         }
 
+        // Maus-Navigation und Klick-Logik
+        bool is_mouse_over_item = false;
+        for (int i = 0; i < menu_items_.size(); ++i)
+        {
+            float font_size = 120;
+            int initial_y = 420;
+            int spacing = 110;
+            Vector2 text_size = MeasureTextEx(menu_font_, menu_items_[i].c_str(), font_size, 2);
+            float text_x = (GetScreenWidth() / 2.0f) - (text_size.x / 2.0f);
+            float text_y = initial_y + (i * spacing);
+            Rectangle item_rect = { text_x, text_y, text_size.x, text_size.y };
+
+            // Prüfe, ob die Maus über einem Menüpunkt ist
+            if (CheckCollisionPointRec(GetMousePosition(), item_rect))
+            {
+                is_mouse_over_item = true;
+                if (selected_item_index_ != i)
+                {
+                    selected_item_index_ = i;
+                    SoundManager::GetInstance().PlaySfx("ui_navigate");
+                }
+            }
+        }
+
+
         // Auswahl mit ENTER
-        if (IsKeyPressed(KEY_ENTER))
+        if (IsKeyPressed(KEY_ENTER) || (is_mouse_over_item && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)))
         {
             SoundManager::GetInstance().PlaySfx("ui_select");
             switch (selected_item_index_)
@@ -80,6 +108,7 @@ namespace game::scenes
                 case 3: // Quit
                     // Schließt die Anwendung. CloseWindow() setzt das Flag, das die Hauptschleife in Game.cpp beendet.
                     CloseWindow();
+                    exit(0);
                     break;
             }
         }
@@ -105,7 +134,7 @@ namespace game::scenes
             WHITE
         );
 
-        // --- Menüpunkte zeichnen (größer und neu positioniert) ---
+        // --- Menüpunkte zeichnen ---
         float font_size = 120; // Schriftgröße erhöht
         int initial_y = 420; // Position nach unten angepasst, um Platz für das Logo zu schaffen
         int spacing = 110;    // Abstand zwischen den Punkten vergrößert
@@ -138,6 +167,23 @@ namespace game::scenes
             }
 
             DrawTextEx(menu_font_, menu_items_[i].c_str(), {text_x, text_y}, font_size, 2, current_color);
+
+            float cursor_scale = 1.3f;
+            Texture2D cursor_texture = AssetManager::GetInstance().Load("assets/graphics/ui/cursor.png");
+
+            // Berechne die neue Größe basierend auf dem Skalierungsfaktor
+            float cursor_width = cursor_texture.width * cursor_scale;
+            float cursor_height = cursor_texture.height * cursor_scale;
+
+            // Zeichne die Textur mit der neuen Größe
+            DrawTexturePro(
+                cursor_texture,
+                { 0, 0, (float)cursor_texture.width, (float)cursor_texture.height },
+                { GetMousePosition().x, GetMousePosition().y, cursor_width, cursor_height },
+                { 0, 0 },
+                0.0f,
+                Color{ 88, 60, 72, 255 }
+            );
         }
     }
 }
