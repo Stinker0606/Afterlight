@@ -675,18 +675,6 @@
                  "y":288
                 }, 
                 {
-                 "gid":64,
-                 "height":32,
-                 "id":69,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":1104.73039742213,
-                 "y":37.9119226638024
-                }, 
-                {
                  "gid":355,
                  "height":32,
                  "id":78,
@@ -841,6 +829,18 @@
                  "width":32,
                  "x":576,
                  "y":320
+                }, 
+                {
+                 "gid":82,
+                 "height":32,
+                 "id":121,
+                 "name":"bombCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":640,
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -871,7 +871,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":121,
+ "nextobjectid":122,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

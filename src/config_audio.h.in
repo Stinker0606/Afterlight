@@ -33,17 +33,17 @@ namespace game {
         inline static const std::string kEnemyInsectMoveSfxPath = "assets/audio/sfx/enemy_insect_move.wav";
         inline static const std::string kEnemyInsectHitSfxPath = "assets/audio/sfx/enemy_insect_hit.wav";
         inline static const std::string kEnemyInsectDeathSfxPath = "assets/audio/sfx/enemy_insect_death.wav";
-        inline static const std::string kEnemyInsectAttackSfxPath = "assets/audio/sfx/enemy_insect_attack.wav";
+        inline static const std::string kEnemyInsectAttackSfxPath = "assets/audio/sfx/Enemies/InsectNormal.mp3";                     //done
 
         // GEGNER: DROWNED SNIPER --
         inline static const std::string kEnemySniperHitSfxPath = "assets/audio/sfx/enemy_sniper_hit.wav";
         inline static const std::string kEnemySniperDeathSfxPath = "assets/audio/sfx/enemy_sniper_death.wav";
-        inline static const std::string kEnemySniperShootSfxPath = "assets/audio/sfx/enemy_sniper_shoot.wav";
+        inline static const std::string kEnemySniperShootSfxPath = "assets/audio/sfx/Enemies/SniperShot.mp3";                        //done
 
         // GEGNER: WOOD SNIPER (Level 2)
         inline static const std::string kEnemyWoodSniperHitSfxPath = "assets/audio/sfx/enemy_sniper_hit.wav";
         inline static const std::string kEnemyWoodSniperDeathSfxPath = "assets/audio/sfx/enemy_sniper_death.wav";
-        inline static const std::string kEnemyWoodSniperShootSfxPath = "assets/audio/sfx/enemy_sniper_shoot.wav";
+        inline static const std::string kEnemyWoodSniperShootSfxPath = "assets/audio/sfx/Enemies/SniperShot.mp3";                    //done
 
         // GEGNER: WALKING CORPSE (Level 2)
         inline static const std::string kEnemyCorpseMoveSfxPath = "assets/audio/sfx/enemy_corpse_move.wav";

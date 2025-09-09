@@ -1,0 +1,19 @@
+{
+  "version": 5,
+  "cmakeMinimumRequired": { "major": 3, "minor": 21 },
+  "configurePresets": [
+    {
+      "name": "msvc-x64",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/out/build/msvc-x64",
+      "architecture": { "value": "x64" },
+      "cacheVariables": {
+        "JSON_BuildTests": "OFF",
+        "CMAKE_CXX_STANDARD": "20"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "msvc-x64-Release", "configurePreset": "msvc-x64", "configuration": "Release" }
+  ]
+}
