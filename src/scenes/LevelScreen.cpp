@@ -8,6 +8,7 @@
 #include "../game/Walls.h"
 #include "../game/Spawner/Level1Spawner.h"
 #include "../game/spawner/Level2Spawner.h"
+#include "../game/spawner/Level3Spawner.h"
 #include "../game/Spawner/SpecificSpawner.h"
 #include "../game/interactables/interact_list.h"
 
@@ -365,6 +366,14 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
 
                             new_object = std::make_shared<Level2_Spawner>(spawner_area, temp_obstacle_list, &temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager);
+                        }
+                        else if (object_name == "spawn3") {
+                            float spawn_rate = game::EnemyConfig::kSpawner3_SpawnRate;
+                            int max_enemies = game::EnemyConfig::kSpawner3_MaxEnemies;
+                            if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
+                            if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
+
+                            new_object = std::make_shared<Level3_Spawner>(spawner_area, temp_obstacle_list, &temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager);
                         }
                     }
                 }

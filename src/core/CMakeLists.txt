@@ -109,6 +109,8 @@ add_library(core STATIC
         ../game/interactables/NPC.h
         ../game/interactables/DialogTrigger.cpp
         ../game/interactables/DialogTrigger.h
+        ../game/spawner/Level3Spawner.cpp
+        ../game/spawner/Level3Spawner.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

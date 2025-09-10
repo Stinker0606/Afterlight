@@ -68,15 +68,15 @@ namespace game {
         };
 
         // =============================================== SPAWNERS - LEVEL 3 ==========================================
-/*
+
         inline static constexpr float kSpawner3_SpawnRate = 30.0f;
         inline static constexpr int kSpawner3_MaxEnemies = 5;
         inline static const std::vector<SpawnableEnemy> kSpawner3_EnemyPool = {
-            { enemy::EnemyType::WALKING_CORPSE_2, 100, 5 }, // XX % Chance, max. X Enemies von diesem Spawner
+            { enemy::EnemyType::CORPSE, 100, 2 }, // XX % Chance, max. X Enemies von diesem Spawner
 
             // Bsp.: { enemy::EnemyType::POISON_FROG, 10, 1 } // Beispiel für Frosch: 10% Chance, max. 1 Frosch von diesem Spawner
         };
-*/
+
         // =============================================== ENEMIES =====================================================
 
 // ---------------------------------------------------------------- SUMPF ------------------------------------------------------------------------------------------------------
@@ -354,29 +354,29 @@ namespace game {
         inline static constexpr float kWalkingCorpseMovementSpeed = 4.0f;
         inline static constexpr int kWalkingCorpseDamage = 25;
         inline static constexpr float kWalkingCorpseAttackCooldown = 6.0f;
-        inline static constexpr float kWalkingCorpseAttackRange = 32.0f;
+        inline static constexpr float kWalkingCorpseAttackRange = 48.0f;
         inline static constexpr int kWalkingCorpseValue = 30;
-        inline static constexpr int kWalkingCorpseHitboxWidth = 34;
-        inline static constexpr int kWalkingCorpseHitboxHeight = 30;
+        inline static constexpr int kWalkingCorpseHitboxWidth = 28;
+        inline static constexpr int kWalkingCorpseHitboxHeight = 36;
         inline static constexpr Vector2 kWalkingCorpseAnimSize = {100, 100};
-        inline static constexpr Vector2 kWalkingCorpse_visual_offset = {-32, -48};
+        inline static constexpr Vector2 kWalkingCorpse_visual_offset = {-14, -10};
 
         // -- Walk Animations (4 Richtungen) --
-        inline static constexpr const char* kWalkingCorpseWalkFrontPath = "assets/graphics/animations/walking_corpse/walk_front.png";
-        inline static constexpr int kWalkingCorpseWalkFrontFrames = 20;
-        inline static constexpr int kWalkingCorpseWalkFrontFramesPerLine = 20;
-        inline static constexpr const char* kWalkingCorpseWalkBackPath = "assets/graphics/animations/walking_corpse/walk_back.png";
-        inline static constexpr int kWalkingCorpseWalkBackFrames = 20;
-        inline static constexpr int kWalkingCorpseWalkBackFramesPerLine = 20;
-        inline static constexpr const char* kWalkingCorpseWalkLeftPath = "assets/graphics/animations/walking_corpse/walk_left.png";
-        inline static constexpr int kWalkingCorpseWalkLeftFrames = 20;
-        inline static constexpr int kWalkingCorpseWalkLeftFramesPerLine = 20;
-        inline static constexpr const char* kWalkingCorpseWalkRightPath = "assets/graphics/animations/walking_corpse/walk_right.png";
-        inline static constexpr int kWalkingCorpseWalkRightFrames = 20;
-        inline static constexpr int kWalkingCorpseWalkRightFramesPerLine = 20;
+        inline static constexpr const char* kWalkingCorpseWalkFrontPath = "assets/graphics/animations/laufende_Leiche/Leiche_Walk_Front.png";
+        inline static constexpr int kWalkingCorpseWalkFrontFrames = 10;
+        inline static constexpr int kWalkingCorpseWalkFrontFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseWalkBackPath = "assets/graphics/animations/laufende_Leiche/Leiche_Wlak_Back.png";
+        inline static constexpr int kWalkingCorpseWalkBackFrames = 10;
+        inline static constexpr int kWalkingCorpseWalkBackFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseWalkLeftPath = "assets/graphics/animations/laufende_Leiche/Leiche_Walk_Leftt.png";
+        inline static constexpr int kWalkingCorpseWalkLeftFrames = 10;
+        inline static constexpr int kWalkingCorpseWalkLeftFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseWalkRightPath = "assets/graphics/animations/laufende_Leiche/Leiche_Walk_Right.png";
+        inline static constexpr int kWalkingCorpseWalkRightFrames = 10;
+        inline static constexpr int kWalkingCorpseWalkRightFramesPerLine = 10;
 
         // -- Death Animation --
-        inline static constexpr const char* kWalkingCorpseDeathPath = "assets/graphics/animations/walking_corpse/death.png";
+        inline static constexpr const char* kWalkingCorpseDeathPath = "assets/graphics/animations/laufende_Leiche/death.png";
         inline static constexpr int kWalkingCorpseDeathFrames = 12;
         inline static constexpr int kWalkingCorpseDeathFramesPerLine = 12;
 
@@ -595,16 +595,15 @@ namespace game {
 
         // -- WALKING CORPSE
 
-        // Walk (20 Frames)
-        inline static const std::vector<int> kWalkingCorpseWalkTimings = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+        // Walk
+        inline static const std::vector<int> kWalkingCorpseWalkTimings = { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 };
 
-        // Attack (36 Frames)
+        // Attack
         inline static const std::vector<int> kWalkingCorpseAttackTimings = {
-        3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3,
-        3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5
+        3, 3, 2, 2, 2, 3, 3, 4, 4, 5
         };
 
-        // Death (12 Frames)
+        // Death (12 Frames?)
         inline static const std::vector<int> kWalkingCorpseDeathTimings = { 8, 6, 5, 4, 4, 5, 6, 8, 10, 12, 15, 60 };
 
         // -- WOOD SNIPER --
