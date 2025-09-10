@@ -1226,6 +1226,11 @@
                          "name":"dialog_text",
                          "type":"string",
                          "value":"Ich bin John. Ich war Teil der letzten Expedition, aber wie du siehst, bin\nich der Letzte, der noch da ist. Ich kann dir leider nicht helfen.\nIm Schloss sind meine Freunde einfach pl\u00f6tzlich gestorben, und als wir \nnachgeschaut haben, haben wir nichts gefunden.\n"
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":"assets\/graphics\/Portraits\/Hohn.png"
                         }],
                  "rotation":0,
                  "type":"",
