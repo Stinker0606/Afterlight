@@ -141,9 +141,9 @@ namespace game {
         // -- Stats --
         inline static constexpr int kDrownedSniperHealth = 75;
         inline static constexpr float kDrownedSniperMovementSpeed = 0.0f;
-        inline static constexpr int kDrownedSniperDamage = 50;
+        inline static constexpr int kDrownedSniperDamage = 55;
         inline static constexpr float kDrownedSniperAttackCooldown = 24.0f;
-        inline static constexpr float kDrownedSniperAttackRange = 10.0f;
+        inline static constexpr float kDrownedSniperAttackRange = 500.0f;
         inline static constexpr float kDrownedSniperProjectileSpeed = 110.0f;
         inline static constexpr int kDrownedSniperProjectileHitboxWidth = 16;
         inline static constexpr int kDrownedSniperProjectileHitboxHeight = 16;
