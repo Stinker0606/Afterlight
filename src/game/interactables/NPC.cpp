@@ -7,7 +7,7 @@
 // Alle Werte sind jetzt hier fest im Code definiert
 const char* NPC_SPRITE_PATH = "assets/graphics/npcs/John_Idle_Front.png";
 const int NPC_ANIM_FRAMES = 19;
-const Vector2 NPC_ANIM_SIZE = { 96, 100 };
+const Vector2 NPC_ANIM_SIZE = { 100, 100 };
 
 // Definiere die Geschwindigkeit für jeden Frame.
 const std::vector<int> NPC_IDLE_TIMINGS = {

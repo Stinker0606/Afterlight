@@ -7,6 +7,7 @@
 #include "AssetManager.h"
 #include "SoundManager.h"
 #include "../config.h.in"
+#include "SettingsScene.h"
 
 using namespace std::string_literals;
 
@@ -81,7 +82,6 @@ namespace game::scenes
             cloud_offset_x_ = 0;
         }
 
-
         // Navigation mit Pfeiltasten
         if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
         {
@@ -130,7 +130,8 @@ namespace game::scenes
                     break;
                 case 1: // Settings
                     SoundManager::GetInstance().PlaySfx("ui_select");
-                    break;
+                    game::core::Store::stage->ReplaceWithNewScene("menu", "settings", std::make_unique<SettingsScene>());
+                break;
                 case 2: // Credits
                     SoundManager::GetInstance().PlaySfx("ui_select");
                     break;

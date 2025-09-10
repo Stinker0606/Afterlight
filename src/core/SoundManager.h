@@ -27,6 +27,8 @@ public:
     // Entlädt alle geladenen Sounds und Musikstücke.
     void UnloadAll();
 
+    void UpdateMusicVolume();
+
     // Verhindere das Kopieren und Zuweisen.
     SoundManager(SoundManager const&) = delete;
     void operator=(SoundManager const&) = delete;

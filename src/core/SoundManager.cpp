@@ -1,6 +1,8 @@
 #include "SoundManager.h"
+#include "raylib.h"
 #include "../config_audio.h.in"
 #include <iostream>
+#include "SettingsManager.h"
 
 SoundManager& SoundManager::GetInstance() {
     static SoundManager instance;
@@ -86,7 +88,8 @@ void SoundManager::PlaySfx(const std::string& name, int max_instances) {
 
     // Spiele den Sound ab und erhöhe den Zähler für diesen Frame
     Sound& sound = sfx_cache_.at(name);
-    SetSoundVolume(sound, game::AudioConfig::kSfxVolume * game::AudioConfig::kMasterVolume);
+    float final_volume = game::AudioConfig::kSfxVolume * SettingsManager::GetInstance().GetSfxVolume() * SettingsManager::GetInstance().GetMasterVolume();
+    SetSoundVolume(sound, final_volume);
     PlaySound(sfx_cache_.at(name));
     sfx_play_counts_this_frame_[name]++;
 }
@@ -101,7 +104,7 @@ void SoundManager::PlayMusic(const std::string& name) {
 
     current_music_ = &music_cache_.at(name);
     current_music_->looping = true;
-    SetMusicVolume(*current_music_, game::AudioConfig::kMusicVolume * game::AudioConfig::kMasterVolume);
+    UpdateMusicVolume();
     PlayMusicStream(*current_music_);
 }
 
@@ -110,6 +113,13 @@ void SoundManager::StopCurrentMusic() {
         StopMusicStream(*current_music_);
     }
     current_music_ = nullptr;
+}
+
+void SoundManager::UpdateMusicVolume() {
+    if (current_music_) {
+        float final_volume = game::AudioConfig::kMusicVolume * SettingsManager::GetInstance().GetMusicVolume() * SettingsManager::GetInstance().GetMasterVolume();
+        SetAudioStreamVolume(current_music_->stream, final_volume);
+    }
 }
 
 void SoundManager::Update() {

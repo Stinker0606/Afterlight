@@ -13,17 +13,30 @@
 #include "scenes/LevelScene.h"
 #include "core/Store.h"
 #include "core/SoundManager.h"
+#include "core/SettingsManager.h"
 
 using namespace std::string_literals;
 
 int main()
 {
-    SetConfigFlags(FLAG_WINDOW_HIDDEN);
+    // Lade die gespeicherten Einstellungen
+    SettingsManager::GetInstance().LoadSettings();
 
+    // Setze ALLE Konfigurations-Flags in EINEM Aufruf, BEVOR das Fenster erstellt wird.
+    unsigned int flags = FLAG_WINDOW_HIDDEN; // Unsichtbar starten, um weißen Blitz zu vermeiden
+    if (SettingsManager::GetInstance().IsVsyncEnabled()) {
+        flags |= FLAG_VSYNC_HINT; // Füge V-Sync hinzu, falls in den Settings aktiviert
+    }
+    SetConfigFlags(flags);
+
+    // Erstelle das Spiel-Objekt (dieser Aufruf enthält InitWindow)
     game::core::Game game(game::Config::kStageWidth, game::Config::kStageHeight, game::Config::kFullScreen,
                           game::Config::kTargetFps, game::Config::kWindowFlags, game::Config::kTextureFilter,
                           game::Config::kExitKey,game::Config::kUseMouse, game::Config::kAudio,
                           game::Config::kProjectName);
+
+    // Wende den Fenstermodus an, NACHDEM das Fenster erstellt wurde
+    SettingsManager::GetInstance().ApplyDisplaySettings();
 
     HideCursor();
 
@@ -35,10 +48,9 @@ int main()
     game::core::Store::next_spawn_point = "player_start";
 
     // 2. ERSTELLE DEN SPIELER EINMALIG.
-    // Object_Manager ist hier nur temporär nötig, wird in der Szene richtig gesetzt.
     game::core::Store::player = std::make_shared<PlayerClass>(Vector2{0,0}, nullptr);
 
-    // 3. Starte das Spiel mit der MenuScene.
+    // 3. Starte das Spiel mit der Splash-Szene.
     game.Run("splash"s, std::make_unique<game::scenes::SplashScreenScene>());
 
     // Alle Sound-Ressourcen am Ende freigeben
