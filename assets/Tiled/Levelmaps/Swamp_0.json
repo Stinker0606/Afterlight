@@ -150,54 +150,6 @@
          "name":"consumables",
          "objects":[
                 {
-                 "gid":82,
-                 "height":32,
-                 "id":57,
-                 "name":"bombCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":864,
-                 "y":64
-                }, 
-                {
-                 "gid":82,
-                 "height":32,
-                 "id":60,
-                 "name":"bombCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":928,
-                 "y":384
-                }, 
-                {
-                 "gid":355,
-                 "height":32,
-                 "id":61,
-                 "name":"healCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":32,
-                 "y":128
-                }, 
-                {
-                 "gid":355,
-                 "height":32,
-                 "id":62,
-                 "name":"healCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":448,
-                 "y":544
-                }, 
-                {
                  "gid":84,
                  "height":32,
                  "id":63,
@@ -208,6 +160,90 @@
                  "width":32,
                  "x":448,
                  "y":32
+                }, 
+                {
+                 "gid":499,
+                 "height":32,
+                 "id":69,
+                 "name":"bombCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":864,
+                 "y":64
+                }, 
+                {
+                 "gid":499,
+                 "height":32,
+                 "id":70,
+                 "name":"bombCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":928,
+                 "y":384
+                }, 
+                {
+                 "gid":498,
+                 "height":32,
+                 "id":71,
+                 "name":"healCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":448,
+                 "y":544
+                }, 
+                {
+                 "gid":498,
+                 "height":32,
+                 "id":73,
+                 "name":"healCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":128
+                }, 
+                {
+                 "gid":499,
+                 "height":32,
+                 "id":74,
+                 "name":"bombCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":576,
+                 "y":160
+                }, 
+                {
+                 "gid":498,
+                 "height":32,
+                 "id":75,
+                 "name":"healCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":512,
+                 "y":32
+                }, 
+                {
+                 "gid":84,
+                 "height":32,
+                 "id":76,
+                 "name":"keyCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":896,
+                 "y":544
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -552,55 +588,6 @@
                  "y":288
                 }, 
                 {
-                 "gid":66,
-                 "height":32,
-                 "id":48,
-                 "name":"breakWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":800,
-                 "y":480
-                },
-            
-                {
-                 "gid":67,
-                 "height":32,
-                 "id":49,
-                 "name":"breakWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":832,
-                 "y":480
-                }, 
-                {
-                 "gid":51,
-                 "height":32,
-                 "id":50,
-                 "name":"breakWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":800,
-                 "y":448
-                }, 
-                {
-                 "gid":52,
-                 "height":32,
-                 "id":51,
-                 "name":"breakWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":832,
-                 "y":448
-                }, 
-                {
                  "gid":91,
                  "height":32,
                  "id":54,
@@ -611,7 +598,8 @@
                  "width":32,
                  "x":480,
                  "y":64
-                }, 
+                },
+            
                 {
                  "gid":106,
                  "height":32,
@@ -623,6 +611,54 @@
                  "width":32,
                  "x":480,
                  "y":96
+                }, 
+                {
+                 "gid":511,
+                 "height":32,
+                 "id":64,
+                 "name":"breakWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":800,
+                 "y":448
+                }, 
+                {
+                 "gid":512,
+                 "height":32,
+                 "id":66,
+                 "name":"breakWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":832,
+                 "y":448
+                }, 
+                {
+                 "gid":526,
+                 "height":32,
+                 "id":67,
+                 "name":"breakWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":800,
+                 "y":480
+                }, 
+                {
+                 "gid":527,
+                 "height":32,
+                 "id":68,
+                 "name":"breakWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":832,
+                 "y":480
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -688,7 +724,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":64,
+ "nextobjectid":77,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -696,7 +732,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
+         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset_new.json"
         }],
  "tilewidth":32,
  "type":"map",

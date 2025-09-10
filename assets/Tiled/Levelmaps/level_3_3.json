@@ -20,7 +20,7 @@
             335, 335, 335, 335, 337, 400, 399, 400, 399, 400, 338, 335, 335, 335, 335,
             335, 335, 335, 335, 337, 400, 414, 415, 416, 400, 338, 335, 335, 335, 335,
             335, 335, 335, 335, 337, 400, 400, 400, 400, 400, 338, 335, 335, 335, 335,
-            335, 335, 335, 335, 327, 347, 349, 350, 351, 347, 328, 335, 335, 335, 335],
+            335, 335, 335, 335, 327, 347, 552, 553, 554, 347, 328, 335, 335, 335, 335],
          "height":18,
          "id":1,
          "name":"Layer1",
@@ -498,9 +498,9 @@
                  "y":128
                 }, 
                 {
-                 "gid":374,
+                 "gid":582,
                  "height":32,
-                 "id":38,
+                 "id":40,
                  "name":"breakWall",
                  "rotation":0,
                  "type":"",
@@ -510,9 +510,9 @@
                  "y":224
                 }, 
                 {
-                 "gid":374,
+                 "gid":582,
                  "height":32,
-                 "id":39,
+                 "id":41,
                  "name":"breakWall",
                  "rotation":0,
                  "type":"",
@@ -528,7 +528,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":40,
+ "nextobjectid":42,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -536,7 +536,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
+         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset_new.json"
         }],
  "tilewidth":32,
  "type":"map",

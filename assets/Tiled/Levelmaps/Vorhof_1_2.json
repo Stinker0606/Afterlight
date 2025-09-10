@@ -82,8 +82,8 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 51, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 382, 382, 382, 382,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 67, 0, 0, 382, 382, 382, 382, 0, 0, 0, 382, 397, 397, 397, 397,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 382, 382, 382, 382, 382, 382, 382, 382, 397, 397, 397, 397, 0, 0, 0, 397, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 67, 0, 0, 382, 382, 382, 382, 503, 0, 505, 382, 397, 397, 397, 397,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 382, 382, 382, 382, 382, 382, 382, 382, 397, 397, 397, 397, 518, 0, 520, 397, 0, 0, 0, 0,
             382, 382, 382, 382, 382, 382, 382, 382, 382, 382, 397, 397, 397, 397, 397, 397, 397, 397, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             397, 397, 397, 397, 397, 397, 397, 397, 397, 397, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -511,79 +511,6 @@
                  "y":158.217190355057
                 }, 
                 {
-                 "gid":25,
-                 "height":32,
-                 "id":74,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":704,
-                 "y":352
-                }, 
-                {
-                 "gid":10,
-                 "height":32,
-                 "id":75,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":704,
-                 "y":320
-                }, 
-                {
-                 "gid":11,
-                 "height":32,
-                 "id":76,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":736,
-                 "y":320
-                }, 
-                {
-                 "gid":26,
-                 "height":32,
-                 "id":77,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":736.333333333333,
-                 "y":352.333333333333
-                }, 
-                {
-                 "gid":12,
-                 "height":32,
-                 "id":78,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":767.666666666667,
-                 "y":319.666666666667
-                }, 
-                {
-                 "gid":27,
-                 "height":32,
-                 "id":79,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":768,
-                 "y":352
-                },
-            
-                {
                  "height":41,
                  "id":80,
                  "name":"walls",
@@ -606,21 +533,82 @@
                  "y":0
                 }, 
                 {
-                 "gid":367,
+                 "gid":500,
                  "height":32,
-                 "id":84,
+                 "id":102,
                  "name":"keyWall",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":64,
-                 "y":64
+                 "x":704,
+                 "y":320
                 }, 
                 {
-                 "gid":352,
+                 "gid":501,
                  "height":32,
-                 "id":85,
+                 "id":103,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":736,
+                 "y":320
+                }, 
+                {
+                 "gid":502,
+                 "height":32,
+                 "id":104,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":768,
+                 "y":320
+                }, 
+                {
+                 "gid":515,
+                 "height":32,
+                 "id":105,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":704,
+                 "y":352
+                },
+            
+                {
+                 "gid":516,
+                 "height":32,
+                 "id":106,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":736,
+                 "y":352
+                }, 
+                {
+                 "gid":517,
+                 "height":32,
+                 "id":107,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":768,
+                 "y":352
+                }, 
+                {
+                 "gid":549,
+                 "height":32,
+                 "id":108,
                  "name":"keyWall",
                  "rotation":0,
                  "type":"",
@@ -630,33 +618,9 @@
                  "y":32
                 }, 
                 {
-                 "gid":368,
+                 "gid":551,
                  "height":32,
-                 "id":86,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":96,
-                 "y":64
-                }, 
-                {
-                 "gid":353,
-                 "height":32,
-                 "id":87,
-                 "name":"keyWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":96,
-                 "y":32
-                }, 
-                {
-                 "gid":354,
-                 "height":32,
-                 "id":88,
+                 "id":109,
                  "name":"keyWall",
                  "rotation":0,
                  "type":"",
@@ -666,9 +630,45 @@
                  "y":32
                 }, 
                 {
-                 "gid":369,
+                 "gid":550,
                  "height":32,
-                 "id":89,
+                 "id":110,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":32
+                }, 
+                {
+                 "gid":564,
+                 "height":32,
+                 "id":111,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":64
+                }, 
+                {
+                 "gid":565,
+                 "height":32,
+                 "id":112,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":64
+                }, 
+                {
+                 "gid":566,
+                 "height":32,
+                 "id":113,
                  "name":"keyWall",
                  "rotation":0,
                  "type":"",
@@ -1055,8 +1055,8 @@
                  "type":"doors",
                  "visible":true,
                  "width":58.5,
-                 "x":83,
-                 "y":-0.5
+                 "x":82.3333333333333,
+                 "y":0.500000000000007
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1065,7 +1065,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":102,
+ "nextobjectid":114,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -1073,7 +1073,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/tilesets\/Afterlight_All_Level_Tileset_test.tsj"
+         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset_new.json"
         }],
  "tilewidth":32,
  "type":"map",
