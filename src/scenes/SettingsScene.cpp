@@ -170,7 +170,7 @@ namespace game::scenes
     void SettingsScene::Draw()
     {
         //Hintergrund zeichnen
-        DrawTextureEx(background_settings_, {0, 0}, 0.0f, 11.55f, WHITE);
+        DrawTextureEx(background_settings_, {-10, -10}, 0.0f, 2.88f, WHITE);
         auto& settings = SettingsManager::GetInstance();
         float selector_offset_x = sin(time_ * 2.5f) * 5.0f;
 

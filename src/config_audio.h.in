@@ -83,7 +83,7 @@ namespace game {
 
         inline static constexpr float kMasterVolume = 0.75f;
         inline static constexpr float kMusicVolume = 0.35f;
-        inline static constexpr float kSfxVolume = 0.25f;
+        inline static constexpr float kSfxVolume = 0.6f;
 
         // ============================================= SOUND SETTINGS ================================================
         //Der Wert (X.X f) bestimmt den Rhythmus.
