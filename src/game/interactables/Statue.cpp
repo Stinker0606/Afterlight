@@ -21,7 +21,7 @@ void Statue::Draw() {
     }
 
     if (is_in_range_ && !is_solved_) {
-        DrawText("E", hitbox.x + hitbox.width / 2 - 10, hitbox.y - 20, 20, YELLOW);
+        DrawText("E", hitbox.x + hitbox.width / 2 - 10, hitbox.y - 20, 20, Color { 216, 176, 168, 255 });
     }
 }
 

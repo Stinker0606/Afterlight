@@ -18,7 +18,7 @@ void WeaponItem::Draw() {
     DrawTextureRec(this->tileset_texture, this->texture_source_rect, { this->hitbox.x, this->hitbox.y }, Fade(WHITE, this->visibility_alpha));
     if (is_in_range_) {
         // Zeichne ein "E" über dem Item, um die Interaktion anzuzeigen
-        DrawText("E", hitbox.x + 8, hitbox.y - 20, 20, YELLOW);
+        DrawText("E", hitbox.x + 8, hitbox.y - 20, 20, Color { 216, 176, 168, 255 });
     }
 }
 

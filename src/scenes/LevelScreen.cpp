@@ -290,6 +290,12 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     // Speichere den Namen und die Position des Objekts in unserem "Gedächtnis"
                     spawn_points_[object_name] = { (float)object.getPosition().x, (float)object.getPosition().y };
                 }
+                else if (object_name == "npc_key")
+                {
+                    Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y};
+                    // Erstelle den NPC. Alle seine Daten holt er sich jetzt selbst.
+                    new_object = std::make_shared<NPC>(pos);
+                }
                 else if (object_name.rfind("spawn", 0) == 0) // Erkennt alle Spawner
                 {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };

@@ -14,5 +14,6 @@
 #include "Door.h"
 #include "WeaponItem.h"
 #include "Statue.h"
+#include "NPC.h"
 
 // #include "Interactable.h" // Hier kommen zukünftige neue Interables hin

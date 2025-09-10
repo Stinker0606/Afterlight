@@ -293,7 +293,7 @@ namespace game {
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
         // for fog
-        inline static constexpr bool kDebugShowFog = true; // Set to 'false' to disable fog
+        inline static constexpr bool kDebugShowFog = true; // Set to 'false' to disable fog - could CRASH
 
         // for ALL hitboxes
         inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes

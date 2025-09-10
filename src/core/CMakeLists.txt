@@ -103,6 +103,8 @@ add_library(core STATIC
         ../game/interactables/WeaponItem.h
         ../game/interactables/Statue.cpp
         ../game/interactables/Statue.h
+        ../game/interactables/NPC.cpp
+        ../game/interactables/NPC.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
