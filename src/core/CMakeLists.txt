@@ -107,6 +107,8 @@ add_library(core STATIC
         ../game/interactables/Statue.h
         ../game/interactables/NPC.cpp
         ../game/interactables/NPC.h
+        ../game/interactables/DialogTrigger.cpp
+        ../game/interactables/DialogTrigger.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
