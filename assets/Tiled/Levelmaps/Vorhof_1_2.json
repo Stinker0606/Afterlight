@@ -987,7 +987,7 @@
                  "name":"doors",
                  "properties":[
                         {
-                         "name":"target_Map",
+                         "name":"target_map",
                          "type":"string",
                          "value":"level_3_1.json"
                         }, 
