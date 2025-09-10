@@ -713,6 +713,11 @@
                  "name":"intDia",
                  "properties":[
                         {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"Tutorial"
+                        }, 
+                        {
                          "name":"dialog_text",
                          "type":"string",
                          "value":"Steine wie dieser k\u00f6nnen mit einer Bombe zerst\u00f6rt werden.\nLege die Bombe mit Q neben dem Stein auf den boden.\nAber sei Vorsichtig!\nDie Bombe macht dir auch Schaden."
@@ -729,6 +734,11 @@
                  "id":162,
                  "name":"intDia",
                  "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"Tutorial"
+                        }, 
                         {
                          "name":"dialog_text",
                          "type":"string",
@@ -747,6 +757,11 @@
                  "name":"intDia",
                  "properties":[
                         {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"Tutorial"
+                        }, 
+                        {
                          "name":"dialog_text",
                          "type":"string",
                          "value":"Dies ist ein Monster Spawner.\nGreife den Spawner an um ihhn zu zerst\u00f6ren."
@@ -763,6 +778,11 @@
                  "id":164,
                  "name":"intDia",
                  "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"Tutorial"
+                        }, 
                         {
                          "name":"dialog_text",
                          "type":"string",
