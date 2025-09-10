@@ -15,6 +15,10 @@ namespace game::scenes
         SetTextureFilter(menu_font_.texture, TEXTURE_FILTER_POINT);
         selector_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/arrow_ui.png");
         display_mode_names_ = { "Windowed", "Borderless", "Fullscreen" };
+
+        //Hintergrund laden
+        background_settings_ =AssetManager::GetInstance().Load("assets/graphics/backgrounds/UI/Background_Setting.png");
+
     }
 
     SettingsScene::~SettingsScene()
@@ -165,7 +169,8 @@ namespace game::scenes
 
     void SettingsScene::Draw()
     {
-        ClearBackground(Color{ 0, 44, 56, 255 });
+        //Hintergrund zeichnen
+        DrawTextureEx(background_settings_, {0, 0}, 0.0f, 11.55f, WHITE);
         auto& settings = SettingsManager::GetInstance();
         float selector_offset_x = sin(time_ * 2.5f) * 5.0f;
 

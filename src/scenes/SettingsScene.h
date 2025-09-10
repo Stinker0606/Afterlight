@@ -17,6 +17,7 @@ namespace game::scenes
     private:
         Font menu_font_;
         Texture2D selector_texture_;
+        Texture2D background_settings_;
 
         Texture2D plus_texture_;
         Texture2D minus_texture_;
