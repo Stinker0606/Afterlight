@@ -28,6 +28,8 @@ add_library(scenes STATIC
         SettingsScene.h
         DialogManager.cpp
         DialogManager.h
+        CreditsScene.cpp
+        CreditsScene.h
 )
 
 target_include_directories(scenes PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

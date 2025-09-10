@@ -8,6 +8,8 @@
 #include "SoundManager.h"
 #include "../config.h.in"
 #include "SettingsScene.h"
+#include "CreditsScene.h"
+
 
 using namespace std::string_literals;
 
@@ -134,6 +136,7 @@ namespace game::scenes
                 break;
                 case 2: // Credits
                     SoundManager::GetInstance().PlaySfx("ui_select");
+                    game::core::Store::stage->ReplaceWithNewScene("menu", "credits", std::make_unique<CreditsScene>());
                     break;
                 case 3: // Quit
                     CloseWindow();
