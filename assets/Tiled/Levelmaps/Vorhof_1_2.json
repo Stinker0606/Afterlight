@@ -289,7 +289,7 @@
                  "y":257.274909533876
                 }, 
                 {
-                 "height":10.3185124144602,
+                 "height":13.6518457477935,
                  "id":10,
                  "name":"walls",
                  "rotation":0,
@@ -297,7 +297,7 @@
                  "visible":true,
                  "width":33.0192397262728,
                  "x":127.261653111676,
-                 "y":160.280892837949
+                 "y":156.947559504616
                 }, 
                 {
                  "height":9.63061158682957,
@@ -399,7 +399,7 @@
                  "y":384.536562645552
                 }, 
                 {
-                 "height":6.87900827630688,
+                 "height":38.2123416096402,
                  "id":35,
                  "name":"walls",
                  "rotation":0,
@@ -407,7 +407,7 @@
                  "visible":true,
                  "width":29.5797355881194,
                  "x":162.344595320841,
-                 "y":286.854645121995
+                 "y":255.521311788662
                 }, 
                 {
                  "height":22.7007273118125,
@@ -432,15 +432,15 @@
                  "y":13.7580165526137
                 }, 
                 {
-                 "height":4.12740496578411,
+                 "height":37.4607382991175,
                  "id":39,
                  "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
                  "width":29.5797355881193,
-                 "x":736.053885564831,
-                 "y":193.300132564222
+                 "x":737.387218898164,
+                 "y":163.300132564222
                 }, 
                 {
                  "height":41,
@@ -621,6 +621,11 @@
                          "value":2
                         }, 
                         {
+                         "name":"sprite_no_weapon",
+                         "type":"string",
+                         "value":"assets\/graphics\/interactable\/Statue_Biber_ohne.png"
+                        }, 
+                        {
                          "name":"sprite_with_weapon",
                          "type":"string",
                          "value":"assets\/graphics\/interactable\/Statue_Biber_mit.png"
@@ -642,6 +647,11 @@
                          "name":"correct_weapon_id",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"sprite_no_weapon",
+                         "type":"string",
+                         "value":"assets\/graphics\/interactable\/Statue_Motte_ohne.png"
                         }, 
                         {
                          "name":"sprite_with_weapon",
@@ -667,9 +677,14 @@
                          "value":5
                         }, 
                         {
+                         "name":"sprite_no_weapon",
+                         "type":"string",
+                         "value":"assets\/graphics\/interactable\/Statue_Fuchs_ohne.png"
+                        }, 
+                        {
                          "name":"sprite_with_weapon",
                          "type":"string",
-                         "value":"assets\/graphics\/interactable\/Statue_Fucks_mit.png"
+                         "value":"assets\/graphics\/interactable\/Statue_Fuchs_mit.png"
                         }],
                  "rotation":0,
                  "type":"",
@@ -688,6 +703,11 @@
                          "name":"correct_weapon_id",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"sprite_no_weapon",
+                         "type":"string",
+                         "value":"assets\/graphics\/interactable\/Statue_Fledermaus_ohne.png"
                         }, 
                         {
                          "name":"sprite_with_weapon",
@@ -713,6 +733,11 @@
                          "value":3
                         }, 
                         {
+                         "name":"sprite_no_weapon",
+                         "type":"string",
+                         "value":"assets\/graphics\/interactable\/Statue_Dachs_ohne.png"
+                        }, 
+                        {
                          "name":"sprite_with_weapon",
                          "type":"string",
                          "value":"assets\/graphics\/interactable\/Statue_Dachs_mit.png"
@@ -725,7 +750,7 @@
                  "y":96
                 }, 
                 {
-                 "height":5.66666666666666,
+                 "height":19.6666666666667,
                  "id":125,
                  "name":"walls",
                  "rotation":0,
@@ -733,7 +758,7 @@
                  "visible":true,
                  "width":33,
                  "x":32,
-                 "y":224.666666666667
+                 "y":210.666666666667
                 }, 
                 {
                  "height":64.5,
@@ -758,7 +783,7 @@
                  "y":413.5
                 }, 
                 {
-                 "height":9,
+                 "height":41.6666666666667,
                  "id":128,
                  "name":"walls",
                  "rotation":0,
@@ -766,7 +791,7 @@
                  "visible":true,
                  "width":27.5,
                  "x":387.5,
-                 "y":158.5
+                 "y":125.833333333333
                 }, 
                 {
                  "height":26,
@@ -894,24 +919,24 @@
          "name":"spawner",
          "objects":[
                 {
-                 "height":22.3333333333333,
+                 "height":32,
                  "id":48,
                  "name":"spawn2",
                  "rotation":0,
                  "type":"spawn2",
                  "visible":true,
-                 "width":32.6666666666666,
-                 "x":639.666666666667,
-                 "y":549
+                 "width":32,
+                 "x":640,
+                 "y":512
                 }, 
                 {
-                 "height":23.6666666666666,
+                 "height":32,
                  "id":54,
                  "name":"spawn2",
                  "rotation":0,
                  "type":"spawn2",
                  "visible":true,
-                 "width":32.6666666666667,
+                 "width":32,
                  "x":864,
                  "y":512
                 }, 
@@ -927,15 +952,15 @@
                  "y":326.333333333333
                 }, 
                 {
-                 "height":22.5,
+                 "height":32,
                  "id":60,
                  "name":"spawn2",
                  "rotation":0,
                  "type":"spawn2",
                  "visible":true,
-                 "width":31,
-                 "x":704.5,
-                 "y":132.5
+                 "width":32,
+                 "x":704,
+                 "y":128
                 }, 
                 {
                  "height":28,
@@ -1213,7 +1238,7 @@
                  "y":395
                 }, 
                 {
-                 "height":65,
+                 "height":62.5,
                  "id":148,
                  "name":"intDia",
                  "properties":[
@@ -1230,9 +1255,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":90.5,
-                 "x":130.5,
-                 "y":416
+                 "width":60.5,
+                 "x":145,
+                 "y":418
                 }],
          "opacity":1,
          "type":"objectgroup",
