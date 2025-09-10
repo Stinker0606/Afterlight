@@ -114,6 +114,34 @@ namespace game::scenes
 
         if (auto player = sp_player.lock())
         {
+            bool player_is_in_any_trigger = false;
+
+        // --- DIALOG-LOGIK ---
+        // 1. Prüfe zuerst, ob der Spieler in irgendeinem Trigger-Bereich ist.
+        for (const auto& obj : objectManager.managed_objects) {
+            if (auto trigger = std::dynamic_pointer_cast<DialogTrigger>(obj)) {
+                if (CheckCollisionRecs(player->Get_Hitbox(), trigger->Get_Hitbox())) {
+                    player_is_in_any_trigger = true;
+                    // Wenn der Spieler "E" drückt UND der Dialog noch nicht aktiv ist, zeige ihn an.
+                    if (IsKeyPressed(game::Config::key_Interact) && !dialogManager_.IsActive()) {
+                        dialogManager_.ShowDialog(trigger->GetText(), trigger->GetName(), trigger->GetPortraitPath());
+                    }
+                    break; // Es kann immer nur ein Dialog aktiv sein.
+                }
+            }
+        }
+
+        // 2. Wenn ein Dialog aktiv ist...
+        if (dialogManager_.IsActive()) {
+            // ... und der Spieler keinen Trigger mehr berührt, schließe ihn.
+            if (!player_is_in_any_trigger) {
+                dialogManager_.HideDialog();
+            }
+            // ... oder wenn der Spieler erneut "E" drückt, schließe ihn ebenfalls.
+            else if (IsKeyPressed(KEY_SPACE)) {
+                dialogManager_.HideDialog();
+            }
+        }
             // 1. Prüfe, ob der Spieler gestorben ist und das Spiel noch nicht eingefroren ist.
             if (player->Is_Marked_For_Destruction() && !is_frozen_)
             {

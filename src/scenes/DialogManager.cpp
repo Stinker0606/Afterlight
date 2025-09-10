@@ -68,4 +68,4 @@ void DialogManager::Draw()
         DrawTextEx(dialog_font_, current_text_.c_str(), {text_start_x, box_rect.y + 40}, 30, 2, Fade(WHITE, 0.9f));
     }
 
-} d
+}

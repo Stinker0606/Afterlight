@@ -119,9 +119,9 @@
                 {
                  "height":32,
                  "id":5,
-                 "name":"spawn1",
+                 "name":"spawn_sniper",
                  "rotation":0,
-                 "type":"spawn1",
+                 "type":"",
                  "visible":true,
                  "width":32.25,
                  "x":927.75,
