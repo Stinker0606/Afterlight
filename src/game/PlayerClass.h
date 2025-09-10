@@ -101,7 +101,7 @@ private:
     RepeatAnimation anim_Push_Right;
 
     // Dying
-    RepeatAnimation anim_Dying;
+    ControllableAnimations anim_Dying;
 
     // Ein schwacher Zeiger auf die Kamera, um die Mausposition umzurechnen.
     std::weak_ptr<Cam> sp_camera;

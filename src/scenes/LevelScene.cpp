@@ -115,11 +115,10 @@ namespace game::scenes
         if (auto player = sp_player.lock())
         {
             // 1. Prüfe, ob der Spieler gestorben ist und das Spiel noch nicht eingefroren ist.
-            if (player->GetHealth() <= 0 && !is_frozen_)
+            if (player->Is_Marked_For_Destruction() && !is_frozen_)
             {
                 is_frozen_ = true; // Friere das Spiel ein
                 SoundManager::GetInstance().StopCurrentMusic();
-                SoundManager::GetInstance().PlaySfx("player_death");
             }
 
             // 2. Wenn das Spiel eingefroren ist, kümmere dich um die Überblendung.

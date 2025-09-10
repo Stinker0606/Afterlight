@@ -66,7 +66,7 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager* om)
       anim_Push_Left(game::Config::player_animation_size, game::Config::player_Push_Left_Path, game::Config::player_Push_Left_Frames, game::Config::player_Push_Left_Frames_Per_Line),
       anim_Push_Right(game::Config::player_animation_size, game::Config::player_Push_Right_Path, game::Config::player_Push_Right_Frames, game::Config::player_Push_Right_Frames_Per_Line),
       // Dying
-      anim_Dying(game::Config::player_animation_size, game::Config::player_Dying_Path, game::Config::player_Dying_Frames, game::Config::player_Dying_Frames_Per_Line)
+      anim_Dying(game::Config::player_animation_size, game::Config::player_Dying_Path, game::Config::player_Dying_Frames, game::Config::player_Dying_Frames_Per_Line, game::Config::player_Dying_Timings, false)
 {
     // 4. Setze die Standard-Animation beim Start
     p_current_animation = &anim_Idle_Front;
@@ -369,6 +369,29 @@ void PlayerClass::Update_Animation_Pointer()
 
 void PlayerClass::Tick(float delta_time)
 {
+    // Die Todeslogik bekommt die höchste Priorität.
+    // Wenn der Spieler stirbt, werden alle anderen Aktionen blockiert.
+    if (player_state == PlayerState::DYING)
+    {
+        // Wenn die Todesanimation beendet ist, wird der Spieler zur Zerstörung markiert.
+        // Die LevelScene wird das erkennen und die Transition zum Death Screen starten.
+        if (anim_Dying.Is_Finished()) {
+            this->Mark_For_Destruction();
+        }
+        return; // Stoppe alle weiteren Updates (Bewegung, Angriffe etc.)
+    }
+
+    // Wenn die HP auf 0 fallen UND der Spieler nicht bereits stirbt:
+    if (this->player_Health <= 0 && player_state != PlayerState::DYING)
+    {
+        player_state = PlayerState::DYING;
+        is_Moving = false; // Stoppe Bewegung
+        SoundManager::GetInstance().StopSfx("player_walk"); // Stoppe Lauf-Sound
+        SoundManager::GetInstance().PlaySfx("player_death");
+        anim_Dying.Reset(); // Starte die Todesanimation von vorne
+        Update_Animation_Pointer(); // Wähle die Todesanimation aus
+        return;
+    }
     // Update der Blickrichtung zur Maus (nur wenn nicht in einer Aktion gesperrt)
     if (player_state != PlayerState::PUSHING)
     {
@@ -516,9 +539,7 @@ void PlayerClass::Tick(float delta_time)
 
     else if (player_state == PlayerState::DYING)
     {
-        // Hier kommt die Logik für den Tod hinein.
-        // Z.B. Animation abspielen, nach einer Weile zum Game-Over-Screen wechseln.
-        // Vorerst bleibt der Spieler einfach im DYING-Zustand.
+
     }
     Update_Animation_Pointer();
 }
@@ -535,7 +556,7 @@ void PlayerClass::Draw()
         };
 
         // Je nach Zustand casten wir den Pointer und rufen die richtige Draw-Funktion auf
-        if (player_state == PlayerState::ATTACKING_MELEE || player_state == PlayerState::ATTACKING_RANGED) {
+        if (player_state == PlayerState::ATTACKING_MELEE || player_state == PlayerState::ATTACKING_RANGED || player_state == PlayerState::DYING) {
             auto anim = static_cast<ControllableAnimations*>(p_current_animation);
             anim->Draw_Current_Frame(draw_position, tint_color);
             // Rufe Next_Frame nur auf, wenn die Animation noch nicht beendet ist.

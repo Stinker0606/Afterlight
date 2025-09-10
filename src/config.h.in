@@ -259,9 +259,9 @@ namespace game {
         inline static constexpr int player_Push_Right_Frames_Per_Line = 12;
 
         // Dying
-        inline static constexpr const char* player_Dying_Path = "PLACEHOLDER";
-        inline static constexpr int player_Dying_Frames = 999;
-        inline static constexpr int player_Dying_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Dying_Path = "assets/graphics/animations/player/death/MC_Death_Front.png";
+        inline static constexpr int player_Dying_Frames = 24;
+        inline static constexpr int player_Dying_Frames_Per_Line = 24;
 
         // =================================== INTERACTABLE ANIMATION TIMINGS ==========================================
 
@@ -283,6 +283,12 @@ namespace game {
 
         // -- THROW ATTACK --
         inline static const std::vector<int> player_Throw_Timings =  { 3, 3, 4, 5, 4, 4, 3, 3 };
+
+        // -- DYING --
+        inline static const std::vector<int> player_Dying_Timings = {
+            4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+            6, 6, 6, 6, 6, 6, 8, 8, 8, 8,
+        };
 
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
