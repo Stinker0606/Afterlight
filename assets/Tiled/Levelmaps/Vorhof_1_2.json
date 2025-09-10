@@ -856,8 +856,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":896,
-                 "y":576
+                 "x":898,
+                 "y":544.5
                 }, 
                 {
                  "height":32.6666666666667,
@@ -912,8 +912,8 @@
                  "type":"spawn2",
                  "visible":true,
                  "width":32.6666666666667,
-                 "x":864.333333333333,
-                 "y":548.666666666667
+                 "x":864,
+                 "y":512
                 }, 
                 {
                  "height":20,
@@ -949,15 +949,15 @@
                  "y":388.666666666667
                 }, 
                 {
-                 "height":27,
-                 "id":149,
+                 "height":29.5,
+                 "id":150,
                  "name":"npc_key",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":28.5,
-                 "x":164,
-                 "y":419
+                 "width":30.5,
+                 "x":160,
+                 "y":417.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1101,7 +1101,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"\u201eLord Sazriel, m\u00f6gest du ihm nie mit einer Waffe in der Hand und deiner Familie zu Hause begegnen. Tausende haben versucht, dem Tod zu entgehen, und sind gescheitert, denn der Gott des Todes wird immer seine Schulden einfordern. Und solltest du dich jemals wie die Verderbnis verhalten, die unsere Toten wieder auferstehen lie\u00df, wird Lord Sazriel herabsteigen und du wirst nie einen friedlichen Tod erfahren, denn du wirst deinen Tod an der Sense des Todesgottes finden.\"\n\nDu erinnerst dich an die Geschichte der Stadtbewohner \u00fcber den Gott des Todes. Wie er auf das Schlachtfeld herabstieg und mit seiner Tat den K\u00f6rpern der in der Schlacht Gefallenen endlich Ruhe schenkte.\n"
+                         "value":"Lord Sazriel, wirst du ihm nie mit einer Waffe in der Hand und deiner\nFamilie zu Hause begegnen. Tausende haben versucht, dem Tod zu \nentgehen und sind gescheitert, denn der Gott des Todes wird immer \nseine Schulden einfordern. Solltest du es jemals versuchen,\nwirst deinen Tod an der Sense des Todesgottes finden.\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1118,7 +1118,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"\u201eLady Nephira, m\u00f6ge sie dir fruchtbare Tage bringen. Angst hatte Lady Nephira nie verbreitet, bis der Krieg begann. Denn die G\u00f6ttin des Lichts war stets f\u00fcrsorglich, doch ihr Zorn, wenn ihre Untertane verletzt wurden, wird f\u00fcr immer bekannt bleiben.\u201c\n\nDu erinnerst dich, wie deine Mutter dir erz\u00e4hlt hat, wie Lady Nephira Licht nutzte, um Waffen zu formen, die sie auf jeden niederregnen lie\u00df, der ihr in die Quere kam.\n"
+                         "value":"Lady Nephira, soll sie dir fruchtbare Tage bringen. \nAngst hatte Lady Nephira nie verbreitet, bis der Krieg begann.\nDenn die Goettin des Lichts war stets achtsam, doch ihr Zorn, \nwenn ihre Untertane verletzt wurden, wird bekannt bleiben.\n\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1135,7 +1135,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"\"Die edle Gottheit Axaris, m\u00f6ge sie dich mit einer erholsamen Nacht segnen. Axaris, die Gottheit der Dunkelheit, wurde schon immer gef\u00fcrchtet, doch w\u00e4hrend die Menschheit bald eines Besseren belehrt wurde, erfuhr die Verderbnis genau, warum. Axaris hat bewiesen, dass sie ihren Feinden verheerende Sch\u00e4den zuf\u00fcgen kann, wenn sie motiviert genug sind, was selten vorkommt. Doch f\u00fcrchte dich vor den Folgen einer solchen Motivation, denn Axaris wird dich finden, und du kannst nichts tun als zu bereuen, ihnen den Ansto\u00df gegeben zu haben, ihre Kusarigama aufzuheben.\"\n\nDu erinnerst dich noch daran, wie du von der Gottheit der Dunkelheit geh\u00f6rt und sie zum ersten Mal getroffen hast. Sie hatten dich aufgrund deiner Verwandtschaft mit deiner Tante erkannt und dich aufgeregt von ihrem Essen probieren lassen.\n"
+                         "value":"Die Gottheit Axaris, segne sie dich mit einer erholsamen Nacht.\nDie Gottheit der Dunkelheit, wurde schon immer verschrien, \ndoch die Menschheit wurde bald des Besseren belehrt. \nFuerchte dich vor der Motivation von Axaris, denn Axaris wird dich \nfinden, und du wirst bereuen, dass sie Kusarigama aufheben."
                         }],
                  "rotation":0,
                  "type":"",
@@ -1152,7 +1152,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"\u201eLord Taelmir, oh, m\u00f6ge er dich segnen, damit du niemals betrogen wirst. Niemals solltest du den Worten des Gottes der List Glauben schenken, es sei denn, er verspricht dir, dass er ehrlich ist, denn viele vergessen dies in seiner Anwesenheit. Aber sei gewarnt, bevor du dich mit denen anlegst, die seine Treue verdient haben, egal wie wenige es sind. Denn Lord Taelmir hat sogar die Verderbtheit ausgetrickst und sie glauben lassen, er sei auf ihrer Seite. Also h\u00fcte dich, bevor du dich in den Ketten wiederfindest, die Lord Taelmir sein eigen nennt.\"\n\nDu erinnerst dich an die Worte im Tagebuch deiner Tante dar\u00fcber, was sie und Lord Taelmir auf und au\u00dferhalb des Schlachtfelds trieben.\n"
+                         "value":"Lord Taelmir, mag er dich segnen damit du niemals betrogen wirst.\nNiemals solltest du die Worte des Gottes der List glauben,\nes sei denn, er verspricht dir, dass er ehrlich ist.\nAber sei gewarnt, bevor du dich mit denen anlegst, die\nseine Treue verdient haben, bevor du dich in seinen ketten befindest.\n\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1169,7 +1169,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"\nMan sp\u00fcrt einen Hauch der verbleibenden Macht, die einst durch diese Statue floss. Doch mit dem Tod des Gottes, der einst geholfen hat, den gef\u00e4hrlichsten der korrupten G\u00f6tter zu versiegeln, ist die Statue zu einer Ruine geworden.\n\nDer Krieg hat vielen Menschen das leben genommen und obwohl die Menschheit begonnen hat, sich zu erholen, ist es nicht sicher, ob die G\u00f6tter es jemals schaffen werden. Nicht, wenn mur f\u00fcnf den Krieg \u00fcberlebten.\n"
+                         "value":"Man sp\u00fcrtbemerkt einen Hauch der verbleibenden Macht, die durch\ndiese Statue floss. Doch mit dem Tod des Gottes,\nder einst geholfen hat, den gefaehrlichsten\nder korrupten Gottheiten zu versiegeln, ist die Statue zu \neiner Ruine geworden.\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1186,7 +1186,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"\u201eLady Phoelia, oh m\u00f6ge sie dich segnen, damit du nie das Versagen deiner Waffe erlebst. Lady Phoelias Zorn sollte man nie zu sehen hoffen, denn nach dem Tod ihrer geliebten Frau hat sie beinahe die Welt niedergebrannt. Doch selbst in ihrem Zorn brannte die Schmiede weiter und schenkte uns die Waffen, die ihren Mitg\u00f6ttern zum Sieg verhalfen. Denn vor ihrem Hammer hat es nie eine Waffe gegeben, die einen verderbten Gott t\u00f6ten konnte.\"\n \nDu erinnerst dich, wie du deinen Speer zum ersten Mal in der Hand hieltst. Er hatte einst deiner Tante geh\u00f6rt, als sie mit den Segen an der Seite der G\u00f6tter k\u00e4mpfte.\n"
+                         "value":"Lady Phoelia, mag sie dich segnen, damit du nie das Versagen deiner\nWaffe erlebst.\nHoffe ihren Zorn nie zu sehen, denn nach dem Tod ihrer geliebten\nFrau brannte sie beinahe die Welt nieder. Und es war ihre Schmiede, \ndie uns die Waffen gab, die ihren Mitgottheiten zum Sieg halfen."
                         }],
                  "rotation":0,
                  "type":"",
@@ -1203,7 +1203,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Ein Name wurde in den Grabstein gekachelt.\n\n\"Henry, may Lord Saziel grant him peace.\""
+                         "value":"Ein Name wurde in den Grabstein gekachelt.\n\n\"Henry, soll Lord Saziel ihm Frieden geben.\""
                         }],
                  "rotation":0,
                  "type":"",
@@ -1213,7 +1213,7 @@
                  "y":395
                 }, 
                 {
-                 "height":66,
+                 "height":65,
                  "id":148,
                  "name":"intDia",
                  "properties":[
@@ -1225,13 +1225,13 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"\u201eOh, ich habe seit Monaten niemanden mehr gesehen. Nicht seit Henrys Tod.\u201c\n\u201eIch bin John. Ich war Teil der letzten Expedition hierher, aber wie du siehst, bin ich der Letzte, der noch \u00fcbrig ist. All diese Monster sind die, die mit mir gekommen sind. K\u00f6nntest du mir vielleicht helfen, sie zu besiegen, damit ich sie geb\u00fchrend beerdigen kann?\u201c\n\u201eIch w\u00fcnschte, ich k\u00f6nnte dir helfen, aber wir haben nicht einmal herausgefunden, welche Monster sich im Schloss aufhalten. Leute sind einfach pl\u00f6tzlich gestorben, und als wir nachgeschaut haben, haben wir nichts gefunden.\u201c\n"
+                         "value":"Ich bin John. Ich war Teil der letzten Expedition, aber wie du siehst, bin\nich der Letzte, der noch da ist. Ich kann dir leider nicht helfen.\nIm Schloss sind meine Freunde einfach pl\u00f6tzlich gestorben, und als wir \nnachgeschaut haben, haben wir nichts gefunden.\n"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":95.5,
-                 "x":131,
+                 "width":90.5,
+                 "x":130.5,
                  "y":416
                 }],
          "opacity":1,
@@ -1241,7 +1241,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":150,
+ "nextobjectid":151,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
