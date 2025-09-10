@@ -1290,6 +1290,7 @@
         {
          "draworder":"topdown",
          "id":9,
+         "locked":true,
          "name":"interactibles",
          "objects":[
                 {

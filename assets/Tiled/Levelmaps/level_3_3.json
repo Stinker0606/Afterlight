@@ -3,8 +3,8 @@
  "infinite":false,
  "layers":[
         {
-         "data":[335, 335, 335, 335, 316, 347, 352, 353, 354, 347, 317, 335, 335, 335, 335,
-            335, 335, 335, 335, 337, 362, 367, 368, 369, 362, 332, 335, 335, 335, 335,
+         "data":[335, 335, 335, 335, 316, 347, 549, 550, 551, 347, 317, 335, 335, 335, 335,
+            335, 335, 335, 335, 337, 362, 564, 565, 566, 362, 332, 335, 335, 335, 335,
             335, 335, 335, 335, 337, 400, 400, 400, 400, 400, 338, 335, 335, 335, 335,
             335, 335, 335, 335, 337, 400, 384, 415, 386, 400, 338, 335, 335, 335, 335,
             347, 324, 347, 325, 348, 400, 399, 400, 399, 400, 338, 335, 335, 335, 335,
@@ -23,7 +23,7 @@
             335, 335, 335, 335, 327, 347, 552, 553, 554, 347, 328, 335, 335, 335, 335],
          "height":18,
          "id":1,
-         "name":"Layer1",
+         "name":"ground",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -52,7 +52,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":2,
-         "name":"Layer2",
+         "name":"walls",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -81,8 +81,14 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":3,
-         "name":"Layer3",
+         "name":"wall tops",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"IsAboveObjects",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":15,
@@ -110,7 +116,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":4,
-         "name":"Layer4",
+         "name":"fakeln",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -520,6 +526,28 @@
                  "width":32,
                  "x":32,
                  "y":256
+                }, 
+                {
+                 "height":47.25,
+                 "id":42,
+                 "name":"doors",
+                 "properties":[
+                        {
+                         "name":"target_map",
+                         "type":"string",
+                         "value":"Swamp_0.json"
+                        }, 
+                        {
+                         "name":"target_spawn_point",
+                         "type":"string",
+                         "value":"player_start"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":60.875,
+                 "x":209.125,
+                 "y":14.625
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -528,7 +556,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":42,
+ "nextobjectid":43,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
