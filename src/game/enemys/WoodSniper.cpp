@@ -72,7 +72,7 @@ namespace enemy
         switch (anim_state_)
         {
             case AnimationState::RELOADING:
-                if (this->attack_Cooldown_Timer <= 0.0f)
+                if (this->attack_Cooldown_Timer <= 0.0f && Vector2Distance(Get_Hitbox_Center(), player_position) <= game::EnemyConfig::kWoodSniperAttackRange)
                 {
                     anim_state_ = AnimationState::ATTACKING;
                     anim_attack_up_.Reset(); anim_attack_down_.Reset(); anim_attack_left_.Reset(); anim_attack_right_.Reset();

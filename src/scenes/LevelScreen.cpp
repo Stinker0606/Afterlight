@@ -290,6 +290,17 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     // Speichere den Namen und die Position des Objekts in unserem "Gedächtnis"
                     spawn_points_[object_name] = { (float)object.getPosition().x, (float)object.getPosition().y };
                 }
+                else if (object_name == "intDia") // KORREKTER NAME LAUT GUIDE
+                {
+                    std::string text = object.getProp("dialog_text")->getValue<std::string>();
+
+                    // Prüfe, ob optionale Properties existieren
+                    std::string name = object.getProperties().hasProperty("character_name") ? object.getProp("character_name")->getValue<std::string>() : "";
+                    std::string portrait = object.getProperties().hasProperty("portrait_path") ? object.getProp("portrait_path")->getValue<std::string>() : "";
+
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<DialogTrigger>(rect, text, name, portrait);
+                }
                 else if (object_name == "npc_key")
                 {
                     Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y};

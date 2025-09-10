@@ -23,7 +23,7 @@
             316, 347, 347, 347, 347, 347, 347, 347, 347, 347, 347, 347, 347, 317, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335],
          "height":18,
          "id":1,
-         "name":"Layer1",
+         "name":"ground",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -52,7 +52,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":2,
-         "name":"Layer2",
+         "name":"wall",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -81,8 +81,14 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":3,
-         "name":"Layer3",
+         "name":"wall top",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"IsAboveObjects",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":30,
@@ -110,7 +116,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":4,
-         "name":"Layer4",
+         "name":"Fakeln",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -433,93 +439,88 @@
          "name":"consumables",
          "objects":[
                 {
+                 "gid":498,
                  "height":32,
-                 "id":37,
-                 "name":"keyCons",
-                 "properties":[
-                        {
-                         "name":"inventory",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":384,
-                 "y":512
-                }, 
-                {
-                 "height":32,
-                 "id":38,
-                 "name":"bombCons",
-                 "properties":[
-                        {
-                         "name":"inventory",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":192,
-                 "y":96
-                }, 
-                {
-                 "height":32,
-                 "id":39,
-                 "name":"dmgCons",
+                 "id":55,
+                 "name":"healCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
                  "x":288,
-                 "y":256
+                 "y":544
                 }, 
                 {
+                 "gid":498,
                  "height":32,
-                 "id":40,
+                 "id":56,
                  "name":"healCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
                  "x":128,
-                 "y":160
+                 "y":192
                 }, 
                 {
+                 "gid":498,
                  "height":32,
-                 "id":41,
+                 "id":57,
                  "name":"dmgCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":64,
-                 "y":320
+                 "x":288,
+                 "y":288
                 }, 
                 {
+                 "gid":498,
                  "height":32,
-                 "id":42,
+                 "id":58,
                  "name":"dmgCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
                  "x":96,
-                 "y":512
+                 "y":544
                 }, 
                 {
+                 "gid":498,
                  "height":32,
-                 "id":43,
-                 "name":"healCons",
+                 "id":59,
+                 "name":"dmgCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":288,
-                 "y":512
+                 "x":64,
+                 "y":352
+                }, 
+                {
+                 "gid":84,
+                 "height":32,
+                 "id":60,
+                 "name":"keyCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":384,
+                 "y":544
+                }, 
+                {
+                 "gid":499,
+                 "height":32,
+                 "id":61,
+                 "name":"bombCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":192,
+                 "y":128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -660,7 +661,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":55,
+ "nextobjectid":62,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

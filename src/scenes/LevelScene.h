@@ -4,13 +4,14 @@
 #include "LevelScreen.h"
 #include "Object_Manager.h"
 #include "CollisionManager.h"
-#include "../core/DeltaTimeMachine.h"
 #include "Cam.h"
-#include "FogManager.h"
-#include "../game/PlayerClass.h"
 #include <memory>
 #include <vector>
+#include "FogManager.h"
 #include "UIManager.h"
+#include "DialogManager.h"
+#include "../core/DeltaTimeMachine.h"
+#include "../game/PlayerClass.h"
 #include "../game/spawner/Level1Spawner.h"
 #include "../game/interactables/Statue.h"
 #include "../game/interactables/KeyConsumable.h"
@@ -42,6 +43,9 @@ namespace game::scenes
 
         // --- Fog-Manager ---
         FogManager fogManager;
+
+        // --- Dialog-Manager ---
+        DialogManager dialogManager_;
 
         // Eine RenderTexture, die als unsere "Nebel-Maske" dient.
         RenderTexture2D fogMaskTexture;
