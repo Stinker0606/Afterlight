@@ -111,7 +111,7 @@ void UIManager::DrawUI(Camera2D camera)
         draw_text_with_outline(pixel_font_, key_text, { key_pos.x + 45, key_pos.y + 15 }, 30, 2, BLACK);
 
         // === UNTEN LINKS ===
-
+   /*
         // Segen (Blessings)
         Vector2 blessings_pos = { 10, (float)GetScreenHeight() - 150 };
         DrawTextureEx(blessings_icon_texture_, blessings_pos, 0.0f, icons_scale, WHITE);
@@ -125,7 +125,7 @@ void UIManager::DrawUI(Camera2D camera)
         // Buch
         Vector2 book_pos = { (float)GetScreenWidth() - 190, (float)GetScreenHeight() - 115 };
         DrawTextureEx(book_icon_texture_, book_pos, 0.0f, hp_scale, WHITE);
-
+    */
         // === Fadenkreuz ===
 
         // 1. Positionen holen

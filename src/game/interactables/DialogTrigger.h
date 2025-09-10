@@ -5,6 +5,7 @@
 class DialogTrigger : public Collidable
 {
 private:
+    Texture2D dia_trigger;
     std::string text_;
     std::string name_;
     std::string portrait_path_;
