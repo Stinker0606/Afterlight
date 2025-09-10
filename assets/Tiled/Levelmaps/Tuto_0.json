@@ -684,6 +684,96 @@
                  "width":43.1793770139635,
                  "x":94.0923737916219,
                  "y":111.493018259936
+                }, 
+                {
+                 "height":35.5,
+                 "id":160,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"Tutorial"
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Laufe gegen den Stein um ihn zu verschieben."
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":67,
+                 "x":288,
+                 "y":128.5
+                }, 
+                {
+                 "height":95,
+                 "id":161,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Steine wie dieser k\u00f6nnen mit einer Bombe zerst\u00f6rt werden.\nLege die Bombe mit Q neben dem Stein auf den boden.\nAber sei Vorsichtig!\nDie Bombe macht dir auch Schaden."
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":51,
+                 "x":686,
+                 "y":98
+                }, 
+                {
+                 "height":31.5,
+                 "id":162,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Gro\u00dfe Steine k\u00f6nnen auch mit einer bombe entfernt werden.#\nProbiere es aus!"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":93.5,
+                 "x":801,
+                 "y":162
+                }, 
+                {
+                 "height":72.5,
+                 "id":163,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Dies ist ein Monster Spawner.\nGreife den Spawner an um ihhn zu zerst\u00f6ren."
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":93,
+                 "x":579.5,
+                 "y":480
+                }, 
+                {
+                 "height":64.5,
+                 "id":164,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Tore k\u00f6nnen mit Schl\u00fcsseln ge\u00f6ffnet werden.\nLaufe einfach dagegen!"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":99,
+                 "x":543.5,
+                 "y":256.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -845,7 +935,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":160,
+ "nextobjectid":165,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
