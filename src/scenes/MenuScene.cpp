@@ -64,7 +64,7 @@ namespace game::scenes
 
         if (is_transitioning_)
         {
-            transition_alpha_ += GetFrameTime() / transition_duration_;
+            transition_alpha_ += GetFrameTime() / transition_duration_play;
             if (transition_alpha_ >= 1.0f)
             {
                 game::core::Store::stage->ReplaceWithNewScene("menu"s, "gameplay"s, std::make_unique<Level1Scene>());
@@ -124,10 +124,13 @@ namespace game::scenes
             switch (selected_item_index_)
             {
                 case 0: // Play
-                    is_transitioning_ = true;
+                    SoundManager::GetInstance().StopCurrentMusic();
                     SoundManager::GetInstance().PlaySfx("game_start");
+                    is_transitioning_ = true;
                     break;
                 case 1: // Settings
+                    SoundManager::GetInstance().PlaySfx("ui_select");
+                    break;
                 case 2: // Credits
                     SoundManager::GetInstance().PlaySfx("ui_select");
                     break;

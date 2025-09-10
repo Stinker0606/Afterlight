@@ -40,6 +40,7 @@ namespace game::scenes
         bool is_transitioning_ = false;
         float transition_alpha_ = 0.0f;
         const float transition_duration_ = 0.8f;
+        const float transition_duration_play = 3.0f;
 
         // Farben
         Color text_color_;

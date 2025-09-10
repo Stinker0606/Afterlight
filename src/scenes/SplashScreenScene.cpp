@@ -65,12 +65,36 @@ namespace game::scenes
         // 1. Zeichne immer den gewünschten farbigen Hintergrund
         ClearBackground(Color{ 0, 44, 56, 255 });
 
+        // --- Berechnungen für Animationen ---
+        float pulse = sin(timer_ * 0.8f) * 0.5f + 0.5f;
+        float float_offset = sin(timer_ * 0.75f) * 10.0f;
+
+        // Animation Größe
+        float anim_scale = 25.0f;
+        float anim_width = 64.0f * anim_scale;
+        float anim_height = 96.0f * anim_scale;
+
+        // Position der Animation
+        Vector2 anim_pos = {
+            (game::Config::kStageWidth / 2.0f),
+            (game::Config::kStageHeight / 2.0f)
+        };
+
+        // --- Pulsierender Licht/Flammen-Effekt ---
+        Vector2 light_center = anim_pos;
+        float base_radius = 180.0f;
+        float light_radius = (base_radius * anim_scale / 6.0f) + pulse * 100.0f;
+        Color flame_inner = { 0x58, 0x3c, 0x48, 255 };
+        Color flame_outer = { 0x44, 0x34, 0x44, 255 };
+        DrawCircleGradient(light_center.x, light_center.y, light_radius * 1.5f, ColorAlpha(flame_outer, 0.7f * (pulse * 0.5f + 0.5f)), BLANK);
+        DrawCircleGradient(light_center.x, light_center.y, light_radius, ColorAlpha(flame_inner, 0.9f * (pulse * 0.7f + 0.3f)), BLANK);
+
         // 2. Zeichne das Logo immer mit voller Deckkraft
         float scale = 0.7f;
         float logo_width = logo_texture_.width * scale;
         float logo_height = logo_texture_.height * scale;
         float logo_x = (game::Config::kStageWidth / 2.0f) - (logo_width / 2.0f);
-        float logo_y = (game::Config::kStageHeight / 2.0f) - (logo_height / 2.0f) - 100;
+        float logo_y = (game::Config::kStageHeight / 2.0f) - (logo_height / 2.0f) - 50;
         DrawTextureEx(logo_texture_, {logo_x, logo_y}, 0.0f, scale, WHITE);
 
         // 3. Zeichne die schwarze Überblendung darüber.
