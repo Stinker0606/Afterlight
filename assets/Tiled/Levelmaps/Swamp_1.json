@@ -1311,7 +1311,7 @@
                         {
                          "name":"portrait_path",
                          "type":"string",
-                         "value":""
+                         "value":"assets\/graphics\/ui\/dialoge\/DunkelheitGottheit.png"
                         }],
                  "rotation":0,
                  "type":"",
