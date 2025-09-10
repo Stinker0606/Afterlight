@@ -30,7 +30,7 @@ namespace enemy
         ControllableAnimations anim_death_;
 
     public:
-        Corpse(Vector2 start_position, Object_Manager& om, bool use_fog = true);
+        Corpse(Vector2 start_position, Object_Manager& om, bool use_fog = false);
         ~Corpse() override = default;
 
         void Update_AI(float delta_time, Vector2 player_position) override;

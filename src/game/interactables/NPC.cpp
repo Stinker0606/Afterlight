@@ -5,9 +5,9 @@
 #include "raylib.h"
 
 // Alle Werte sind jetzt hier fest im Code definiert
-const char* NPC_SPRITE_PATH = "assets/graphics/npcs/John_Idle_Front.png";
-const int NPC_ANIM_FRAMES = 19;
+const int NPC_ANIM_FRAMES = 20;
 const Vector2 NPC_ANIM_SIZE = { 100, 100 };
+const char* NPC_SPRITE_PATH = "assets/graphics/animations/John/John_Idle_Front.png";
 
 // Definiere die Geschwindigkeit für jeden Frame.
 const std::vector<int> NPC_IDLE_TIMINGS = {
@@ -15,10 +15,13 @@ const std::vector<int> NPC_IDLE_TIMINGS = {
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8
 };
 
+
 NPC::NPC(Vector2 position)
     : animation_(NPC_ANIM_SIZE, NPC_SPRITE_PATH, NPC_ANIM_FRAMES, NPC_ANIM_FRAMES, NPC_IDLE_TIMINGS, true)
 {
-    hitbox = { position.x, position.y, NPC_ANIM_SIZE.x, NPC_ANIM_SIZE.y };
+    dia_trigger = AssetManager::GetInstance().Load("assets/graphics/ui/E_DiaTrig.png");
+
+    hitbox = { position.x, position.y, 32, 48};
     useFog = true;
 }
 
@@ -27,11 +30,22 @@ void NPC::Tick(float delta_time) {
 }
 
 void NPC::Draw() {
-    animation_.Draw_Current_Frame({ hitbox.x, hitbox.y }, Fade(WHITE, visibility_alpha));
+    Vector2 base_position = {
+        hitbox.x + (hitbox.width / 2.0f),
+        hitbox.y + (hitbox.height / 2.0f)
+    };
+
+    Vector2 draw_position = {
+        base_position.x + 2.0f,
+        base_position.y - 0.0f
+    };
+
+    animation_.Draw_Current_Frame(draw_position, Fade(WHITE, visibility_alpha));
     animation_.Next_Frame();
 
     if (is_in_range_ && !has_given_key_) {
-        DrawTextureV(dia_trigger,{hitbox.x + hitbox.width / 2, hitbox.y - 20}, WHITE);
+        // Die "E"-Anzeige wird jetzt auch sauber zentriert über dem NPC gezeichnet.
+        DrawTextureV(dia_trigger, {hitbox.x + hitbox.width / 2.0f - dia_trigger.width / 2.0f, hitbox.y - 20}, WHITE);
     }
 }
 
