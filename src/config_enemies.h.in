@@ -89,7 +89,7 @@ namespace game {
         // -- Stats --
         inline static constexpr int kInsectMonsterHealth = 50;
         inline static constexpr float kInsectMonsterMovementSpeed = 6.0f; // deactivated -> 2 Tiles pro Sekunde (1 Tile = 32px)
-        inline static constexpr int kInsectMonsterDamage = 15;
+        inline static constexpr int kInsectMonsterDamage = 25;
         inline static constexpr float kInsectMonsterAttackCooldown = 6.0f; // 1 Angriff pro Sekunde
         inline static constexpr float kInsectMonsterAttackRange = 48.0f; // 1.5 Tiles (48 + Hitbox Berechnung = +- 70)
         inline static constexpr int kInsectMonsterValue = 15;
@@ -141,7 +141,7 @@ namespace game {
         // -- Stats --
         inline static constexpr int kDrownedSniperHealth = 75;
         inline static constexpr float kDrownedSniperMovementSpeed = 0.0f;
-        inline static constexpr int kDrownedSniperDamage = 25;
+        inline static constexpr int kDrownedSniperDamage = 50;
         inline static constexpr float kDrownedSniperAttackCooldown = 24.0f;
         inline static constexpr float kDrownedSniperAttackRange = 10.0f;
         inline static constexpr float kDrownedSniperProjectileSpeed = 110.0f;
