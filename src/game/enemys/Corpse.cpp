@@ -39,7 +39,7 @@ namespace enemy
           anim_attack_right_(game::EnemyConfig::kCorpseAnimSize, game::EnemyConfig::kCorpseAttackRightPath, game::EnemyConfig::kCorpseAttackRightFrames, game::EnemyConfig::kCorpseAttackRightFramesPerLine, game::EnemyConfig::kCorpseAttackTimings, false),
           anim_death_(game::EnemyConfig::kCorpseAnimSize, game::EnemyConfig::kCorpseDeathPath, game::EnemyConfig::kCorpseDeathFrames, game::EnemyConfig::kCorpseDeathFramesPerLine, game::EnemyConfig::kCorpseDeathTimings, false)
     {
-        this->useFog = true;
+        this->useFog = false;
         this->anim_state_ = AnimationState::WALKING;
         this->p_current_animation_ = &anim_walk_front_;
         this->melee_hitbox_spawned_ = false;

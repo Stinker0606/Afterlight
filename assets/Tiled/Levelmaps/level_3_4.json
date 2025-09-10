@@ -445,8 +445,8 @@
                  "type":"",
                  "visible":true,
                  "width":26.7272727272727,
-                 "x":453.272727272727,
-                 "y":128
+                 "x":454.772727272727,
+                 "y":126
                 }, 
                 {
                  "gid":582,
@@ -771,15 +771,15 @@
          "name":"interactibles",
          "objects":[
                 {
-                 "height":16.4654447620649,
+                 "height":32,
                  "id":48,
                  "name":"player_start_from_level_3_4",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":15.0126114007062,
-                 "x":417.82089709097,
-                 "y":136.425613754834
+                 "width":32,
+                 "x":409.32089709097,
+                 "y":118.425613754834
                 }],
          "opacity":1,
          "type":"objectgroup",

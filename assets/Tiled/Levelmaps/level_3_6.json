@@ -130,7 +130,7 @@
          "name":"walls",
          "objects":[
                 {
-                 "height":448,
+                 "height":436,
                  "id":1,
                  "name":"walls",
                  "rotation":0,
@@ -141,7 +141,7 @@
                  "y":0
                 }, 
                 {
-                 "height":96,
+                 "height":85.6363636363636,
                  "id":2,
                  "name":"walls",
                  "rotation":0,
@@ -149,7 +149,7 @@
                  "visible":true,
                  "width":32,
                  "x":0,
-                 "y":480
+                 "y":490.363636363636
                 }, 
                 {
                  "height":32,
@@ -404,6 +404,28 @@
                  "width":32,
                  "x":0,
                  "y":480
+                }, 
+                {
+                 "height":73.75,
+                 "id":62,
+                 "name":"doors",
+                 "properties":[
+                        {
+                         "name":"target_map",
+                         "type":"string",
+                         "value":"level_3_3.json"
+                        }, 
+                        {
+                         "name":"target_spawn_point",
+                         "type":"string",
+                         "value":"player_start_from_level_3_3_b"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":20.6666666666667,
+                 "x":-8.88178419700125e-15,
+                 "y":430.458333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -425,7 +447,7 @@
                  "visible":true,
                  "width":32,
                  "x":480,
-                 "y":160
+                 "y":152
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -661,7 +683,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":62,
+ "nextobjectid":63,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

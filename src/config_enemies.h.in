@@ -68,15 +68,15 @@ namespace game {
         };
 
         // =============================================== SPAWNERS - LEVEL 3 ==========================================
-/*
+
         inline static constexpr float kSpawner3_SpawnRate = 30.0f;
         inline static constexpr int kSpawner3_MaxEnemies = 5;
         inline static const std::vector<SpawnableEnemy> kSpawner3_EnemyPool = {
-            { enemy::EnemyType::WALKING_CORPSE_2, 100, 5 }, // XX % Chance, max. X Enemies von diesem Spawner
+            { enemy::EnemyType::CORPSE, 100, 2 }, // XX % Chance, max. X Enemies von diesem Spawner
 
             // Bsp.: { enemy::EnemyType::POISON_FROG, 10, 1 } // Beispiel für Frosch: 10% Chance, max. 1 Frosch von diesem Spawner
         };
-*/
+
         // =============================================== ENEMIES =====================================================
 
 // ---------------------------------------------------------------- SUMPF ------------------------------------------------------------------------------------------------------
@@ -350,49 +350,49 @@ namespace game {
         inline static constexpr const char* kWalkingCorpseSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
 
         // -- Stats --
-        inline static constexpr int kWalkingCorpseHealth = 50;
-        inline static constexpr float kWalkingCorpseMovementSpeed = 6.0f;
-        inline static constexpr int kWalkingCorpseDamage = 10;
+        inline static constexpr int kWalkingCorpseHealth = 100;
+        inline static constexpr float kWalkingCorpseMovementSpeed = 4.0f;
+        inline static constexpr int kWalkingCorpseDamage = 25;
         inline static constexpr float kWalkingCorpseAttackCooldown = 6.0f;
         inline static constexpr float kWalkingCorpseAttackRange = 48.0f;
-        inline static constexpr int kWalkingCorpseValue = 15;
-        inline static constexpr int kWalkingCorpseHitboxWidth = 30;
-        inline static constexpr int kWalkingCorpseHitboxHeight = 30;
-        inline static constexpr Vector2 kWalkingCorpseAnimSize = {96, 96};
-        inline static constexpr Vector2 kWalkingCorpse_visual_offset = {-32, -48};
+        inline static constexpr int kWalkingCorpseValue = 30;
+        inline static constexpr int kWalkingCorpseHitboxWidth = 28;
+        inline static constexpr int kWalkingCorpseHitboxHeight = 36;
+        inline static constexpr Vector2 kWalkingCorpseAnimSize = {100, 100};
+        inline static constexpr Vector2 kWalkingCorpse_visual_offset = {-14, -10};
 
         // -- Walk Animations (4 Richtungen) --
-        inline static constexpr const char* kWalkingCorpseWalkFrontPath = "assets/graphics/animations/walking_corpse/walk_front.png";
-        inline static constexpr int kWalkingCorpseWalkFrontFrames = 20;
-        inline static constexpr int kWalkingCorpseWalkFrontFramesPerLine = 20;
-        inline static constexpr const char* kWalkingCorpseWalkBackPath = "assets/graphics/animations/walking_corpse/walk_back.png";
-        inline static constexpr int kWalkingCorpseWalkBackFrames = 20;
-        inline static constexpr int kWalkingCorpseWalkBackFramesPerLine = 20;
-        inline static constexpr const char* kWalkingCorpseWalkLeftPath = "assets/graphics/animations/walking_corpse/walk_left.png";
-        inline static constexpr int kWalkingCorpseWalkLeftFrames = 20;
-        inline static constexpr int kWalkingCorpseWalkLeftFramesPerLine = 20;
-        inline static constexpr const char* kWalkingCorpseWalkRightPath = "assets/graphics/animations/walking_corpse/walk_right.png";
-        inline static constexpr int kWalkingCorpseWalkRightFrames = 20;
-        inline static constexpr int kWalkingCorpseWalkRightFramesPerLine = 20;
+        inline static constexpr const char* kWalkingCorpseWalkFrontPath = "assets/graphics/animations/laufende_Leiche/Leiche_Walk_Front.png";
+        inline static constexpr int kWalkingCorpseWalkFrontFrames = 10;
+        inline static constexpr int kWalkingCorpseWalkFrontFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseWalkBackPath = "assets/graphics/animations/laufende_Leiche/Leiche_Wlak_Back.png";
+        inline static constexpr int kWalkingCorpseWalkBackFrames = 10;
+        inline static constexpr int kWalkingCorpseWalkBackFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseWalkLeftPath = "assets/graphics/animations/laufende_Leiche/Leiche_Walk_Leftt.png";
+        inline static constexpr int kWalkingCorpseWalkLeftFrames = 10;
+        inline static constexpr int kWalkingCorpseWalkLeftFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseWalkRightPath = "assets/graphics/animations/laufende_Leiche/Leiche_Walk_Right.png";
+        inline static constexpr int kWalkingCorpseWalkRightFrames = 10;
+        inline static constexpr int kWalkingCorpseWalkRightFramesPerLine = 10;
 
         // -- Death Animation --
-        inline static constexpr const char* kWalkingCorpseDeathPath = "assets/graphics/animations/walking_corpse/death.png";
+        inline static constexpr const char* kWalkingCorpseDeathPath = "assets/graphics/animations/laufende_Leiche/death.png";
         inline static constexpr int kWalkingCorpseDeathFrames = 12;
         inline static constexpr int kWalkingCorpseDeathFramesPerLine = 12;
 
         // -- Melee "Sweep" Attack Animations (4 Richtungen) --
-        inline static constexpr const char* kWalkingCorpseAttackFrontPath = "assets/graphics/animations/walking_corpse/attack_front.png";
-        inline static constexpr int kWalkingCorpseAttackFrontFrames = 36;
-        inline static constexpr int kWalkingCorpseAttackFrontFramesPerLine = 36;
-        inline static constexpr const char* kWalkingCorpseAttackBackPath = "assets/graphics/animations/walking_corpse/attack_back.png";
-        inline static constexpr int kWalkingCorpseAttackBackFrames = 36;
-        inline static constexpr int kWalkingCorpseAttackBackFramesPerLine = 36;
-        inline static constexpr const char* kWalkingCorpseAttackLeftPath = "assets/graphics/animations/walking_corpse/attack_left.png";
-        inline static constexpr int kWalkingCorpseAttackLeftFrames = 36;
-        inline static constexpr int kWalkingCorpseAttackLeftFramesPerLine = 36;
-        inline static constexpr const char* kWalkingCorpseAttackRightPath = "assets/graphics/animations/walking_corpse/attack_right.png";
-        inline static constexpr int kWalkingCorpseAttackRightFrames = 36;
-        inline static constexpr int kWalkingCorpseAttackRightFramesPerLine = 36;
+        inline static constexpr const char* kWalkingCorpseAttackFrontPath = "assets/graphics/animations/laufende_Leiche/Leiche_Attack_Front.png";
+        inline static constexpr int kWalkingCorpseAttackFrontFrames = 10;
+        inline static constexpr int kWalkingCorpseAttackFrontFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseAttackBackPath = "assets/graphics/animations/laufende_Leiche/Leiche_Attack_Back.png";
+        inline static constexpr int kWalkingCorpseAttackBackFrames = 10;
+        inline static constexpr int kWalkingCorpseAttackBackFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseAttackLeftPath = "assets/graphics/animations/laufende_Leiche/Leiche_Attack_Left.png";
+        inline static constexpr int kWalkingCorpseAttackLeftFrames = 10;
+        inline static constexpr int kWalkingCorpseAttackLeftFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseAttackRightPath = "assets/graphics/animations/laufende_Leiche/Leiche_Attack_Right.png";
+        inline static constexpr int kWalkingCorpseAttackRightFrames = 10;
+        inline static constexpr int kWalkingCorpseAttackRightFramesPerLine = 10;
 
         // ====================================================================================
         // WOOD SNIPER (Stationärer 8-Fernkämpfer - Level 2)
@@ -403,9 +403,9 @@ namespace game {
         // -- Stats --
         inline static constexpr int kWoodSniperHealth = 75;
         inline static constexpr float kWoodSniperMovementSpeed = 0.0f;
-        inline static constexpr int kWoodSniperDamage = 25;
+        inline static constexpr int kWoodSniperDamage = 55;
         inline static constexpr float kWoodSniperAttackCooldown = 24.0f;
-        inline static constexpr float kWoodSniperAttackRange = 2000.0f;
+        inline static constexpr float kWoodSniperAttackRange = 500.0f;
         inline static constexpr float kWoodSniperProjectileSpeed = 110.0f;
         inline static constexpr int kWoodSniperValue = 50;
         inline static constexpr int kWoodSniperHitboxWidth = 30;
@@ -414,59 +414,59 @@ namespace game {
         inline static constexpr Vector2 kWoodSniper_visual_offset = {-16, -14}; // NICHT ÄNDERN!
 
         // -- Death Animation --
-        inline static constexpr const char* kWoodSniperDeathPath = "assets/graphics/enemies/wood_sniper/death.png";
+        inline static constexpr const char* kWoodSniperDeathPath = "assets/graphics/enemies/drowned_sniper/death.png";
         inline static constexpr int kWoodSniperDeathFrames = 10;
         inline static constexpr int kWoodSniperDeathFramesPerLine = 10;
 
         // -- Ranged Attack Animations (8 Richtungen) --
-        inline static constexpr const char* kWoodSniperAttackUpPath = "assets/graphics/enemies/wood_sniper/attack_up.png";
+        inline static constexpr const char* kWoodSniperAttackUpPath = "assets/graphics/enemies/drowned_sniper/attack_up.png";
         inline static constexpr int kWoodSniperAttackUpFrames = 12;
         inline static constexpr int kWoodSniperAttackUpFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackDownPath = "assets/graphics/enemies/wood_sniper/attack_down.png";
+        inline static constexpr const char* kWoodSniperAttackDownPath = "assets/graphics/enemies/drowned_sniper/attack_down.png";
         inline static constexpr int kWoodSniperAttackDownFrames = 12;
         inline static constexpr int kWoodSniperAttackDownFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackLeftPath = "assets/graphics/enemies/wood_sniper/attack_left.png";
+        inline static constexpr const char* kWoodSniperAttackLeftPath = "assets/graphics/enemies/drowned_sniper/attack_left.png";
         inline static constexpr int kWoodSniperAttackLeftFrames = 12;
         inline static constexpr int kWoodSniperAttackLeftFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackRightPath = "assets/graphics/enemies/wood_sniper/attack_right.png";
+        inline static constexpr const char* kWoodSniperAttackRightPath = "assets/graphics/enemies/drowned_sniper/attack_right.png";
         inline static constexpr int kWoodSniperAttackRightFrames = 12;
         inline static constexpr int kWoodSniperAttackRightFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackUpLeftPath = "assets/graphics/enemies/wood_sniper/attack_up_left.png";
+        inline static constexpr const char* kWoodSniperAttackUpLeftPath = "assets/graphics/enemies/drowned_sniper/attack_up_left.png";
         inline static constexpr int kWoodSniperAttackUpLeftFrames = 12;
         inline static constexpr int kWoodSniperAttackUpLeftFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackUpRightPath = "assets/graphics/enemies/wood_sniper/attack_up_right.png";
+        inline static constexpr const char* kWoodSniperAttackUpRightPath = "assets/graphics/enemies/drowned_sniper/attack_up_right.png";
         inline static constexpr int kWoodSniperAttackUpRightFrames = 12;
         inline static constexpr int kWoodSniperAttackUpRightFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackDownLeftPath = "assets/graphics/enemies/wood_sniper/attack_down_left.png";
+        inline static constexpr const char* kWoodSniperAttackDownLeftPath = "assets/graphics/enemies/drowned_sniper/attack_down_left.png";
         inline static constexpr int kWoodSniperAttackDownLeftFrames = 12;
         inline static constexpr int kWoodSniperAttackDownLeftFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackDownRightPath = "assets/graphics/enemies/wood_sniper/attack_down_right.png";
+        inline static constexpr const char* kWoodSniperAttackDownRightPath = "assets/graphics/enemies/drowned_sniper/attack_down_right.png";
         inline static constexpr int kWoodSniperAttackDownRightFrames = 12;
         inline static constexpr int kWoodSniperAttackDownRightFramesPerLine = 12;
 
         // --- Reload Animation (8 Richtungen)---
-        inline static constexpr const char* kWoodSniperReloadUpPath = "assets/graphics/animations/wood_Sniper/Reload/wood_Sniper_reload_Back.png";
+        inline static constexpr const char* kWoodSniperReloadUpPath = "assets/graphics/animations/drowned_Sniper/Reload/drowned_Sniper_reload_Back.png";
         inline static constexpr int kWoodSniperReloadUpFrames = 9;
         inline static constexpr int kWoodSniperReloadUpFramesPerLine = 9;
-        inline static constexpr const char* kWoodSniperReloadDownPath = "assets/graphics/animations/wood_Sniper/Reload/wood_Sniper_reload_Front.png";
+        inline static constexpr const char* kWoodSniperReloadDownPath = "assets/graphics/animations/drowned_Sniper/Reload/drowned_Sniper_reload_Front.png";
         inline static constexpr int kWoodSniperReloadDownFrames = 9;
         inline static constexpr int kWoodSniperReloadDownFramesPerLine = 9;
-        inline static constexpr const char* kWoodSniperReloadLeftPath = "assets/graphics/animations/wood_Sniper/Reload/wood_Sniper_reload_Left.png";
+        inline static constexpr const char* kWoodSniperReloadLeftPath = "assets/graphics/animations/drowned_Sniper/Reload/drowned_Sniper_reload_Left.png";
         inline static constexpr int kWoodSniperReloadLeftFrames = 9;
         inline static constexpr int kWoodSniperReloadLeftFramesPerLine = 9;
-        inline static constexpr const char* kWoodSniperReloadRightPath = "assets/graphics/animations/wood_Sniper/Reload/wood_Sniper_reload_Right.png";
+        inline static constexpr const char* kWoodSniperReloadRightPath = "assets/graphics/animations/drowned_Sniper/Reload/drowned_Sniper_reload_Right.png";
         inline static constexpr int kWoodSniperReloadRightFrames = 9;
         inline static constexpr int kWoodSniperReloadRightFramesPerLine = 9;
-        inline static constexpr const char* kWoodSniperReloadUpLeftPath = "assets/graphics/animations/wood_Sniper/Reload/wood_Sniper_reload_Backleft.png";
+        inline static constexpr const char* kWoodSniperReloadUpLeftPath = "assets/graphics/animations/drowned_Sniper/Reload/drowned_Sniper_reload_Backleft.png";
         inline static constexpr int kWoodSniperReloadUpLeftFrames = 9;
         inline static constexpr int kWoodSniperReloadUpLeftFramesPerLine = 9;
-        inline static constexpr const char* kWoodSniperReloadUpRightPath = "assets/graphics/animations/wood_Sniper/Reload/wood_Sniper_reload_Backright.png";
+        inline static constexpr const char* kWoodSniperReloadUpRightPath = "assets/graphics/animations/drowned_Sniper/Reload/drowned_Sniper_reload_Backright.png";
         inline static constexpr int kWoodSniperReloadUpRightFrames = 9;
         inline static constexpr int kWoodSniperReloadUpRightFramesPerLine = 9;
-        inline static constexpr const char* kWoodSniperReloadDownLeftPath = "assets/graphics/animations/wood_Sniper/Reload/wood_Sniper_reload_Frontleft.png";
+        inline static constexpr const char* kWoodSniperReloadDownLeftPath = "assets/graphics/animations/drowned_Sniper/Reload/drowned_Sniper_reload_Frontleft.png";
         inline static constexpr int kWoodSniperReloadDownLeftFrames = 9;
         inline static constexpr int kWoodSniperReloadDownLeftFramesPerLine = 9;
-        inline static constexpr const char* kWoodSniperReloadDownRightPath = "assets/graphics/animations/wood_Sniper/Reload/wood_Sniper_reload_Frontright.png";
+        inline static constexpr const char* kWoodSniperReloadDownRightPath = "assets/graphics/animations/drowned_Sniper/Reload/drowned_Sniper_reload_Frontright.png";
         inline static constexpr int kWoodSniperReloadDownRightFrames = 9;
         inline static constexpr int kWoodSniperReloadDownRightFramesPerLine = 9;
 
@@ -595,16 +595,15 @@ namespace game {
 
         // -- WALKING CORPSE
 
-       // Walk (20 Frames)
-        inline static const std::vector<int> kWalkingCorpseWalkTimings = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+        // Walk
+        inline static const std::vector<int> kWalkingCorpseWalkTimings = { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 };
 
-        // Attack (36 Frames)
+        // Attack
         inline static const std::vector<int> kWalkingCorpseAttackTimings = {
-        3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3,
-        3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5
+        3, 3, 2, 2, 2, 3, 3, 4, 4, 5
         };
 
-        // Death (12 Frames)
+        // Death (12 Frames?)
         inline static const std::vector<int> kWalkingCorpseDeathTimings = { 8, 6, 5, 4, 4, 5, 6, 8, 10, 12, 15, 60 };
 
         // -- WOOD SNIPER --
