@@ -5,6 +5,7 @@
 class NPC : public Collidable
 {
 private:
+    Texture2D dia_trigger;
     ControllableAnimations animation_;
     bool is_in_range_ = false;
     bool has_given_key_ = false;

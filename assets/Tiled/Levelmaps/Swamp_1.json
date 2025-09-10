@@ -1306,7 +1306,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Hallo, du hast es jetzt schon soweit geschafft.\nGehe weiter um den Gott des Chaos zu besiegen.\nAber zuerst nimm diesen Trank zu meiner Rechten."
+                         "value":"Hallo, du hast es jetzt schon soweit geschafft.\nGehe weiter um den Gott des Chaos zu besiegen.\nAber zuerst, nimm diesen Trank zu meiner Rechten."
                         }, 
                         {
                          "name":"portrait_path",

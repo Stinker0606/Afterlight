@@ -31,7 +31,7 @@ void NPC::Draw() {
     animation_.Next_Frame();
 
     if (is_in_range_ && !has_given_key_) {
-        DrawText("E", hitbox.x + hitbox.width / 2 - 10, hitbox.y - 20, 20, Color { 216, 176, 168, 255 });
+        DrawTextureV(dia_trigger,{hitbox.x + hitbox.width / 2, hitbox.y - 20}, WHITE);
     }
 }
 
