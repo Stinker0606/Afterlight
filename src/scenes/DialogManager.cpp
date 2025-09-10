@@ -67,4 +67,5 @@ void DialogManager::Draw()
     } else {
         DrawTextEx(dialog_font_, current_text_.c_str(), {text_start_x, box_rect.y + 40}, 45, 2, Fade(WHITE, 0.9f));
     }
+
 }

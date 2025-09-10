@@ -105,13 +105,13 @@ namespace game::scenes
     void Level1Scene::Update()
     {
         // Standard-Engine-Inputs
-/*
+
         if (IsKeyPressed(KEY_P))
         {
             game::core::Store::stage->SwitchToNewScene("menu"s, std::make_unique<MenuScene>());
             return;
         }
-*/
+
         if (auto player = sp_player.lock())
         {
             // 1. Prüfe, ob der Spieler gestorben ist und das Spiel noch nicht eingefroren ist.
