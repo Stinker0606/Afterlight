@@ -63,9 +63,9 @@ void DialogManager::Draw()
     // --- Name (falls vorhanden) ---
     if (!character_name_.empty()) {
         DrawTextEx(dialog_font_, character_name_.c_str(), {text_start_x, box_rect.y + 20}, 50, 2, Color{ 216, 176, 168, 255 });
-        DrawTextEx(dialog_font_, current_text_.c_str(), {text_start_x, box_rect.y + 90}, 45, 2, Fade(WHITE, 0.9f));
+        DrawTextEx(dialog_font_, current_text_.c_str(), {text_start_x, box_rect.y + 90}, 25, 2, Fade(WHITE, 0.9f));
     } else {
-        DrawTextEx(dialog_font_, current_text_.c_str(), {text_start_x, box_rect.y + 40}, 45, 2, Fade(WHITE, 0.9f));
+        DrawTextEx(dialog_font_, current_text_.c_str(), {text_start_x, box_rect.y + 40}, 30, 2, Fade(WHITE, 0.9f));
     }
 
-}
+} d

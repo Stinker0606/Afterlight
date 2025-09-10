@@ -313,7 +313,7 @@
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":96,
+                 "width":94,
                  "x":64,
                  "y":320
                 }, 
@@ -373,25 +373,25 @@
                  "y":416
                 }, 
                 {
-                 "height":32,
+                 "height":30,
                  "id":13,
                  "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":32,
-                 "x":128,
+                 "width":28,
+                 "x":130,
                  "y":352
                 }, 
                 {
-                 "height":32,
+                 "height":30,
                  "id":14,
                  "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":32,
-                 "x":192,
+                 "width":28,
+                 "x":194,
                  "y":320
                 }, 
                 {
@@ -401,8 +401,8 @@
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":32,
-                 "x":256,
+                 "width":28,
+                 "x":258,
                  "y":320
                 }, 
                 {
@@ -412,8 +412,8 @@
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":32,
-                 "x":192,
+                 "width":28,
+                 "x":194,
                  "y":384
                 }, 
                 {
@@ -450,7 +450,7 @@
                  "y":288
                 }, 
                 {
-                 "height":32,
+                 "height":23,
                  "id":20,
                  "name":"walls",
                  "rotation":0,
@@ -1200,6 +1200,17 @@
                  "width":32,
                  "x":768,
                  "y":384
+                }, 
+                {
+                 "height":17,
+                 "id":373,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32.6666666666667,
+                 "x":223.333333333333,
+                 "y":32.3333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1283,7 +1294,7 @@
          "name":"interactibles",
          "objects":[
                 {
-                 "height":69.2727272727273,
+                 "height":14.2727272727273,
                  "id":370,
                  "name":"intDia",
                  "properties":[
@@ -1295,7 +1306,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Hallo, du hast es jetzt schon soweit geschafft. Gehe weiter um den Gott des Chaos zu besiegen. Aber zuerst nimm diesen Trank zu meiner Rechten."
+                         "value":"Hallo, du hast es jetzt schon soweit geschafft.\nGehe weiter um den Gott des Chaos zu besiegen.\nAber zuerst nimm diesen Trank zu meiner Rechten."
                         }, 
                         {
                          "name":"portrait_path",
@@ -1306,8 +1317,8 @@
                  "type":"",
                  "visible":true,
                  "width":32.3636363636363,
-                 "x":223.636363636364,
-                 "y":-5.09090909090909
+                 "x":223.818181818182,
+                 "y":47.6060606060606
                 }, 
                 {
                  "height":49,
@@ -1327,7 +1338,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":373,
+ "nextobjectid":374,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
