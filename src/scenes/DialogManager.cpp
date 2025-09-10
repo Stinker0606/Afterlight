@@ -48,15 +48,15 @@ void DialogManager::Draw()
     Rectangle box_rect = { 350, box_y, (float)game::Config::kStageWidth - 700, box_height };
 
     // --- Box zeichnen ---
-    DrawRectangleRec(box_rect, Fade(BLACK, 0.8f));
+    DrawRectangleRec(box_rect, Fade(BLACK, 0.6f));
     DrawRectangleLinesEx(box_rect, 3, Fade(WHITE, 0.6f));
 
     // --- Porträt (rechts) ---
     float text_start_x = box_rect.x + 30;
     float text_end_x = box_rect.x + box_rect.width - 30;
     if (has_portrait_) {
-        float portrait_size = box_height - 40;
-        DrawTextureEx(portrait_texture_, {box_rect.x + box_rect.width - portrait_size - 20, box_rect.y + 20}, 0.0f, portrait_size / portrait_texture_.height, WHITE);
+        float portrait_size = box_height + 45;
+        DrawTextureEx(portrait_texture_, {box_rect.x + box_rect.width - portrait_size - 20, box_rect.y - 60}, 0.0f, portrait_size / portrait_texture_.height, WHITE);
         text_end_x -= (portrait_size + 40);
     }
 

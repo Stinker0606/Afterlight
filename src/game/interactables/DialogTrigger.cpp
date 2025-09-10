@@ -6,6 +6,8 @@ DialogTrigger::DialogTrigger(Rectangle hitbox, std::string text, std::string nam
     : text_(text), name_(name), portrait_path_(portrait)
 {
     this->hitbox = hitbox;
+    dia_trigger = AssetManager::GetInstance().Load("assets/graphics/ui/E_DiaTrig.png");
+
 }
 
 void DialogTrigger::Tick(float delta_time) {
@@ -14,7 +16,8 @@ void DialogTrigger::Tick(float delta_time) {
 
 void DialogTrigger::Draw() {
     if (is_in_range_) {
-        DrawText("E", hitbox.x + hitbox.width / 2, hitbox.y - 20, 20, Color { 216, 176, 168, 255 });
+       // DrawText("E", hitbox.x + hitbox.width / 2, hitbox.y - 20, 20, Color { 216, 176, 168, 255 });
+        DrawTextureV(dia_trigger,{hitbox.x + hitbox.width / 2, hitbox.y - 20}, WHITE);
     }
 }
 
