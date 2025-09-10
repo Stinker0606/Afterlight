@@ -79,7 +79,7 @@ namespace enemy
     {
         case AnimationState::RELOADING:
             // Wenn der Cooldown abgelaufen ist, können wir angreifen.
-            if (this->attack_Cooldown_Timer <= 0.0f)
+            if (this->attack_Cooldown_Timer <= 0.0f && Vector2Distance(Get_Hitbox_Center(), player_position) <= game::EnemyConfig::kDrownedSniperAttackRange)
             {
                 anim_state_ = AnimationState::ATTACKING;
                 // WICHTIG: Setze die Angriffs-Animationen zurück, damit sie von vorne beginnen.
