@@ -350,15 +350,15 @@ namespace game {
         inline static constexpr const char* kWalkingCorpseSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
 
         // -- Stats --
-        inline static constexpr int kWalkingCorpseHealth = 50;
-        inline static constexpr float kWalkingCorpseMovementSpeed = 6.0f;
-        inline static constexpr int kWalkingCorpseDamage = 10;
+        inline static constexpr int kWalkingCorpseHealth = 100;
+        inline static constexpr float kWalkingCorpseMovementSpeed = 4.0f;
+        inline static constexpr int kWalkingCorpseDamage = 25;
         inline static constexpr float kWalkingCorpseAttackCooldown = 6.0f;
-        inline static constexpr float kWalkingCorpseAttackRange = 48.0f;
-        inline static constexpr int kWalkingCorpseValue = 15;
-        inline static constexpr int kWalkingCorpseHitboxWidth = 30;
+        inline static constexpr float kWalkingCorpseAttackRange = 32.0f;
+        inline static constexpr int kWalkingCorpseValue = 30;
+        inline static constexpr int kWalkingCorpseHitboxWidth = 34;
         inline static constexpr int kWalkingCorpseHitboxHeight = 30;
-        inline static constexpr Vector2 kWalkingCorpseAnimSize = {96, 96};
+        inline static constexpr Vector2 kWalkingCorpseAnimSize = {100, 100};
         inline static constexpr Vector2 kWalkingCorpse_visual_offset = {-32, -48};
 
         // -- Walk Animations (4 Richtungen) --
@@ -381,18 +381,18 @@ namespace game {
         inline static constexpr int kWalkingCorpseDeathFramesPerLine = 12;
 
         // -- Melee "Sweep" Attack Animations (4 Richtungen) --
-        inline static constexpr const char* kWalkingCorpseAttackFrontPath = "assets/graphics/animations/walking_corpse/attack_front.png";
-        inline static constexpr int kWalkingCorpseAttackFrontFrames = 36;
-        inline static constexpr int kWalkingCorpseAttackFrontFramesPerLine = 36;
-        inline static constexpr const char* kWalkingCorpseAttackBackPath = "assets/graphics/animations/walking_corpse/attack_back.png";
-        inline static constexpr int kWalkingCorpseAttackBackFrames = 36;
-        inline static constexpr int kWalkingCorpseAttackBackFramesPerLine = 36;
-        inline static constexpr const char* kWalkingCorpseAttackLeftPath = "assets/graphics/animations/walking_corpse/attack_left.png";
-        inline static constexpr int kWalkingCorpseAttackLeftFrames = 36;
-        inline static constexpr int kWalkingCorpseAttackLeftFramesPerLine = 36;
-        inline static constexpr const char* kWalkingCorpseAttackRightPath = "assets/graphics/animations/walking_corpse/attack_right.png";
-        inline static constexpr int kWalkingCorpseAttackRightFrames = 36;
-        inline static constexpr int kWalkingCorpseAttackRightFramesPerLine = 36;
+        inline static constexpr const char* kWalkingCorpseAttackFrontPath = "assets/graphics/animations/laufende_Leiche/Leiche_Attack_Front.png";
+        inline static constexpr int kWalkingCorpseAttackFrontFrames = 10;
+        inline static constexpr int kWalkingCorpseAttackFrontFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseAttackBackPath = "assets/graphics/animations/laufende_Leiche/Leiche_Attack_Back.png";
+        inline static constexpr int kWalkingCorpseAttackBackFrames = 10;
+        inline static constexpr int kWalkingCorpseAttackBackFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseAttackLeftPath = "assets/graphics/animations/laufende_Leiche/Leiche_Attack_Left.png";
+        inline static constexpr int kWalkingCorpseAttackLeftFrames = 10;
+        inline static constexpr int kWalkingCorpseAttackLeftFramesPerLine = 10;
+        inline static constexpr const char* kWalkingCorpseAttackRightPath = "assets/graphics/animations/laufende_Leiche/Leiche_Attack_Right.png";
+        inline static constexpr int kWalkingCorpseAttackRightFrames = 10;
+        inline static constexpr int kWalkingCorpseAttackRightFramesPerLine = 10;
 
         // ====================================================================================
         // WOOD SNIPER (Stationärer 8-Fernkämpfer - Level 2)
