@@ -105,13 +105,13 @@ namespace game::scenes
     void Level1Scene::Update()
     {
         // Standard-Engine-Inputs
-
+/*
         if (IsKeyPressed(KEY_P))
         {
             game::core::Store::stage->SwitchToNewScene("menu"s, std::make_unique<MenuScene>());
             return;
         }
-
+*/
         if (auto player = sp_player.lock())
         {
             // 1. Prüfe, ob der Spieler gestorben ist und das Spiel noch nicht eingefroren ist.
@@ -166,6 +166,15 @@ namespace game::scenes
                     {
                         // 3. WENN es KEIN Gegner ist, rufe die normale Tick-Methode auf.
                         obj->Tick(dtm.Get_Dt());
+                    }
+
+                    // Prüfe auf Interaktion mit Dialog-Triggern
+                    if (auto trigger = std::dynamic_pointer_cast<DialogTrigger>(obj)) {
+                        if (CheckCollisionRecs(player->Get_Hitbox(), trigger->Get_Hitbox())) {
+                            if (IsKeyPressed(game::Config::key_Interact)) {
+                                dialogManager_.ShowDialog(trigger->GetText(), trigger->GetName(), trigger->GetPortraitPath());
+                            }
+                        }
                     }
 
                     // Logik zur Überprüfung des Rätsels
@@ -340,7 +349,10 @@ namespace game::scenes
         }
         EndMode2D();
 
-        // --- ZEICHNE DIE UI ---
+        // --- Dialogbox ---
+        dialogManager_.Draw();
+
+        // --- UI ---
         uiManager_.DrawUI(sp_cam->cam);
 
         if (is_frozen_)
