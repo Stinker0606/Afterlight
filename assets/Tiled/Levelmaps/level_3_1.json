@@ -308,6 +308,17 @@
                  "width":32,
                  "x":288,
                  "y":224
+                }, 
+                {
+                 "height":13.5,
+                 "id":33,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":480,
+                 "x":256.5,
+                 "y":447
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -377,7 +388,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":33,
+ "nextobjectid":34,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

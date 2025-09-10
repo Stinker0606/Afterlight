@@ -987,7 +987,7 @@
                  "name":"doors",
                  "properties":[
                         {
-                         "name":"target_Map",
+                         "name":"target_map",
                          "type":"string",
                          "value":"level_3_1.json"
                         }, 
@@ -1241,7 +1241,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":150,
+ "nextobjectid":151,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

@@ -243,24 +243,20 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                 }
                 else if (object_name == "statue")
                 {
-                    if (object.getGid() > 0) {
-                        tson::Tile* tile = nullptr;
-                        for (auto& tileset : map->getTilesets()) {
-                            tile = tileset.getTile(object.getGid());
-                            if (tile) break;
-                        }
-                        if (tile) {
-                            int id = object.getProp("correct_weapon_id")->getValue<int>();
-                            std::string path_with_weapon = object.getProp("sprite_with_weapon")->getValue<std::string>();
-                            Texture2D tex_with = AssetManager::GetInstance().Load(path_with_weapon.c_str());
+                    // 1. Lese alle notwendigen Properties aus Tiled
+                    int id = object.getProp("correct_weapon_id")->getValue<int>();
+                    std::string path_with_weapon = object.getProp("sprite_with_weapon")->getValue<std::string>();
+                    std::string path_no_weapon = object.getProp("sprite_no_weapon")->getValue<std::string>();
 
-                            tson::Rect drawing_rect = tile->getDrawingRect();
-                            Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y - (float)drawing_rect.height};
-                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+                    // 2. Lade beide Texturen über den AssetManager
+                    Texture2D tex_with = AssetManager::GetInstance().Load(path_with_weapon.c_str());
+                    Texture2D tex_no = AssetManager::GetInstance().Load(path_no_weapon.c_str());
 
-                            new_object = std::make_shared<Statue>(pos, id, tex_with, this->tileatlas_Texture, source_rect);
-                        }
-                    }
+                    // 3. Position aus Tiled holen und für die Draw-Logik anpassen
+                    Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y - (float)tex_no.height};
+
+                    // 4. Erstelle das Statue-Objekt mit dem neuen Konstruktor
+                    new_object = std::make_shared<Statue>(pos, id, tex_with, tex_no);
                 }
                 else if (object_name == "weapon")
                 {

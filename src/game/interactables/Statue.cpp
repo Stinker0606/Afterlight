@@ -3,10 +3,13 @@
 #include "SoundManager.h"
 #include "../../config.h.in"
 
-Statue::Statue(Vector2 position, int correct_weapon_id, Texture2D tex_with_weapon, Texture2D tileset, Rectangle source_rect)
-    : correct_weapon_id_(correct_weapon_id), sprite_with_weapon_(tex_with_weapon), tileset_texture(tileset), texture_source_rect(source_rect)
+Statue::Statue(Vector2 position, int correct_weapon_id, Texture2D tex_with_weapon, Texture2D tex_no_weapon)
+    : correct_weapon_id_(correct_weapon_id),
+      sprite_with_weapon_(tex_with_weapon),
+      sprite_no_weapon_(tex_no_weapon)
 {
-    hitbox = { position.x, position.y, source_rect.width, source_rect.height };
+    hitbox = { position.x, position.y, (float)sprite_no_weapon_.width, (float)sprite_no_weapon_.height };
+    statue = AssetManager::GetInstance().Load("assets/graphics/ui/E_DiaTrig.png");
 }
 
 void Statue::Tick(float delta_time) {
@@ -15,13 +18,14 @@ void Statue::Tick(float delta_time) {
 
 void Statue::Draw() {
     if (is_solved_) {
-        DrawTexture(sprite_with_weapon_, hitbox.x, hitbox.y, Fade(WHITE, visibility_alpha));
+        float draw_y = (hitbox.y + hitbox.height) - sprite_with_weapon_.height;
+        DrawTexture(sprite_with_weapon_, hitbox.x, draw_y, Fade(WHITE, visibility_alpha));
     } else {
-        DrawTextureRec(tileset_texture, texture_source_rect, { hitbox.x, hitbox.y }, Fade(WHITE, visibility_alpha));
+        DrawTexture(sprite_no_weapon_, hitbox.x, hitbox.y, Fade(WHITE, visibility_alpha));
     }
 
     if (is_in_range_ && !is_solved_) {
-        DrawText("E", hitbox.x + hitbox.width / 2 - 10, hitbox.y - 20, 20, Color { 216, 176, 168, 255 });
+        DrawTextureV(statue,{hitbox.x + hitbox.width / 2, hitbox.y - 20}, WHITE);
     }
 }
 
@@ -34,7 +38,7 @@ void Statue::On_Collision(std::shared_ptr<Collidable> other) {
             if (player->GetHeldWeapon() == correct_weapon_id_) {
                 is_solved_ = true;
                 player->ClearHeldWeapon();
-                SoundManager::GetInstance().PlaySfx("keywall_open"); // Placeholder-Sound
+                SoundManager::GetInstance().PlaySfx("keywall_oen"); // Placeholder-Sound
             }
         }
     }

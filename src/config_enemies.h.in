@@ -595,7 +595,7 @@ namespace game {
 
         // -- WALKING CORPSE
 
-       // Walk (20 Frames)
+        // Walk (20 Frames)
         inline static const std::vector<int> kWalkingCorpseWalkTimings = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
         // Attack (36 Frames)
