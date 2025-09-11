@@ -1027,6 +1027,41 @@
                  "width":32,
                  "x":256,
                  "y":481.5
+                }, 
+                {
+                 "gid":78,
+                 "height":32,
+                 "id":252,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":928,
+                 "y":480
+                }, 
+                {
+                 "gid":78,
+                 "height":32,
+                 "id":253,
+                 "name":"keyWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":928,
+                 "y":512
+                }, 
+                {
+                 "height":190,
+                 "id":254,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":72.5,
+                 "x":958.5,
+                 "y":390
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1421,7 +1456,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":252,
+ "nextobjectid":255,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
