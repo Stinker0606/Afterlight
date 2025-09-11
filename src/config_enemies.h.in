@@ -537,31 +537,58 @@ namespace game {
         // MIMIC (Getarnter Gegner)
         // ====================================================================================
 
-        inline static constexpr int kMimicHealth = 150;
-        inline static constexpr float kMimicMovementSpeed = 10.0f;
-        inline static constexpr int kMimicDamage = 40;
-        inline static constexpr float kMimicAttackCooldown = 8.0f;
-        inline static constexpr float kMimicAttackRange = 45.0f;
+        // -- Stats --
+        inline static constexpr int kMimicHealth = 300;
+        inline static constexpr float kMimicMovementSpeed = 2.0f;
+        inline static constexpr int kMimicDamage = 100;
+        inline static constexpr float kMimicAttackCooldown = 15.0f;
+        inline static constexpr float kMimicAttackRange = 52.0f;
         inline static constexpr int kMimicValue = 100;
-        inline static constexpr int kMimicHitboxWidth = 32;
-        inline static constexpr int kMimicHitboxHeight = 32;
-        inline static constexpr Vector2 kMimicAnimSize = {128, 128};
-        inline static constexpr Vector2 kMimic_visual_offset = {-48, -64};
-        inline static constexpr const char* kMimicChestIdlePath = "assets/graphics/animations/mimic/chest_idle.png";
-        inline static constexpr int kMimicChestIdleFrames = 4;
-        inline static constexpr int kMimicChestIdleFramesPerLine = 4;
-        inline static constexpr const char* kMimicTransformPath = "assets/graphics/animations/mimic/transform.png";
-        inline static constexpr int kMimicTransformFrames = 12;
-        inline static constexpr int kMimicTransformFramesPerLine = 12;
-        inline static constexpr const char* kMimicWalkPath = "assets/graphics/animations/mimic/walk.png";
-        inline static constexpr int kMimicWalkFrames = 8;
-        inline static constexpr int kMimicWalkFramesPerLine = 8;
-        inline static constexpr const char* kMimicAttackPath = "assets/graphics/animations/mimic/attack.png";
-        inline static constexpr int kMimicAttackFrames = 10;
-        inline static constexpr int kMimicAttackFramesPerLine = 10;
+        inline static constexpr int kMimicHitboxWidth = 42;
+        inline static constexpr int kMimicHitboxHeight = 30;
+        inline static constexpr float kMimicAggroRadius = 85.0f;
+        inline static constexpr Vector2 kMimicAnimSize = {96, 128};
+        inline static constexpr Vector2 kMimic_visual_offset = {-17, -8};
+        inline static constexpr Vector2 kMimicSpawner_visual_offset = {32, 35};
+
+        // -- Animation Paths --
+        inline static constexpr const char* kMimicStatueSpritePath = "assets/graphics/spawner/Mimic.png";
+
+        inline static constexpr const char* kMimicTransformPath = "assets/graphics/animations/mimic/Mimic_wake_up_anim.png";
+        inline static constexpr int kMimicTransformFrames = 9;
+        inline static constexpr int kMimicTransformFramesPerLine = 9;
+
         inline static constexpr const char* kMimicDeathPath = "assets/graphics/animations/mimic/death.png";
         inline static constexpr int kMimicDeathFrames = 15;
         inline static constexpr int kMimicDeathFramesPerLine = 15;
+
+        // -- Walk Animations (4 Richtungen) --
+        inline static constexpr const char* kMimicWalkFrontPath = "assets/graphics/animations/mimic/walk/Mimic_walk_Front.png";
+        inline static constexpr int kMimicWalkFrontFrames = 8;
+        inline static constexpr int kMimicWalkFrontFramesPerLine = 8;
+        inline static constexpr const char* kMimicWalkBackPath = "assets/graphics/animations/mimic/walk/Mimic_walk_Back.png";
+        inline static constexpr int kMimicWalkBackFrames = 8;
+        inline static constexpr int kMimicWalkBackFramesPerLine = 8;
+        inline static constexpr const char* kMimicWalkLeftPath = "assets/graphics/animations/mimic/walk/Mimic_walk_Left.png";
+        inline static constexpr int kMimicWalkLeftFrames = 8;
+        inline static constexpr int kMimicWalkLeftFramesPerLine = 8;
+        inline static constexpr const char* kMimicWalkRightPath = "assets/graphics/animations/mimic/walk/Mimic_walk_Right.png";
+        inline static constexpr int kMimicWalkRightFrames = 8;
+        inline static constexpr int kMimicWalkRightFramesPerLine = 8;
+
+        // -- Melee Attack Animations (4 Richtungen) --
+        inline static constexpr const char* kMimicAttackFrontPath = "assets/graphics/animations/mimic/attack/Mimic_attack_Front.png";
+        inline static constexpr int kMimicAttackFrontFrames = 9;
+        inline static constexpr int kMimicAttackFrontFramesPerLine = 9;
+        inline static constexpr const char* kMimicAttackBackPath = "assets/graphics/animations/mimic/attack/Mimic_attack_Back.png";
+        inline static constexpr int kMimicAttackBackFrames = 9;
+        inline static constexpr int kMimicAttackBackFramesPerLine = 9;
+        inline static constexpr const char* kMimicAttackLeftPath = "assets/graphics/animations/mimic/attack/Mimic_attack_Left.png";
+        inline static constexpr int kMimicAttackLeftFrames = 9;
+        inline static constexpr int kMimicAttackLeftFramesPerLine = 9;
+        inline static constexpr const char* kMimicAttackRightPath = "assets/graphics/animations/mimic/attack/Mimic_attack_Right.png";
+        inline static constexpr int kMimicAttackRightFrames = 9;
+        inline static constexpr int kMimicAttackRightFramesPerLine = 9;
 
         // ========================================= ENEMY ANIMATION TIMINGS ===========================================
         // Jeder Wert gibt an, wie viele Ticks (Frames) ein Animationsbild angezeigt wird.
@@ -619,7 +646,7 @@ namespace game {
 
         // -- CORPSE --
 
-       // Walk (20 Frames)
+        // Walk (20 Frames)
         inline static const std::vector<int> kCorpseWalkTimings = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
         // Attack (36 Frames)
@@ -630,5 +657,20 @@ namespace game {
 
         // Death (12 Frames)
         inline static const std::vector<int> kCorpseDeathTimings = { 8, 6, 5, 4, 4, 5, 6, 8, 10, 12, 15, 60 };
+
+        // -- Mimic --
+
+        // Transformation
+        inline static const std::vector<int> kMimicTransformTimings = { 6, 8, 8, 12, 12, 12, 12, 14, 14 };
+
+        // Walk (8 Frames)
+
+        inline static const std::vector<int> kMimicWalkTimings = { 8, 8, 8, 8, 8, 8, 8, 8 };
+
+        // Attack (9 Frames)
+        inline static const std::vector<int> kMimicAttackTimings = { 3, 3, 2, 2, 2, 3, 4, 5, 8 };
+
+        // Death (12 Frames)
+        inline static const std::vector<int> kMimicDeathTimings = { 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 9, 10, 12, 15, 60 };
     };
 }

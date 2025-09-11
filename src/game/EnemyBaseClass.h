@@ -53,7 +53,7 @@ namespace enemy
         void Set_Animation_Active(bool is_active);
 
         // --- Öffentliche Methoden ---
-        void Take_Damage(int damage_amount);
+        virtual void Take_Damage(int damage_amount);
         virtual void PlayHitSound();
         virtual void PlayDeathSound();
         virtual void PlayMoveSound();
