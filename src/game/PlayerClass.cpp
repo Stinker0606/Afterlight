@@ -422,10 +422,19 @@ void PlayerClass::Tick(float delta_time)
     }
 
     // Update der Timer
-    if (hit_feedback_timer > 0.0f)
-    {
+    if (hit_feedback_total_time > 0.0f) {
+        hit_feedback_total_time -= delta_time;
         hit_feedback_timer -= delta_time;
-        if (hit_feedback_timer <= 0.0f) { tint_color = WHITE; }
+
+        if (hit_feedback_timer <= 0.0f && hit_feedback_blinks_left > 0) {
+            hit_feedback_on = !hit_feedback_on;  // Farbe wechseln
+            tint_color = hit_feedback_on ? Color{ 88, 60, 72, 255 } : WHITE;
+
+            hit_feedback_timer = 0.1f;   // Reset Blink-Zeit
+            hit_feedback_blinks_left--;
+        }
+    } else {
+        tint_color = WHITE;  // am Ende sicherstellen
     }
     // Bomben-Cooldown-Timer
     if (bomb_cooldown_ > 0.0f) {
@@ -595,7 +604,12 @@ void PlayerClass::Take_Damage(int damage)
     // LÖSE FEEDBACK NUR BEI SCHADEN AUS
     if (damage > 0) {
         SoundManager::GetInstance().PlaySfx("player_hit");
-        hit_feedback_timer = 0.2f;
+
+        //Gesamtdauer aufgeteilt in mehrere Blinks
+        hit_feedback_total_time = 2.5f;
+        hit_feedback_timer = 1.25f;   // alle 0.1s Farbe wechseln
+        hit_feedback_blinks_left = 2;      //Insgesamt 4 Wechsel 2x rot + 2x weiß
+        hit_feedback_on = true;
         tint_color = Color{ 88, 60, 72, 255 };
     }
 
