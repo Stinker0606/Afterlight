@@ -533,11 +533,11 @@ namespace game {
         inline static constexpr int kCorpseAttackRightFramesPerLine = 10;
 
         // ====================================================================================
-        // MIMIC (Getarnter Gegner)
+        //                              MIMIC (Getarnter Gegner)
         // ====================================================================================
 
         // -- Stats --
-        inline static constexpr int kMimicHealth = 300;
+        inline static constexpr int kMimicHealth = 200;
         inline static constexpr float kMimicMovementSpeed = 2.0f;
         inline static constexpr int kMimicDamage = 100;
         inline static constexpr float kMimicAttackCooldown = 15.0f;

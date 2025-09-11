@@ -80,7 +80,7 @@ void UIManager::DrawUI(Camera2D camera)
         // 2. Wähle die richtige Textur basierend auf dem Prozentsatz
         if (health_percent > 0.66f) { // Mehr als 66% Leben -> voller Trank
             current_health_texture = health_full_texture_;
-        } else if (health_percent > 0.33f) { // Mehr als 33% Leben -> mittlerer Trank
+        } else if (health_percent > 0.20f) { // Mehr als 20% Leben -> mittlerer Trank
             current_health_texture = health_medium_texture_;
         } else { // 33% oder weniger -> fast leerer Trank
             current_health_texture = health_low_texture_;
