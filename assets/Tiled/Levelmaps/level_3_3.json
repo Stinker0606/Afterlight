@@ -504,30 +504,6 @@
                  "y":128
                 }, 
                 {
-                 "gid":582,
-                 "height":32,
-                 "id":40,
-                 "name":"breakWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":32,
-                 "y":224
-                }, 
-                {
-                 "gid":582,
-                 "height":32,
-                 "id":41,
-                 "name":"breakWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":32,
-                 "y":256
-                }, 
-                {
                  "height":47.25,
                  "id":42,
                  "name":"doors",
@@ -548,6 +524,30 @@
                  "width":60.875,
                  "x":209.125,
                  "y":14.625
+                }, 
+                {
+                 "gid":583,
+                 "height":32,
+                 "id":43,
+                 "name":"breakWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":224
+                }, 
+                {
+                 "gid":583,
+                 "height":32,
+                 "id":45,
+                 "name":"breakWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -556,7 +556,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":43,
+ "nextobjectid":46,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -564,7 +564,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset_new.json"
+         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset.tsj"
         }],
  "tilewidth":32,
  "type":"map",

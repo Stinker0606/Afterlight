@@ -492,27 +492,27 @@ namespace game {
         inline static constexpr int kCorpseHealth = 50;
         inline static constexpr float kCorpseMovementSpeed = 6.0f;
         inline static constexpr int kCorpseDamage = 10;
-        inline static constexpr float kCorpseAttackCooldown = 6.0f;
+        inline static constexpr float kCorpseAttackCooldown = 7.0f;
         inline static constexpr float kCorpseAttackRange = 48.0f;
         inline static constexpr int kCorpseValue = 15;
         inline static constexpr int kCorpseHitboxWidth = 30;
         inline static constexpr int kCorpseHitboxHeight = 30;
-        inline static constexpr Vector2 kCorpseAnimSize = {96, 96};
-        inline static constexpr Vector2 kCorpse_visual_offset = {-32, -48};
+        inline static constexpr Vector2 kCorpseAnimSize = {96, 128};
+        inline static constexpr Vector2 kCorpse_visual_offset = {-19, -4};
 
         // -- Walk Animations (4 Richtungen) --
-        inline static constexpr const char* kCorpseWalkFrontPath = "assets/graphics/animations/corpse/walk_front.png";
-        inline static constexpr int kCorpseWalkFrontFrames = 20;
-        inline static constexpr int kCorpseWalkFrontFramesPerLine = 20;
-        inline static constexpr const char* kCorpseWalkBackPath = "assets/graphics/animations/corpse/walk_back.png";
-        inline static constexpr int kCorpseWalkBackFrames = 20;
-        inline static constexpr int kCorpseWalkBackFramesPerLine = 20;
-        inline static constexpr const char* kCorpseWalkLeftPath = "assets/graphics/animations/corpse/walk_left.png";
-        inline static constexpr int kCorpseWalkLeftFrames = 20;
-        inline static constexpr int kCorpseWalkLeftFramesPerLine = 20;
-        inline static constexpr const char* kCorpseWalkRightPath = "assets/graphics/animations/corpse/walk_right.png";
-        inline static constexpr int kCorpseWalkRightFrames = 20;
-        inline static constexpr int kCorpseWalkRightFramesPerLine = 20;
+        inline static constexpr const char* kCorpseWalkFrontPath = "assets/graphics/animations/corpse_knight/walk/Corpse_knight_walk_Front.png";
+        inline static constexpr int kCorpseWalkFrontFrames = 8;
+        inline static constexpr int kCorpseWalkFrontFramesPerLine = 8;
+        inline static constexpr const char* kCorpseWalkBackPath = "assets/graphics/animations/corpse_knight/walk/Corpse_knight_walk_Back.png";
+        inline static constexpr int kCorpseWalkBackFrames = 8;
+        inline static constexpr int kCorpseWalkBackFramesPerLine = 8;
+        inline static constexpr const char* kCorpseWalkLeftPath = "assets/graphics/animations/corpse_knight/walk/Corpse_knight_walk_Left.png";
+        inline static constexpr int kCorpseWalkLeftFrames = 8;
+        inline static constexpr int kCorpseWalkLeftFramesPerLine = 8;
+        inline static constexpr const char* kCorpseWalkRightPath = "assets/graphics/animations/corpse_knight/walk/Corpse_knight_walk_Right.png";
+        inline static constexpr int kCorpseWalkRightFrames = 8;
+        inline static constexpr int kCorpseWalkRightFramesPerLine = 8;
 
         // -- Death Animation --
         inline static constexpr const char* kCorpseDeathPath = "assets/graphics/animations/corpse/death.png";
@@ -520,18 +520,18 @@ namespace game {
         inline static constexpr int kCorpseDeathFramesPerLine = 12;
 
         // -- Melee "Sweep" Attack Animations (4 Richtungen) --
-        inline static constexpr const char* kCorpseAttackFrontPath = "assets/graphics/animations/corpse/attack_front.png";
-        inline static constexpr int kCorpseAttackFrontFrames = 36;
-        inline static constexpr int kCorpseAttackFrontFramesPerLine = 36;
-        inline static constexpr const char* kCorpseAttackBackPath = "assets/graphics/animations/corpse/attack_back.png";
-        inline static constexpr int kCorpseAttackBackFrames = 36;
-        inline static constexpr int kCorpseAttackBackFramesPerLine = 36;
-        inline static constexpr const char* kCorpseAttackLeftPath = "assets/graphics/animations/corpse/attack_left.png";
-        inline static constexpr int kCorpseAttackLeftFrames = 36;
-        inline static constexpr int kCorpseAttackLeftFramesPerLine = 36;
-        inline static constexpr const char* kCorpseAttackRightPath = "assets/graphics/animations/corpse/attack_right.png";
-        inline static constexpr int kCorpseAttackRightFrames = 36;
-        inline static constexpr int kCorpseAttackRightFramesPerLine = 36;
+        inline static constexpr const char* kCorpseAttackFrontPath = "assets/graphics/animations/corpse_knight/attack/Corpse_knight_attack_Front.png";
+        inline static constexpr int kCorpseAttackFrontFrames = 10;
+        inline static constexpr int kCorpseAttackFrontFramesPerLine = 10;
+        inline static constexpr const char* kCorpseAttackBackPath = "assets/graphics/animations/corpse_knight/attack/Corpse_knight_attack_Back.png";
+        inline static constexpr int kCorpseAttackBackFrames = 10;
+        inline static constexpr int kCorpseAttackBackFramesPerLine = 10;
+        inline static constexpr const char* kCorpseAttackLeftPath = "assets/graphics/animations/corpse_knight/attack/Corpse_knight_attack_Left.png";
+        inline static constexpr int kCorpseAttackLeftFrames = 10;
+        inline static constexpr int kCorpseAttackLeftFramesPerLine = 10;
+        inline static constexpr const char* kCorpseAttackRightPath = "assets/graphics/animations/corpse_knight/attack/Corpse_knight_attack_Right.png";
+        inline static constexpr int kCorpseAttackRightFrames = 10;
+        inline static constexpr int kCorpseAttackRightFramesPerLine = 10;
 
         // ====================================================================================
         // MIMIC (Getarnter Gegner)
@@ -646,14 +646,11 @@ namespace game {
 
         // -- CORPSE --
 
-        // Walk (20 Frames)
-        inline static const std::vector<int> kCorpseWalkTimings = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+        // Walk (8 Frames)
+        inline static const std::vector<int> kCorpseWalkTimings = { 6, 6, 6, 6, 6, 6, 6, 6};
 
-        // Attack (36 Frames)
-        inline static const std::vector<int> kCorpseAttackTimings = {
-        3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3,
-        3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5
-        };
+        // Attack (10 Frames)
+        inline static const std::vector<int> kCorpseAttackTimings = {5, 4, 6, 5, 5, 4, 4, 3, 2, 2};
 
         // Death (12 Frames)
         inline static const std::vector<int> kCorpseDeathTimings = { 8, 6, 5, 4, 4, 5, 6, 8, 10, 12, 15, 60 };

@@ -63,21 +63,21 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 493, 486, 489, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 613, 0, 0, 0, 0, 493, 486, 489, 0, 0, 0, 0, 0, 0, 0, 0, 613, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 613, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 613, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 577, 578, 0, 482, 483, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 488, 488, 488, 488, 0, 0, 0, 488, 488, 488, 488, 488, 488, 488, 488, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 593, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 593, 0, 0, 0, 0, 613, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 608, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 613, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 613, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":9,
@@ -723,6 +723,94 @@
                  "width":57.6363636363637,
                  "x":228.727272727273,
                  "y":268.931818181818
+                }, 
+                {
+                 "height":32.1818181818182,
+                 "id":178,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":576,
+                 "y":31.8181818181818
+                }, 
+                {
+                 "height":19.875,
+                 "id":179,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21.125,
+                 "x":165.5,
+                 "y":517
+                }, 
+                {
+                 "height":18.25,
+                 "id":180,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21.5,
+                 "x":453.375,
+                 "y":422.625
+                }, 
+                {
+                 "height":18.5454545454546,
+                 "id":181,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":22.3636363636364,
+                 "x":613.363636363636,
+                 "y":486
+                }, 
+                {
+                 "height":18.7272727272727,
+                 "id":182,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21.7272727272727,
+                 "x":549.272727272727,
+                 "y":229.818181818182
+                }, 
+                {
+                 "height":19,
+                 "id":183,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21.7272727272727,
+                 "x":677.272727272727,
+                 "y":69.6363636363636
+                }, 
+                {
+                 "height":18.875,
+                 "id":184,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":261.6875,
+                 "y":101.6875
+                }, 
+                {
+                 "height":18.75,
+                 "id":185,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21.3125,
+                 "x":165.4375,
+                 "y":69.8125
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -745,6 +833,195 @@
                  "width":43.1793770139635,
                  "x":90.4257071249552,
                  "y":96.1596849266027
+                }, 
+                {
+                 "height":63.0833333333333,
+                 "id":167,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Hallo! \nWilkommen in deinem schlimmsten Albtraum. \nGehe weiter und erwarte dein Schicksal."
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":68.6666666666667,
+                 "x":139.083333333333,
+                 "y":67
+                }, 
+                {
+                 "height":50.5833333333333,
+                 "id":169,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Du wirst weiter in dieser Richtung erwartet ->\nTipp: mit braunen Objekten kann interagiert werden!"
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":256,
+                 "y":95.75
+                }, 
+                {
+                 "height":63.1666666666667,
+                 "id":170,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Bomben koennen dir einst verborgene Wege freimachen. \nTipp: Weisse Objekte koennen zerstoert werden! Je naeher\nsie an Objekten platziert werden, desto hoeher der Schaden!"
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":38.6666666666667,
+                 "x":672,
+                 "y":64.5
+                }, 
+                {
+                 "height":55.4166666666667,
+                 "id":171,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Hier liegt ein Schluessel, welchen Weg er dir wohl\nfreischalten wird?\nTipp: manche Wege sind nur mit einem Schluessel begehbar!"
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50.4166666666666,
+                 "x":544,
+                 "y":224
+                }, 
+                {
+                 "height":52.6666666666667,
+                 "id":175,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Nimm einen Heiltrank um dein Leben aufzufrischen. \nTipp: Vorsicht, nicht jeder Trank ist gut!"
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":83.75,
+                 "x":424.5,
+                 "y":415.333333333333
+                }, 
+                {
+                 "height":44.4166666666667,
+                 "id":176,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Hier sind Gegner. Sie wollen dir das Leben schwer machen. \nTipp: Gegner kommen aus einem Spawner, diese koennen \nzerstoert werden."
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":61.7500000000001,
+                 "x":578.25,
+                 "y":473.583333333333
+                }, 
+                {
+                 "height":33.6666666666667,
+                 "id":177,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Gehe nun weiter und besiege deine Gegner. \nDu musst das Schloss erreichen um den boesen Gott davon \nabzuhalten, unsere Welt zu zerstoeren!"
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":97.9166666666667,
+                 "x":97.0833333333333,
+                 "y":510.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -906,7 +1183,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":167,
+ "nextobjectid":188,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -914,7 +1191,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset_new.json"
+         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset.tsj"
         }],
  "tilewidth":32,
  "type":"map",
