@@ -4,7 +4,7 @@
 Trigger2::Trigger2(Rectangle hitbox)
 {
     this->hitbox = hitbox;
-    dia_trigger2 = AssetManager::GetInstance().Load("assets/graphics/ui/E_DiaTrig.png");
+    dia_trigger2 = AssetManager::GetInstance().Load("assets/graphics/ui/Q_UITrig.png");
 
 }
 

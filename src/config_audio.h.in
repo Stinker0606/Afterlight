@@ -74,16 +74,16 @@ namespace game {
         inline static const std::string kItemPickupBombSfxPath = "assets/audio/sfx/item_pickup_bomb.wav";
         inline static const std::string kItemPickupDamageSfxPath = "assets/audio/sfx/item_pickup_damage.wav";
         inline static const std::string kBombExplosionSfxPath = "assets/audio/sfx/Items/Bombe_explosion.mp3";                  //done
-        inline static const std::string kWorldWallBreakSfxPath = "assets/audio/sfx/world_wall_break.wav";
+        inline static const std::string kWorldWallBreakSfxPath = "assets/audio/sfx/Objects/breakWall.mp3";                    //done
         inline static const std::string kWorldKeywallOpenSfxPath = "assets/audio/sfx/Objects/CreakDoor.mp3";                  //done
         inline static const std::string kWorldDoorTransitionSfxPath = "assets/audio/sfx/world_door_transition.wav";
 
         // =============================================== LAUTSTÄRKE ==================================================
         // Werte sollten zwischen 0.0f (stumm) and 1.0f (volle Lautstärke) sein.
 
-        inline static constexpr float kMasterVolume = 0.75f;
-        inline static constexpr float kMusicVolume = 0.35f;
-        inline static constexpr float kSfxVolume = 0.6f;
+        inline static constexpr float kMasterVolume = 0.65f;
+        inline static constexpr float kMusicVolume = 0.25f;
+        inline static constexpr float kSfxVolume = 0.4f;
 
         // ============================================= SOUND SETTINGS ================================================
         //Der Wert (X.X f) bestimmt den Rhythmus.
