@@ -72,6 +72,11 @@ namespace game::scenes
         bool puzzle_solved_ = false;
         std::vector<std::weak_ptr<Statue>> statues_in_level_;
 
+        // ---  Für Fade-In Map ---
+        float fade_alpha_ = 1.0f; // Start: schwarz
+        float fadeIn_duration_ = 2.0f; // Sekunden
+        bool fade_done_ = false;
+
     public:
         /**
          * @brief Konstruktor, wird einmal beim Erstellen der Szene aufgerufen.

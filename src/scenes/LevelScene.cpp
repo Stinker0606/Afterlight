@@ -112,6 +112,17 @@ namespace game::scenes
             return;
         }
 
+        // --- FADE-IN LOGIK Menu -> Scene 1 ---
+        if (!fade_done_)
+        {
+            fade_alpha_ -= GetFrameTime() / fade_duration_;
+            if (fade_alpha_ <= 0.0f)
+            {
+                fade_alpha_ = 0.0f;
+                fade_done_ = true;
+            }
+        }
+
         if (auto player = sp_player.lock())
         {
             bool player_is_in_any_trigger = false;
@@ -387,5 +398,17 @@ namespace game::scenes
         {
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, fade_to_black_alpha_));
         }
+
+        // --- FADE-IN Menu -> Scene Overlay ---
+        if (!fade_done_)
+        {
+            DrawRectangle(
+                0, 0,
+                game::Config::kStageWidth,
+                game::Config::kStageHeight,
+                Color{0, 0, 0, (unsigned char)(fade_alpha_ * 255)}
+            );
+        }
+
     }
 }
