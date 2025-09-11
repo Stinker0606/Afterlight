@@ -874,7 +874,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Du wirst weiter in diese Richtung erwartet ->\nTipp: mit braunen Objekten kann interagiert werden!"
+                         "value":"Du wirst weiter in dieser Richtung erwartet ->\nTipp: mit braunen Objekten kann interagiert werden!"
                         }, 
                         {
                          "name":"portrait_path",
@@ -1175,17 +1175,6 @@
                  "width":32.2234156820623,
                  "x":768.850698174007,
                  "y":447.261009667025
-                }, 
-                {
-                 "height":29.75,
-                 "id":186,
-                 "name":"spawn3",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":30,
-                 "x":834,
-                 "y":66.25
                 }],
          "opacity":1,
          "type":"objectgroup",
