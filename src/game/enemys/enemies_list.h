@@ -20,6 +20,7 @@ namespace enemy {
 #include "WalkingCorpse.h"
 #include "WoodSniper.h"
 #include "Corpse.h"
+#include "Mimic.h"
 
 
 // #include "NeuerGegner.h" // Hier kommen zukünftige Gegner hin

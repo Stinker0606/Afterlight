@@ -10,6 +10,7 @@
 #include "../game/spawner/Level2Spawner.h"
 #include "../game/spawner/Level3Spawner.h"
 #include "../game/Spawner/SpecificSpawner.h"
+#include "../game/spawner/MimicSpawner.h"
 #include "../game/interactables/interact_list.h"
 
 
@@ -330,6 +331,21 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
                     new_object = std::make_shared<DialogTrigger>(rect, text, name, portrait);
                 }
+                else if (object_name == "trigger1")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger1>(rect);
+                }
+                else if (object_name == "trigger2")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger2>(rect);
+                }
+                else if (object_name == "trigger3")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger3>(rect);
+                }
                 else if (object_name == "npc_key")
                 {
                     Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y};
@@ -339,7 +355,10 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                 else if (object_name.rfind("spawn", 0) == 0) // Erkennt alle Spawner
                 {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
-
+                    if (object_name == "spawnMim")
+                    {
+                        new_object = std::make_shared<MimicSpawner>(spawner_area, g_objectManager);
+                    }
                     if (object_name.find('_') != std::string::npos)
                     {
                         // --- FALL 1: SPEZIFISCHER SPAWNER (z.B. "spawn_sniper") ---
