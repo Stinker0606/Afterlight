@@ -232,6 +232,18 @@
                  "width":32,
                  "x":896,
                  "y":544
+                }, 
+                {
+                 "gid":84,
+                 "height":32,
+                 "id":78,
+                 "name":"keyCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":448,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -712,7 +724,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":78,
+ "nextobjectid":79,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
