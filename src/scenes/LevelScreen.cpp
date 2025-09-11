@@ -26,6 +26,17 @@ LevelScreen::~LevelScreen() {
     }
 }
 
+Vector2 LevelScreen::GetMapSize() const
+{
+    if (map) {
+        return {
+            (float)(map->getTileSize().x * map->getSize().x),
+            (float)(map->getTileSize().y * map->getSize().y)
+        };
+    }
+    return {0, 0}; // Fallback, falls die Map nicht geladen ist
+}
+
 // Load_Levelmap ist identisch
 void LevelScreen::Load_Levelmap() {
     int Level = *Level_Nbr_Ptr;
@@ -260,6 +271,22 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     new_object = std::make_shared<Door>(rect, target_map, target_spawn);
                 }
                 else if (object_name == "doors3")
+                {
+                    // Lese die Custom Properties aus Tiled aus.
+                    std::string target_map = "default.json";
+                    std::string target_spawn = "player_start";
+
+                    if (object.getProperties().hasProperty("target_map")) {
+                        target_map = object.getProperties().getValue<std::string>("target_map");
+                    }
+                    if (object.getProperties().hasProperty("target_spawn_point")) {
+                        target_spawn = object.getProperties().getValue<std::string>("target_spawn_point");
+                    }
+                    // Erstelle die Hitbox und das Door-Objekt.
+                    Rectangle rect = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<Door>(rect, target_map, target_spawn);
+                }
+                else if (object_name == "doors4")
                 {
                     // Lese die Custom Properties aus Tiled aus.
                     std::string target_map = "default.json";

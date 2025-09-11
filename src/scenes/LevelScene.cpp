@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "../config.h.in"
+#include "../config_enemies.h.in"
 #include "../game/Walls.h"
 #include "../game/enemys/enemies_list.h"
 #include "../game/interactables/interact_list.h"
@@ -26,6 +27,16 @@ namespace game::scenes
 
         levelScreen.LoadSpecificLevelmap(game::core::Store::next_scene_map);
         levelScreen.LoadGameObjects(objectManager);
+
+        // 1. Hole die korrekten Map-Dimensionen aus dem geladenen Level
+        Vector2 map_size = levelScreen.GetMapSize();
+
+        // 2. Erstelle die world_bounds mit den echten Dimensionen der Map
+        Rectangle world_bounds = {0, 0, map_size.x, map_size.y};
+
+        // 3. Initialisiere den Collision Manager mit den korrekten Bounds
+        p_cm = std::make_unique<Collision_Manager>(world_bounds, objectManager.managed_objects);
+
 
         // --- FINDE DEN KORREKTEN SPIELER-STARTPUNKT ---
         Vector2 player_start_pos = { 250, 250 }; // Fallback
@@ -63,7 +74,6 @@ namespace game::scenes
         uiManager_.SetPlayer(game::core::Store::player);
 
         // 8. Collision Manager initialisieren
-        Rectangle world_bounds = {0, 0, 4000, 4000};
         p_cm = std::make_unique<Collision_Manager>(world_bounds, objectManager.managed_objects);
 
         // --- NEBEL-INITIALISIERUNG ---
@@ -93,6 +103,32 @@ namespace game::scenes
     {
         // Gib den Speicher der RenderTexture frei wenn die Szene zerstört wird.
         UnloadRenderTexture(this->fogMaskTexture);
+    }
+
+    void game::scenes::Level1Scene::PreloadEnemyAssets()
+    {
+        std::cout << "Pre-spawning all enemy types to warm up the engine..." << std::endl;
+
+        // Eine temporäre Liste, um die "Dummy"-Gegner zu halten.
+        std::vector<std::shared_ptr<enemy::Enemy_Base_Class>> preload_dummies;
+
+        // Eine Off-Screen-Position, an der die Gegner unsichtbar erstellt werden.
+        Vector2 offscreen_pos = {-10000.0f, -10000.0f};
+
+        // Erstelle eine Instanz von JEDEM Gegnertyp im Spiel.
+        // Der Aufruf des Konstruktors ist der wichtige Teil, der den Lag auslöst.
+        preload_dummies.push_back(std::make_shared<enemy::Insect_Monster>(offscreen_pos, objectManager, false));
+        preload_dummies.push_back(std::make_shared<enemy::DrownedSniper>(offscreen_pos, objectManager, false));
+        preload_dummies.push_back(std::make_shared<enemy::WalkingCorpse>(offscreen_pos, objectManager, false));
+        preload_dummies.push_back(std::make_shared<enemy::WoodSniper>(offscreen_pos, objectManager, false));
+        preload_dummies.push_back(std::make_shared<enemy::Corpse>(offscreen_pos, objectManager, false));
+        preload_dummies.push_back(std::make_shared<enemy::Mimic>(offscreen_pos, objectManager, false));
+
+        // Die Liste wird am Ende dieser Funktion automatisch geleert.
+        // Das zerstört die Dummy-Objekte sofort wieder, aber die "teure" Erst-Initialisierung
+        // ist bereits passiert und im Cache der Engine.
+
+        std::cout << "Engine warm-up complete. All subsequent spawns will be lag-free." << std::endl;
     }
 
     void Level1Scene::Add_Object_To_Waitlist(std::shared_ptr<Collidable> object)

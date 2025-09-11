@@ -77,6 +77,9 @@ namespace game::scenes
         float fadeIn_duration_ = 0.9f; // Sekunden
         bool fade_done_ = false;
 
+        // -- Preload aller Enemies --
+        void PreloadEnemyAssets();
+
     public:
         /**
          * @brief Konstruktor, wird einmal beim Erstellen der Szene aufgerufen.

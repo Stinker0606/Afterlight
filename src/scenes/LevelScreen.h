@@ -61,6 +61,8 @@ public:
     // Eine öffentliche Getter-Funktion, die die private Textur zurückgibt.
     Texture2D GetTileAtlasTexture() const;
 
+    Vector2 GetMapSize() const;
+
 private:
     Texture2D tileatlas_Texture;
     std::unique_ptr<tson::Map> map;
