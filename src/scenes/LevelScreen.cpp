@@ -331,6 +331,21 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
                     new_object = std::make_shared<DialogTrigger>(rect, text, name, portrait);
                 }
+                else if (object_name == "trigger1")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger1>(rect);
+                }
+                else if (object_name == "trigger2")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger2>(rect);
+                }
+                else if (object_name == "trigger3")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger3>(rect);
+                }
                 else if (object_name == "npc_key")
                 {
                     Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y};

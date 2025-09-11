@@ -16,5 +16,8 @@
 #include "Statue.h"
 #include "NPC.h"
 #include "DialogTrigger.h"
+#include "Trigger1.h"
+#include "Trigger2.h"
+#include "Trigger3.h"
 
 // #include "Interactable.h" // Hier kommen zukünftige neue Interables hin

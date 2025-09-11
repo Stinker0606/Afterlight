@@ -115,6 +115,12 @@ add_library(core STATIC
         ../game/spawner/MimicSpawner.h
         ../game/enemys/Mimic.cpp
         ../game/enemys/Mimic.h
+        ../game/interactables/Trigger1.cpp
+        ../game/interactables/Trigger1.h
+        ../game/interactables/Trigger2.cpp
+        ../game/interactables/Trigger2.h
+        ../game/interactables/Trigger3.cpp
+        ../game/interactables/Trigger3.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
