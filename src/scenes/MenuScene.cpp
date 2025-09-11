@@ -26,7 +26,7 @@ namespace game::scenes
         bg_layer_front_ = AssetManager::GetInstance().Load("assets/graphics/ui/menu_bg_front.png");
 
         // Lade die UI-Assets
-        logo_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/Afterlight_logo.png");
+        logo_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/Afterlight_logo_glow.png");
         selector_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/arrow_ui.png");
         menu_font_ = LoadFontEx("assets/fonts/alagard.ttf", 250, nullptr, 0);
         SetTextureFilter(menu_font_.texture, TEXTURE_FILTER_POINT);

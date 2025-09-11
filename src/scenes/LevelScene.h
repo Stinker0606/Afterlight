@@ -74,7 +74,7 @@ namespace game::scenes
 
         // ---  Für Fade-In Map ---
         float fade_alpha_ = 1.0f; // Start: schwarz
-        float fadeIn_duration_ = 2.0f; // Sekunden
+        float fadeIn_duration_ = 1.5f; // Sekunden
         bool fade_done_ = false;
 
     public:

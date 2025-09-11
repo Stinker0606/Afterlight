@@ -8,7 +8,7 @@ namespace game::scenes
 {
     SplashScreenScene::SplashScreenScene()
     {
-        logo_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/Afterlight_logo.png");
+        logo_texture_ = AssetManager::GetInstance().Load("assets/graphics/ui/Afterlight_logo_glow.png");
         current_state_ = State::FADE_IN;
         timer_ = 0.0f;
         alpha_ = 1.0f;

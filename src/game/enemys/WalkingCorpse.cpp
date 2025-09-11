@@ -77,7 +77,7 @@ namespace enemy
             break;
 
             case AnimationState::ATTACKING:
-                if (p_current_animation_ && p_current_animation_->Get_Current_Frame() == 18 && !melee_hitbox_spawned_) {
+                if (p_current_animation_ && p_current_animation_->Get_Current_Frame() == 3 && !melee_hitbox_spawned_) {
                     this->Melee_Attack();
                     melee_hitbox_spawned_ = true;
                 }

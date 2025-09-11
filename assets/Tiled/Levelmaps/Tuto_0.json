@@ -852,7 +852,7 @@
                         {
                          "name":"portrait_path",
                          "type":"string",
-                         "value":""
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
                         }],
                  "rotation":0,
                  "type":"",
@@ -879,7 +879,7 @@
                         {
                          "name":"portrait_path",
                          "type":"string",
-                         "value":""
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
                         }],
                  "rotation":0,
                  "type":"",
@@ -906,7 +906,7 @@
                         {
                          "name":"portrait_path",
                          "type":"string",
-                         "value":""
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
                         }],
                  "rotation":0,
                  "type":"",
@@ -933,7 +933,7 @@
                         {
                          "name":"portrait_path",
                          "type":"string",
-                         "value":""
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
                         }],
                  "rotation":0,
                  "type":"",
@@ -960,7 +960,7 @@
                         {
                          "name":"portrait_path",
                          "type":"string",
-                         "value":""
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
                         }],
                  "rotation":0,
                  "type":"",
@@ -987,7 +987,7 @@
                         {
                          "name":"portrait_path",
                          "type":"string",
-                         "value":""
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1014,7 +1014,7 @@
                         {
                          "name":"portrait_path",
                          "type":"string",
-                         "value":""
+                         "value":"assets\/graphics\/ui\/dialoge\/MysteryMan.PNG"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1175,6 +1175,17 @@
                  "width":32.2234156820623,
                  "x":768.850698174007,
                  "y":447.261009667025
+                }, 
+                {
+                 "height":29.75,
+                 "id":186,
+                 "name":"spawn3",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":30,
+                 "x":834,
+                 "y":66.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1183,7 +1194,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":186,
+ "nextobjectid":188,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
