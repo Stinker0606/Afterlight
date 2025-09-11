@@ -109,7 +109,7 @@ namespace game {
         // ----------------------------------- PLAYER ATTACK & ACTION SETTINGS -----------------------------------------
 
         // Push Action
-        inline static constexpr float player_Push_Anim_Duration = 0.5f; // Dauer der Push-Animation in Sekunden
+        inline static constexpr float player_Push_Anim_Duration = 1.0f; // Dauer der Push-Animation in Sekunden
 
         // Ranged Attack (Throw)
         inline static constexpr float player_Projectile_Speed = 80.0; // Projectile Geschwindigkeit
@@ -289,6 +289,8 @@ namespace game {
             4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
             6, 6, 6, 6, 6, 6, 8, 8, 8, 8,
         };
+
+        // -- PUSH --
 
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
