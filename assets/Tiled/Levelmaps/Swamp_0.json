@@ -150,18 +150,6 @@
          "name":"consumables",
          "objects":[
                 {
-                 "gid":84,
-                 "height":32,
-                 "id":63,
-                 "name":"keyCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":448,
-                 "y":32
-                }, 
-                {
                  "gid":499,
                  "height":32,
                  "id":69,
@@ -234,10 +222,10 @@
                  "y":32
                 }, 
                 {
-                 "gid":84,
+                 "gid":498,
                  "height":32,
-                 "id":76,
-                 "name":"keyCons",
+                 "id":77,
+                 "name":"healCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -724,7 +712,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":77,
+ "nextobjectid":78,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

@@ -61,8 +61,7 @@ namespace game {
         inline static constexpr float kSpawner2_SpawnRate = 30.0f;
         inline static constexpr int kSpawner2_MaxEnemies = 4;
         inline static const std::vector<SpawnableEnemy> kSpawner2_EnemyPool = {
-            { enemy::EnemyType::WALKING_CORPSE, 90, 5 }, // 90 % Chance, max. X Enemies von diesem Spawner
-            { enemy::EnemyType::WOOD_SNIPER, 10, 1 }     // 10 % Chance
+            { enemy::EnemyType::WALKING_CORPSE, 100, 5 }, // 90 % Chance, max. X Enemies von diesem Spawner
 
             // Bsp.: { enemy::EnemyType::POISON_FROG, 10, 1 } // Beispiel für Frosch: 10% Chance, max. 1 Frosch von diesem Spawner
         };
