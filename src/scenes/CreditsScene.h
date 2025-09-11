@@ -23,6 +23,7 @@ namespace game::scenes
     private:
         Font menuFont_;
         Texture2D background_credits_;
+        Texture2D UI_Backspace_;
         float time_ = 0.0f;
         float scrollY_ = 0.0f;
         float totalHeight_ = 0.0f; //Höhe aller Zeilen für den Loop

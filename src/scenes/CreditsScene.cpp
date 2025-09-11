@@ -14,6 +14,7 @@ namespace game::scenes
 
         //Hintergrund laden
         background_credits_ = AssetManager::GetInstance().Load("assets/graphics/backgrounds/UI/Background_Credit.png");
+        UI_Backspace_ = AssetManager::GetInstance().Load("assets/graphics/ui/Space_UITrig.png");
 
         // Beispiel-Credits
         // Credits definieren mit eigener Schriftgröße
@@ -83,6 +84,9 @@ namespace game::scenes
     {
         // Hintergrund zeichnen
         DrawTextureEx(background_credits_, {0, 0}, 0.0f, 11.55f, WHITE);
+
+        //Backspace UI Element zeichnen
+        DrawTextureEx(UI_Backspace_, {game::Config::kStageWidth/ 1.09, 1000}, 0.0f, 2.1f, WHITE);
 
         // --- Berechnungen für Animationen ---
         float pulse = sin(time_ * 0.8f) * 0.5f + 0.5f;

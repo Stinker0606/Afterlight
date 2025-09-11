@@ -59,7 +59,7 @@ namespace game {
         // =============================================== SPAWNERS - LEVEL 2 ==========================================
 
         inline static constexpr float kSpawner2_SpawnRate = 30.0f;
-        inline static constexpr int kSpawner2_MaxEnemies = 5;
+        inline static constexpr int kSpawner2_MaxEnemies = 4;
         inline static const std::vector<SpawnableEnemy> kSpawner2_EnemyPool = {
             { enemy::EnemyType::WALKING_CORPSE, 90, 5 }, // 90 % Chance, max. X Enemies von diesem Spawner
             { enemy::EnemyType::WOOD_SNIPER, 10, 1 }     // 10 % Chance
@@ -70,7 +70,7 @@ namespace game {
         // =============================================== SPAWNERS - LEVEL 3 ==========================================
 
         inline static constexpr float kSpawner3_SpawnRate = 30.0f;
-        inline static constexpr int kSpawner3_MaxEnemies = 5;
+        inline static constexpr int kSpawner3_MaxEnemies = 4;
         inline static const std::vector<SpawnableEnemy> kSpawner3_EnemyPool = {
             { enemy::EnemyType::CORPSE, 100, 2 }, // XX % Chance, max. X Enemies von diesem Spawner
 
@@ -142,7 +142,7 @@ namespace game {
         inline static constexpr int kDrownedSniperHealth = 75;
         inline static constexpr float kDrownedSniperMovementSpeed = 0.0f;
         inline static constexpr int kDrownedSniperDamage = 55;
-        inline static constexpr float kDrownedSniperAttackCooldown = 24.0f;
+        inline static constexpr float kDrownedSniperAttackCooldown = 25.0f;
         inline static constexpr float kDrownedSniperAttackRange = 500.0f;
         inline static constexpr float kDrownedSniperProjectileSpeed = 110.0f;
         inline static constexpr int kDrownedSniperProjectileHitboxWidth = 16;
@@ -350,11 +350,11 @@ namespace game {
         inline static constexpr const char* kWalkingCorpseSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
 
         // -- Stats --
-        inline static constexpr int kWalkingCorpseHealth = 100;
-        inline static constexpr float kWalkingCorpseMovementSpeed = 4.0f;
-        inline static constexpr int kWalkingCorpseDamage = 25;
-        inline static constexpr float kWalkingCorpseAttackCooldown = 6.0f;
-        inline static constexpr float kWalkingCorpseAttackRange = 48.0f;
+        inline static constexpr int kWalkingCorpseHealth = 75;
+        inline static constexpr float kWalkingCorpseMovementSpeed = 3.0f;
+        inline static constexpr int kWalkingCorpseDamage = 15;
+        inline static constexpr float kWalkingCorpseAttackCooldown = 13.0f;
+        inline static constexpr float kWalkingCorpseAttackRange = 40.0f;
         inline static constexpr int kWalkingCorpseValue = 30;
         inline static constexpr int kWalkingCorpseHitboxWidth = 28;
         inline static constexpr int kWalkingCorpseHitboxHeight = 36;

@@ -49,6 +49,6 @@ void Push_Block::Push(Vector2 move_direction)
 {
     // Bewege den Block um eine ganze Kachel (32 Pixel) in die gegebene Richtung.
     // Die Bewegung ist "Tile-basiert", nicht flüssig.
-    this->hitbox.x += move_direction.x * 32.0f;
-    this->hitbox.y += move_direction.y * 32.0f;
+    this->hitbox.x += move_direction.x * 32.0f;   //rechts
+    this->hitbox.y += move_direction.y * 32.0f;    //hoch runter
 }

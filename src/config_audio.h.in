@@ -74,7 +74,7 @@ namespace game {
         inline static const std::string kItemPickupBombSfxPath = "assets/audio/sfx/item_pickup_bomb.wav";
         inline static const std::string kItemPickupDamageSfxPath = "assets/audio/sfx/item_pickup_damage.wav";
         inline static const std::string kBombExplosionSfxPath = "assets/audio/sfx/Items/Bombe_explosion.mp3";                  //done
-        inline static const std::string kWorldWallBreakSfxPath = "assets/audio/sfx/Objects/breakWall.mp3";                    //done
+        inline static const std::string kWorldWallBreakSfxPath = "";                    //done
         inline static const std::string kWorldKeywallOpenSfxPath = "assets/audio/sfx/Objects/CreakDoor.mp3";                  //done
         inline static const std::string kWorldDoorTransitionSfxPath = "assets/audio/sfx/world_door_transition.wav";
 

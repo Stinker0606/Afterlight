@@ -153,3 +153,10 @@ void SoundManager::StopSfx(const std::string& name)
         StopSound(sfx_cache_.at(name));
     }
 }
+
+bool SoundManager::IsMusicPlaying(const std::string& name)
+{
+    auto it = music_cache_.find(name);
+    if (it == music_cache_.end()) return false;
+    return IsMusicStreamPlaying(it->second);
+}

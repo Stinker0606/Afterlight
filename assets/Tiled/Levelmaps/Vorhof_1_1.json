@@ -987,6 +987,17 @@
                  "width":26.5,
                  "x":865,
                  "y":11.5
+                }, 
+                {
+                 "height":30.5,
+                 "id":251,
+                 "name":"walls",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":256,
+                 "y":481.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1027,7 +1038,7 @@
                  "gid":498,
                  "height":32,
                  "id":212,
-                 "name":"dmgCons",
+                 "name":"healCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -1381,7 +1392,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":250,
+ "nextobjectid":252,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

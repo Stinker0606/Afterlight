@@ -33,6 +33,9 @@ public:
     SoundManager(SoundManager const&) = delete;
     void operator=(SoundManager const&) = delete;
 
+    //Getter um zu überprüfen ob Musik spielt
+    bool IsMusicPlaying(const std::string& name);
+
 private:
     SoundManager() = default;
     ~SoundManager() = default;
@@ -47,4 +50,5 @@ private:
 
     // Zählt, wie oft ein Sound in diesem Frame schon gespielt wurde
     std::map<std::string, int> sfx_play_counts_this_frame_;
+
 };

@@ -18,7 +18,9 @@ namespace game::scenes
     MenuScene::MenuScene()
     {
         HideCursor();
+        if (!SoundManager::GetInstance().IsMusicPlaying("menu_music")){
         SoundManager::GetInstance().PlayMusic("menu_music");
+        }
 
         // Lade die Hintergrund-Layer
         bg_layer_back_ = AssetManager::GetInstance().Load("assets/graphics/ui/menu_bg_back.png");
