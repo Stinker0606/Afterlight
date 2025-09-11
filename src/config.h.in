@@ -303,8 +303,7 @@ namespace game {
         // Diese Werte müssen an die Größe der Tiled-Map angepasst werden!
         inline static constexpr float kWorldBoundsMinX = 0.0;
         inline static constexpr float kWorldBoundsMinY = 0.0;
-        inline static constexpr float kWorldBoundsMaxX = 960.0; /
-        / Breite der Map in Pixeln
+        inline static constexpr float kWorldBoundsMaxX = 960.0; // Breite der Map in Pixeln
         inline static constexpr float kWorldBoundsMaxY = 576.0; // Höhe der Map in Pixeln
 
 
