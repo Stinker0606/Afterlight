@@ -50,12 +50,12 @@ void UIManager::DrawUI(Camera2D camera)
     {
         // --- Konfiguration ---
         Color outline_color = { 108, 112, 108, 255 }; // Dein Farbcode #6c706c
-        float text_offset = 1.2f; // Die "Dicke" der Outline in Pixeln
+        float text_offset = 1.0f; // Die "Dicke" der Outline in Pixeln
 
         // Skalierungsfaktoren
-        float hp_scale = 2.0f;
+        float hp_scale = 2.4f;
         float icons_scale = 1.7f;
-        float other_icons_scale = 1.8f;
+        float other_icons_scale = 2.1f;
 
         // --- Helfer-Funktion für Text mit Outline ---
         // Diese Funktion zeichnet den Text viermal versetzt in der Outline-Farbe
@@ -93,22 +93,22 @@ void UIManager::DrawUI(Camera2D camera)
         draw_text_with_outline(pixel_font_bold_, health_text, { health_pos.x + 30, health_pos.y + 85 }, 30, 1, BLACK);
 
         // Score
-        Vector2 score_pos = { 16, 155 };
+        Vector2 score_pos = { 16, 185 };
         DrawTextureEx(score_icon_texture_, score_pos, 0.0f, hp_scale, WHITE);
         std::string score_text = std::to_string(player->Get_Score());
-        draw_text_with_outline(pixel_font_, score_text, { score_pos.x + 55, score_pos.y + 5 }, 28, 1, BLACK);
+        draw_text_with_outline(pixel_font_, score_text, { score_pos.x + 65, score_pos.y + 9 }, 28, 1, BLACK);
 
         // Bomben
-        Vector2 bomb_pos = { 120, 20 };
+        Vector2 bomb_pos = { 130, 20 };
         DrawTextureEx(bomb_icon_texture_, bomb_pos, 0.0f, other_icons_scale, WHITE);
         std::string bomb_text = std::to_string(player->Get_Bomb_Count());
-        draw_text_with_outline(pixel_font_, bomb_text, { bomb_pos.x + 45, bomb_pos.y + 15 }, 30, 2, BLACK);
+        draw_text_with_outline(pixel_font_, bomb_text, { bomb_pos.x + 55, bomb_pos.y + 15 }, 30, 2, BLACK);
 
         // Schlüssel
-        Vector2 key_pos = { 200, 20 };
+        Vector2 key_pos = { 210, 20 };
         DrawTextureEx(key_icon_texture_, key_pos, 0.0f, other_icons_scale, WHITE);
         std::string key_text = std::to_string(player->Get_Key_Count());
-        draw_text_with_outline(pixel_font_, key_text, { key_pos.x + 45, key_pos.y + 15 }, 30, 2, BLACK);
+        draw_text_with_outline(pixel_font_, key_text, { key_pos.x + 42, key_pos.y + 15 }, 30, 2, BLACK);
 
         // === UNTEN LINKS ===
    /*
