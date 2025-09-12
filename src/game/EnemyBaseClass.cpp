@@ -37,6 +37,13 @@ namespace enemy
         enemy_Health -= damage_amount;
         this->PlayHitSound(); // Spiele den Hit-Sound
 
+        // Starte das Hit-Feedback
+        hit_feedback_total_time = 2.5f;
+        hit_feedback_timer = 1.25f;
+        hit_feedback_blinks_left = 2;
+        hit_feedback_on = true;
+        tint_color = Color{ 88, 60, 72, 255 };
+
         if (this->enemy_Health <= 0)
         {
             // Logik für die Punktevergabe
@@ -102,8 +109,22 @@ namespace enemy
         {
             attack_Cooldown_Timer -= delta_time;
         }
-        // Wenn der Pathfinding die Position veränder dann this->is_Moving = true;
+        // Update der Hit-Feedback-Logik
+        if (hit_feedback_total_time > 0.0f) {
+            hit_feedback_total_time -= delta_time;
+            hit_feedback_timer -= delta_time;
+
+            if (hit_feedback_timer <= 0.0f && hit_feedback_blinks_left > 0) {
+                hit_feedback_on = !hit_feedback_on;
+                tint_color = hit_feedback_on ? Color{ 88, 60, 72, 255 } : WHITE;
+                hit_feedback_timer = 0.1f;
+                hit_feedback_blinks_left--;
+            }
+        } else {
+            tint_color = WHITE;
+        }
     }
+
     void Enemy_Base_Class::On_Collision(std::shared_ptr<Collidable> other)
     {
         Collision_Type other_Type = other->Get_Collision_Type();

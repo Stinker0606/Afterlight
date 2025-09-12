@@ -36,7 +36,11 @@ namespace enemy
         float attack_animation_timer;
         Object_Manager& om_ref_;
         bool is_animation_active_;
-
+        Color tint_color;
+        float hit_feedback_timer;
+        float hit_feedback_total_time;
+        int hit_feedback_blinks_left;
+        bool hit_feedback_on;
     public:
         Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
            const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height,

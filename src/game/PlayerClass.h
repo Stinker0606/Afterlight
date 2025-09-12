@@ -96,10 +96,10 @@ private:
     ControllableAnimations anim_Sweep_Right;
 
     // Pushing
-    RepeatAnimation anim_Push_Front;
-    RepeatAnimation anim_Push_Back;
-    RepeatAnimation anim_Push_Left;
-    RepeatAnimation anim_Push_Right;
+    ControllableAnimations anim_Push_Front;
+    ControllableAnimations anim_Push_Back;
+    ControllableAnimations anim_Push_Left;
+    ControllableAnimations anim_Push_Right;
 
     // Dying
     ControllableAnimations anim_Dying;

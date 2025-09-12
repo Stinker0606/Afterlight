@@ -61,10 +61,10 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager* om)
       anim_Sweep_Left(game::Config::player_animation_size, game::Config::player_Sweep_Left_Path, game::Config::player_Sweep_Left_Frames, game::Config::player_Sweep_Left_Frames_Per_Line, game::Config::player_Sweep_Left_Timings, false),
       anim_Sweep_Right(game::Config::player_animation_size, game::Config::player_Sweep_Right_Path, game::Config::player_Sweep_Right_Frames, game::Config::player_Sweep_Right_Frames_Per_Line, game::Config::player_Sweep_Right_Timings, false),
       // Pushing
-      anim_Push_Front(game::Config::player_animation_size, game::Config::player_Push_Front_Path, game::Config::player_Push_Front_Frames, game::Config::player_Push_Front_Frames_Per_Line),
-      anim_Push_Back(game::Config::player_animation_size, game::Config::player_Push_Back_Path, game::Config::player_Push_Back_Frames, game::Config::player_Push_Back_Frames_Per_Line),
-      anim_Push_Left(game::Config::player_animation_size, game::Config::player_Push_Left_Path, game::Config::player_Push_Left_Frames, game::Config::player_Push_Left_Frames_Per_Line),
-      anim_Push_Right(game::Config::player_animation_size, game::Config::player_Push_Right_Path, game::Config::player_Push_Right_Frames, game::Config::player_Push_Right_Frames_Per_Line),
+      anim_Push_Front(game::Config::player_animation_size, game::Config::player_Push_Front_Path, game::Config::player_Push_Front_Frames, game::Config::player_Push_Front_Frames_Per_Line, game::Config::player_Push_Timings, false),
+      anim_Push_Back(game::Config::player_animation_size, game::Config::player_Push_Back_Path, game::Config::player_Push_Back_Frames, game::Config::player_Push_Back_Frames_Per_Line, game::Config::player_Push_Timings, false),
+      anim_Push_Left(game::Config::player_animation_size, game::Config::player_Push_Left_Path, game::Config::player_Push_Left_Frames, game::Config::player_Push_Left_Frames_Per_Line, game::Config::player_Push_Timings, false),
+      anim_Push_Right(game::Config::player_animation_size, game::Config::player_Push_Right_Path, game::Config::player_Push_Right_Frames, game::Config::player_Push_Right_Frames_Per_Line, game::Config::player_Push_Timings, false),
       // Dying
       anim_Dying(game::Config::player_animation_size, game::Config::player_Dying_Path, game::Config::player_Dying_Frames, game::Config::player_Dying_Frames_Per_Line, game::Config::player_Dying_Timings, false)
 {
@@ -510,8 +510,8 @@ void PlayerClass::Tick(float delta_time)
     }
     else if (player_state == PlayerState::PUSHING)
     {
-        push_animation_timer -= delta_time;
-        if (push_animation_timer <= 0.0f) {
+        ControllableAnimations* current = static_cast<ControllableAnimations*>(p_current_animation);
+        if (current && current->Is_Finished()) {
             if (auto locked_block = block_to_push.lock()) {
                 // 1. Berechne, wo der Block nach dem Stoß sein würde.
                 Rectangle future_hitbox = locked_block->Get_Hitbox();
@@ -565,7 +565,7 @@ void PlayerClass::Draw()
         };
 
         // Je nach Zustand casten wir den Pointer und rufen die richtige Draw-Funktion auf
-        if (player_state == PlayerState::ATTACKING_MELEE || player_state == PlayerState::ATTACKING_RANGED || player_state == PlayerState::DYING) {
+        if (player_state == PlayerState::ATTACKING_MELEE || player_state == PlayerState::ATTACKING_RANGED || player_state == PlayerState::DYING || player_state == PlayerState::PUSHING) {
             auto anim = static_cast<ControllableAnimations*>(p_current_animation);
             anim->Draw_Current_Frame(draw_position, tint_color);
             // Rufe Next_Frame nur auf, wenn die Animation noch nicht beendet ist.

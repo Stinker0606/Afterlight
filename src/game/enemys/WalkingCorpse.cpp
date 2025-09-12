@@ -188,7 +188,7 @@ namespace enemy
                     this->hitbox.x - game::EnemyConfig::kWalkingCorpse_visual_offset.x,
                     this->hitbox.y - game::EnemyConfig::kWalkingCorpse_visual_offset.y
                 };
-                Color tint = { 255, 255, 255, (unsigned char)(this->visibility_alpha * 255.0f) };
+                Color tint = { (unsigned char)this->tint_color.r, (unsigned char)this->tint_color.g, (unsigned char)this->tint_color.b, (unsigned char)(this->visibility_alpha * 255.0f) };
                 p_current_animation_->Draw_Current_Frame(draw_pos, tint);
 
                 if (this->is_animation_active_) {
