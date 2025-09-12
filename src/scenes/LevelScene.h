@@ -79,6 +79,8 @@ namespace game::scenes
 
         // -- Preload aller Enemies --
         void PreloadEnemyAssets();
+        std::vector<std::weak_ptr<enemy::Enemy_Base_Class>> preload_dummies_;
+        float preload_death_timer_ = 2.0f;
 
     public:
         /**

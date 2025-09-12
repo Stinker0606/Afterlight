@@ -17,10 +17,18 @@ using namespace std::string_literals;
 
 namespace game::scenes
 {
+    static bool assets_preloaded = false;
+
     Level1Scene::Level1Scene()
     {
         // Verbirgt den Cursor wieder
         HideCursor();
+
+        if (!assets_preloaded)
+        {
+            PreloadEnemyAssets();
+            assets_preloaded = true;
+        }
 
         // Starte die Ingame-Musik
         SoundManager::GetInstance().PlayMusic("ingame_music");
@@ -108,25 +116,28 @@ namespace game::scenes
     void game::scenes::Level1Scene::PreloadEnemyAssets()
     {
         std::cout << "Pre-spawning all enemy types to warm up the engine..." << std::endl;
-
-        // Eine temporäre Liste, um die "Dummy"-Gegner zu halten.
-        std::vector<std::shared_ptr<enemy::Enemy_Base_Class>> preload_dummies;
-
-        // Eine Off-Screen-Position, an der die Gegner unsichtbar erstellt werden.
         Vector2 offscreen_pos = {-10000.0f, -10000.0f};
 
-        // Erstelle eine Instanz von JEDEM Gegnertyp im Spiel.
-        // Der Aufruf des Konstruktors ist der wichtige Teil, der den Lag auslöst.
-        preload_dummies.push_back(std::make_shared<enemy::Insect_Monster>(offscreen_pos, objectManager, false));
-        preload_dummies.push_back(std::make_shared<enemy::DrownedSniper>(offscreen_pos, objectManager, false));
-        preload_dummies.push_back(std::make_shared<enemy::WalkingCorpse>(offscreen_pos, objectManager, false));
-        preload_dummies.push_back(std::make_shared<enemy::WoodSniper>(offscreen_pos, objectManager, false));
-        preload_dummies.push_back(std::make_shared<enemy::Corpse>(offscreen_pos, objectManager, false));
-        preload_dummies.push_back(std::make_shared<enemy::Mimic>(offscreen_pos, objectManager, false));
+        auto insect = std::make_shared<enemy::Insect_Monster>(offscreen_pos, objectManager, false);
+        auto sniper = std::make_shared<enemy::DrownedSniper>(offscreen_pos, objectManager, false);
+        auto corpse = std::make_shared<enemy::WalkingCorpse>(offscreen_pos, objectManager, false);
+        auto wood_sniper = std::make_shared<enemy::WoodSniper>(offscreen_pos, objectManager, false);
+        auto corpse2 = std::make_shared<enemy::Corpse>(offscreen_pos, objectManager, false);
+        auto mimic = std::make_shared<enemy::Mimic>(offscreen_pos, objectManager, false);
 
-        // Die Liste wird am Ende dieser Funktion automatisch geleert.
-        // Das zerstört die Dummy-Objekte sofort wieder, aber die "teure" Erst-Initialisierung
-        // ist bereits passiert und im Cache der Engine.
+        objectManager.AddObject(insect);
+        objectManager.AddObject(sniper);
+        objectManager.AddObject(corpse);
+        objectManager.AddObject(wood_sniper);
+        objectManager.AddObject(corpse2);
+        objectManager.AddObject(mimic);
+
+        preload_dummies_.push_back(insect);
+        preload_dummies_.push_back(sniper);
+        preload_dummies_.push_back(corpse);
+        preload_dummies_.push_back(wood_sniper);
+        preload_dummies_.push_back(corpse2);
+        preload_dummies_.push_back(mimic);
 
         std::cout << "Engine warm-up complete. All subsequent spawns will be lag-free." << std::endl;
     }
@@ -140,6 +151,22 @@ namespace game::scenes
 
     void Level1Scene::Update()
     {
+        if (!preload_dummies_.empty())
+        {
+            preload_death_timer_ -= GetFrameTime();
+            if (preload_death_timer_ <= 0.0f)
+            {
+                for (auto& weak_dummy : preload_dummies_)
+                {
+                    if (auto dummy = weak_dummy.lock())
+                    {
+                        dummy->Mark_For_Destruction();
+                    }
+                }
+                preload_dummies_.clear();
+            }
+        }
+
         // Standard-Engine-Inputs
 
         if (IsKeyPressed(KEY_P))

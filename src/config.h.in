@@ -291,7 +291,7 @@ namespace game {
         };
 
         // -- PUSH --
-        inline static const std::vector<int> player_Push_Timings = { 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 4, 4 };
+        inline static const std::vector<int> player_Push_Timings = { 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1 };
 
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 

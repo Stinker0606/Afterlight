@@ -94,29 +94,20 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
         if (auto door = std::dynamic_pointer_cast<Door>(other))
         {
             SoundManager::GetInstance().PlaySfx("door_transition");
-
-            // 1. Schreibe die Zieldaten in den globalen Store.
             game::core::Store::next_scene_map = door->Get_Target_Map();
             game::core::Store::next_spawn_point = door->Get_Target_Spawn_Point();
-
-            // 2. Ersetze die aktuelle Szene durch eine NEUE Instanz der Level1Scene.
-            // Die neue Szene wird sich beim Starten die neuen Daten aus dem Store holen.
             game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "gameplay"s, std::make_unique<game::scenes::Level1Scene>());
         }
         return;
     }
 
     // --- SPEZIELLE INTERAKTIONS-LOGIK ---
-
-    // 1. Prüfe, ob es eine KeyWall ist UND ob wir sie öffnen können.
     if (auto key_wall = std::dynamic_pointer_cast<KeyWall>(other))
     {
         if (this->Get_Key_Count() > 0)
         {
             SoundManager::GetInstance().PlaySfx("keywall_open");
-
             this->Use_Key(1);
-            // Definiere den Radius und markiere alle Wände in der Nähe zur Zerstörung.
             float search_radius = 72.0f;
             Vector2 origin_center = key_wall->Get_Hitbox_Center();
 
@@ -134,29 +125,37 @@ void PlayerClass::On_Collision(std::shared_ptr<Collidable> other)
     }
 
     // --- PHYSISCHE KOLLISIONS-LOGIK ---
-
-    // 1. Die Kollision mit einem Push_Block ist ein Sonderfall, da sie den Spieler-Zustand ändert.
     if (auto push_block = std::dynamic_pointer_cast<Push_Block>(other))
     {
         SoundManager::GetInstance().PlaySfx("player_push_block");
 
+        // Setze den Zustand auf PUSHING.
         player_state = PlayerState::PUSHING;
-        push_animation_timer = game::Config::player_Push_Anim_Duration;
-        block_to_push = push_block;
+        block_to_push = push_block; // Speichere den Block, den wir schieben.
+
+        // Bestimme die Richtung des Stoßes basierend auf der letzten Bewegung.
         Vector2 move_dir = { hitbox.x - previous_Position.x, hitbox.y - previous_Position.y };
         if (fabs(move_dir.x) > fabs(move_dir.y)) {
             push_direction = { (move_dir.x > 0) ? 1.0f : -1.0f, 0.0f };
         } else {
             push_direction = { 0.0f, (move_dir.y > 0) ? 1.0f : -1.0f };
         }
+
+        // Setze den Spieler auf seine vorherige Position zurück.
         hitbox.x = previous_Position.x;
         hitbox.y = previous_Position.y;
         player_Pos = previous_Position;
         is_Moving = false;
+
+        // *** DIE ENTSCHEIDENDE KORREKTUR ***
+        // 1. Aktualisiere sofort den Animations-Zeiger auf die Push-Animation.
+        Update_Animation_Pointer();
+        // 2. Setze die neue Animation zurück, damit sie von vorne startet.
+        static_cast<ControllableAnimations*>(p_current_animation)->Reset();
     }
     else
     {
-        // 2. Für ALLE ANDEREN soliden Objekte wird die Standard-Kollisionslogik aus der Basisklasse aufgerufen.
+        // Für alle anderen soliden Objekte die normale Kollisionslogik aufrufen.
         Player_Base_Class::On_Collision(other);
     }
 }
@@ -555,7 +554,7 @@ void PlayerClass::Tick(float delta_time)
 
 void PlayerClass::Draw()
 {
-        // 1. Zeichne den aktuellen Frame.
+    // 1. Zeichne den aktuellen Frame.
     if (p_current_animation)
     {
         Vector2 hitbox_position = Get_Player_Pos();
