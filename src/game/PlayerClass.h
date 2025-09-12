@@ -29,6 +29,7 @@ private:
 
     // --- Timer für Zustände ---
     float hit_feedback_timer;       // Timer für die Dauer des roten Aufleuchtens -> not working under shader
+    float hit_feedback_total_time;  // wie lange insgesamt noch Feedback läuft
     float push_cooldown_timer;      // Cooldown nach einer Schiebe-Aktion
     float walk_sound_timer_ = 0.0f; // Timer für den Lauf-Sound
 
@@ -108,6 +109,10 @@ private:
 
     // Hält die ID der getragenen Waffe. -1 bedeutet, keine Waffe wird getragen.
     int held_weapon_id_ = -1;
+
+    // Variablen hit Feedback
+    int hit_feedback_blinks_left;
+    bool hit_feedback_on;
 
 public:
     /**

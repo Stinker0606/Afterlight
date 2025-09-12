@@ -91,7 +91,7 @@ namespace game {
         inline static constexpr int kInsectMonsterDamage = 25;
         inline static constexpr float kInsectMonsterAttackCooldown = 6.0f; // 1 Angriff pro Sekunde
         inline static constexpr float kInsectMonsterAttackRange = 48.0f; // 1.5 Tiles (48 + Hitbox Berechnung = +- 70)
-        inline static constexpr int kInsectMonsterValue = 15;
+        inline static constexpr int kInsectMonsterValue = 35;
         inline static constexpr int kInsectMonsterHitboxWidth = 30;
         inline static constexpr int kInsectMonsterHitboxHeight = 30;
         inline static constexpr Vector2 kInsectMonsterAnimSize = {96, 96};
@@ -146,7 +146,7 @@ namespace game {
         inline static constexpr float kDrownedSniperProjectileSpeed = 110.0f;
         inline static constexpr int kDrownedSniperProjectileHitboxWidth = 16;
         inline static constexpr int kDrownedSniperProjectileHitboxHeight = 16;
-        inline static constexpr int kDrownedSniperValue = 50;
+        inline static constexpr int kDrownedSniperValue = 100;
         inline static constexpr int kDrownedSniperHitboxWidth = 30;
         inline static constexpr int kDrownedSniperHitboxHeight = 44;
         inline static constexpr Vector2 kDrownedSniperAnimSize = {96, 128};
@@ -354,7 +354,7 @@ namespace game {
         inline static constexpr int kWalkingCorpseDamage = 15;
         inline static constexpr float kWalkingCorpseAttackCooldown = 13.0f;
         inline static constexpr float kWalkingCorpseAttackRange = 40.0f;
-        inline static constexpr int kWalkingCorpseValue = 30;
+        inline static constexpr int kWalkingCorpseValue = 50;
         inline static constexpr int kWalkingCorpseHitboxWidth = 28;
         inline static constexpr int kWalkingCorpseHitboxHeight = 36;
         inline static constexpr Vector2 kWalkingCorpseAnimSize = {100, 100};
@@ -406,7 +406,7 @@ namespace game {
         inline static constexpr float kWoodSniperAttackCooldown = 24.0f;
         inline static constexpr float kWoodSniperAttackRange = 500.0f;
         inline static constexpr float kWoodSniperProjectileSpeed = 110.0f;
-        inline static constexpr int kWoodSniperValue = 50;
+        inline static constexpr int kWoodSniperValue = 100;
         inline static constexpr int kWoodSniperHitboxWidth = 30;
         inline static constexpr int kWoodSniperHitboxHeight = 44;
         inline static constexpr Vector2 kWoodSniperAnimSize = {96, 128};
@@ -493,7 +493,7 @@ namespace game {
         inline static constexpr int kCorpseDamage = 10;
         inline static constexpr float kCorpseAttackCooldown = 7.0f;
         inline static constexpr float kCorpseAttackRange = 48.0f;
-        inline static constexpr int kCorpseValue = 15;
+        inline static constexpr int kCorpseValue = 200;
         inline static constexpr int kCorpseHitboxWidth = 30;
         inline static constexpr int kCorpseHitboxHeight = 30;
         inline static constexpr Vector2 kCorpseAnimSize = {96, 128};
@@ -533,16 +533,16 @@ namespace game {
         inline static constexpr int kCorpseAttackRightFramesPerLine = 10;
 
         // ====================================================================================
-        // MIMIC (Getarnter Gegner)
+        //                              MIMIC (Getarnter Gegner)
         // ====================================================================================
 
         // -- Stats --
-        inline static constexpr int kMimicHealth = 300;
+        inline static constexpr int kMimicHealth = 200;
         inline static constexpr float kMimicMovementSpeed = 2.0f;
         inline static constexpr int kMimicDamage = 100;
         inline static constexpr float kMimicAttackCooldown = 15.0f;
         inline static constexpr float kMimicAttackRange = 52.0f;
-        inline static constexpr int kMimicValue = 100;
+        inline static constexpr int kMimicValue = 700;
         inline static constexpr int kMimicHitboxWidth = 42;
         inline static constexpr int kMimicHitboxHeight = 30;
         inline static constexpr float kMimicAggroRadius = 85.0f;
