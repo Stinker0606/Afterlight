@@ -19,7 +19,7 @@ namespace game::scenes
 {
     static bool assets_preloaded = false;
 
-    Level1Scene::Level1Scene()
+    Level1Scene::Level1Scene() : pause_menu_()
     {
         // Verbirgt den Cursor wieder
         HideCursor();
@@ -151,6 +151,41 @@ namespace game::scenes
 
     void Level1Scene::Update()
     {
+        // --- PAUSEN-LOGIK ---
+        if (IsKeyPressed(KEY_ESCAPE))
+        {
+            is_paused_ = !is_paused_;
+            if (is_paused_) {
+                ShowCursor();
+                dtm.Pause(); // PAUSIERE DIE ZEIT
+            } else {
+                HideCursor();
+                dtm.Resume(); // SETZE DIE ZEIT FORT
+            }
+        }
+
+        if (is_paused_)
+        {
+            pause_menu_.Update();
+            if (pause_menu_.IsResumeSelected())
+            {
+                is_paused_ = false;
+                HideCursor();
+                dtm.Resume(); // SETZE DIE ZEIT FORT
+            }
+            else if (pause_menu_.IsMainMenuSelected())
+            {
+                game::core::Store::player = std::make_shared<PlayerClass>(Vector2{0,0}, nullptr);
+                game::core::Store::next_scene_map = "Tuto_0.json";
+                game::core::Store::next_spawn_point = "player_start";
+                game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "menu"s, std::make_unique<MenuScene>());
+            }
+            return; // Stoppe alle weiteren Updates, wenn pausiert
+        }
+
+        dtm.Update();
+
+        // --- GESAMTE SPIEL-LOGIK (wird nur ausgeführt, wenn nicht pausiert) ---
         if (!preload_dummies_.empty())
         {
             preload_death_timer_ -= GetFrameTime();
@@ -165,14 +200,6 @@ namespace game::scenes
                 }
                 preload_dummies_.clear();
             }
-        }
-
-        // Standard-Engine-Inputs
-
-        if (IsKeyPressed(KEY_P))
-        {
-            game::core::Store::stage->SwitchToNewScene("menu"s, std::make_unique<MenuScene>());
-            return;
         }
 
         // --- FADE-IN LOGIK Menu -> Scene 1 ---
@@ -473,5 +500,10 @@ namespace game::scenes
             );
         }
 
+        // --- PAUSEN-OVERLAY ---
+        if (is_paused_)
+        {
+            pause_menu_.Draw();
+        }
     }
 }

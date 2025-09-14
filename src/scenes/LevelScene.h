@@ -15,6 +15,7 @@
 #include "../game/spawner/Level1Spawner.h"
 #include "../game/interactables/Statue.h"
 #include "../game/interactables/KeyConsumable.h"
+#include "PauseScene.h"
 
 namespace game::scenes
 {
@@ -26,6 +27,10 @@ namespace game::scenes
     class Level1Scene final : public game::core::Scene
     {
     private:
+        // --- PAUSEN-LOGIK ---
+        bool is_paused_ = false;
+        PauseScene pause_menu_;
+
         // --- Warteliste ---
         std::vector<std::shared_ptr<Collidable>> objects_to_add_list_;
 

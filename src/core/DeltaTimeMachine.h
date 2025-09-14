@@ -17,6 +17,9 @@ namespace DT {
         ctime frame1;
         ctime frame2;
 
+        // --- PAUSEN-LOGIK ---
+        bool is_paused_ = false;
+        ctime pause_time_;
 
         void Start();
 
@@ -24,6 +27,11 @@ namespace DT {
 
         float Get_Dt();
 
+        void Pause();
+
+        void Resume();
+
+        bool IsPaused() const;
     };
 }
 #endif //RAYLIBSTARTER_DELTATIMEMACHINE_H
