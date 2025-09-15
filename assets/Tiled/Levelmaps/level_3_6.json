@@ -23,7 +23,7 @@
             316, 347, 347, 347, 347, 347, 347, 347, 347, 347, 347, 347, 347, 317, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335, 335],
          "height":18,
          "id":1,
-         "name":"Layer1",
+         "name":"ground",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -52,7 +52,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":2,
-         "name":"Layer2",
+         "name":"wall",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -81,7 +81,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":3,
-         "name":"Layer3",
+         "name":"wall top",
          "opacity":1,
          "properties":[
                 {
@@ -116,14 +116,8 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":18,
          "id":4,
-         "name":"Layer4",
+         "name":"Fakeln",
          "opacity":1,
-         "properties":[
-                {
-                 "name":"IsAboveObjects",
-                 "type":"bool",
-                 "value":true
-                }],
          "type":"tilelayer",
          "visible":true,
          "width":30,
@@ -136,7 +130,7 @@
          "name":"walls",
          "objects":[
                 {
-                 "height":448,
+                 "height":436,
                  "id":1,
                  "name":"walls",
                  "rotation":0,
@@ -147,7 +141,7 @@
                  "y":0
                 }, 
                 {
-                 "height":96,
+                 "height":85.6363636363636,
                  "id":2,
                  "name":"walls",
                  "rotation":0,
@@ -155,7 +149,7 @@
                  "visible":true,
                  "width":32,
                  "x":0,
-                 "y":480
+                 "y":490.363636363636
                 }, 
                 {
                  "height":32,
@@ -410,6 +404,28 @@
                  "width":32,
                  "x":0,
                  "y":480
+                }, 
+                {
+                 "height":73.75,
+                 "id":62,
+                 "name":"doors",
+                 "properties":[
+                        {
+                         "name":"target_map",
+                         "type":"string",
+                         "value":"level_3_3.json"
+                        }, 
+                        {
+                         "name":"target_spawn_point",
+                         "type":"string",
+                         "value":"player_start_from_level_3_3_b"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":20.6666666666667,
+                 "x":-8.88178419700125e-15,
+                 "y":430.458333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -431,7 +447,7 @@
                  "visible":true,
                  "width":32,
                  "x":480,
-                 "y":160
+                 "y":152
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -445,33 +461,21 @@
          "name":"consumables",
          "objects":[
                 {
-                 "gid":84,
+                 "gid":498,
                  "height":32,
                  "id":55,
-                 "name":"keyCons",
+                 "name":"healCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":384,
+                 "x":288,
                  "y":544
                 }, 
                 {
                  "gid":498,
                  "height":32,
                  "id":56,
-                 "name":"dmgCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":288,
-                 "y":288
-                }, 
-                {
-                 "gid":498,
-                 "height":32,
-                 "id":57,
                  "name":"healCons",
                  "rotation":0,
                  "type":"",
@@ -483,31 +487,19 @@
                 {
                  "gid":498,
                  "height":32,
-                 "id":58,
+                 "id":57,
                  "name":"dmgCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":64,
-                 "y":224
+                 "x":288,
+                 "y":288
                 }, 
                 {
                  "gid":498,
                  "height":32,
-                 "id":59,
-                 "name":"healCons",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":64,
-                 "y":352
-                }, 
-                {
-                 "gid":498,
-                 "height":32,
-                 "id":60,
+                 "id":58,
                  "name":"dmgCons",
                  "rotation":0,
                  "type":"",
@@ -519,19 +511,31 @@
                 {
                  "gid":498,
                  "height":32,
-                 "id":61,
-                 "name":"healCons",
+                 "id":59,
+                 "name":"dmgCons",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":288,
+                 "x":64,
+                 "y":352
+                }, 
+                {
+                 "gid":84,
+                 "height":32,
+                 "id":60,
+                 "name":"keyCons",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":384,
                  "y":544
                 }, 
                 {
                  "gid":499,
                  "height":32,
-                 "id":62,
+                 "id":61,
                  "name":"bombCons",
                  "rotation":0,
                  "type":"",
@@ -687,7 +691,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset.tsj"
+         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset_new.json"
         }],
  "tilewidth":32,
  "type":"map",
