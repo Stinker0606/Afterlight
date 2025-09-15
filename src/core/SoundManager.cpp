@@ -23,6 +23,7 @@ void SoundManager::Init() {
 
     // Spieler
     sfx_cache_["player_walk"] = LoadSound(game::AudioConfig::kPlayerWalkSfxPath.c_str());
+    sfx_cache_["player_idle"] = LoadSound(game::AudioConfig::kPlayerIdleSfxPath.c_str());
     sfx_cache_["player_hit"] = LoadSound(game::AudioConfig::kPlayerHitSfxPath.c_str());
     sfx_cache_["player_death"] = LoadSound(game::AudioConfig::kPlayerDeathSfxPath.c_str());
     sfx_cache_["player_throw"] = LoadSound(game::AudioConfig::kPlayerThrowSfxPath.c_str());

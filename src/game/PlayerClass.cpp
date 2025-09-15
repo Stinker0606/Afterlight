@@ -74,6 +74,7 @@ PlayerClass::PlayerClass(Vector2 start_Position, Object_Manager* om)
     this->melee_hitbox_spawned_ = false;
     this->has_fired_projectile_ = false;
     this->walk_sound_timer_ = 0.0f;
+    this->idle_sound_timer_ = 2.0f;
     this->facing_angle_ = 0.0f;
 }
 
@@ -439,9 +440,13 @@ void PlayerClass::Tick(float delta_time)
     if (bomb_cooldown_ > 0.0f) {
         bomb_cooldown_ -= delta_time;
     }
-    // Walk-Sound-Timer
+    // Walk-Sound-Timerv
     if (walk_sound_timer_ > 0.0f) {
         walk_sound_timer_ -= delta_time;
+    }
+    // Idle-Sound-Timer
+    if (idle_sound_timer_ > 0.0f) {
+        idle_sound_timer_ -= delta_time;
     }
 
     // --- ZUSTANDS-LOGIK ---
@@ -459,10 +464,13 @@ void PlayerClass::Tick(float delta_time)
                 walk_sound_timer_ = game::AudioConfig::kWalk_Sound_Timer;
             }
         }
-        else
+        else // NEUE IDLE-SOUND-LOGIK
         {
-            // Wenn der Spieler STEHT, stoppe den Lauf-Sound sofort.
             SoundManager::GetInstance().StopSfx("player_walk");
+            if (idle_sound_timer_ <= 0.0f) {
+                SoundManager::GetInstance().PlaySfx("player_idle", 1);
+                idle_sound_timer_ = 4.0f; // Spielt alle 4 Sekunden
+            }
         }
 
         // Prüfe auf Spieler-Aktionen

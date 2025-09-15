@@ -32,11 +32,12 @@ private:
     float hit_feedback_total_time;  // wie lange insgesamt noch Feedback läuft
     float push_cooldown_timer;      // Cooldown nach einer Schiebe-Aktion
     float walk_sound_timer_ = 0.0f; // Timer für den Lauf-Sound
+    float idle_sound_timer_ = 0.0f; // Timer für den -Sound
 
     // --- PUSH WALL ---
-    float push_animation_timer; // Eigener Timer für die Push-Animation
+    float push_animation_timer;              // Eigener Timer für die Push-Animation
     std::weak_ptr<Push_Block> block_to_push; // Ein schwacher Zeiger auf den Block, den wir schieben
-    Vector2 push_direction; // Die Richtung, in die wir schieben
+    Vector2 push_direction;                  // Die Richtung, in die wir schieben
 
     // --- Visuelle Effekte ---
     Color tint_color; // Die aktuelle Tönung des Spielers.
