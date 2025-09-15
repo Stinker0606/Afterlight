@@ -86,7 +86,7 @@ namespace game {
 
         inline static constexpr const char* kInsectMonsterSpritePath = "assets/graphics/kRaoKr_imresizer.png"; // for DEBUG-Placeholder
         // -- Stats --
-        inline static constexpr int kInsectMonsterHealth = 50;
+        inline static constexpr int kInsectMonsterHealth = 300;
         inline static constexpr float kInsectMonsterMovementSpeed = 6.0f; // deactivated -> 2 Tiles pro Sekunde (1 Tile = 32px)
         inline static constexpr int kInsectMonsterDamage = 25;
         inline static constexpr float kInsectMonsterAttackCooldown = 6.0f; // 1 Angriff pro Sekunde

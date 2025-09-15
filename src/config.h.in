@@ -243,20 +243,20 @@ namespace game {
 
         // Pushing
         inline static constexpr const char* player_Push_Front_Path = "assets/graphics/animations/player/push/MC_Push_Front.png";
-        inline static constexpr int player_Push_Front_Frames = 12;
-        inline static constexpr int player_Push_Front_Frames_Per_Line = 12;
+        inline static constexpr int player_Push_Front_Frames = 6;
+        inline static constexpr int player_Push_Front_Frames_Per_Line = 6;
 
         inline static constexpr const char* player_Push_Back_Path = "assets/graphics/animations/player/push/MC_Push_Back.png";
-        inline static constexpr int player_Push_Back_Frames = 12;
-        inline static constexpr int player_Push_Back_Frames_Per_Line = 12;
+        inline static constexpr int player_Push_Back_Frames = 4;
+        inline static constexpr int player_Push_Back_Frames_Per_Line = 4;
 
         inline static constexpr const char* player_Push_Left_Path = "assets/graphics/animations/player/push/MC_Push_Left.png";
-        inline static constexpr int player_Push_Left_Frames = 12;
-        inline static constexpr int player_Push_Left_Frames_Per_Line = 12;
+        inline static constexpr int player_Push_Left_Frames = 4;
+        inline static constexpr int player_Push_Left_Frames_Per_Line = 4;
 
         inline static constexpr const char* player_Push_Right_Path = "assets/graphics/animations/player/push/MC_Push_Right.png";
-        inline static constexpr int player_Push_Right_Frames = 12;
-        inline static constexpr int player_Push_Right_Frames_Per_Line = 12;
+        inline static constexpr int player_Push_Right_Frames = 4;
+        inline static constexpr int player_Push_Right_Frames_Per_Line = 4;
 
         // Dying
         inline static constexpr const char* player_Dying_Path = "assets/graphics/animations/player/death/MC_Death_Front.png";
@@ -291,7 +291,7 @@ namespace game {
         };
 
         // -- PUSH --
-        inline static const std::vector<int> player_Push_Timings = { 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1 };
+        inline static const std::vector<int> player_Push_Timings = { 2, 3, 3, 2};
 
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
