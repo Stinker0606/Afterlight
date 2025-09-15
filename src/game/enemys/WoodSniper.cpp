@@ -111,7 +111,7 @@ namespace enemy
             this->enemy_Damage,
             game::EnemyConfig::kWoodSniperProjectileSpriteUp
         );
-        SoundManager::GetInstance().PlaySfx("enemy_wood_sniper_shoot");
+        SoundManager::GetInstance().PlaySfxAtPosition("enemy_wood_sniper_shoot", this->Get_Hitbox_Center());
         om_ref_.AddObject(projectile);
     }
 
@@ -183,7 +183,12 @@ namespace enemy
                 p_current_animation_->Draw_Current_Frame(draw_pos, tint);
 
                 if (this->is_animation_active_) {
-                    p_current_animation_->Next_Frame();
+                    if(anim_state_ == AnimationState::RELOADING && this->attack_Cooldown_Timer <= 0.0f) {
+                        // Bleibe auf dem letzten Frame der Reload-Animation stehen, während gezielt wird
+                        // (Oder setze sie zurück, je nach gewünschtem Verhalten)
+                    } else {
+                        p_current_animation_->Next_Frame();
+                    }
                 } else {
                     p_current_animation_->Reset();
                 }

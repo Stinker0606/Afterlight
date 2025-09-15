@@ -7,6 +7,7 @@ WeaponItem::WeaponItem(Vector2 position, int weapon_id, Texture2D tileset, Recta
     : weapon_id_(weapon_id), tileset_texture(tileset), texture_source_rect(source_rect)
 {
     hitbox = { position.x, position.y, source_rect.width, source_rect.height };
+    dia_trigger = AssetManager::GetInstance().Load("assets/graphics/ui/E_DiaTrig.png");
 }
 
 void WeaponItem::Tick(float delta_time) {
@@ -18,7 +19,8 @@ void WeaponItem::Draw() {
     DrawTextureRec(this->tileset_texture, this->texture_source_rect, { this->hitbox.x, this->hitbox.y }, Fade(WHITE, this->visibility_alpha));
     if (is_in_range_) {
         // Zeichne ein "E" über dem Item, um die Interaktion anzuzeigen
-        DrawText("E", hitbox.x + 8, hitbox.y - 20, 20, Color { 216, 176, 168, 255 });
+        //DrawText("E", hitbox.x + 8, hitbox.y - 20, 20, Color { 216, 176, 168, 255 });
+        DrawTextureV(dia_trigger,{hitbox.x + hitbox.width / 2, hitbox.y - 20}, WHITE);
     }
 }
 

@@ -132,14 +132,14 @@ namespace enemy
         switch(other_Type)
         {
             case Collision_Type::WALL:
-            case Collision_Type::PLAYER:
             {
                 if (this->is_Moving)
                 {
                     CollisionResponse::Resolve_Overlap(shared_from_this(), other);
                 }
-
-                if (other_Type == Collision_Type::PLAYER)
+                break;
+                }
+                case Collision_Type::PLAYER:
                 {
                     // 2. Prüfen, ob der Angriff bereit ist.
                     if (attack_Cooldown_Timer <= 0)
@@ -151,7 +151,6 @@ namespace enemy
                             this->attack_Cooldown_Timer = this->attack_Cooldown_Duration;
                         }
                     }
-                }
                 break;
             }
             case Collision_Type::PLAYER_PROJECTILE:

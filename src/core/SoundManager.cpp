@@ -2,7 +2,10 @@
 #include "raylib.h"
 #include "../config_audio.h.in"
 #include <iostream>
+
+#include "raymath.h"
 #include "SettingsManager.h"
+#include "Store.h"
 
 SoundManager& SoundManager::GetInstance() {
     static SoundManager instance;
@@ -152,6 +155,46 @@ void SoundManager::StopSfx(const std::string& name)
     {
         // Stoppe alle laufenden Instanzen dieses Sounds
         StopSound(sfx_cache_.at(name));
+    }
+}
+
+// Implementierung der NEUEN Methode
+void SoundManager::PlaySfxAtPosition(const std::string& name, Vector2 position, int max_instances)
+{
+    if (sfx_cache_.find(name) == sfx_cache_.end()) {
+        std::cerr << "FEHLER: Soundeffekt '" << name << "' nicht gefunden!" << std::endl;
+        return;
+    }
+
+    if (sfx_play_counts_this_frame_[name] >= max_instances) {
+        return;
+    }
+
+    // --- LOGIK FÜR RÄUMLICHES AUDIO ---
+    float final_volume = 0.0f; // Standardmäßig stumm
+
+    if (game::core::Store::player) {
+        Vector2 player_pos = game::core::Store::player->Get_Player_Center();
+        float distance = Vector2Distance(player_pos, position);
+
+        // Definiere die maximale Hör-Distanz aus der Config
+        const float max_distance = game::AudioConfig::kSoundMaxDistance;
+
+        if (distance < max_distance) {
+            // Berechne die Lautstärke linear: 1.0 (nah) bis 0.0 (an der max_distance)
+            float volume_falloff = 1.0f - (distance / max_distance);
+
+            // Kombiniere mit den globalen Lautstärke-Einstellungen
+            final_volume = game::AudioConfig::kSfxVolume * SettingsManager::GetInstance().GetSfxVolume() * SettingsManager::GetInstance().GetMasterVolume() * volume_falloff;
+        }
+    }
+
+    // Spiele den Sound nur ab, wenn er hörbar ist
+    if (final_volume > 0.0f) {
+        Sound& sound = sfx_cache_.at(name);
+        SetSoundVolume(sound, final_volume);
+        PlaySound(sound);
+        sfx_play_counts_this_frame_[name]++;
     }
 }
 

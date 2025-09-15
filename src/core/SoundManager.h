@@ -21,6 +21,9 @@ public:
     // Methode für Soundeffekte
     void PlaySfx(const std::string& name, int max_instances = 3); // MAD FRAGEN
 
+    // Methode für räumliches Audio
+    void PlaySfxAtPosition(const std::string& name, Vector2 position, int max_instances = 3);
+
     // Muss jeden Frame aufgerufen werden, um die Musik-Streams zu aktualisieren.
     void Update();
 

@@ -7,6 +7,7 @@ class WeaponItem : public Collidable
 {
 private:
     Texture2D tileset_texture;
+    Texture2D dia_trigger;
     Rectangle texture_source_rect;
     int weapon_id_;
     bool is_in_range_ = false;

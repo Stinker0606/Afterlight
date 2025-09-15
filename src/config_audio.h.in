@@ -92,5 +92,8 @@ namespace game {
 
         inline static constexpr float kWalk_Sound_Timer = 8.0f;
 
+        // Maximale Distanz in Pixeln, in der ein Soundeffekt hörbar ist.
+        inline static constexpr float kSoundMaxDistance = 515.0f;
+
     };
 }

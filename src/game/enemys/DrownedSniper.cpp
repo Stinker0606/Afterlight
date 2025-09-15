@@ -123,7 +123,7 @@ namespace enemy
             this->enemy_Damage,
             game::EnemyConfig::kDrownedSniperProjectileSpriteUp
         );
-        SoundManager::GetInstance().PlaySfx("enemy_sniper_shoot");
+        SoundManager::GetInstance().PlaySfxAtPosition("enemy_sniper_shoot", this->Get_Hitbox_Center());
         om_ref_.AddObject(projectile);
     }
 
