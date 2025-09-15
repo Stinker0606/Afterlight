@@ -264,80 +264,81 @@ namespace game {
 
         // -- Stats --
         inline static constexpr int kDarknessMonsterHealth = 275;
-        inline static constexpr float kDarknessMonsterMovementSpeed = 64.0; // 2 Tiles/Sekunde
-        inline static constexpr float kDarknessMonsterAggroSpeed = 96.0; // 3 Tiles/Sekunde im Radius
-        inline static constexpr float kDarknessMonsterAggroRadius = 128.0; // 4 Tiles
+        inline static constexpr float kDarknessMonsterMovementSpeed = 4.5f;   // Normale Geschwindigkeit (ca. 1.5 Tiles/Sek)
+        inline static constexpr float kDarknessMonsterAggroSpeed = 9.0f;      // Aggro-Geschwindigkeit (ca. 3 Tiles/Sek)
+        inline static constexpr float kDarknessMonsterAggroRadius = 128.0f;   // 4 Tiles
         inline static constexpr int kDarknessMonsterDamage = 90;
-        inline static constexpr float kDarknessMonsterMeleeCooldown = 1.0f;
-        inline static constexpr float kDarknessMonsterRangedCooldown = 2.0f;
-        inline static constexpr float kDarknessMonsterMeleeRange = 48.0; // mindestens 1,5 Tiles
-        inline static constexpr float kDarknessMonsterRangedRange = 96.0; // 3 Tiles
-        inline static constexpr float kDarknessMonsterProjectileSpeed = 100.0; // Mittlere Geschwindigkeit
-        inline static constexpr int kDarknessMonsterValue = 200;
-        inline static constexpr int kDarknessMonsterHitboxWidth = 64;
-        inline static constexpr int kDarknessMonsterHitboxHeight = 96;
-        inline static constexpr Vector2 kDarknessMonsterAnimSize = {150, 150};
-
-        // -- Walk Animations (4 Richtungen) --
-        inline static constexpr const char* kDarknessMonsterWalkFrontPath = "assets/graphics/enemies/darkness_monster/walk_front.png";
-        inline static constexpr int kDarknessMonsterWalkFrontFrames = 8;
-        inline static constexpr int kDarknessMonsterWalkFrontFramesPerLine = 8;
-        inline static constexpr const char* kDarknessMonsterWalkBackPath = "assets/graphics/enemies/darkness_monster/walk_back.png";
-        inline static constexpr int kDarknessMonsterWalkBackFrames = 8;
-        inline static constexpr int kDarknessMonsterWalkBackFramesPerLine = 8;
-        inline static constexpr const char* kDarknessMonsterWalkLeftPath = "assets/graphics/enemies/darkness_monster/walk_left.png";
-        inline static constexpr int kDarknessMonsterWalkLeftFrames = 8;
-        inline static constexpr int kDarknessMonsterWalkLeftFramesPerLine = 8;
-        inline static constexpr const char* kDarknessMonsterWalkRightPath = "assets/graphics/enemies/darkness_monster/walk_right.png";
-        inline static constexpr int kDarknessMonsterWalkRightFrames = 8;
-        inline static constexpr int kDarknessMonsterWalkRightFramesPerLine = 8;
+        inline static constexpr float kDarknessMonsterMeleeCooldown = 6.0f;   // 1 Angriff pro Sekunde
+        inline static constexpr float kDarknessMonsterRangedCooldown = 12.0f; // 1 Schuss alle 2 Sekunden
+        inline static constexpr float kDarknessMonsterMeleeRange = 48.0f;     // 1.5 Tiles
+        inline static constexpr float kDarknessMonsterRangedRange = 256.0f;   // 8 Tiles
+        inline static constexpr float kDarknessMonsterProjectileSpeed = 8.0f;
+        inline static constexpr int kDarknessMonsterValue = 50;
+        inline static constexpr int kDarknessMonsterHitboxWidth = 30;
+        inline static constexpr int kDarknessMonsterHitboxHeight = 40;
+        inline static constexpr Vector2 kDarknessMonsterAnimSize = {100, 100};
+        inline static constexpr Vector2 kDarknessMonster_visual_offset = {-55, -45};
 
         // -- Death Animation --
-        inline static constexpr const char* kDarknessMonsterDeathPath = "assets/graphics/enemies/darkness_monster/death.png";
+        inline static constexpr const char* kDarknessMonsterDeathPath = "assets/graphics/animations/darkness_monster/death.png";
         inline static constexpr int kDarknessMonsterDeathFrames = 20;
         inline static constexpr int kDarknessMonsterDeathFramesPerLine = 20;
 
-        // -- Melee "Kralle" Attack Animations (4 Richtungen) --
-        inline static constexpr const char* kDarknessMonsterMeleeFrontPath = "assets/graphics/enemies/darkness_monster/melee_front.png";
+        // -- Walk Animations (4 Richtungen) --
+        inline static constexpr const char* kDarknessMonsterWalkFrontPath = "assets/graphics/animations/darkness_monster/walk_front.png";
+        inline static constexpr int kDarknessMonsterWalkFrontFrames = 8;
+        inline static constexpr int kDarknessMonsterWalkFrontFramesPerLine = 8;
+        inline static constexpr const char* kDarknessMonsterWalkBackPath = "assets/graphics/animations/darkness_monster/walk_back.png";
+        inline static constexpr int kDarknessMonsterWalkBackFrames = 8;
+        inline static constexpr int kDarknessMonsterWalkBackFramesPerLine = 8;
+        inline static constexpr const char* kDarknessMonsterWalkLeftPath = "assets/graphics/animations/darkness_monster/walk_left.png";
+        inline static constexpr int kDarknessMonsterWalkLeftFrames = 8;
+        inline static constexpr int kDarknessMonsterWalkLeftFramesPerLine = 8;
+        inline static constexpr const char* kDarknessMonsterWalkRightPath = "assets/graphics/animations/darkness_monster/walk_right.png";
+        inline static constexpr int kDarknessMonsterWalkRightFrames = 8;
+        inline static constexpr int kDarknessMonsterWalkRightFramesPerLine = 8;
+
+        // -- Melee Attack Animations (4 Richtungen) --
+        inline static constexpr const char* kDarknessMonsterMeleeFrontPath = "assets/graphics/animations/darkness_monster/melee_front.png";
         inline static constexpr int kDarknessMonsterMeleeFrontFrames = 10;
         inline static constexpr int kDarknessMonsterMeleeFrontFramesPerLine = 10;
-        inline static constexpr const char* kDarknessMonsterMeleeBackPath = "assets/graphics/enemies/darkness_monster/melee_back.png";
+        inline static constexpr const char* kDarknessMonsterMeleeBackPath = "assets/graphics/animations/darkness_monster/melee_back.png";
         inline static constexpr int kDarknessMonsterMeleeBackFrames = 10;
         inline static constexpr int kDarknessMonsterMeleeBackFramesPerLine = 10;
-        inline static constexpr const char* kDarknessMonsterMeleeLeftPath = "assets/graphics/enemies/darkness_monster/melee_left.png";
+        inline static constexpr const char* kDarknessMonsterMeleeLeftPath = "assets/graphics/animations/darkness_monster/melee_left.png";
         inline static constexpr int kDarknessMonsterMeleeLeftFrames = 10;
         inline static constexpr int kDarknessMonsterMeleeLeftFramesPerLine = 10;
-        inline static constexpr const char* kDarknessMonsterMeleeRightPath = "assets/graphics/enemies/darkness_monster/melee_right.png";
+        inline static constexpr const char* kDarknessMonsterMeleeRightPath = "assets/graphics/animations/darkness_monster/melee_right.png";
         inline static constexpr int kDarknessMonsterMeleeRightFrames = 10;
         inline static constexpr int kDarknessMonsterMeleeRightFramesPerLine = 10;
 
-        // -- Ranged "Darkness Attack" Animations (8 Richtungen) --
-        inline static constexpr const char* kDarknessMonsterRangedAttackUpPath = "assets/graphics/enemies/darkness_monster/ranged_up.png";
-        inline static constexpr int kDarknessMonsterRangedAttackUpFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedAttackUpFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedAttackDownPath = "assets/graphics/enemies/darkness_monster/ranged_down.png";
-        inline static constexpr int kDarknessMonsterRangedAttackDownFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedAttackDownFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedAttackLeftPath = "assets/graphics/enemies/darkness_monster/ranged_left.png";
-        inline static constexpr int kDarknessMonsterRangedAttackLeftFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedAttackLeftFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedAttackRightPath = "assets/graphics/enemies/darkness_monster/ranged_right.png";
-        inline static constexpr int kDarknessMonsterRangedAttackRightFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedAttackRightFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedAttackUpLeftPath = "assets/graphics/enemies/darkness_monster/ranged_up_left.png";
-        inline static constexpr int kDarknessMonsterRangedAttackUpLeftFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedAttackUpLeftFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedAttackUpRightPath = "assets/graphics/enemies/darkness_monster/ranged_up_right.png";
-        inline static constexpr int kDarknessMonsterRangedAttackUpRightFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedAttackUpRightFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedAttackDownLeftPath = "assets/graphics/enemies/darkness_monster/ranged_down_left.png";
-        inline static constexpr int kDarknessMonsterRangedAttackDownLeftFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedAttackDownLeftFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedAttackDownRightPath = "assets/graphics/enemies/darkness_monster/ranged_down_right.png";
-        inline static constexpr int kDarknessMonsterRangedAttackDownRightFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedAttackDownRightFramesPerLine = 12;
+        // -- Ranged Attack Animations (8 Richtungen) --
+        inline static constexpr const char* kDarknessMonsterRangedUpPath = "assets/graphics/animations/darkness_monster/ranged_up.png";
+        inline static constexpr int kDarknessMonsterRangedUpFrames = 12;
+        inline static constexpr int kDarknessMonsterRangedUpFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterRangedDownPath = "assets/graphics/animations/darkness_monster/ranged_down.png";
+        inline static constexpr int kDarknessMonsterRangedDownFrames = 12;
+        inline static constexpr int kDarknessMonsterRangedDownFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterRangedLeftPath = "assets/graphics/animations/darkness_monster/ranged_left.png";
+        inline static constexpr int kDarknessMonsterRangedLeftFrames = 12;
+        inline static constexpr int kDarknessMonsterRangedLeftFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterRangedRightPath = "assets/graphics/animations/darkness_monster/ranged_right.png";
+        inline static constexpr int kDarknessMonsterRangedRightFrames = 12;
+        inline static constexpr int kDarknessMonsterRangedRightFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterRangedUpLeftPath = "assets/graphics/animations/darkness_monster/ranged_up_left.png";
+        inline static constexpr int kDarknessMonsterRangedUpLeftFrames = 12;
+        inline static constexpr int kDarknessMonsterRangedUpLeftFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterRangedUpRightPath = "assets/graphics/animations/darkness_monster/ranged_up_right.png";
+        inline static constexpr int kDarknessMonsterRangedUpRightFrames = 12;
+        inline static constexpr int kDarknessMonsterRangedUpRightFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterRangedDownLeftPath = "assets/graphics/animations/darkness_monster/ranged_down_left.png";
+        inline static constexpr int kDarknessMonsterRangedDownLeftFrames = 12;
+        inline static constexpr int kDarknessMonsterRangedDownLeftFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterRangedDownRightPath = "assets/graphics/animations/darkness_monster/ranged_down_right.png";
+        inline static constexpr int kDarknessMonsterRangedDownRightFrames = 12;
+        inline static constexpr int kDarknessMonsterRangedDownRightFramesPerLine = 12;
 
-        // -- Projectile Sprite (Omni-Directional -> braucht nur 1 Sprite, z.B. eine Kugel) --
+        // -- Projectile Sprite --
         inline static constexpr const char* kDarknessMonsterProjectileSprite = "assets/graphics/projectiles/darkness_bolt.png";
 
 // ------------------------------------------------------------ VORHOF ------------------------------------------------------------------------------------------------------
@@ -668,5 +669,19 @@ namespace game {
 
         // Death (12 Frames)
         inline static const std::vector<int> kMimicDeathTimings = { 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 9, 10, 12, 15, 60 };
+
+        // -- Darkness --
+
+        // Walk
+        inline static const std::vector<int> kDarknessMonsterWalkTimings = { 5, 5, 5, 5, 5, 5, 5, 5 };
+
+        // Melee
+        inline static const std::vector<int> kDarknessMonsterMeleeTimings = { 3, 3, 2, 2, 1, 1, 2, 3, 4, 5 };
+
+        // Range
+        inline static const std::vector<int> kDarknessMonsterRangedTimings = { 4, 4, 3, 3, 2, 2, 3, 4, 5, 6, 7, 8 };
+
+        // Death
+        inline static const std::vector<int> kDarknessMonsterDeathTimings = { 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 8, 8, 10, 12, 15, 60 };
     };
 }

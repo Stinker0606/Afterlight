@@ -121,6 +121,8 @@ add_library(core STATIC
         ../game/interactables/Trigger2.h
         ../game/interactables/Trigger3.cpp
         ../game/interactables/Trigger3.h
+        ../game/enemys/DarknessMonster.cpp
+        ../game/enemys/DarknessMonster.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

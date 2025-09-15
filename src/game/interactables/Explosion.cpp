@@ -58,7 +58,7 @@ void Explosion::On_Collision(std::shared_ptr<Collidable> other)
                 {
                     if (Vector2Distance(explosion_center, wall_to_destroy->Get_Hitbox_Center()) <= search_radius)
                     {
-                        wall_to_destroy->Mark_For_Destruction();
+                        wall_to_destroy->DestroyWall();
                     }
                 }
             }

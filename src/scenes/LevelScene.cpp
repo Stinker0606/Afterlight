@@ -321,7 +321,7 @@ namespace game::scenes
                         if (all_statues_solved) {
                             puzzle_solved_ = true;
                             Vector2 key_pos = levelScreen.spawn_points_["key_spawn_point"];
-                            Rectangle key_source_rect = { 224.0f, 128.0f, 32.0f, 32.0f };
+                            Rectangle key_source_rect = { 256.0f, 160.0f, 32.0f, 32.0f };
 
                             auto key_item = std::make_shared<KeyConsumable>(key_pos, 1, levelScreen.GetTileAtlasTexture(), key_source_rect);
 

@@ -22,7 +22,7 @@ namespace game {
 
         // -- SPIELER --
         inline static const std::string kPlayerWalkSfxPath = "assets/audio/sfx/Player/footsteps_grass.mp3";                 //done
-        inline static const std::string kPlayerIdleSfxPath = "assets/audio/sfx/Player/idle_breath.wav";
+        inline static const std::string kPlayerIdleSfxPath = "assets/audio/sfx/Player/idle_sound.wav";
         inline static const std::string kPlayerHitSfxPath = "assets/audio/sfx/Player/hurtCharacter.mp3";                    //done
         inline static const std::string kPlayerDeathSfxPath = "assets/audio/sfx/Player/deathCharacter.mp3";                 //done
         inline static const std::string kPlayerThrowSfxPath = "assets/audio/sfx/Player/SpearThrow.mp3";                      //done

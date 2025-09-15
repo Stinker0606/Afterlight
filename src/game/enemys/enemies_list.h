@@ -9,6 +9,7 @@ namespace enemy {
         WOOD_SNIPER,
         CORPSE,
         MIMIC,
+        DARKNESS_MONSTER,
         // ... hier weitere Typen hinzufügen
     };
 }
@@ -21,6 +22,7 @@ namespace enemy {
 #include "WoodSniper.h"
 #include "Corpse.h"
 #include "Mimic.h"
+#include "DarknessMonster.h"
 
 
 // #include "NeuerGegner.h" // Hier kommen zukünftige Gegner hin
