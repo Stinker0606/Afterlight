@@ -443,7 +443,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset_new.json"
+         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset.tsj"
         }],
  "tilewidth":32,
  "type":"map",

@@ -909,79 +909,6 @@
                  "y":62.75
                 }, 
                 {
-                 "gid":80,
-                 "height":32,
-                 "id":268,
-                 "name":"movWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":576,
-                 "y":416
-                }, 
-                {
-                 "gid":80,
-                 "height":32,
-                 "id":270,
-                 "name":"movWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":512,
-                 "y":480
-                }, 
-                {
-                 "gid":80,
-                 "height":32,
-                 "id":271,
-                 "name":"movWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":544,
-                 "y":512
-                }, 
-                {
-                 "gid":80,
-                 "height":32,
-                 "id":274,
-                 "name":"movWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":608,
-                 "y":448
-                }, 
-                {
-                 "gid":80,
-                 "height":32,
-                 "id":278,
-                 "name":"movWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":640,
-                 "y":384
-                }, 
-                {
-                 "gid":80,
-                 "height":32,
-                 "id":280,
-                 "name":"movWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":704,
-                 "y":384
-                },
-            
-                {
                  "gid":84,
                  "height":32,
                  "id":340,
@@ -1049,7 +976,8 @@
                  "width":32,
                  "x":672,
                  "y":32
-                }, 
+                },
+            
                 {
                  "gid":516,
                  "height":32,
@@ -1236,6 +1164,78 @@
                  "width":32,
                  "x":768,
                  "y":384
+                }, 
+                {
+                 "gid":513,
+                 "height":32,
+                 "id":381,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":640,
+                 "y":384
+                }, 
+                {
+                 "gid":513,
+                 "height":32,
+                 "id":382,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":576,
+                 "y":416
+                }, 
+                {
+                 "gid":513,
+                 "height":32,
+                 "id":383,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":608,
+                 "y":448
+                }, 
+                {
+                 "gid":513,
+                 "height":32,
+                 "id":384,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":544,
+                 "y":512
+                }, 
+                {
+                 "gid":513,
+                 "height":32,
+                 "id":385,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":512,
+                 "y":480
+                }, 
+                {
+                 "gid":513,
+                 "height":32,
+                 "id":386,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":704,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1417,7 +1417,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":381,
+ "nextobjectid":387,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
