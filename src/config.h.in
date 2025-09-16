@@ -234,12 +234,12 @@ namespace game {
         inline static constexpr int player_Sweep_Back_Frames_Per_Line = 3;
 
         inline static constexpr const char* player_Sweep_Left_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Left.png";
-        inline static constexpr int player_Sweep_Left_Frames = 3;
-        inline static constexpr int player_Sweep_Left_Frames_Per_Line = 3;
+        inline static constexpr int player_Sweep_Left_Frames = 6;
+        inline static constexpr int player_Sweep_Left_Frames_Per_Line = 6;
 
         inline static constexpr const char* player_Sweep_Right_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Right.png";
-        inline static constexpr int player_Sweep_Right_Frames = 3;
-        inline static constexpr int player_Sweep_Right_Frames_Per_Line = 3;
+        inline static constexpr int player_Sweep_Right_Frames = 6;
+        inline static constexpr int player_Sweep_Right_Frames_Per_Line = 6;
 
         // Pushing
         inline static constexpr const char* player_Push_Front_Path = "assets/graphics/animations/player/push/MC_Push_Front.png";
@@ -278,8 +278,8 @@ namespace game {
         // -- SWEEP ATTACK --
         inline static const std::vector<int> player_Sweep_Front_Timings = { 4, 8, 4 };
         inline static const std::vector<int> player_Sweep_Back_Timings  = { 4, 8, 4 };
-        inline static const std::vector<int> player_Sweep_Left_Timings  = { 4, 8, 4 };
-        inline static const std::vector<int> player_Sweep_Right_Timings = { 4, 8, 4 };
+        inline static const std::vector<int> player_Sweep_Left_Timings  = { 4, 4, 8, 8, 4, 3};
+        inline static const std::vector<int> player_Sweep_Right_Timings = { 4, 4, 8, 8, 4, 3};
 
         // -- THROW ATTACK --
         inline static const std::vector<int> player_Throw_Timings =  { 3, 3, 4, 5, 4, 4, 3, 3 };

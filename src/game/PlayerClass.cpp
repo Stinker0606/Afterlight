@@ -267,7 +267,7 @@ void PlayerClass::Melee_Attack()
 
     auto sweep_hitbox = std::make_shared<MeleeHitbox>(
         Rectangle{ hitbox_pos.x, hitbox_pos.y, hitbox_width, hitbox_height },
-        0.2f,
+        0.4f,
         game::Config::player_Melee_Damage,
         Collision_Type::PLAYER
     );
