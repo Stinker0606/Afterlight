@@ -31,7 +31,7 @@ namespace enemy
         float move_sound_timer_;
         Texture2D sprite;
         const char* projectile_sprite_path;
-        void Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time);
+        void Pathfinding(Vector2 target_Position, float delta_Time, float attack_range);
         EnemyState current_state;
         float attack_animation_timer;
         Object_Manager& om_ref_;

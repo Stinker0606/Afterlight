@@ -66,7 +66,7 @@ namespace enemy
         switch (anim_state_)
         {
             case AnimationState::FLYING:
-                Pathfinding(player_position.x, player_position.y, delta_time);
+            Pathfinding(player_position, delta_time, 18);
             if (Vector2Distance(Get_Hitbox_Center(), player_position) <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f)
             {
                 anim_state_ = AnimationState::ATTACKING;

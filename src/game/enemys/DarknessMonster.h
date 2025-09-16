@@ -48,7 +48,7 @@ namespace enemy
 
 
     public:
-        DarknessMonster(Vector2 start_position, Object_Manager& om);
+        DarknessMonster(Vector2 start_position, Object_Manager& om, bool use_fog = true);
         ~DarknessMonster() override = default;
 
         void Update_AI(float delta_time, Vector2 player_position) override;

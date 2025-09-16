@@ -13,7 +13,7 @@
 
 namespace enemy
 {
-    DarknessMonster::DarknessMonster(Vector2 start_position, Object_Manager& om)
+    DarknessMonster::DarknessMonster(Vector2 start_position, Object_Manager& om, bool use_fog)
         : Enemy_Base_Class(
             "Darkness Monster",
             game::EnemyConfig::kDarknessMonsterHealth,
@@ -77,7 +77,7 @@ namespace enemy
         {
             case AIState::CHASING_RANGED:
                 this->enemy_Movement_Speed = game::EnemyConfig::kDarknessMonsterMovementSpeed;
-                Pathfinding(player_position.x, player_position.y, delta_time);
+                Pathfinding(player_position, delta_time, 16);
 
                 if (distance_to_player <= game::EnemyConfig::kDarknessMonsterAggroRadius) {
                     ai_state_ = AIState::CHASING_MELEE;
@@ -89,7 +89,7 @@ namespace enemy
 
             case AIState::CHASING_MELEE:
                 this->enemy_Movement_Speed = game::EnemyConfig::kDarknessMonsterAggroSpeed;
-                Pathfinding(player_position.x, player_position.y, delta_time);
+                Pathfinding(player_position, delta_time, game::EnemyConfig::kDarknessMonsterMeleeRange);
 
                 if (distance_to_player > game::EnemyConfig::kDarknessMonsterAggroRadius) {
                     ai_state_ = AIState::CHASING_RANGED;
@@ -111,22 +111,61 @@ namespace enemy
                 break;
 
             case AIState::ATTACKING_MELEE:
-                 if (p_current_animation_->Get_Current_Frame() == 5 && !has_attacked_in_state_) {
+                if (p_current_animation_->Get_Current_Frame() == 5 && !has_attacked_in_state_) {
                     Melee_Attack();
                     has_attacked_in_state_ = true;
                 }
-                if (p_current_animation_->Is_Finished()) {
-                    attack_Cooldown_Timer = game::EnemyConfig::kDarknessMonsterMeleeCooldown;
-                    ai_state_ = AIState::CHASING_MELEE;
-                }
-                break;
+            // Der Cooldown wird jetzt hier gesetzt und der Zustand korrekt zurückgesetzt.
+            if (p_current_animation_->Is_Finished()) {
+                attack_Cooldown_Timer = game::EnemyConfig::kDarknessMonsterMeleeCooldown;
+                ai_state_ = AIState::CHASING_MELEE;
+                // Setze die Animationen zurück, um für den nächsten Angriff bereit zu sein.
+                anim_melee_front_.Reset();
+                anim_melee_back_.Reset();
+                anim_melee_left_.Reset();
+                anim_melee_right_.Reset();
+            }
+            break;
         }
     }
 
     void DarknessMonster::Melee_Attack()
     {
+        // Die Logik ist jetzt fast identisch mit der des Corpse-Gegners,
+        // um eine gerichtete Hitbox zu erzeugen.
+        float sweep_width = 24.0f; // Breite des Angriffs
+        float sweep_height = 50.0f; // Länge des Angriffs
+        float hitbox_width, hitbox_height;
+        Vector2 hitbox_pos;
+
+        Vector2 enemy_center = this->Get_Hitbox_Center();
+        Vector2 direction = Vector2Normalize({ last_player_position_.x - enemy_center.x, last_player_position_.y - enemy_center.y });
+
+        float offset = 13.0f; // Abstand der Hitbox vom Gegner
+
+        if (fabs(direction.x) > fabs(direction.y)) // Horizontaler Angriff
+        {
+            hitbox_width = sweep_height;
+            hitbox_height = sweep_width;
+            if (direction.x > 0) {
+                hitbox_pos = { enemy_center.x + offset, enemy_center.y - hitbox_height / 2 };
+            } else {
+                hitbox_pos = { enemy_center.x - offset - hitbox_width, enemy_center.y - hitbox_height / 2 };
+            }
+        }
+        else // Vertikaler Angriff
+        {
+            hitbox_width = sweep_width;
+            hitbox_height = sweep_height;
+            if (direction.y > 0) {
+                hitbox_pos = { enemy_center.x - hitbox_width / 2, enemy_center.y + offset };
+            } else {
+                hitbox_pos = { enemy_center.x - hitbox_width / 2, enemy_center.y - offset - hitbox_height };
+            }
+        }
+
         auto sweep_hitbox = std::make_shared<MeleeHitbox>(
-            Rectangle{ Get_Hitbox_Center().x - 24, Get_Hitbox_Center().y - 24, 48, 48 },
+            Rectangle{ hitbox_pos.x, hitbox_pos.y, hitbox_width, hitbox_height },
             0.3f, this->enemy_Damage, Collision_Type::ENEMY
         );
         om_ref_.AddObject(sweep_hitbox);
@@ -142,22 +181,38 @@ namespace enemy
         om_ref_.AddObject(projectile);
     }
 
-void DarknessMonster::Draw()
+    void DarknessMonster::Draw()
     {
         Vector2 direction = Vector2Normalize({ last_player_position_.x - this->Get_Hitbox_Center().x, last_player_position_.y - this->Get_Hitbox_Center().y });
-        float angle = atan2(direction.y, direction.x) * (180.0f / PI);
-        if (angle < 0) angle += 360;
+        Facing_Direction facing_dir = Facing_Direction::DOWN; // Standardwert
 
-        Facing_Direction facing_dir = Facing_Direction::DOWN;
-        if (angle >= 337.5 || angle < 22.5) facing_dir = Facing_Direction::RIGHT;
-        else if (angle >= 22.5 && angle < 67.5) facing_dir = Facing_Direction::DOWN_RIGHT;
-        else if (angle >= 67.5 && angle < 112.5) facing_dir = Facing_Direction::DOWN;
-        else if (angle >= 112.5 && angle < 157.5) facing_dir = Facing_Direction::DOWN_LEFT;
-        else if (angle >= 157.5 && angle < 202.5) facing_dir = Facing_Direction::LEFT;
-        else if (angle >= 202.5 && angle < 247.5) facing_dir = Facing_Direction::UP_LEFT;
-        else if (angle >= 247.5 && angle < 292.5) facing_dir = Facing_Direction::UP;
-        else if (angle >= 292.5 && angle < 337.5) facing_dir = Facing_Direction::UP_RIGHT;
+        // Wähle die Logik zur Richtungsbestimmung basierend auf dem aktuellen Zustand
+        if (ai_state_ == AIState::ATTACKING_RANGED)
+        {
+            // Nutze präzise 8 Richtungen für den Fernkampfangriff
+            float angle = atan2(direction.y, direction.x) * (180.0f / PI);
+            if (angle < 0) angle += 360;
 
+            if (angle >= 337.5 || angle < 22.5) facing_dir = Facing_Direction::RIGHT;
+            else if (angle >= 22.5 && angle < 67.5) facing_dir = Facing_Direction::DOWN_RIGHT;
+            else if (angle >= 67.5 && angle < 112.5) facing_dir = Facing_Direction::DOWN;
+            else if (angle >= 112.5 && angle < 157.5) facing_dir = Facing_Direction::DOWN_LEFT;
+            else if (angle >= 157.5 && angle < 202.5) facing_dir = Facing_Direction::LEFT;
+            else if (angle >= 202.5 && angle < 247.5) facing_dir = Facing_Direction::UP_LEFT;
+            else if (angle >= 247.5 && angle < 292.5) facing_dir = Facing_Direction::UP;
+            else if (angle >= 292.5 && angle < 337.5) facing_dir = Facing_Direction::UP_RIGHT;
+        }
+        else
+        {
+            // Nutze für alle anderen Zustände (Laufen, Nahkampf) die robustere 4-Richtungs-Logik
+            if (fabs(direction.x) > fabs(direction.y)) {
+                facing_dir = (direction.x > 0) ? Facing_Direction::RIGHT : Facing_Direction::LEFT;
+            } else {
+                facing_dir = (direction.y > 0) ? Facing_Direction::DOWN : Facing_Direction::UP;
+            }
+        }
+
+        // Wähle die korrekte Animation basierend auf dem Zustand und der Richtung aus
         switch (ai_state_)
         {
             case AIState::CHASING_RANGED:
@@ -190,8 +245,9 @@ void DarknessMonster::Draw()
                 break;
         }
 
-        if (p_current_animation_) {
-             Vector2 draw_pos = {
+        if (p_current_animation_)
+        {
+            Vector2 draw_pos = {
                 this->hitbox.x - game::EnemyConfig::kDarknessMonster_visual_offset.x,
                 this->hitbox.y - game::EnemyConfig::kDarknessMonster_visual_offset.y
             };

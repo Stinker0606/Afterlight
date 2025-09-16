@@ -41,6 +41,8 @@ void Level1_Spawner::Update_And_Count_Spawned_Enemies(std::map<enemy::EnemyType,
                 // Zähle die Typen der lebenden Gegner
                 if (auto insect = std::dynamic_pointer_cast<enemy::Insect_Monster>(locked_enemy)) {
                     counts[enemy::EnemyType::INSECT_MONSTER]++;
+                } else if (std::dynamic_pointer_cast<enemy::DarknessMonster>(locked_enemy)) {
+                    counts[enemy::EnemyType::DARKNESS_MONSTER]++;
                 }
                 // Hier weitere else-if für andere Gegnertypen
                 return false; // Behalte in der Liste
@@ -91,6 +93,9 @@ void Level1_Spawner::Tick(float delta_time)
                             case enemy::EnemyType::INSECT_MONSTER:
                                 // Übergebe die object_manager_ref an den Konstruktor
                                     new_enemy_raw = new enemy::Insect_Monster(spawn_pos, object_manager_ref, true);
+                            break;
+                            case enemy::EnemyType::DARKNESS_MONSTER:
+                                new_enemy_raw = new enemy::DarknessMonster(spawn_pos, object_manager_ref, true);
                             break;
                             // Hier weitere cases für andere Gegner
                         }

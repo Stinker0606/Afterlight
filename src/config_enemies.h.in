@@ -28,18 +28,20 @@ namespace game {
 
         // --- SPEZIFISCHER SPAWNER (z.B. spawn_sniper) ---
         inline static constexpr float kSpecificSpawner_SpawnRate = 30.0f; // Spawnt alle XX Sekunden einen Gegner.
-        inline static constexpr int kSpecificSpawner_MaxEnemies = 5;      // Jeder Spawner darf maximal XX Gegner gleichzeitig aktiv haben.
+        inline static constexpr int kSpecificSpawner_MaxEnemies = 4;      // Jeder Spawner darf maximal XX Gegner gleichzeitig aktiv haben.
 
         // Gegner-spezifische Ausnahmen für die maximale Anzahl.
         // Hiermit stellen wir sicher, dass z.B. Sniper standardmäßig nur einmal spawnen.
 
-        inline static constexpr int kInsectMonster_MaxSpawnCount = 5;
+        inline static constexpr int kInsectMonster_MaxSpawnCount = 4;
         inline static constexpr int kDrownedSniper_MaxSpawnCount = 1;
 
         inline static constexpr int kWoodSniper_MaxSpawnCount = 1;
-        inline static constexpr int kWalkingCorpse_MaxSpawnCount = 5;
+        inline static constexpr int kWalkingCorpse_MaxSpawnCount = 4;
 
-        inline static constexpr int kCorpse_MaxSpawnCount = 5;
+        inline static constexpr int kCorpse_MaxSpawnCount = 3;
+        inline static constexpr int kDarknessMonster_MaxSpawnCount = 1;
+
 
         // =============================================== SPAWNERS - LEVEL 1 ==========================================
 
@@ -51,7 +53,8 @@ namespace game {
         // Beispiel: 90 + 10 = 100 -> Insekt hat 90% Chance, Frosch hat 10% Chance.
 
         inline static const std::vector<SpawnableEnemy> kSpawner1_EnemyPool = {
-            { enemy::EnemyType::INSECT_MONSTER, 100, 4 }, // XX % Chance, max. X Insekten von diesem Spawner
+            { enemy::EnemyType::INSECT_MONSTER, 60, 4 }, // XX % Chance, max. X Insekten von diesem Spawner
+            { enemy::EnemyType::DARKNESS_MONSTER, 40, 1 }  // 40% Chance, max. 1 Darkness Monster
 
             // Bsp.: { enemy::EnemyType::POISON_FROG, 10, 1 } // Beispiel für Frosch: 10% Chance, max. 1 Frosch von diesem Spawner
         };
@@ -60,8 +63,9 @@ namespace game {
 
         inline static constexpr float kSpawner2_SpawnRate = 30.0f;
         inline static constexpr int kSpawner2_MaxEnemies = 4;
+
         inline static const std::vector<SpawnableEnemy> kSpawner2_EnemyPool = {
-            { enemy::EnemyType::WALKING_CORPSE, 100, 5 }, // 90 % Chance, max. X Enemies von diesem Spawner
+            { enemy::EnemyType::WALKING_CORPSE, 100, 4 }, // 90 % Chance, max. X Enemies von diesem Spawner
 
             // Bsp.: { enemy::EnemyType::POISON_FROG, 10, 1 } // Beispiel für Frosch: 10% Chance, max. 1 Frosch von diesem Spawner
         };
@@ -69,7 +73,8 @@ namespace game {
         // =============================================== SPAWNERS - LEVEL 3 ==========================================
 
         inline static constexpr float kSpawner3_SpawnRate = 30.0f;
-        inline static constexpr int kSpawner3_MaxEnemies = 4;
+        inline static constexpr int kSpawner3_MaxEnemies = 2;
+
         inline static const std::vector<SpawnableEnemy> kSpawner3_EnemyPool = {
             { enemy::EnemyType::CORPSE, 100, 2 }, // XX % Chance, max. X Enemies von diesem Spawner
 
@@ -143,7 +148,7 @@ namespace game {
         inline static constexpr int kDrownedSniperDamage = 55;
         inline static constexpr float kDrownedSniperAttackCooldown = 25.0f;
         inline static constexpr float kDrownedSniperAttackRange = 500.0f;
-        inline static constexpr float kDrownedSniperProjectileSpeed = 110.0f;
+        inline static constexpr float kDrownedSniperProjectileSpeed = 64.0f;
         inline static constexpr int kDrownedSniperProjectileHitboxWidth = 16;
         inline static constexpr int kDrownedSniperProjectileHitboxHeight = 16;
         inline static constexpr int kDrownedSniperValue = 100;
@@ -263,21 +268,21 @@ namespace game {
         // ====================================================================================
 
         // -- Stats --
-        inline static constexpr int kDarknessMonsterHealth = 275;
-        inline static constexpr float kDarknessMonsterMovementSpeed = 4.5f;   // Normale Geschwindigkeit (ca. 1.5 Tiles/Sek)
-        inline static constexpr float kDarknessMonsterAggroSpeed = 9.0f;      // Aggro-Geschwindigkeit (ca. 3 Tiles/Sek)
+        inline static constexpr int kDarknessMonsterHealth = 120;
+        inline static constexpr float kDarknessMonsterMovementSpeed = 4.5f;   // Normale Geschwindigkeit
+        inline static constexpr float kDarknessMonsterAggroSpeed = 11.0f;      // Aggro-Geschwindigkeit
         inline static constexpr float kDarknessMonsterAggroRadius = 128.0f;   // 4 Tiles
-        inline static constexpr int kDarknessMonsterDamage = 90;
+        inline static constexpr int kDarknessMonsterDamage = 20;
         inline static constexpr float kDarknessMonsterMeleeCooldown = 6.0f;   // 1 Angriff pro Sekunde
-        inline static constexpr float kDarknessMonsterRangedCooldown = 12.0f; // 1 Schuss alle 2 Sekunden
+        inline static constexpr float kDarknessMonsterRangedCooldown = 24.0f; // 1 Schuss alle 4 Sekunden
         inline static constexpr float kDarknessMonsterMeleeRange = 48.0f;     // 1.5 Tiles
-        inline static constexpr float kDarknessMonsterRangedRange = 256.0f;   // 8 Tiles
-        inline static constexpr float kDarknessMonsterProjectileSpeed = 8.0f;
+        inline static constexpr float kDarknessMonsterRangedRange = 288.0f;   // 10 Tiles
+        inline static constexpr float kDarknessMonsterProjectileSpeed = 32.0f;
         inline static constexpr int kDarknessMonsterValue = 50;
-        inline static constexpr int kDarknessMonsterHitboxWidth = 30;
-        inline static constexpr int kDarknessMonsterHitboxHeight = 40;
+        inline static constexpr int kDarknessMonsterHitboxWidth = 28;
+        inline static constexpr int kDarknessMonsterHitboxHeight = 34;
         inline static constexpr Vector2 kDarknessMonsterAnimSize = {100, 100};
-        inline static constexpr Vector2 kDarknessMonster_visual_offset = {-55, -45};
+        inline static constexpr Vector2 kDarknessMonster_visual_offset = {-15, -10};
 
         // -- Death Animation --
         inline static constexpr const char* kDarknessMonsterDeathPath = "assets/graphics/animations/darkness_monster/death.png";
@@ -285,61 +290,61 @@ namespace game {
         inline static constexpr int kDarknessMonsterDeathFramesPerLine = 20;
 
         // -- Walk Animations (4 Richtungen) --
-        inline static constexpr const char* kDarknessMonsterWalkFrontPath = "assets/graphics/animations/darkness_monster/walk_front.png";
-        inline static constexpr int kDarknessMonsterWalkFrontFrames = 8;
-        inline static constexpr int kDarknessMonsterWalkFrontFramesPerLine = 8;
-        inline static constexpr const char* kDarknessMonsterWalkBackPath = "assets/graphics/animations/darkness_monster/walk_back.png";
-        inline static constexpr int kDarknessMonsterWalkBackFrames = 8;
-        inline static constexpr int kDarknessMonsterWalkBackFramesPerLine = 8;
-        inline static constexpr const char* kDarknessMonsterWalkLeftPath = "assets/graphics/animations/darkness_monster/walk_left.png";
-        inline static constexpr int kDarknessMonsterWalkLeftFrames = 8;
-        inline static constexpr int kDarknessMonsterWalkLeftFramesPerLine = 8;
-        inline static constexpr const char* kDarknessMonsterWalkRightPath = "assets/graphics/animations/darkness_monster/walk_right.png";
-        inline static constexpr int kDarknessMonsterWalkRightFrames = 8;
-        inline static constexpr int kDarknessMonsterWalkRightFramesPerLine = 8;
+        inline static constexpr const char* kDarknessMonsterWalkFrontPath = "assets/graphics/animations/darkness_Monster/walk/Darkness_Walk_Front.png";
+        inline static constexpr int kDarknessMonsterWalkFrontFrames = 12;
+        inline static constexpr int kDarknessMonsterWalkFrontFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterWalkBackPath = "assets/graphics/animations/darkness_Monster/walk/Darkness_Walk_Back.png";
+        inline static constexpr int kDarknessMonsterWalkBackFrames = 12;
+        inline static constexpr int kDarknessMonsterWalkBackFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterWalkLeftPath = "assets/graphics/animations/darkness_Monster/walk/Darkness_Walk_Left.png";
+        inline static constexpr int kDarknessMonsterWalkLeftFrames = 12;
+        inline static constexpr int kDarknessMonsterWalkLeftFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterWalkRightPath = "assets/graphics/animations/darkness_Monster/walk/Darkness_Walk_Right.png";
+        inline static constexpr int kDarknessMonsterWalkRightFrames = 12;
+        inline static constexpr int kDarknessMonsterWalkRightFramesPerLine = 12;
 
         // -- Melee Attack Animations (4 Richtungen) --
-        inline static constexpr const char* kDarknessMonsterMeleeFrontPath = "assets/graphics/animations/darkness_monster/melee_front.png";
-        inline static constexpr int kDarknessMonsterMeleeFrontFrames = 10;
-        inline static constexpr int kDarknessMonsterMeleeFrontFramesPerLine = 10;
-        inline static constexpr const char* kDarknessMonsterMeleeBackPath = "assets/graphics/animations/darkness_monster/melee_back.png";
-        inline static constexpr int kDarknessMonsterMeleeBackFrames = 10;
-        inline static constexpr int kDarknessMonsterMeleeBackFramesPerLine = 10;
-        inline static constexpr const char* kDarknessMonsterMeleeLeftPath = "assets/graphics/animations/darkness_monster/melee_left.png";
-        inline static constexpr int kDarknessMonsterMeleeLeftFrames = 10;
-        inline static constexpr int kDarknessMonsterMeleeLeftFramesPerLine = 10;
-        inline static constexpr const char* kDarknessMonsterMeleeRightPath = "assets/graphics/animations/darkness_monster/melee_right.png";
-        inline static constexpr int kDarknessMonsterMeleeRightFrames = 10;
-        inline static constexpr int kDarknessMonsterMeleeRightFramesPerLine = 10;
+        inline static constexpr const char* kDarknessMonsterMeleeFrontPath = "assets/graphics/animations/darkness_Monster/melee/Darkness_Meele_Front.png";
+        inline static constexpr int kDarknessMonsterMeleeFrontFrames = 8;
+        inline static constexpr int kDarknessMonsterMeleeFrontFramesPerLine = 8;
+        inline static constexpr const char* kDarknessMonsterMeleeBackPath = "assets/graphics/animations/darkness_Monster/melee/Darkness_Meele_Back.png";
+        inline static constexpr int kDarknessMonsterMeleeBackFrames = 8;
+        inline static constexpr int kDarknessMonsterMeleeBackFramesPerLine = 8;
+        inline static constexpr const char* kDarknessMonsterMeleeLeftPath = "assets/graphics/animations/darkness_Monster/melee/Darkness_Meele_Left.png";
+        inline static constexpr int kDarknessMonsterMeleeLeftFrames = 8;
+        inline static constexpr int kDarknessMonsterMeleeLeftFramesPerLine = 8;
+        inline static constexpr const char* kDarknessMonsterMeleeRightPath = "assets/graphics/animations/darkness_Monster/melee/Darkness_Meele_Right.png";
+        inline static constexpr int kDarknessMonsterMeleeRightFrames = 8;
+        inline static constexpr int kDarknessMonsterMeleeRightFramesPerLine = 8;
 
         // -- Ranged Attack Animations (8 Richtungen) --
-        inline static constexpr const char* kDarknessMonsterRangedUpPath = "assets/graphics/animations/darkness_monster/ranged_up.png";
-        inline static constexpr int kDarknessMonsterRangedUpFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedUpFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedDownPath = "assets/graphics/animations/darkness_monster/ranged_down.png";
-        inline static constexpr int kDarknessMonsterRangedDownFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedDownFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedLeftPath = "assets/graphics/animations/darkness_monster/ranged_left.png";
-        inline static constexpr int kDarknessMonsterRangedLeftFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedLeftFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedRightPath = "assets/graphics/animations/darkness_monster/ranged_right.png";
-        inline static constexpr int kDarknessMonsterRangedRightFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedRightFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedUpLeftPath = "assets/graphics/animations/darkness_monster/ranged_up_left.png";
-        inline static constexpr int kDarknessMonsterRangedUpLeftFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedUpLeftFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedUpRightPath = "assets/graphics/animations/darkness_monster/ranged_up_right.png";
-        inline static constexpr int kDarknessMonsterRangedUpRightFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedUpRightFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedDownLeftPath = "assets/graphics/animations/darkness_monster/ranged_down_left.png";
-        inline static constexpr int kDarknessMonsterRangedDownLeftFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedDownLeftFramesPerLine = 12;
-        inline static constexpr const char* kDarknessMonsterRangedDownRightPath = "assets/graphics/animations/darkness_monster/ranged_down_right.png";
-        inline static constexpr int kDarknessMonsterRangedDownRightFrames = 12;
-        inline static constexpr int kDarknessMonsterRangedDownRightFramesPerLine = 12;
+        inline static constexpr const char* kDarknessMonsterRangedUpPath = "assets/graphics/animations/darkness_Monster/range/Darkness_Range_Back.png";
+        inline static constexpr int kDarknessMonsterRangedUpFrames = 6;
+        inline static constexpr int kDarknessMonsterRangedUpFramesPerLine = 6;
+        inline static constexpr const char* kDarknessMonsterRangedDownPath = "assets/graphics/animations/darkness_Monster/range/Darkness_Range_Front.png";
+        inline static constexpr int kDarknessMonsterRangedDownFrames = 6;
+        inline static constexpr int kDarknessMonsterRangedDownFramesPerLine = 6;
+        inline static constexpr const char* kDarknessMonsterRangedLeftPath = "assets/graphics/animations/darkness_Monster/range/Darkness_Range_Left.png";
+        inline static constexpr int kDarknessMonsterRangedLeftFrames = 6;
+        inline static constexpr int kDarknessMonsterRangedLeftFramesPerLine = 6;
+        inline static constexpr const char* kDarknessMonsterRangedRightPath = "assets/graphics/animations/darkness_Monster/range/Darkness_Range_Right.png";
+        inline static constexpr int kDarknessMonsterRangedRightFrames = 6;
+        inline static constexpr int kDarknessMonsterRangedRightFramesPerLine = 6;
+        inline static constexpr const char* kDarknessMonsterRangedUpLeftPath = "assets/graphics/animations/darkness_Monster/range/Darkness_Range_BackLeft.png";
+        inline static constexpr int kDarknessMonsterRangedUpLeftFrames = 6;
+        inline static constexpr int kDarknessMonsterRangedUpLeftFramesPerLine = 6;
+        inline static constexpr const char* kDarknessMonsterRangedUpRightPath = "assets/graphics/animations/darkness_Monster/range/Darkness_Range_BackRight.png";
+        inline static constexpr int kDarknessMonsterRangedUpRightFrames = 6;
+        inline static constexpr int kDarknessMonsterRangedUpRightFramesPerLine = 6;
+        inline static constexpr const char* kDarknessMonsterRangedDownLeftPath = "assets/graphics/animations/darkness_Monster/range/Darkness_Range_FrontLeft.png";
+        inline static constexpr int kDarknessMonsterRangedDownLeftFrames = 6;
+        inline static constexpr int kDarknessMonsterRangedDownLeftFramesPerLine = 6;
+        inline static constexpr const char* kDarknessMonsterRangedDownRightPath = "assets/graphics/animations/darkness_Monster/range/Darkness_Range_FrontRight.png";
+        inline static constexpr int kDarknessMonsterRangedDownRightFrames = 6;
+        inline static constexpr int kDarknessMonsterRangedDownRightFramesPerLine = 6;
 
         // -- Projectile Sprite --
-        inline static constexpr const char* kDarknessMonsterProjectileSprite = "assets/graphics/projectiles/darkness_bolt.png";
+        inline static constexpr const char* kDarknessMonsterProjectileSprite = "assets/graphics/projectiles/enemies/darkness/Projektil.png";
 
 // ------------------------------------------------------------ VORHOF ------------------------------------------------------------------------------------------------------
 
@@ -406,7 +411,7 @@ namespace game {
         inline static constexpr int kWoodSniperDamage = 55;
         inline static constexpr float kWoodSniperAttackCooldown = 24.0f;
         inline static constexpr float kWoodSniperAttackRange = 500.0f;
-        inline static constexpr float kWoodSniperProjectileSpeed = 110.0f;
+        inline static constexpr float kWoodSniperProjectileSpeed = 64.0f;
         inline static constexpr int kWoodSniperValue = 100;
         inline static constexpr int kWoodSniperHitboxWidth = 30;
         inline static constexpr int kWoodSniperHitboxHeight = 44;
@@ -673,13 +678,13 @@ namespace game {
         // -- Darkness --
 
         // Walk
-        inline static const std::vector<int> kDarknessMonsterWalkTimings = { 5, 5, 5, 5, 5, 5, 5, 5 };
+        inline static const std::vector<int> kDarknessMonsterWalkTimings = { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 };
 
         // Melee
-        inline static const std::vector<int> kDarknessMonsterMeleeTimings = { 3, 3, 2, 2, 1, 1, 2, 3, 4, 5 };
+        inline static const std::vector<int> kDarknessMonsterMeleeTimings = { 2, 2, 2, 2, 2, 2, 3, 3 };
 
         // Range
-        inline static const std::vector<int> kDarknessMonsterRangedTimings = { 4, 4, 3, 3, 2, 2, 3, 4, 5, 6, 7, 8 };
+        inline static const std::vector<int> kDarknessMonsterRangedTimings = { 5, 5, 5, 5, 5, 5 };
 
         // Death
         inline static const std::vector<int> kDarknessMonsterDeathTimings = { 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 8, 8, 10, 12, 15, 60 };

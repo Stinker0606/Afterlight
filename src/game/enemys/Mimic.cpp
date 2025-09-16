@@ -76,7 +76,7 @@ namespace enemy
 
             case MimicState::WALKING:
                 Enemy_Base_Class::Tick(delta_time);
-                Pathfinding(player_position.x, player_position.y, delta_time);
+                Pathfinding(player_position, delta_time, 16);
                 if (Vector2Distance(Get_Hitbox_Center(), player_position) <= game::EnemyConfig::kMimicAttackRange && this->attack_Cooldown_Timer <= 0.0f)
                 {
                     current_state_ = MimicState::ATTACKING;

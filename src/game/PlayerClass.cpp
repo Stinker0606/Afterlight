@@ -380,7 +380,6 @@ void PlayerClass::Tick(float delta_time)
         }
         return; // Stoppe alle weiteren Updates (Bewegung, Angriffe etc.)
     }
-
     // Wenn die HP auf 0 fallen UND der Spieler nicht bereits stirbt:
     if (this->player_Health <= 0 && player_state != PlayerState::DYING)
     {
@@ -392,7 +391,10 @@ void PlayerClass::Tick(float delta_time)
         Update_Animation_Pointer(); // Wähle die Todesanimation aus
         return;
     }
-    // Update der Blickrichtung zur Maus (nur wenn nicht in einer Aktion gesperrt)
+
+    // Timer und Effekte (HP-Drain) werden JEDEN Frame aktualisiert.
+    Player_Base_Class::UpdateTimersAndEffects(delta_time);
+
     if (player_state != PlayerState::PUSHING)
     {
         if (auto cam_ptr = sp_camera.lock())
@@ -420,7 +422,6 @@ void PlayerClass::Tick(float delta_time)
     {
         Player_Base_Class::Tick(delta_time);
     }
-
     // Update der Timer
     if (hit_feedback_total_time > 0.0f) {
         hit_feedback_total_time -= delta_time;
@@ -429,32 +430,26 @@ void PlayerClass::Tick(float delta_time)
         if (hit_feedback_timer <= 0.0f && hit_feedback_blinks_left > 0) {
             hit_feedback_on = !hit_feedback_on;  // Farbe wechseln
             tint_color = hit_feedback_on ? Color{ 88, 60, 72, 255 } : WHITE;
-
             hit_feedback_timer = 0.1f;   // Reset Blink-Zeit
             hit_feedback_blinks_left--;
         }
     } else {
         tint_color = WHITE;  // am Ende sicherstellen
     }
-    // Bomben-Cooldown-Timer
-    if (bomb_cooldown_ > 0.0f) {
+    if (bomb_cooldown_ > 0.0f) {    // Bomben-Cooldown-Timer
         bomb_cooldown_ -= delta_time;
     }
-    // Walk-Sound-Timerv
-    if (walk_sound_timer_ > 0.0f) {
+    if (walk_sound_timer_ > 0.0f) {    // Walk-Sound-Timer
         walk_sound_timer_ -= delta_time;
     }
-    // Idle-Sound-Timer
-    if (idle_sound_timer_ > 0.0f) {
+    if (idle_sound_timer_ > 0.0f) {    // Idle-Sound-Timer
         idle_sound_timer_ -= delta_time;
     }
-
     // --- ZUSTANDS-LOGIK ---
     if (player_state == PlayerState::IDLE || player_state == PlayerState::MOVING)
     {
         player_state = is_Moving ? PlayerState::MOVING : PlayerState::IDLE;
-
-        // --- FINALE LOGIK FÜR DEN LAUF-SOUND ---
+        // --- LOGIK FÜR DEN LAUF-SOUND ---
         if (is_Moving)
         {
             // Wenn der Spieler sich bewegt, spiele den Sound rhythmisch ab.
@@ -464,7 +459,7 @@ void PlayerClass::Tick(float delta_time)
                 walk_sound_timer_ = game::AudioConfig::kWalk_Sound_Timer;
             }
         }
-        else // NEUE IDLE-SOUND-LOGIK
+        else // IDLE-SOUND-LOGIK
         {
             SoundManager::GetInstance().StopSfx("player_walk");
             if (idle_sound_timer_ <= 0.0f) {
@@ -472,7 +467,6 @@ void PlayerClass::Tick(float delta_time)
                 idle_sound_timer_ = 4.0f; // Spielt alle 4 Sekunden
             }
         }
-
         // Prüfe auf Spieler-Aktionen
         if (IsMouseButtonPressed(game::Config::key_Ranged_Attack) && ranged_Cooldown <= 0.0f) {
             player_state = PlayerState::ATTACKING_RANGED;
@@ -500,7 +494,6 @@ void PlayerClass::Tick(float delta_time)
             this->Ranged_Attack();
             has_fired_projectile_ = true;
         }
-
         if (current && current->Is_Finished()) {
             player_state = PlayerState::IDLE;
         }
@@ -517,6 +510,17 @@ void PlayerClass::Tick(float delta_time)
     }
     else if (player_state == PlayerState::PUSHING)
     {
+        bool still_pushing = false;
+        if (push_direction.x > 0 && IsKeyDown(game::Config::key_Right)) still_pushing = true;
+        else if (push_direction.x < 0 && IsKeyDown(game::Config::key_Left)) still_pushing = true;
+        else if (push_direction.y > 0 && IsKeyDown(game::Config::key_Down)) still_pushing = true;
+        else if (push_direction.y < 0 && IsKeyDown(game::Config::key_Up)) still_pushing = true;
+
+        if (!still_pushing) {
+            player_state = PlayerState::IDLE;
+            return;
+        }
+
         ControllableAnimations* current = static_cast<ControllableAnimations*>(p_current_animation);
         if (current && current->Is_Finished()) {
             if (auto locked_block = block_to_push.lock()) {
@@ -532,7 +536,6 @@ void PlayerClass::Tick(float delta_time)
                 {
                     // Ignoriere den Block selbst und den Spieler
                     if (other_obj == locked_block || other_obj == shared_from_this()) continue;
-
                     Collision_Type type = other_obj->Get_Collision_Type();
                     if (type == Collision_Type::WALL || type == Collision_Type::ENEMY || type == Collision_Type::ENEMY_SPAWNER)
                     {
@@ -543,7 +546,6 @@ void PlayerClass::Tick(float delta_time)
                         }
                     }
                 }
-
                 // 3. Nur wenn der Weg frei ist, bewege den Block.
                 if (can_push) {
                     locked_block->Push(push_direction);
@@ -551,11 +553,6 @@ void PlayerClass::Tick(float delta_time)
             }
             player_state = PlayerState::IDLE; // Gehe immer in den Idle-Zustand, egal ob der Push erfolgreich war.
         }
-    }
-
-    else if (player_state == PlayerState::DYING)
-    {
-
     }
     Update_Animation_Pointer();
 }

@@ -78,8 +78,12 @@ enemy::Enemy_Base_Class* SpecificSpawner::createEnemy(Vector2 position)
             return new enemy::DrownedSniper(position, om_ref_, true);
         case enemy::EnemyType::WALKING_CORPSE:
             return new enemy::WalkingCorpse(position, om_ref_, true);
+        case enemy::EnemyType::CORPSE:
+            return new enemy::WalkingCorpse(position, om_ref_, true);
         case enemy::EnemyType::WOOD_SNIPER:
             return new enemy::WoodSniper(position, om_ref_, true);
+        case enemy::EnemyType::DARKNESS_MONSTER:
+            return new enemy::DarknessMonster(position, om_ref_, true);
     }
     return nullptr;
 }

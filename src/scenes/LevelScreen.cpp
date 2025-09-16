@@ -407,12 +407,15 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                         } else if (enemy_name == "insect") {
                             type = enemy::EnemyType::INSECT_MONSTER;
                             max_enemies = game::EnemyConfig::kInsectMonster_MaxSpawnCount;
-                        } else if (enemy_name == "Corpse") {
+                        } else if (enemy_name == "corpse") {
                             type = enemy::EnemyType::WALKING_CORPSE;
                             max_enemies = game::EnemyConfig::kWalkingCorpse_MaxSpawnCount;
-                        } else if (enemy_name == "Corpse2") {
+                        } else if (enemy_name == "corpse2") {
                             type = enemy::EnemyType::CORPSE;
                             max_enemies = game::EnemyConfig::kCorpse_MaxSpawnCount;
+                        } else if (enemy_name == "darkness") {
+                            type = enemy::EnemyType::DARKNESS_MONSTER;
+                            max_enemies = game::EnemyConfig::kDarknessMonster_MaxSpawnCount;
                         } else {
                             found = false;
                         }
