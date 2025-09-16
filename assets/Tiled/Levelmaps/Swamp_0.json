@@ -634,18 +634,6 @@
                  "y":-32.67
                 }, 
                 {
-                 "gid":80,
-                 "height":32,
-                 "id":47,
-                 "name":"movWall",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":704,
-                 "y":288
-                }, 
-                {
                  "gid":91,
                  "height":32,
                  "id":54,
@@ -656,8 +644,7 @@
                  "width":32,
                  "x":480,
                  "y":64
-                },
-            
+                }, 
                 {
                  "gid":106,
                  "height":32,
@@ -669,7 +656,8 @@
                  "width":32,
                  "x":480,
                  "y":96
-                }, 
+                },
+            
                 {
                  "gid":511,
                  "height":32,
@@ -717,6 +705,18 @@
                  "width":32,
                  "x":832,
                  "y":480
+                }, 
+                {
+                 "gid":513,
+                 "height":32,
+                 "id":81,
+                 "name":"movWall",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":704,
+                 "y":288
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -782,7 +782,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":81,
+ "nextobjectid":82,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
