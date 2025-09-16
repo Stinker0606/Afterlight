@@ -10,6 +10,8 @@
 #include "../game/spawner/Level2Spawner.h"
 #include "../game/spawner/Level3Spawner.h"
 #include "../game/Spawner/SpecificSpawner.h"
+#include "../game/Spawner/InfinitySpawner.h"
+#include "../game/Spawner/EESpawner.h"
 #include "../game/spawner/MimicSpawner.h"
 #include "../game/interactables/interact_list.h"
 
@@ -378,6 +380,16 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y};
                     // Erstelle den NPC. Alle seine Daten holt er sich jetzt selbst.
                     new_object = std::make_shared<NPC>(pos);
+                }
+                else if (object_name == "spawnInf")
+                {
+                    Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<InfinitySpawner>(spawner_area, g_objectManager);
+                }
+                else if (object_name == "EESpawner")
+                {
+                    Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<EESpawner>(spawner_area, g_objectManager);
                 }
                 else if (object_name.rfind("spawn", 0) == 0) // Erkennt alle Spawner
                 {

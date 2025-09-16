@@ -30,8 +30,12 @@ namespace game::scenes
             assets_preloaded = true;
         }
 
-        // Starte die Ingame-Musik
-        SoundManager::GetInstance().PlayMusic("ingame_music");
+        // --- Wähle Musik basierend auf der aktuellen Map ---
+        if (game::core::Store::next_scene_map == "Pingu.json") {
+            SoundManager::GetInstance().PlayMusic("pingu_music");
+        } else {
+            SoundManager::GetInstance().PlayMusic("ingame_music");
+        }
 
         levelScreen.LoadSpecificLevelmap(game::core::Store::next_scene_map);
         levelScreen.LoadGameObjects(objectManager);
@@ -125,6 +129,7 @@ namespace game::scenes
         auto corpse2 = std::make_shared<enemy::Corpse>(offscreen_pos, objectManager, false);
         auto mimic = std::make_shared<enemy::Mimic>(offscreen_pos, objectManager, false);
         auto darkness_monster = std::make_shared<enemy::DarknessMonster>(offscreen_pos, objectManager, false);
+        auto pingu = std::make_shared<enemy::Pingu>(offscreen_pos, objectManager, false);
 
         objectManager.AddObject(insect);
         objectManager.AddObject(sniper);
@@ -133,6 +138,7 @@ namespace game::scenes
         objectManager.AddObject(corpse2);
         objectManager.AddObject(mimic);
         objectManager.AddObject(darkness_monster);
+        objectManager.AddObject(pingu);
 
         preload_dummies_.push_back(insect);
         preload_dummies_.push_back(sniper);
@@ -141,6 +147,8 @@ namespace game::scenes
         preload_dummies_.push_back(corpse2);
         preload_dummies_.push_back(mimic);
         preload_dummies_.push_back(darkness_monster);
+        preload_dummies_.push_back(pingu);
+
 
         std::cout << "Engine warm-up complete. All subsequent spawns will be lag-free." << std::endl;
     }

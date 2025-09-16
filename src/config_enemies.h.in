@@ -80,8 +80,38 @@ namespace game {
 
             // Bsp.: { enemy::EnemyType::POISON_FROG, 10, 1 } // Beispiel für Frosch: 10% Chance, max. 1 Frosch von diesem Spawner
         };
+        // =============================================== SPAWNERS - INFINITY =========================================
 
+        inline static constexpr float kInfinitySpawner_SpawnRate = 18.0f;
+        inline static constexpr int kInfinitySpawner_MaxEnemies = 5;
+        // Fülle diesen Pool mit den Gegnern, die der Spawner erzeugen soll.
+        inline static const std::vector<SpawnableEnemy> kInfinitySpawner_EnemyPool = {
+            { enemy::EnemyType::WALKING_CORPSE, 2, 1 },
+            { enemy::EnemyType::DARKNESS_MONSTER, 12, 2 },
+            { enemy::EnemyType::INSECT_MONSTER, 1, 1 },
+            { enemy::EnemyType::CORPSE, 25, 5 },
+            { enemy::EnemyType::MIMIC, 60, 5 },
+        };
+
+
+        // =============================================== SPAWNERS - EE =========================================
+
+        inline static constexpr float kEESpawner_SpawnRate = 18.0f;
+        inline static constexpr int kEESpawner_MaxEnemies = 5;
+        // Fülle diesen Pool mit den Gegnern, die der Spawner erzeugen soll.
+        // Du kannst hier alle Gegnertypen außer DROWNED_SNIPER und WOOD_SNIPER verwenden.
+        inline static const std::vector<SpawnableEnemy> kEESpawner_EnemyPool = {
+            { enemy::EnemyType::PINGU, 100, 5 },
+
+            // BEISPIEL:
+            // { enemy::EnemyType::INSECT_MONSTER, 50, 5 },
+            // { enemy::EnemyType::WALKING_CORPSE, 30, 3 },
+            // { enemy::EnemyType::DARKNESS_MONSTER, 20, 2 },
+        };
+
+        // =============================================================================================================
         // =============================================== ENEMIES =====================================================
+        // =============================================================================================================
 
 // ---------------------------------------------------------------- SUMPF ------------------------------------------------------------------------------------------------------
 
@@ -595,6 +625,19 @@ namespace game {
         inline static constexpr int kMimicAttackRightFrames = 9;
         inline static constexpr int kMimicAttackRightFramesPerLine = 9;
 
+        // ====================================================================================
+        // P (Nahkämpfer - Easter Egg)
+        // ====================================================================================
+        inline static constexpr const char* kPinguSpritePath = "assets/graphics/kRaoKr_imresizer.png";
+        inline static constexpr int kPinguHealth = 10;
+        inline static constexpr float kPinguMovementSpeed = 3.0f;
+        inline static constexpr int kPinguDamage = 10000;
+        inline static constexpr float kPinguAttackCooldown = 1.0f;
+        inline static constexpr float kPinguAttackRange = 48.0f;
+        inline static constexpr int kPinguValue = 1;
+        inline static constexpr int kPinguHitboxWidth = 32;
+        inline static constexpr int kPinguHitboxHeight = 32;
+
         // ========================================= ENEMY ANIMATION TIMINGS ===========================================
         // Jeder Wert gibt an, wie viele Ticks (Frames) ein Animationsbild angezeigt wird.
         // Bei 60 FPS sind 6 Ticks = 0.1 Sekunden.
@@ -684,7 +727,7 @@ namespace game {
         inline static const std::vector<int> kDarknessMonsterMeleeTimings = { 2, 2, 2, 2, 2, 2, 3, 3 };
 
         // Range
-        inline static const std::vector<int> kDarknessMonsterRangedTimings = { 5, 5, 5, 5, 5, 5 };
+        inline static const std::vector<int> kDarknessMonsterRangedTimings = { 8, 8, 8, 8, 8, 8 };
 
         // Death
         inline static const std::vector<int> kDarknessMonsterDeathTimings = { 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 8, 8, 10, 12, 15, 60 };

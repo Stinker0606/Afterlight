@@ -77,7 +77,7 @@ namespace enemy
         {
             case AIState::CHASING_RANGED:
                 this->enemy_Movement_Speed = game::EnemyConfig::kDarknessMonsterMovementSpeed;
-                Pathfinding(player_position, delta_time, 16);
+                Pathfinding(player_position, delta_time, 18);
 
                 if (distance_to_player <= game::EnemyConfig::kDarknessMonsterAggroRadius) {
                     ai_state_ = AIState::CHASING_MELEE;
@@ -89,7 +89,7 @@ namespace enemy
 
             case AIState::CHASING_MELEE:
                 this->enemy_Movement_Speed = game::EnemyConfig::kDarknessMonsterAggroSpeed;
-                Pathfinding(player_position, delta_time, game::EnemyConfig::kDarknessMonsterMeleeRange);
+                Pathfinding(player_position, delta_time, 36);
 
                 if (distance_to_player > game::EnemyConfig::kDarknessMonsterAggroRadius) {
                     ai_state_ = AIState::CHASING_RANGED;
@@ -100,15 +100,17 @@ namespace enemy
                 break;
 
             case AIState::ATTACKING_RANGED:
-                if (p_current_animation_->Get_Current_Frame() == 6 && !has_attacked_in_state_) {
-                    Range_Attack();
-                    has_attacked_in_state_ = true;
-                }
-                if (p_current_animation_->Is_Finished()) {
-                    ranged_attack_cooldown_timer_ = game::EnemyConfig::kDarknessMonsterRangedCooldown;
-                    ai_state_ = AIState::CHASING_RANGED;
-                }
-                break;
+                // In diesem Zustand wird die Bewegung und Zustandsänderung blockiert, bis die Animation fertig ist.
+                    if (p_current_animation_->Get_Current_Frame() == 6 && !has_attacked_in_state_) {
+                        Range_Attack();
+                        has_attacked_in_state_ = true;
+                    }
+            if (p_current_animation_->Is_Finished()) {
+                ranged_attack_cooldown_timer_ = game::EnemyConfig::kDarknessMonsterRangedCooldown;
+                ai_state_ = AIState::CHASING_RANGED; // Gehe erst nach der Animation zurück
+            }
+            break;
+
 
             case AIState::ATTACKING_MELEE:
                 if (p_current_animation_->Get_Current_Frame() == 5 && !has_attacked_in_state_) {

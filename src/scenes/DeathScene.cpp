@@ -36,6 +36,21 @@ namespace game::scenes
         {
             time_ += GetFrameTime();
 
+            // --- KONAMI-CODE-LOGIK ---
+            if (!konami_code_activated_) {
+                int keyPressed = GetKeyPressed();
+                if (keyPressed != 0) {
+                    key_sequence_.push_back(keyPressed);
+                    if (key_sequence_.size() > konami_sequence_.size()) {
+                        key_sequence_.erase(key_sequence_.begin());
+                    }
+                    if (key_sequence_ == konami_sequence_) {
+                        konami_code_activated_ = true;
+                        SoundManager::GetInstance().PlaySfx("konami_code");
+                    }
+                }
+            }
+
             // --- Navigation mit Pfeiltasten ---
             if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
             {
@@ -71,13 +86,17 @@ namespace game::scenes
             // --- Auswahl mit ENTER oder MAUSKLICK ---
             if (IsKeyPressed(KEY_ENTER) || (is_mouse_over_item && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)))
             {
-
-                game::core::Store::player = std::make_shared<PlayerClass>(Vector2{0,0}, nullptr);
-                game::core::Store::next_scene_map = "Tuto_0.json";
-                game::core::Store::next_spawn_point = "player_start";
-
                 if (selected_item_index_ == 0) // New Run
                 {
+                    if (konami_code_activated_) {
+                        // Starte das EasterEgg-Level
+                        game::core::Store::next_scene_map = "Pingu.json";
+                        game::core::Store::next_spawn_point = "player_start";
+                    } else {
+                        // Starte normalen Run
+                        game::core::Store::next_scene_map = "Tuto_0.json";
+                        game::core::Store::next_spawn_point = "player_start";
+                    }
                     is_transitioning_ = true;
                     SoundManager::GetInstance().PlaySfx("game_start");
                 }
@@ -94,8 +113,6 @@ namespace game::scenes
             if (transition_alpha_ >= 1.0f)
             {
                 game::core::Store::player = std::make_shared<PlayerClass>(Vector2{0,0}, nullptr);
-                game::core::Store::next_scene_map = "Tuto_0.json";
-                game::core::Store::next_spawn_point = "player_start";
                 game::core::Store::stage->ReplaceWithNewScene("death"s, "gameplay"s, std::make_unique<Level1Scene>());
             }
         }
@@ -167,6 +184,12 @@ namespace game::scenes
             float text_x = (game::Config::kStageWidth / 2.0f) - (text_size.x / 2.0f);
             float text_y = initial_y + (i * spacing);
             Color current_color = (i == selected_item_index_) ? selected_text_color_ : text_color_;
+
+            // --- FÜR KONAMI-CODE ---
+            if (i == 0 && konami_code_activated_) {
+                // Lässt die Farbe zwischen der Auswahlfarbe und transparent pulsieren
+                current_color.a = static_cast<unsigned char>(abs(sin(time_ * 5.0f)) * 255);
+            }
 
             if (i == selected_item_index_)
             {

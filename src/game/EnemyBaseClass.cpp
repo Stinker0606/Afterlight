@@ -67,8 +67,9 @@ namespace enemy
     void Enemy_Base_Class::Pathfinding(Vector2 target_Position, float delta_Time, float attack_range)
     {
         // Berechnet den Richtungs-Vektor vom Gegner zum Ziel.
-        float delta_Vector_X = target_Position.x - this->hitbox.x;
-        float delta_Vector_Y = target_Position.y - this->hitbox.y;
+        Vector2 enemy_center = this->Get_Hitbox_Center();
+        float delta_Vector_X = target_Position.x - enemy_center.x;
+        float delta_Vector_Y = target_Position.y - enemy_center.y;
 
         // Berechnet die exakte Distanz zum Ziel.
         float distance_To_Target = std::sqrt(delta_Vector_X * delta_Vector_X + delta_Vector_Y * delta_Vector_Y);

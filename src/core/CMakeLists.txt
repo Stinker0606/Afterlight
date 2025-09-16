@@ -123,6 +123,12 @@ add_library(core STATIC
         ../game/interactables/Trigger3.h
         ../game/enemys/DarknessMonster.cpp
         ../game/enemys/DarknessMonster.h
+        ../game/spawner/InfinitySpawner.cpp
+        ../game/spawner/InfinitySpawner.h
+        ../game/spawner/EESpawner.cpp
+        ../game/spawner/EESpawner.h
+        ../game/enemys/Pingu.cpp
+        ../game/enemys/Pingu.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

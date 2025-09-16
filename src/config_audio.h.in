@@ -12,12 +12,14 @@ namespace game {
 
         // --- MUSIK ---
         inline static const std::string kMenuMusicPath = "assets/audio/music/MainMenu.mp3";                                //done
+        inline static const std::string kPinguMusicPath = "assets/graphics/data/KonamiSong.mp3";                          //done
         inline static const std::string kIngameMusicPath = "assets/audio/music/ambience lvl 1.mp3";                       //done
         inline static const std::string kDeathMusicPath = "assets/audio/music/death_screen.ogg";
 
         // -- UI & MENÜ --
         inline static const std::string kUIMenuNavigateSfxPath = "assets/audio/sfx/ui_navigate.wav";
         inline static const std::string kUIMenuSelectSfxPath = "assets/audio/sfx/System/SelectButton.mp3";                   //done
+        inline static const std::string kKonamiCodeSfxPath = "assets/graphics/data/KonamiSFX.mp3";                          //done
         inline static const std::string kGameStartSfxPath = "assets/audio/sfx/System/SelectPlayButton.mp3";                 //done
 
         // -- SPIELER --

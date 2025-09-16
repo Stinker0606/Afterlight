@@ -15,6 +15,7 @@ SoundManager& SoundManager::GetInstance() {
 void SoundManager::Init() {
     // Lade alle Musikstücke aus der Config in den Cache.
     music_cache_["menu_music"] = LoadMusicStream(game::AudioConfig::kMenuMusicPath.c_str());
+    music_cache_["pingu_music"] = LoadMusicStream(game::AudioConfig::kPinguMusicPath.c_str());
     music_cache_["ingame_music"] = LoadMusicStream(game::AudioConfig::kIngameMusicPath.c_str());
     music_cache_["death_music"] = LoadMusicStream(game::AudioConfig::kDeathMusicPath.c_str());
 
@@ -22,6 +23,7 @@ void SoundManager::Init() {
     // UI
     sfx_cache_["ui_navigate"] = LoadSound(game::AudioConfig::kUIMenuNavigateSfxPath.c_str());
     sfx_cache_["ui_select"] = LoadSound(game::AudioConfig::kUIMenuSelectSfxPath.c_str());
+    sfx_cache_["konami_code"] = LoadSound(game::AudioConfig::kKonamiCodeSfxPath.c_str());
     sfx_cache_["game_start"] = LoadSound(game::AudioConfig::kGameStartSfxPath.c_str());
 
     // Spieler

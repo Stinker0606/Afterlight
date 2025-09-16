@@ -10,6 +10,7 @@ namespace enemy {
         CORPSE,
         MIMIC,
         DARKNESS_MONSTER,
+        PINGU,
         // ... hier weitere Typen hinzufügen
     };
 }
@@ -23,6 +24,7 @@ namespace enemy {
 #include "Corpse.h"
 #include "Mimic.h"
 #include "DarknessMonster.h"
+#include "Pingu.h"
 
 
 // #include "NeuerGegner.h" // Hier kommen zukünftige Gegner hin

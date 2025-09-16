@@ -101,7 +101,7 @@ namespace game {
         inline static constexpr Vector2 player_animation_size = {100, 100}; // NICHT ÄNDERN!
 
         // Player Stats
-        inline static constexpr int player_Max_Health = 9501;
+        inline static constexpr int player_Max_Health = 1501;
         inline static constexpr float player_Movement_Speed = 12.3f;
         inline static constexpr int player_Melee_Damage = 100;
         inline static constexpr int player_Projectile_Damage = 75;
@@ -321,6 +321,8 @@ namespace game {
                             return "../../assets/Tiled/Levelmaps/Swamp_1.json";
                         case 3:
                             return "assets/maps/level3.json";
+                        case 4:
+                            return "../../assets/Tiled/Levelmaps/Pingu.json";
                         default:
                             return "assets/maps/default.json";
                     }
