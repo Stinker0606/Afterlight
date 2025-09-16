@@ -63,9 +63,94 @@ void DialogManager::Draw()
     // --- Name (falls vorhanden) ---
     if (!character_name_.empty()) {
         DrawTextEx(dialog_font_, character_name_.c_str(), {text_start_x, box_rect.y + 20}, 50, 2, Color{ 216, 176, 168, 255 });
-        DrawTextEx(dialog_font_, current_text_.c_str(), {text_start_x, box_rect.y + 90}, 25, 2, Fade(WHITE, 0.9f));
+        DrawTextWithFormatting(current_text_, {text_start_x, box_rect.y + 90}, 25, 2, Fade(WHITE, 0.9f));
     } else {
-        DrawTextEx(dialog_font_, current_text_.c_str(), {text_start_x, box_rect.y + 40}, 30, 2, Fade(WHITE, 0.9f));
+        DrawTextWithFormatting(current_text_, {text_start_x, box_rect.y + 40}, 30, 2, Fade(WHITE, 0.9f));
     }
 
 }
+
+void DialogManager::DrawTextWithFormatting(const std::string& text, Vector2 pos, float font_size, float spacing, Color default_color) const {
+    std::string buffer;
+    bool bold = false;
+    Color current_color = default_color;
+    float x = pos.x;
+    float y = pos.y;
+
+    auto Flush = [&](bool bold_state, Color col) {
+        if (!buffer.empty()) {
+            float size = bold_state ? font_size * 1.2f : font_size;
+
+            // --- Baseline-Korrektur ---
+            Vector2 normal = MeasureTextEx(dialog_font_, "A", font_size, spacing);
+            Vector2 boldM  = MeasureTextEx(dialog_font_, "A", size, spacing);
+            float y_offset = bold_state ? (normal.y - boldM.y) / 2.0f : 0.0f;
+
+            DrawTextEx(dialog_font_, buffer.c_str(), {x, y + y_offset}, size, spacing, col);
+            Vector2 text_size = MeasureTextEx(dialog_font_, buffer.c_str(), size, spacing);
+            x += text_size.x;
+            buffer.clear();
+        }
+    };
+
+    for (size_t i = 0; i < text.size(); ++i) {
+        // --- Zeilenumbruch ---
+        if (text[i] == '\n') {
+            Flush(bold, current_color);
+            x = pos.x;
+            y += font_size + 10;
+            continue;
+        }
+
+        // --- <b> ---
+        if (i + 2 < text.size() && text.substr(i, 3) == "<b>") {
+            Flush(bold, current_color);
+            bold = true;
+            i += 2;
+            continue;
+        }
+        // --- </b> ---
+        if (i + 3 < text.size() && text.substr(i, 4) == "</b>") {
+            Flush(bold, current_color);
+            bold = false;
+            i += 3;
+            continue;
+        }
+
+        // --- <brown> ---
+        if (i + 6 < text.size() && text.substr(i, 7) == "<brown>") {
+            Flush(bold, current_color);
+            current_color = {128, 96, 88, 255}; // your brown
+            i += 6;
+            continue;
+        }
+        // --- </brown> (reset) ---
+        if (i + 7 < text.size() && text.substr(i, 8) == "</brown>") {
+            Flush(bold, current_color);
+            current_color = default_color;
+            i += 7;
+            continue;
+        }
+
+        // --- <white> ---
+        if (i + 6 < text.size() && text.substr(i, 7) == "<white>") {
+            Flush(bold, current_color);
+            current_color = {196, 172, 156, 255}; // your white
+            i += 6;
+            continue;
+        }
+        // --- </white> (reset) ---
+        if (i + 7 < text.size() && text.substr(i, 8) == "</white>") {
+            Flush(bold, current_color);
+            current_color = default_color;
+            i += 7;
+            continue;
+        }
+
+        // --- Normales Zeichen ---
+        buffer.push_back(text[i]);
+    }
+
+    Flush(bold, current_color);
+}
+

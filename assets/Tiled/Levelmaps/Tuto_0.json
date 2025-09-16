@@ -1023,7 +1023,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Du wirst weiter in dieser Richtung erwartet ->\nTipp: mit braunen Objekten kann interagiert werden!"
+                         "value":"Du wirst weiter in dieser Richtung erwartet ->\n<b>Tipp:<\/b> mit <b><brown>braunen Objekten<\/brown><\/b> kann interagiert werden!"
                         }, 
                         {
                          "name":"portrait_path",
@@ -1050,7 +1050,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Bomben koennen dir einst verborgene Wege freimachen. \nTipp: Weisse Objekte koennen zerstoert werden! Je naeher\nsie an Objekten platziert werden, desto hoeher der Schaden!"
+                         "value":"Bomben koennen dir einst verborgene Wege freimachen. \n<b>Tipp: <white>Weisse Objekte<\/white><\/b> koennen zerstoert werden! Je naeher\nsie an Objekten platziert werden, desto hoeher der Schaden!"
                         }, 
                         {
                          "name":"portrait_path",

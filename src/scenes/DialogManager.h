@@ -21,4 +21,5 @@ public:
     void HideDialog();
     void Draw();
     bool IsActive() const;
+    void DrawTextWithFormatting(const std::string& text, Vector2 pos, float font_size, float spacing, Color default_color) const;
 };

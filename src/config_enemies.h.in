@@ -53,7 +53,7 @@ namespace game {
         // Beispiel: 90 + 10 = 100 -> Insekt hat 90% Chance, Frosch hat 10% Chance.
 
         inline static const std::vector<SpawnableEnemy> kSpawner1_EnemyPool = {
-            { enemy::EnemyType::INSECT_MONSTER, 60, 4 }, // XX % Chance, max. X Insekten von diesem Spawner
+            { enemy::EnemyType::INSECT_MONSTER, 60, 3 }, // XX % Chance, max. X Insekten von diesem Spawner
             { enemy::EnemyType::DARKNESS_MONSTER, 40, 1 }  // 40% Chance, max. 1 Darkness Monster
 
             // Bsp.: { enemy::EnemyType::POISON_FROG, 10, 1 } // Beispiel für Frosch: 10% Chance, max. 1 Frosch von diesem Spawner
@@ -298,9 +298,9 @@ namespace game {
         // ====================================================================================
 
         // -- Stats --
-        inline static constexpr int kDarknessMonsterHealth = 120;
+        inline static constexpr int kDarknessMonsterHealth = 100;
         inline static constexpr float kDarknessMonsterMovementSpeed = 4.5f;   // Normale Geschwindigkeit
-        inline static constexpr float kDarknessMonsterAggroSpeed = 11.0f;      // Aggro-Geschwindigkeit
+        inline static constexpr float kDarknessMonsterAggroSpeed = 10.0f;      // Aggro-Geschwindigkeit
         inline static constexpr float kDarknessMonsterAggroRadius = 128.0f;   // 4 Tiles
         inline static constexpr int kDarknessMonsterDamage = 20;
         inline static constexpr float kDarknessMonsterMeleeCooldown = 6.0f;   // 1 Angriff pro Sekunde
@@ -308,7 +308,7 @@ namespace game {
         inline static constexpr float kDarknessMonsterMeleeRange = 48.0f;     // 1.5 Tiles
         inline static constexpr float kDarknessMonsterRangedRange = 288.0f;   // 10 Tiles
         inline static constexpr float kDarknessMonsterProjectileSpeed = 32.0f;
-        inline static constexpr int kDarknessMonsterValue = 50;
+        inline static constexpr int kDarknessMonsterValue = 60;
         inline static constexpr int kDarknessMonsterHitboxWidth = 28;
         inline static constexpr int kDarknessMonsterHitboxHeight = 34;
         inline static constexpr Vector2 kDarknessMonsterAnimSize = {100, 100};
