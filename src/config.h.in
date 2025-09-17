@@ -278,8 +278,8 @@ namespace game {
         // -- SWEEP ATTACK --
         inline static const std::vector<int> player_Sweep_Front_Timings = { 4, 8, 4 };
         inline static const std::vector<int> player_Sweep_Back_Timings  = { 4, 8, 4 };
-        inline static const std::vector<int> player_Sweep_Left_Timings  = { 4, 4, 8, 8, 4, 3};
-        inline static const std::vector<int> player_Sweep_Right_Timings = { 4, 3, 4, 8, 8, 4, 3};
+        inline static const std::vector<int> player_Sweep_Left_Timings  = { 3, 2, 4, 7, 6, 4, 2};
+        inline static const std::vector<int> player_Sweep_Right_Timings = { 3, 2, 4, 7, 6, 4, 2};
 
         // -- THROW ATTACK --
         inline static const std::vector<int> player_Throw_Timings =  { 3, 3, 4, 5, 4, 4, 3, 3 };
