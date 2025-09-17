@@ -301,7 +301,7 @@
                  "y":45.0017901897602
                 }, 
                 {
-                 "height":39,
+                 "height":31,
                  "id":101,
                  "name":"walls",
                  "rotation":0,
@@ -309,7 +309,7 @@
                  "visible":true,
                  "width":418.892490967679,
                  "x":-2.892490967679,
-                 "y":189.5
+                 "y":191.5
                 }, 
                 {
                  "height":64,
@@ -784,7 +784,7 @@
                  "y":421.5
                 }, 
                 {
-                 "height":21.6363636363636,
+                 "height":12.9696969696969,
                  "id":164,
                  "name":"walls",
                  "rotation":0,
@@ -792,18 +792,18 @@
                  "visible":true,
                  "width":64,
                  "x":128,
-                 "y":266.363636363636
+                 "y":260.363636363636
                 }, 
                 {
-                 "height":14,
+                 "height":10,
                  "id":165,
                  "name":"walls",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":57.6363636363637,
-                 "x":228.727272727273,
-                 "y":268.931818181818
+                 "x":227.39393939394,
+                 "y":260.265151515151
                 }, 
                 {
                  "height":32.1818181818182,
@@ -996,7 +996,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Hallo! \nWilkommen in deinem schlimmsten Albtraum. \nGehe weiter und erwarte dein Schicksal."
+                         "value":"Hallo! \nWillkommen in deinem schlimmsten Albtraum. \nGehe weiter und erwarte dein Schicksal."
                         }, 
                         {
                          "name":"portrait_path",

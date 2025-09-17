@@ -579,12 +579,12 @@ namespace game {
         inline static constexpr float kMimicAttackCooldown = 15.0f;
         inline static constexpr float kMimicAttackRange = 52.0f;
         inline static constexpr int kMimicValue = 700;
-        inline static constexpr int kMimicHitboxWidth = 42;
+        inline static constexpr int kMimicHitboxWidth = 30;
         inline static constexpr int kMimicHitboxHeight = 30;
         inline static constexpr float kMimicAggroRadius = 85.0f;
         inline static constexpr Vector2 kMimicAnimSize = {96, 128};
         inline static constexpr Vector2 kMimic_visual_offset = {-17, -8};
-        inline static constexpr Vector2 kMimicSpawner_visual_offset = {32, 35};
+        inline static constexpr Vector2 kMimicSpawner_visual_offset = {32, 29};
 
         // -- Animation Paths --
         inline static constexpr const char* kMimicStatueSpritePath = "assets/graphics/spawner/Mimic.png";

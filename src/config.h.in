@@ -101,7 +101,7 @@ namespace game {
         inline static constexpr Vector2 player_animation_size = {100, 100}; // NICHT ÄNDERN!
 
         // Player Stats
-        inline static constexpr int player_Max_Health = 1801;
+        inline static constexpr int player_Max_Health = 10001;
         inline static constexpr float player_Movement_Speed = 12.3f;
         inline static constexpr int player_Melee_Damage = 100;
         inline static constexpr int player_Projectile_Damage = 75;
@@ -292,6 +292,7 @@ namespace game {
 
         // -- PUSH --
         inline static const std::vector<int> player_Push_Timings = { 2, 3, 3, 2};
+        inline static const std::vector<int> player_Push_A_Timings = { 2, 3, 3, 3, 3, 2};
 
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 

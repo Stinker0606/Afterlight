@@ -258,8 +258,8 @@
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":253.147504568091,
-                 "x":320.561785675898,
+                 "width":258.480837901424,
+                 "x":315.228452342565,
                  "y":321.249686503529
                 }, 
                 {
@@ -296,15 +296,15 @@
                  "y":253.147504568091
                 }, 
                 {
-                 "height":12.3822148973523,
+                 "height":67.7155482306856,
                  "id":8,
                  "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":189.172727598438,
-                 "x":575.772992726882,
-                 "y":0
+                 "width":249.172727598438,
+                 "x":515.772992726882,
+                 "y":-55.3333333333333
                 }, 
                 {
                  "height":63.9747769696535,
@@ -351,29 +351,29 @@
                  "y":129.325355594568
                 }, 
                 {
-                 "height":5.50320662104547,
+                 "height":68.8365399543788,
                  "id":13,
                  "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":193.988033391853,
-                 "x":765.63362115295,
-                 "y":0
+                 "width":230.65470005852,
+                 "x":728.966954486283,
+                 "y":-63.3333333333333
                 }, 
                 {
-                 "height":570.269786105836,
+                 "height":652.269786105836,
                  "id":14,
                  "name":"walls",
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":3.43950413815344,
+                 "width":50.7728374714867,
                  "x":956.18215040665,
-                 "y":5.50320662104547
+                 "y":-43.8301267122879
                 }, 
                 {
-                 "height":4.81530579341484,
+                 "height":72.1486391267481,
                  "id":15,
                  "name":"walls",
                  "rotation":0,
@@ -390,8 +390,8 @@
                  "rotation":0,
                  "type":"walls",
                  "visible":true,
-                 "width":6.19110744867615,
-                 "x":0.687900827630683,
+                 "width":87.5244407820095,
+                 "x":-80.6454325057026,
                  "y":44.0256529683637
                 }, 
                 {
@@ -910,8 +910,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":898,
-                 "y":544.5
+                 "x":864,
+                 "y":544
                 }, 
                 {
                  "height":32.6666666666667,
@@ -961,24 +961,13 @@
          "objects":[
                 {
                  "height":32,
-                 "id":48,
-                 "name":"spawn2",
-                 "rotation":0,
-                 "type":"spawn2",
-                 "visible":true,
-                 "width":32,
-                 "x":640,
-                 "y":512
-                }, 
-                {
-                 "height":32,
                  "id":54,
                  "name":"spawn2",
                  "rotation":0,
                  "type":"spawn2",
                  "visible":true,
                  "width":32,
-                 "x":864,
+                 "x":832,
                  "y":512
                 }, 
                 {
@@ -989,8 +978,8 @@
                  "type":"spawn2",
                  "visible":true,
                  "width":33.6666666666666,
-                 "x":895.666666666667,
-                 "y":326.333333333333
+                 "x":896,
+                 "y":352
                 }, 
                 {
                  "height":32,
@@ -1000,8 +989,8 @@
                  "type":"spawn2",
                  "visible":true,
                  "width":32,
-                 "x":704,
-                 "y":128
+                 "x":640,
+                 "y":512
                 }, 
                 {
                  "height":28,
@@ -1178,7 +1167,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Lord Sazriel, wirst du ihm nie mit einer Waffe in der Hand und deiner\nFamilie zu Hause begegnen. Tausende haben versucht, dem Tod zu \nentgehen und sind gescheitert, denn der Gott des Todes wird immer \nseine Schulden einfordern. Solltest du es jemals versuchen,\nwirst du deinen Tod an der Sense des Todesgottes finden.\n"
+                         "value":"Lord Sazriel, wirst du ihm nie mit einer Waffe in der Hand und deiner\nFamilie zu Hause begegnen. Tausende haben versucht, dem Tod zu \nentgehen und sind gescheitert, denn der Gott des Todes wird immer \nseine Schulden einfordern. Solltest du es jemals versuchen,\nwirst du deinen Tod an der <b>Sense<\/b> des Todesgottes finden.\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1195,7 +1184,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Lady Nephira, soll sie dir fruchtbare Tage bringen. \nAngst hatte Lady Nephira nie verbreitet, bis der Krieg begann.\nDenn die Goettin des Lichts war stets achtsam, doch ihr Zorn, \nwenn ihre Untertane verletzt wurden, wird bekannt bleiben.\n\n"
+                         "value":"Lady Nephira, soll sie dir fruchtbare Tage bringen. \nAngst hatte Lady Nephira nie verbreitet, bis der Krieg begann.\nDenn die Goettin des <b>Lichts<\/b> war stets achtsam, doch ihr Zorn, \nwenn ihre Untertane verletzt wurden, wird bekannt bleiben.\n\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1212,7 +1201,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Die Gottheit Axaris, segne sie dich mit einer erholsamen Nacht.\nDie Gottheit der Dunkelheit, wurde schon immer verschrien, \ndoch die Menschheit wurde bald des Besseren belehrt. \nFuerchte dich vor der Motivation von Axaris, denn Axaris wird dich \nfinden, und du wirst bereuen, dass sie Kusarigama aufheben."
+                         "value":"Die Gottheit Axaris, segne sie dich mit einer erholsamen Nacht.\nDie Gottheit der Dunkelheit, wurde schon immer verschrien, \ndoch die Menschheit wurde bald des Besseren belehrt. \nFuerchte dich vor der Motivation von Axaris, denn Axaris wird dich \nfinden, und du wirst bereuen, dass sie <b>Kusarigama<\/b> aufheben."
                         }],
                  "rotation":0,
                  "type":"",
@@ -1229,7 +1218,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Lord Taelmir, mag er dich segnen damit du niemals betrogen wirst.\nNiemals solltest du die Worte des Gottes der List glauben,\nes sei denn, er verspricht dir, dass er ehrlich ist.\nAber sei gewarnt, bevor du dich mit denen anlegst, die\nseine Treue verdient haben, bevor du dich in seinen ketten befindest.\n\n"
+                         "value":"Lord Taelmir, mag er dich segnen damit du niemals betrogen wirst.\nNiemals solltest du die Worte des Gottes der List glauben,\nes sei denn, er verspricht dir, dass er ehrlich ist.\nAber sei gewarnt, bevor du dich mit denen anlegst, die\nseine Treue verdient haben, bevor du dich in seinen <b>Ketten<\/b> befindest.\n\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1263,7 +1252,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Lady Phoelia, mag sie dich segnen, damit du nie das Versagen deiner\nWaffe erlebst.\nHoffe ihren Zorn nie zu sehen, denn nach dem Tod ihrer geliebten\nFrau brannte sie beinahe die Welt nieder. Und es war ihre Schmiede, \ndie uns die Waffen gab, die ihren Mitgottheiten zum Sieg halfen."
+                         "value":"Lady Phoelia, mag sie dich segnen, damit du nie das Versagen deiner\nWaffe erlebst.\nHoffe ihren Zorn nie zu sehen, denn nach dem Tod ihrer geliebten\nFrau brannte sie beinahe die Welt nieder. Und es war ihre <b>Schmiede<\/b>, \ndie uns die Waffen gab, die ihren mit Gottheiten zum Sieg halfen."
                         }],
                  "rotation":0,
                  "type":"",
@@ -1327,6 +1316,33 @@
                  "width":32,
                  "x":0,
                  "y":96
+                }, 
+                {
+                 "height":84.5,
+                 "id":155,
+                 "name":"intDia",
+                 "properties":[
+                        {
+                         "name":"character_name",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
+                         "name":"dialog_text",
+                         "type":"string",
+                         "value":"Um weiter zu kommen muss ich wohl dieses Raetsel loesen.\nDen Statuen fehlt etwas!"
+                        }, 
+                        {
+                         "name":"portrait_path",
+                         "type":"string",
+                         "value":""
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":145.5,
+                 "x":47.75,
+                 "y":75.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1335,7 +1351,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":155,
+ "nextobjectid":156,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
