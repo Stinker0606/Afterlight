@@ -1064,7 +1064,7 @@
                  "y":390
                 }, 
                 {
-                 "height":109.5,
+                 "height":80.8333333333333,
                  "id":255,
                  "name":"intDia",
                  "properties":[
@@ -1076,7 +1076,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Ich brauch ein Schluessel um dieses Tor zu oeffnen!"
+                         "value":"Ich brauche einen <b><brown>Schluessel<\/brown><\/b> um dieses Tor zu oeffnen!"
                         }, 
                         {
                          "name":"portrait_path",
@@ -1086,9 +1086,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":125.5,
-                 "x":769.25,
-                 "y":396.083333333333
+                 "width":118.166666666667,
+                 "x":813.25,
+                 "y":424.75
                 }, 
                 {
                  "height":55,

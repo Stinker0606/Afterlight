@@ -302,7 +302,7 @@ namespace game {
         inline static constexpr float kDarknessMonsterMovementSpeed = 4.5f;   // Normale Geschwindigkeit
         inline static constexpr float kDarknessMonsterAggroSpeed = 10.0f;      // Aggro-Geschwindigkeit
         inline static constexpr float kDarknessMonsterAggroRadius = 128.0f;   // 4 Tiles
-        inline static constexpr int kDarknessMonsterDamage = 20;
+        inline static constexpr int kDarknessMonsterDamage = 20;dd
         inline static constexpr float kDarknessMonsterMeleeCooldown = 6.0f;   // 1 Angriff pro Sekunde
         inline static constexpr float kDarknessMonsterRangedCooldown = 24.0f; // 1 Schuss alle 4 Sekunden
         inline static constexpr float kDarknessMonsterMeleeRange = 48.0f;     // 1.5 Tiles

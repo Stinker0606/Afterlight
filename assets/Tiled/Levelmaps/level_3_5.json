@@ -648,28 +648,6 @@
                  "width":32,
                  "x":64,
                  "y":256
-                }, 
-                {
-                 "height":32,
-                 "id":137,
-                 "name":"spawn3",
-                 "properties":[
-                        {
-                         "name":"max_enemies",
-                         "type":"int",
-                         "value":3
-                        }, 
-                        {
-                         "name":"spawn_rate",
-                         "type":"float",
-                         "value":1
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":608,
-                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
