@@ -381,6 +381,12 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     // Erstelle den NPC. Alle seine Daten holt er sich jetzt selbst.
                     new_object = std::make_shared<NPC>(pos);
                 }
+                else if (object_name == "Kelpie")
+                {
+                    Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y};
+                    // Erstelle den NPC. Alle seine Daten holt er sich jetzt selbst.
+                    new_object = std::make_shared<KELPIE>(pos);
+                }
                 else if (object_name == "spawnInf")
                 {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };

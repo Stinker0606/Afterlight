@@ -61,6 +61,20 @@ void SoundManager::Init() {
     sfx_cache_["enemy_l3_corpse_death"] = LoadSound(game::AudioConfig::kEnemyL3CorpseDeathSfxPath.c_str());
     sfx_cache_["enemy_l3_corpse_attack"] = LoadSound(game::AudioConfig::kEnemyL3CorpseAttackSfxPath.c_str());
 
+    // Gegner: Mimic
+    sfx_cache_["mimic_transform"] = LoadSound(game::AudioConfig::kEnemyMimicTransformSfxPath.c_str());
+    sfx_cache_["mimic_move"] = LoadSound(game::AudioConfig::kEnemyMimicMoveSfxPath.c_str());
+    sfx_cache_["mimic_hit"] = LoadSound(game::AudioConfig::kEnemyMimicHitSfxPath.c_str());
+    sfx_cache_["mimic_death"] = LoadSound(game::AudioConfig::kEnemyMimicDeathSfxPath.c_str());
+    sfx_cache_["mimic_attack"] = LoadSound(game::AudioConfig::kEnemyMimicAttackSfxPath.c_str());
+
+    // Gegner: Darkness Monster
+    sfx_cache_["darkness_move"] = LoadSound(game::AudioConfig::kEnemyDarknessMoveSfxPath.c_str());
+    sfx_cache_["darkness_hit"] = LoadSound(game::AudioConfig::kEnemyDarknessHitSfxPath.c_str());
+    sfx_cache_["darkness_death"] = LoadSound(game::AudioConfig::kEnemyDarknessDeathSfxPath.c_str());
+    sfx_cache_["darkness_melee"] = LoadSound(game::AudioConfig::kEnemyDarknessMeleeSfxPath.c_str());
+    sfx_cache_["darkness_ranged"] = LoadSound(game::AudioConfig::kEnemyDarknessRangedSfxPath.c_str());
+
     // Projektile
     sfx_cache_["projectile_player_fly"] = LoadSound(game::AudioConfig::kPlayerProjectileFlySfxPath.c_str());
     sfx_cache_["projectile_player_hit"] = LoadSound(game::AudioConfig::kPlayerProjectileHitSfxPath.c_str());

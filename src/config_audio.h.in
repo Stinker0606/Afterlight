@@ -62,6 +62,20 @@ namespace game {
         inline static const std::string kEnemyL3CorpseDeathSfxPath = "assets/audio/sfx/enemy_corpse_death.wav";
         inline static const std::string kEnemyL3CorpseAttackSfxPath = "assets/audio/sfx/enemy_corpse_attack.wav";
 
+        // GEGNER: MIMIC
+        inline static const std::string kEnemyMimicTransformSfxPath = "assets/audio/sfx/Enemies/mimic_transform.mp3";
+        inline static const std::string kEnemyMimicMoveSfxPath = "assets/audio/sfx/Enemies/mimic_move.mp3";
+        inline static const std::string kEnemyMimicHitSfxPath = "assets/audio/sfx/Enemies/hitmarker.mp3";                           //done
+        inline static const std::string kEnemyMimicDeathSfxPath = "assets/audio/sfx/enemy_mimic_death.mp3";
+        inline static const std::string kEnemyMimicAttackSfxPath = "assets/audio/sfx/enemy_mimic_attack.mp3";
+
+        // GEGNER: DARKNESS MONSTER
+        inline static const std::string kEnemyDarknessMoveSfxPath = "assets/audio/sfx/enemy_darkness_move.mp3";
+        inline static const std::string kEnemyDarknessHitSfxPath = "assets/audio/sfx/Enemies/hitmarker.mp3";                        //done
+        inline static const std::string kEnemyDarknessDeathSfxPath = "assets/audio/sfx/enemy_darkness_death.mp3";
+        inline static const std::string kEnemyDarknessMeleeSfxPath = "assets/audio/sfx/enemy_darkness_melee.mp3";
+        inline static const std::string kEnemyDarknessRangedSfxPath = "assets/audio/sfx/enemy_darkness_ranged.mp3";
+
 // =====================================================================================================================
 
         // -- PROJEKTILE --

@@ -77,13 +77,17 @@ namespace enemy
         {
             case AIState::CHASING_RANGED:
                 this->enemy_Movement_Speed = game::EnemyConfig::kDarknessMonsterMovementSpeed;
-                Pathfinding(player_position, delta_time, 18);
+                Pathfinding(player_position, delta_time, 18.0f);
 
+                // Prüfe, ob die Bedingungen für einen Zustandswechsel erfüllt sind
                 if (distance_to_player <= game::EnemyConfig::kDarknessMonsterAggroRadius) {
                     ai_state_ = AIState::CHASING_MELEE;
                 } else if (distance_to_player <= game::EnemyConfig::kDarknessMonsterRangedRange && ranged_attack_cooldown_timer_ <= 0) {
                     ai_state_ = AIState::ATTACKING_RANGED;
                     has_attacked_in_state_ = false;
+                // Setze alle Fernkampf-Animationen zurück, um sicherzustellen, dass sie von vorne beginnen
+                anim_ranged_up_.Reset(); anim_ranged_down_.Reset(); anim_ranged_left_.Reset(); anim_ranged_right_.Reset();
+                anim_ranged_up_left_.Reset(); anim_ranged_up_right_.Reset(); anim_ranged_down_left_.Reset(); anim_ranged_down_right_.Reset();
                 }
                 break;
 
@@ -101,7 +105,7 @@ namespace enemy
 
             case AIState::ATTACKING_RANGED:
                 // In diesem Zustand wird die Bewegung und Zustandsänderung blockiert, bis die Animation fertig ist.
-                    if (p_current_animation_->Get_Current_Frame() == 6 && !has_attacked_in_state_) {
+                    if (p_current_animation_->Get_Current_Frame() == 4 && !has_attacked_in_state_) {
                         Range_Attack();
                         has_attacked_in_state_ = true;
                     }
@@ -113,7 +117,7 @@ namespace enemy
 
 
             case AIState::ATTACKING_MELEE:
-                if (p_current_animation_->Get_Current_Frame() == 5 && !has_attacked_in_state_) {
+                if (p_current_animation_->Get_Current_Frame() == 4 && !has_attacked_in_state_) {
                     Melee_Attack();
                     has_attacked_in_state_ = true;
                 }
@@ -170,16 +174,27 @@ namespace enemy
             Rectangle{ hitbox_pos.x, hitbox_pos.y, hitbox_width, hitbox_height },
             0.3f, this->enemy_Damage, Collision_Type::ENEMY
         );
+        SoundManager::GetInstance().PlaySfx("darkness_melee");
         om_ref_.AddObject(sweep_hitbox);
     }
 
     void DarknessMonster::Range_Attack()
     {
         Vector2 fire_direction = Vector2Normalize({ last_player_position_.x - Get_Hitbox_Center().x, last_player_position_.y - Get_Hitbox_Center().y });
+        // 1. Starte in der Mitte des Monsters
+        Vector2 start_pos = Get_Hitbox_Center();
+        // 2. Berechne einen "Rechts"-Vektor, der 90° zur Schussrichtung steht
+        Vector2 right_vec = { fire_direction.y, -fire_direction.x };
+        // 3. Bewege den Startpunkt nach vorne und leicht nach rechts
+        start_pos = Vector2Add(start_pos, Vector2Scale(fire_direction, 20.0f));
+        start_pos = Vector2Add(start_pos, Vector2Scale(right_vec, -15.0f));
+
         auto projectile = std::make_shared<game::Enemy_Projectile>(
-            Get_Hitbox_Center(), fire_direction, game::EnemyConfig::kDarknessMonsterProjectileSpeed,
+            start_pos,
+            fire_direction, game::EnemyConfig::kDarknessMonsterProjectileSpeed,
             this->enemy_Damage, game::EnemyConfig::kDarknessMonsterProjectileSprite
         );
+        SoundManager::GetInstance().PlaySfx("darkness_ranged");
         om_ref_.AddObject(projectile);
     }
 
@@ -264,6 +279,7 @@ namespace enemy
             }
         }
     }
-    void DarknessMonster::PlayHitSound() { /*  Add sound path */ }
-    void DarknessMonster::PlayDeathSound() { /*  Add sound path */ }
+    void DarknessMonster::PlayHitSound() { SoundManager::GetInstance().PlaySfx("darkness_hit"); }
+    void DarknessMonster::PlayDeathSound() { SoundManager::GetInstance().PlaySfx("darkness_death"); }
+    void DarknessMonster::PlayMoveSound() { SoundManager::GetInstance().PlaySfx("darkness_move", 1); }
 }

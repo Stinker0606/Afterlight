@@ -158,6 +158,7 @@ namespace enemy
 
     void Mimic::PlayHitSound() { SoundManager::GetInstance().PlaySfx("mimic_hit"); }
     void Mimic::PlayDeathSound() { SoundManager::GetInstance().PlaySfx("mimic_death"); }
+    void Mimic::PlayMoveSound() { SoundManager::GetInstance().PlaySfx("mimic_move", 1); }
 
     void Mimic::Draw()
     {

@@ -374,7 +374,7 @@ namespace game {
         inline static constexpr int kDarknessMonsterRangedDownRightFramesPerLine = 6;
 
         // -- Projectile Sprite --
-        inline static constexpr const char* kDarknessMonsterProjectileSprite = "assets/graphics/projectiles/enemies/darkness/Projektil.png";
+        inline static constexpr const char* kDarknessMonsterProjectileSprite = "assets/graphics/projectiles/enemies/darkness/Projektil 1.png";
 
 // ------------------------------------------------------------ VORHOF ------------------------------------------------------------------------------------------------------
 
