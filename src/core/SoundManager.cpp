@@ -1,6 +1,11 @@
 #include "SoundManager.h"
+#include "raylib.h"
 #include "../config_audio.h.in"
 #include <iostream>
+
+#include "raymath.h"
+#include "SettingsManager.h"
+#include "Store.h"
 
 SoundManager& SoundManager::GetInstance() {
     static SoundManager instance;
@@ -10,29 +15,72 @@ SoundManager& SoundManager::GetInstance() {
 void SoundManager::Init() {
     // Lade alle Musikstücke aus der Config in den Cache.
     music_cache_["menu_music"] = LoadMusicStream(game::AudioConfig::kMenuMusicPath.c_str());
+    music_cache_["pingu_music"] = LoadMusicStream(game::AudioConfig::kPinguMusicPath.c_str());
     music_cache_["ingame_music"] = LoadMusicStream(game::AudioConfig::kIngameMusicPath.c_str());
+    music_cache_["death_music"] = LoadMusicStream(game::AudioConfig::kDeathMusicPath.c_str());
 
     // Lade die Soundeffekte aus der Config in den Cache
     // UI
     sfx_cache_["ui_navigate"] = LoadSound(game::AudioConfig::kUIMenuNavigateSfxPath.c_str());
     sfx_cache_["ui_select"] = LoadSound(game::AudioConfig::kUIMenuSelectSfxPath.c_str());
+    sfx_cache_["konami_code"] = LoadSound(game::AudioConfig::kKonamiCodeSfxPath.c_str());
+    sfx_cache_["game_start"] = LoadSound(game::AudioConfig::kGameStartSfxPath.c_str());
+
     // Spieler
     sfx_cache_["player_walk"] = LoadSound(game::AudioConfig::kPlayerWalkSfxPath.c_str());
+    sfx_cache_["player_idle"] = LoadSound(game::AudioConfig::kPlayerIdleSfxPath.c_str());
     sfx_cache_["player_hit"] = LoadSound(game::AudioConfig::kPlayerHitSfxPath.c_str());
     sfx_cache_["player_death"] = LoadSound(game::AudioConfig::kPlayerDeathSfxPath.c_str());
     sfx_cache_["player_throw"] = LoadSound(game::AudioConfig::kPlayerThrowSfxPath.c_str());
     sfx_cache_["player_sweep"] = LoadSound(game::AudioConfig::kPlayerSweepSfxPath.c_str());
     sfx_cache_["player_push_block"] = LoadSound(game::AudioConfig::kPlayerPushBlockSfxPath.c_str());
     sfx_cache_["player_place_bomb"] = LoadSound(game::AudioConfig::kPlayerPlaceBombSfxPath.c_str());
-    // Gegner
+
+    // Gegner: Insektenmonster
     sfx_cache_["enemy_insect_hit"] = LoadSound(game::AudioConfig::kEnemyInsectHitSfxPath.c_str());
     sfx_cache_["enemy_insect_death"] = LoadSound(game::AudioConfig::kEnemyInsectDeathSfxPath.c_str());
     sfx_cache_["enemy_insect_attack"] = LoadSound(game::AudioConfig::kEnemyInsectAttackSfxPath.c_str());
+
+    // Gegner: Drowned Sniper
     sfx_cache_["enemy_sniper_hit"] = LoadSound(game::AudioConfig::kEnemySniperHitSfxPath.c_str());
     sfx_cache_["enemy_sniper_death"] = LoadSound(game::AudioConfig::kEnemySniperDeathSfxPath.c_str());
     sfx_cache_["enemy_sniper_shoot"] = LoadSound(game::AudioConfig::kEnemySniperShootSfxPath.c_str());
+
+    // Gegner: Wood Sniper
+    sfx_cache_["enemy_wood_sniper_hit"] = LoadSound(game::AudioConfig::kEnemyWoodSniperHitSfxPath.c_str());
+    sfx_cache_["enemy_wood_sniper_death"] = LoadSound(game::AudioConfig::kEnemyWoodSniperDeathSfxPath.c_str());
+    sfx_cache_["enemy_wood_sniper_shoot"] = LoadSound(game::AudioConfig::kEnemyWoodSniperShootSfxPath.c_str());
+
+    // Gegner: Walking Corpse
+    sfx_cache_["enemy_corpse_hit"] = LoadSound(game::AudioConfig::kEnemyCorpseHitSfxPath.c_str());
+    sfx_cache_["enemy_corpse_death"] = LoadSound(game::AudioConfig::kEnemyCorpseDeathSfxPath.c_str());
+    sfx_cache_["enemy_corpse_attack"] = LoadSound(game::AudioConfig::kEnemyCorpseAttackSfxPath.c_str());
+
+    // Gegner: Corpse Lvl3
+    sfx_cache_["enemy_l3_corpse_hit"] = LoadSound(game::AudioConfig::kEnemyL3CorpseHitSfxPath.c_str());
+    sfx_cache_["enemy_l3_corpse_death"] = LoadSound(game::AudioConfig::kEnemyL3CorpseDeathSfxPath.c_str());
+    sfx_cache_["enemy_l3_corpse_attack"] = LoadSound(game::AudioConfig::kEnemyL3CorpseAttackSfxPath.c_str());
+
+    // Gegner: Mimic
+    sfx_cache_["mimic_transform"] = LoadSound(game::AudioConfig::kEnemyMimicTransformSfxPath.c_str());
+    sfx_cache_["mimic_move"] = LoadSound(game::AudioConfig::kEnemyMimicMoveSfxPath.c_str());
+    sfx_cache_["mimic_hit"] = LoadSound(game::AudioConfig::kEnemyMimicHitSfxPath.c_str());
+    sfx_cache_["mimic_death"] = LoadSound(game::AudioConfig::kEnemyMimicDeathSfxPath.c_str());
+    sfx_cache_["mimic_attack"] = LoadSound(game::AudioConfig::kEnemyMimicAttackSfxPath.c_str());
+
+    // Gegner: Darkness Monster
+    sfx_cache_["darkness_move"] = LoadSound(game::AudioConfig::kEnemyDarknessMoveSfxPath.c_str());
+    sfx_cache_["darkness_hit"] = LoadSound(game::AudioConfig::kEnemyDarknessHitSfxPath.c_str());
+    sfx_cache_["darkness_death"] = LoadSound(game::AudioConfig::kEnemyDarknessDeathSfxPath.c_str());
+    sfx_cache_["darkness_melee"] = LoadSound(game::AudioConfig::kEnemyDarknessMeleeSfxPath.c_str());
+    sfx_cache_["darkness_ranged"] = LoadSound(game::AudioConfig::kEnemyDarknessRangedSfxPath.c_str());
+
     // Projektile
-    sfx_cache_["projectile_hit"] = LoadSound(game::AudioConfig::kPlayerProjectileHitSfxPath.c_str());
+    sfx_cache_["projectile_player_fly"] = LoadSound(game::AudioConfig::kPlayerProjectileFlySfxPath.c_str());
+    sfx_cache_["projectile_player_hit"] = LoadSound(game::AudioConfig::kPlayerProjectileHitSfxPath.c_str());
+    sfx_cache_["projectile_enemy_fly"] = LoadSound(game::AudioConfig::kEnemyProjectileFlySfxPath.c_str());
+    sfx_cache_["projectile_enemy_hit"] = LoadSound(game::AudioConfig::kEnemyProjectileHitSfxPath.c_str());
+
     // Items & Welt
     sfx_cache_["item_pickup_heal"] = LoadSound(game::AudioConfig::kItemPickupHealthSfxPath.c_str());
     sfx_cache_["item_pickup_key"] = LoadSound(game::AudioConfig::kItemPickupKeySfxPath.c_str());
@@ -59,6 +107,9 @@ void SoundManager::PlaySfx(const std::string& name, int max_instances) {
     }
 
     // Spiele den Sound ab und erhöhe den Zähler für diesen Frame
+    Sound& sound = sfx_cache_.at(name);
+    float final_volume = game::AudioConfig::kSfxVolume * SettingsManager::GetInstance().GetSfxVolume() * SettingsManager::GetInstance().GetMasterVolume();
+    SetSoundVolume(sound, final_volume);
     PlaySound(sfx_cache_.at(name));
     sfx_play_counts_this_frame_[name]++;
 }
@@ -73,7 +124,7 @@ void SoundManager::PlayMusic(const std::string& name) {
 
     current_music_ = &music_cache_.at(name);
     current_music_->looping = true;
-    SetMusicVolume(*current_music_, game::AudioConfig::kMusicVolume * game::AudioConfig::kMasterVolume);
+    UpdateMusicVolume();
     PlayMusicStream(*current_music_);
 }
 
@@ -82,6 +133,13 @@ void SoundManager::StopCurrentMusic() {
         StopMusicStream(*current_music_);
     }
     current_music_ = nullptr;
+}
+
+void SoundManager::UpdateMusicVolume() {
+    if (current_music_) {
+        float final_volume = game::AudioConfig::kMusicVolume * SettingsManager::GetInstance().GetMusicVolume() * SettingsManager::GetInstance().GetMasterVolume();
+        SetAudioStreamVolume(current_music_->stream, final_volume);
+    }
 }
 
 void SoundManager::Update() {
@@ -114,4 +172,51 @@ void SoundManager::StopSfx(const std::string& name)
         // Stoppe alle laufenden Instanzen dieses Sounds
         StopSound(sfx_cache_.at(name));
     }
+}
+
+// Implementierung der NEUEN Methode
+void SoundManager::PlaySfxAtPosition(const std::string& name, Vector2 position, int max_instances)
+{
+    if (sfx_cache_.find(name) == sfx_cache_.end()) {
+        std::cerr << "FEHLER: Soundeffekt '" << name << "' nicht gefunden!" << std::endl;
+        return;
+    }
+
+    if (sfx_play_counts_this_frame_[name] >= max_instances) {
+        return;
+    }
+
+    // --- LOGIK FÜR RÄUMLICHES AUDIO ---
+    float final_volume = 0.0f; // Standardmäßig stumm
+
+    if (game::core::Store::player) {
+        Vector2 player_pos = game::core::Store::player->Get_Player_Center();
+        float distance = Vector2Distance(player_pos, position);
+
+        // Definiere die maximale Hör-Distanz aus der Config
+        const float max_distance = game::AudioConfig::kSoundMaxDistance;
+
+        if (distance < max_distance) {
+            // Berechne die Lautstärke linear: 1.0 (nah) bis 0.0 (an der max_distance)
+            float volume_falloff = 1.0f - (distance / max_distance);
+
+            // Kombiniere mit den globalen Lautstärke-Einstellungen
+            final_volume = game::AudioConfig::kSfxVolume * SettingsManager::GetInstance().GetSfxVolume() * SettingsManager::GetInstance().GetMasterVolume() * volume_falloff;
+        }
+    }
+
+    // Spiele den Sound nur ab, wenn er hörbar ist
+    if (final_volume > 0.0f) {
+        Sound& sound = sfx_cache_.at(name);
+        SetSoundVolume(sound, final_volume);
+        PlaySound(sound);
+        sfx_play_counts_this_frame_[name]++;
+    }
+}
+
+bool SoundManager::IsMusicPlaying(const std::string& name)
+{
+    auto it = music_cache_.find(name);
+    if (it == music_cache_.end()) return false;
+    return IsMusicStreamPlaying(it->second);
 }

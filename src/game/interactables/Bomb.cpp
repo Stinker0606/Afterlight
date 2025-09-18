@@ -65,5 +65,5 @@ void Bomb::Detonate()
 void Bomb::On_Collision(std::shared_ptr<Collidable> other) {}
 
 Collision_Type Bomb::Get_Collision_Type() const {
-    return Collision_Type::WALL; // Verhält sich wie eine Wand, solange sie da ist
+    return Collision_Type::NONE; // Hat keine Kollision, um Glitches zu vermeiden
 }

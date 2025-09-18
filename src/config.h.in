@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raylib.h>
+#include <vector>
 
 namespace game {
     class Config final {
@@ -69,7 +70,7 @@ namespace game {
 // WICHTIG -> 6.0f sind 1 SEKUNDE
 
         // Heal Item
-        inline static constexpr int kItemHealConsDefaultAmount = 100; // Standard-Heilmenge - PLACEHOLDER WERT
+        inline static constexpr int kItemHealConsDefaultAmount = 150; // Standard-Heilmenge - PLACEHOLDER WERT
 
         // DMG Item
         inline static constexpr int kItemDmgConsDefaultAmount = 10;  // Standard-Schadensmenge - PLACEHOLDER WERT
@@ -100,19 +101,18 @@ namespace game {
         inline static constexpr Vector2 player_animation_size = {100, 100}; // NICHT ÄNDERN!
 
         // Player Stats
-        inline static constexpr int player_Max_Health = 801;
-        inline static constexpr float player_Movement_Speed = 18.0;
+        inline static constexpr int player_Max_Health = 2601;
+        inline static constexpr float player_Movement_Speed = 12.3f;
         inline static constexpr int player_Melee_Damage = 100;
         inline static constexpr int player_Projectile_Damage = 75;
 
         // ----------------------------------- PLAYER ATTACK & ACTION SETTINGS -----------------------------------------
 
         // Push Action
-        inline static constexpr float player_Push_Anim_Duration = 0.5f; // Dauer der Push-Animation in Sekunden
+        inline static constexpr float player_Push_Anim_Duration = 1.0f; // Dauer der Push-Animation in Sekunden
 
         // Ranged Attack (Throw)
         inline static constexpr float player_Projectile_Speed = 80.0; // Projectile Geschwindigkeit
-        inline static constexpr float player_Ranged_Attack_Anim_Duration = 6.6f; // Dauer der Wurfanimation in Sekunden
         inline static constexpr float player_Ranged_Attack_Cooldown = 4.5f; // Abklingzeit nach einem Wurf
         inline static constexpr float player_Projectile_Lifetime = 12.0f; // Lebensdauer in Sekunden
         inline static constexpr int player_Projectile_Hitbox_Width = 16; // Projectile Hitbox
@@ -120,7 +120,6 @@ namespace game {
         inline static constexpr const char* kPlayerProjectileSprite = "assets/graphics/projectiles/player/Spear.png";
 
         // Melee Attack (Sweep)
-        inline static constexpr float player_Melee_Attack_Anim_Duration = 6.6f; // Dauer der Sweep-Animation
         inline static constexpr float player_Melee_Attack_Cooldown = 6.0f; // Abklingzeit nach einem Sweep
 
         // ------------------------------------------ PLAYER ANIMATIONS ------------------------------------------------
@@ -194,95 +193,114 @@ namespace game {
 
         // Attack Throw (Ranged)
         inline static constexpr const char* player_Throw_Front_Path = "assets/graphics/animations/player/spear_throw/MC_Throw_Front.png";
-        inline static constexpr int player_Throw_Front_Frames = 63;
-        inline static constexpr int player_Throw_Front_Frames_Per_Line = 63;
+        inline static constexpr int player_Throw_Front_Frames = 8;
+        inline static constexpr int player_Throw_Front_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Throw_Back_Path = "assets/graphics/animations/player/spear_throw/MC_Throw_Back.png";
-        inline static constexpr int player_Throw_Back_Frames = 63;
-        inline static constexpr int player_Throw_Back_Frames_Per_Line = 63;
+        inline static constexpr int player_Throw_Back_Frames = 8;
+        inline static constexpr int player_Throw_Back_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Throw_Left_Path = "assets/graphics/animations/player/spear_throw/MC_Throw_Left.png";
-        inline static constexpr int player_Throw_Left_Frames = 63;
-        inline static constexpr int player_Throw_Left_Frames_Per_Line = 63;
+        inline static constexpr int player_Throw_Left_Frames = 8;
+        inline static constexpr int player_Throw_Left_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Throw_Right_Path = "assets/graphics/animations/player/spear_throw/MC_Throw_Right.png";
-        inline static constexpr int player_Throw_Right_Frames = 63;
-        inline static constexpr int player_Throw_Right_Frames_Per_Line = 63;
+        inline static constexpr int player_Throw_Right_Frames = 8;
+        inline static constexpr int player_Throw_Right_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Throw_Front_Right_Path = "assets/graphics/animations/player/spear_throw/MC_Throw_FrontRight.png";
-        inline static constexpr int player_Throw_Front_Right_Frames = 63;
-        inline static constexpr int player_Throw_Front_Right_Frames_Per_Line = 63;
+        inline static constexpr int player_Throw_Front_Right_Frames = 8;
+        inline static constexpr int player_Throw_Front_Right_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Throw_Front_Left_Path = "assets/graphics/animations/player/spear_throw/MC_Throw_FrontLeft.png";
-        inline static constexpr int player_Throw_Front_Left_Frames = 63;
-        inline static constexpr int player_Throw_Front_Left_Frames_Per_Line = 63;
+        inline static constexpr int player_Throw_Front_Left_Frames = 8;
+        inline static constexpr int player_Throw_Front_Left_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Throw_Back_Right_Path = "assets/graphics/animations/player/spear_throw/MC_Throw_BackRight.png";
-        inline static constexpr int player_Throw_Back_Right_Frames = 63;
-        inline static constexpr int player_Throw_Back_Right_Frames_Per_Line = 63;
+        inline static constexpr int player_Throw_Back_Right_Frames = 8;
+        inline static constexpr int player_Throw_Back_Right_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Throw_Back_Left_Path = "assets/graphics/animations/player/spear_throw/MC_Throw_BackLeft.png";
-        inline static constexpr int player_Throw_Back_Left_Frames = 63;
-        inline static constexpr int player_Throw_Back_Left_Frames_Per_Line = 63;
+        inline static constexpr int player_Throw_Back_Left_Frames = 8;
+        inline static constexpr int player_Throw_Back_Left_Frames_Per_Line = 8;
 
         // Attack Sweep (Melee)
-        inline static constexpr const char* player_Sweep_Front_Path = "assets/graphics/animations/player/spear_sweep/IMG_3941.PNG";
-        inline static constexpr int player_Sweep_Front_Frames = 50;
-        inline static constexpr int player_Sweep_Front_Frames_Per_Line = 10;
+        inline static constexpr const char* player_Sweep_Front_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Front.png";
+        inline static constexpr int player_Sweep_Front_Frames = 8;
+        inline static constexpr int player_Sweep_Front_Frames_Per_Line = 8;
 
-        inline static constexpr const char* player_Sweep_Back_Path = "assets/graphics/animations/player/spear_sweep/IMG_3943.PNG";
-        inline static constexpr int player_Sweep_Back_Frames = 50;
-        inline static constexpr int player_Sweep_Back_Frames_Per_Line = 10;
+        inline static constexpr const char* player_Sweep_Back_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Back.png";
+        inline static constexpr int player_Sweep_Back_Frames = 8;
+        inline static constexpr int player_Sweep_Back_Frames_Per_Line = 8;
 
-        inline static constexpr const char* player_Sweep_Left_Path = "assets/graphics/animations/player/spear_sweep/IMG_3944.PNG";
-        inline static constexpr int player_Sweep_Left_Frames = 20;
-        inline static constexpr int player_Sweep_Left_Frames_Per_Line = 10;
+        inline static constexpr const char* player_Sweep_Left_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Left.png";
+        inline static constexpr int player_Sweep_Left_Frames = 7;
+        inline static constexpr int player_Sweep_Left_Frames_Per_Line = 7;
 
-        inline static constexpr const char* player_Sweep_Right_Path = "assets/graphics/animations/player/spear_sweep/IMG_3940.PNG";
-        inline static constexpr int player_Sweep_Right_Frames = 50;
-        inline static constexpr int player_Sweep_Right_Frames_Per_Line = 10;
+        inline static constexpr const char* player_Sweep_Right_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Right.png";
+        inline static constexpr int player_Sweep_Right_Frames = 7;
+        inline static constexpr int player_Sweep_Right_Frames_Per_Line = 7;
 
         // Pushing
         inline static constexpr const char* player_Push_Front_Path = "assets/graphics/animations/player/push/MC_Push_Front.png";
-        inline static constexpr int player_Push_Front_Frames = 12;
-        inline static constexpr int player_Push_Front_Frames_Per_Line = 12;
+        inline static constexpr int player_Push_Front_Frames = 6;
+        inline static constexpr int player_Push_Front_Frames_Per_Line = 6;
 
         inline static constexpr const char* player_Push_Back_Path = "assets/graphics/animations/player/push/MC_Push_Back.png";
-        inline static constexpr int player_Push_Back_Frames = 12;
-        inline static constexpr int player_Push_Back_Frames_Per_Line = 12;
+        inline static constexpr int player_Push_Back_Frames = 4;
+        inline static constexpr int player_Push_Back_Frames_Per_Line = 4;
 
         inline static constexpr const char* player_Push_Left_Path = "assets/graphics/animations/player/push/MC_Push_Left.png";
-        inline static constexpr int player_Push_Left_Frames = 12;
-        inline static constexpr int player_Push_Left_Frames_Per_Line = 12;
+        inline static constexpr int player_Push_Left_Frames = 4;
+        inline static constexpr int player_Push_Left_Frames_Per_Line = 4;
 
         inline static constexpr const char* player_Push_Right_Path = "assets/graphics/animations/player/push/MC_Push_Right.png";
-        inline static constexpr int player_Push_Right_Frames = 12;
-        inline static constexpr int player_Push_Right_Frames_Per_Line = 12;
+        inline static constexpr int player_Push_Right_Frames = 4;
+        inline static constexpr int player_Push_Right_Frames_Per_Line = 4;
 
         // Dying
-        inline static constexpr const char* player_Dying_Path = "PLACEHOLDER";
-        inline static constexpr int player_Dying_Frames = 999;
-        inline static constexpr int player_Dying_Frames_Per_Line = 999;
+        inline static constexpr const char* player_Dying_Path = "assets/graphics/animations/player/death/MC_Death_Front.png";
+        inline static constexpr int player_Dying_Frames = 24;
+        inline static constexpr int player_Dying_Frames_Per_Line = 24;
 
-        // -------------------------------------------------------------------------------------------------------------
+        // =================================== INTERACTABLE ANIMATION TIMINGS ==========================================
 
-        // Enemy_Class_One - (PLACEHOLDER DER BASIS-ENGINE)
-        inline static constexpr int enemy_Class_1_Health = 50; //PLACEHOLDER
-        inline static constexpr float enemy_Class_1_Movement_Speed = 100.0; //PLACEHOLDER
-        inline static constexpr int enemy_Class_1_Damage = 5; //PLACEHOLDER
-        inline static constexpr int enemy_Class_1_Value = 10; // Punkte für den Kill + PLACEHOLDER
-        inline static constexpr const char* enemy_Class_1_Sprite_Path = "assets/graphics/enemy_Class_1.png"; //PLACEHOLDER
-        inline static constexpr int enemy_Class_1_Hitbox_Width = 32; //PLACEHOLDER
-        inline static constexpr int enemy_Class_1_Hitbox_Height = 32; //PLACEHOLDER
-        inline static constexpr const char* enemy_Class_1_Projectile_Sprite_Path = "assets/graphics/ball.png"; //PLACEHOLDER
+        // -- EXPLOSION (36 Frames) --
+        // Sehr schnell am Anfang, dann verweilt der Rauch etwas.
+        inline static const std::vector<int> kExplosionTimings = {
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8,
+            9, 9, 10, 10, 12, 12, 15, 15, 20
+        };
+
+        // ====================================== PLAYER ANIMATION TIMINGS =============================================
+
+        // -- SWEEP ATTACK --
+        inline static const std::vector<int> player_Sweep_Front_Timings = { 3, 2, 4, 7, 6, 4, 2, 2};
+        inline static const std::vector<int> player_Sweep_Back_Timings  = { 3, 2, 4, 7, 6, 4, 2, 2};
+        inline static const std::vector<int> player_Sweep_Left_Timings  = { 3, 2, 4, 7, 6, 4, 2};
+        inline static const std::vector<int> player_Sweep_Right_Timings = { 3, 2, 4, 7, 6, 4, 2};
+
+        // -- THROW ATTACK --
+        inline static const std::vector<int> player_Throw_Timings =  { 3, 3, 4, 5, 4, 4, 3, 3 };
+
+        // -- DYING --
+        inline static const std::vector<int> player_Dying_Timings = {
+            4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+            6, 6, 6, 6, 6, 6, 8, 8, 8, 8,
+        };
+
+        // -- PUSH --
+        inline static const std::vector<int> player_Push_Timings = { 2, 3, 3, 2};
+        inline static const std::vector<int> player_Push_A_Timings = { 2, 3, 3, 3, 3, 2};
 
         // ------------------------------------------- DEBUG SETTINGS --------------------------------------------------
 
         // for fog
-        inline static constexpr bool kDebugShowFog = true; // Set to 'false' to disable fog
+        inline static constexpr bool kDebugShowFog = true; // Set to 'false' to disable fog - could CRASH
 
         // for ALL hitboxes
-        inline static constexpr bool kDebugShowHitboxes = true; // Set to 'true' to show all hitboxes
+        inline static constexpr bool kDebugShowHitboxes = false; // Set to 'true' to show all hitboxes
 
         // ------------------------------------------- LEVEL SETTINGS --------------------------------------------------
 
@@ -304,6 +322,8 @@ namespace game {
                             return "../../assets/Tiled/Levelmaps/Swamp_1.json";
                         case 3:
                             return "assets/maps/level3.json";
+                        case 4:
+                            return "../../assets/Tiled/Levelmaps/Pingu.json";
                         default:
                             return "assets/maps/default.json";
                     }

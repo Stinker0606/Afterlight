@@ -16,14 +16,21 @@ void BreakableWall::Draw()
     DrawTextureRec(tileset_texture, texture_source_rect, { hitbox.x, hitbox.y }, Fade(WHITE, visibility_alpha));
 }
 
+void BreakableWall::DestroyWall()
+{
+    // Nur einmal ausführen
+    if (Is_Marked_For_Destruction()) return;
+
+    SoundManager::GetInstance().PlaySfx("wall_break", 1);
+    this->Mark_For_Destruction();
+}
+
 void BreakableWall::On_Collision(std::shared_ptr<Collidable> other)
 {
-    SoundManager::GetInstance().PlaySfx("wall_break", 1); // Limit auf 1, falls viele Wände gleichzeitig brechen
-
-    // Zerstörbare Wände reagieren NUR auf Explosionen.
+    // Die Wand reagiert jetzt nur noch, wenn sie von einer Explosion getroffen wird.
     if (std::dynamic_pointer_cast<Explosion>(other))
     {
-        this->Mark_For_Destruction();
+        DestroyWall();
     }
 }
 

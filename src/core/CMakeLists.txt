@@ -37,6 +37,8 @@ add_library(core STATIC
         SoundManager.h
         ControllableAnimations.cpp
         ControllableAnimations.h
+        SettingsManager.cpp
+        SettingsManager.h
 
         # --- GAMEPLAY-LOGIK (gehört logisch zusammen) ---
         ../game/Collidable.h
@@ -91,6 +93,44 @@ add_library(core STATIC
         ../game/enemys/DrownedSniper.h
         ../game/spawner/SpecificSpawner.cpp
         ../game/spawner/SpecificSpawner.h
+        ../game/enemys/WalkingCorpse.cpp
+        ../game/enemys/WalkingCorpse.h
+        ../game/enemys/WoodSniper.cpp
+        ../game/enemys/WoodSniper.h
+        ../game/spawner/Level2Spawner.cpp
+        ../game/spawner/Level2Spawner.h
+        ../game/enemys/Corpse.cpp
+        ../game/enemys/Corpse.h
+        ../game/interactables/WeaponItem.cpp
+        ../game/interactables/WeaponItem.h
+        ../game/interactables/Statue.cpp
+        ../game/interactables/Statue.h
+        ../game/interactables/NPC.cpp
+        ../game/interactables/NPC.h
+        ../game/interactables/DialogTrigger.cpp
+        ../game/interactables/DialogTrigger.h
+        ../game/spawner/Level3Spawner.cpp
+        ../game/spawner/Level3Spawner.h
+        ../game/spawner/MimicSpawner.cpp
+        ../game/spawner/MimicSpawner.h
+        ../game/enemys/Mimic.cpp
+        ../game/enemys/Mimic.h
+        ../game/interactables/Trigger1.cpp
+        ../game/interactables/Trigger1.h
+        ../game/interactables/Trigger2.cpp
+        ../game/interactables/Trigger2.h
+        ../game/interactables/Trigger3.cpp
+        ../game/interactables/Trigger3.h
+        ../game/enemys/DarknessMonster.cpp
+        ../game/enemys/DarknessMonster.h
+        ../game/spawner/InfinitySpawner.cpp
+        ../game/spawner/InfinitySpawner.h
+        ../game/spawner/EESpawner.cpp
+        ../game/spawner/EESpawner.h
+        ../game/enemys/Pingu.cpp
+        ../game/enemys/Pingu.h
+        ../game/interactables/Kelpie.cpp
+        ../game/interactables/Kelpie.h
 )
 
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

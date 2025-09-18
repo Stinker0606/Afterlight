@@ -21,4 +21,10 @@ public:
     void Draw() override;
     void On_Collision(std::shared_ptr<Collidable> other) override;
     Collision_Type Get_Collision_Type() const override;
+
+    /**
+     * @brief Zerstört die Wand und spielt den Sound ab.
+     * Wird von der Explosion aufgerufen.
+     */
+    void DestroyWall();
 };

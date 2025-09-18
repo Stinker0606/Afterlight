@@ -7,7 +7,12 @@
 #include "../config_enemies.h.in"
 #include "../game/Walls.h"
 #include "../game/Spawner/Level1Spawner.h"
+#include "../game/spawner/Level2Spawner.h"
+#include "../game/spawner/Level3Spawner.h"
 #include "../game/Spawner/SpecificSpawner.h"
+#include "../game/Spawner/InfinitySpawner.h"
+#include "../game/Spawner/EESpawner.h"
+#include "../game/spawner/MimicSpawner.h"
 #include "../game/interactables/interact_list.h"
 
 
@@ -21,6 +26,17 @@ LevelScreen::~LevelScreen() {
     if (tileatlas_Texture.id != 0) {
         UnloadTexture(tileatlas_Texture);
     }
+}
+
+Vector2 LevelScreen::GetMapSize() const
+{
+    if (map) {
+        return {
+            (float)(map->getTileSize().x * map->getSize().x),
+            (float)(map->getTileSize().y * map->getSize().y)
+        };
+    }
+    return {0, 0}; // Fallback, falls die Map nicht geladen ist
 }
 
 // Load_Levelmap ist identisch
@@ -42,7 +58,7 @@ void LevelScreen::Load_Levelmap() {
         if (image_Path_Raw.substr(0, 3) == "../") {
             image_Path_Raw = image_Path_Raw.substr(3);
         }
-        std::string image_Path = "../../assets/Tiled/" + image_Path_Raw;
+        std::string image_Path = "assets/Tiled/" + image_Path_Raw;
         tileatlas_Texture = LoadTexture(image_Path.c_str());
         if (tileatlas_Texture.id == 0) {
             std::cerr << "FEHLER: Konnte das Tileset nicht laden: " << image_Path << std::endl;
@@ -53,7 +69,7 @@ void LevelScreen::Load_Levelmap() {
 
 void LevelScreen::LoadSpecificLevelmap(const std::string& map_filename) {
     tson::Tileson parser;
-    std::string levelmap_Path = "../../assets/Tiled/Levelmaps/" + map_filename;
+    std::string levelmap_Path = "assets/Tiled/Levelmaps/" + map_filename;
 
     map = parser.parse(levelmap_Path);
 
@@ -67,7 +83,7 @@ void LevelScreen::LoadSpecificLevelmap(const std::string& map_filename) {
         if (image_Path_Raw.substr(0, 3) == "../") {
             image_Path_Raw = image_Path_Raw.substr(3);
         }
-        std::string image_Path = "../../assets/Tiled/" + image_Path_Raw;
+        std::string image_Path = "assets/Tiled/" + image_Path_Raw;
         tileatlas_Texture = LoadTexture(image_Path.c_str());
         if (tileatlas_Texture.id == 0) {
             std::cerr << "FEHLER: Konnte das Tileset nicht laden: " << image_Path << std::endl;
@@ -94,6 +110,12 @@ void LevelScreen::Hide_Tiles_In_Area(Rectangle area_to_hide)
             hidden_tiles_.emplace_back(x, y);
         }
     }
+}
+
+// Implementierung der Getter-Funktion
+Texture2D LevelScreen::GetTileAtlasTexture() const
+{
+    return this->tileatlas_Texture;
 }
 
 void LevelScreen::Draw_Level(std::shared_ptr<Cam> kamera, bool aboveObjects) {
@@ -234,16 +256,154 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                     Rectangle rect = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
                     new_object = std::make_shared<Door>(rect, target_map, target_spawn);
                 }
+                else if (object_name == "doors2")
+                {
+                    // Lese die Custom Properties aus Tiled aus.
+                    std::string target_map = "default.json";
+                    std::string target_spawn = "player_start";
+
+                    if (object.getProperties().hasProperty("target_map")) {
+                        target_map = object.getProperties().getValue<std::string>("target_map");
+                    }
+                    if (object.getProperties().hasProperty("target_spawn_point")) {
+                        target_spawn = object.getProperties().getValue<std::string>("target_spawn_point");
+                    }
+                    // Erstelle die Hitbox und das Door-Objekt.
+                    Rectangle rect = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<Door>(rect, target_map, target_spawn);
+                }
+                else if (object_name == "doors3")
+                {
+                    // Lese die Custom Properties aus Tiled aus.
+                    std::string target_map = "default.json";
+                    std::string target_spawn = "player_start";
+
+                    if (object.getProperties().hasProperty("target_map")) {
+                        target_map = object.getProperties().getValue<std::string>("target_map");
+                    }
+                    if (object.getProperties().hasProperty("target_spawn_point")) {
+                        target_spawn = object.getProperties().getValue<std::string>("target_spawn_point");
+                    }
+                    // Erstelle die Hitbox und das Door-Objekt.
+                    Rectangle rect = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<Door>(rect, target_map, target_spawn);
+                }
+                else if (object_name == "doors4")
+                {
+                    // Lese die Custom Properties aus Tiled aus.
+                    std::string target_map = "default.json";
+                    std::string target_spawn = "player_start";
+
+                    if (object.getProperties().hasProperty("target_map")) {
+                        target_map = object.getProperties().getValue<std::string>("target_map");
+                    }
+                    if (object.getProperties().hasProperty("target_spawn_point")) {
+                        target_spawn = object.getProperties().getValue<std::string>("target_spawn_point");
+                    }
+                    // Erstelle die Hitbox und das Door-Objekt.
+                    Rectangle rect = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<Door>(rect, target_map, target_spawn);
+                }
+                else if (object_name == "statue")
+                {
+                    // 1. Lese alle notwendigen Properties aus Tiled
+                    int id = object.getProp("correct_weapon_id")->getValue<int>();
+                    std::string path_with_weapon = object.getProp("sprite_with_weapon")->getValue<std::string>();
+                    std::string path_no_weapon = object.getProp("sprite_no_weapon")->getValue<std::string>();
+
+                    // 2. Lade beide Texturen über den AssetManager
+                    Texture2D tex_with = AssetManager::GetInstance().Load(path_with_weapon.c_str());
+                    Texture2D tex_no = AssetManager::GetInstance().Load(path_no_weapon.c_str());
+
+                    // 3. Position aus Tiled holen und für die Draw-Logik anpassen
+                    Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y - (float)tex_no.height};
+
+                    // 4. Erstelle das Statue-Objekt mit dem neuen Konstruktor
+                    new_object = std::make_shared<Statue>(pos, id, tex_with, tex_no);
+                }
+                else if (object_name == "weapon")
+                {
+                    if (object.getGid() > 0) {
+                        tson::Tile* tile = nullptr;
+                        for (auto& tileset : map->getTilesets()) {
+                            tile = tileset.getTile(object.getGid());
+                            if (tile) break;
+                        }
+                        if (tile) {
+                            int id = object.getProp("weapon_id")->getValue<int>();
+                            tson::Rect drawing_rect = tile->getDrawingRect();
+                            Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y - (float)drawing_rect.height};
+                            Rectangle source_rect = { (float)drawing_rect.x, (float)drawing_rect.y, (float)drawing_rect.width, (float)drawing_rect.height };
+
+                            new_object = std::make_shared<WeaponItem>(pos, id, this->tileatlas_Texture, source_rect);
+                        }
+                    }
+                }
+                else if (object_name == "key_spawn_point")
+                {
+                    spawn_points_[object_name] = {(float)object.getPosition().x, (float)object.getPosition().y};
+                }
                 // Erkennt den Standard-Startpunkt UND alle benannten Startpunkte
                 else if (object_name == "player_start" || object_name.rfind("player_start_", 0) == 0)
                 {
                     // Speichere den Namen und die Position des Objekts in unserem "Gedächtnis"
                     spawn_points_[object_name] = { (float)object.getPosition().x, (float)object.getPosition().y };
                 }
+                else if (object_name == "intDia") // KORREKTER NAME LAUT GUIDE
+                {
+                    std::string text = object.getProp("dialog_text")->getValue<std::string>();
+
+                    // Prüfe, ob optionale Properties existieren
+                    std::string name = object.getProperties().hasProperty("character_name") ? object.getProp("character_name")->getValue<std::string>() : "";
+                    std::string portrait = object.getProperties().hasProperty("portrait_path") ? object.getProp("portrait_path")->getValue<std::string>() : "";
+
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<DialogTrigger>(rect, text, name, portrait);
+                }
+                else if (object_name == "trigger1")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger1>(rect);
+                }
+                else if (object_name == "trigger2")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger2>(rect);
+                }
+                else if (object_name == "trigger3")
+                {
+                    Rectangle rect = {(float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y};
+                    new_object = std::make_shared<Trigger3>(rect);
+                }
+                else if (object_name == "npc_key")
+                {
+                    Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y};
+                    // Erstelle den NPC. Alle seine Daten holt er sich jetzt selbst.
+                    new_object = std::make_shared<NPC>(pos);
+                }
+                else if (object_name == "Kelpie")
+                {
+                    Vector2 pos = {(float)object.getPosition().x, (float)object.getPosition().y};
+                    // Erstelle den NPC. Alle seine Daten holt er sich jetzt selbst.
+                    new_object = std::make_shared<KELPIE>(pos);
+                }
+                else if (object_name == "spawnInf")
+                {
+                    Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<InfinitySpawner>(spawner_area, g_objectManager);
+                }
+                else if (object_name == "EESpawner")
+                {
+                    Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
+                    new_object = std::make_shared<EESpawner>(spawner_area, g_objectManager);
+                }
                 else if (object_name.rfind("spawn", 0) == 0) // Erkennt alle Spawner
                 {
                     Rectangle spawner_area = { (float)object.getPosition().x, (float)object.getPosition().y, (float)object.getSize().x, (float)object.getSize().y };
-
+                    if (object_name == "spawnMim")
+                    {
+                        new_object = std::make_shared<MimicSpawner>(spawner_area, g_objectManager);
+                    }
                     if (object_name.find('_') != std::string::npos)
                     {
                         // --- FALL 1: SPEZIFISCHER SPAWNER (z.B. "spawn_sniper") ---
@@ -259,9 +419,21 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                         if (enemy_name == "sniper") {
                             type = enemy::EnemyType::DROWNED_SNIPER;
                             max_enemies = game::EnemyConfig::kDrownedSniper_MaxSpawnCount;
+                        } else if (enemy_name == "sniper2") {
+                            type = enemy::EnemyType::WOOD_SNIPER;
+                            max_enemies = game::EnemyConfig::kWoodSniper_MaxSpawnCount;
                         } else if (enemy_name == "insect") {
                             type = enemy::EnemyType::INSECT_MONSTER;
                             max_enemies = game::EnemyConfig::kInsectMonster_MaxSpawnCount;
+                        } else if (enemy_name == "corpse") {
+                            type = enemy::EnemyType::WALKING_CORPSE;
+                            max_enemies = game::EnemyConfig::kWalkingCorpse_MaxSpawnCount;
+                        } else if (enemy_name == "corpse2") {
+                            type = enemy::EnemyType::CORPSE;
+                            max_enemies = game::EnemyConfig::kCorpse_MaxSpawnCount;
+                        } else if (enemy_name == "darkness") {
+                            type = enemy::EnemyType::DARKNESS_MONSTER;
+                            max_enemies = game::EnemyConfig::kDarknessMonster_MaxSpawnCount;
                         } else {
                             found = false;
                         }
@@ -285,6 +457,22 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                             if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
 
                             new_object = std::make_shared<Level1_Spawner>(spawner_area, temp_obstacle_list, &temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager);
+                        }
+                        else if (object_name == "spawn2") {
+                            float spawn_rate = game::EnemyConfig::kSpawner2_SpawnRate;
+                            int max_enemies = game::EnemyConfig::kSpawner2_MaxEnemies;
+                            if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
+                            if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
+
+                            new_object = std::make_shared<Level2_Spawner>(spawner_area, temp_obstacle_list, &temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager);
+                        }
+                        else if (object_name == "spawn3") {
+                            float spawn_rate = game::EnemyConfig::kSpawner3_SpawnRate;
+                            int max_enemies = game::EnemyConfig::kSpawner3_MaxEnemies;
+                            if(object.getProperties().hasProperty("spawn_rate")) spawn_rate = object.getProperties().getValue<float>("spawn_rate");
+                            if(object.getProperties().hasProperty("max_enemies")) max_enemies = object.getProperties().getValue<int>("max_enemies");
+
+                            new_object = std::make_shared<Level3_Spawner>(spawner_area, temp_obstacle_list, &temp_raw_enemy_list, spawn_rate, max_enemies, g_objectManager);
                         }
                     }
                 }
@@ -385,7 +573,6 @@ void LevelScreen::LoadGameObjects(Object_Manager& g_objectManager) {
                         }
                     }
                 }
-
                 if (new_object != nullptr) {
                     if (object.getProperties().hasProperty("useFog")) {
                         new_object->Set_Use_Fog(object.getProperties().getValue<bool>("useFog"));

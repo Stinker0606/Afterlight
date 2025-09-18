@@ -2,6 +2,7 @@
 
 #include "PlayerBaseClass.h"
 #include "../core/RepeatAnimation.h"
+#include "../core/ControllableAnimations.h"
 #include "../core/Cam.h"
 #include <memory>
 #include "PlayerProjectile.h"
@@ -21,21 +22,22 @@ private:
     PlayerState player_state;
 
     // Ein Zeiger der immer auf die gerade aktive Animation zeigt.
-    RepeatAnimation* p_current_animation;
+    void* p_current_animation;
 
     // Variable für den Punktestand
     int score_ = 0;
 
     // --- Timer für Zustände ---
-    float attack_animation_timer;   // Timer für die Dauer von Angriffs-Animationen
     float hit_feedback_timer;       // Timer für die Dauer des roten Aufleuchtens -> not working under shader
+    float hit_feedback_total_time;  // wie lange insgesamt noch Feedback läuft
     float push_cooldown_timer;      // Cooldown nach einer Schiebe-Aktion
     float walk_sound_timer_ = 0.0f; // Timer für den Lauf-Sound
+    float idle_sound_timer_ = 0.0f; // Timer für den -Sound
 
     // --- PUSH WALL ---
-    float push_animation_timer; // Eigener Timer für die Push-Animation
+    float push_animation_timer;              // Eigener Timer für die Push-Animation
     std::weak_ptr<Push_Block> block_to_push; // Ein schwacher Zeiger auf den Block, den wir schieben
-    Vector2 push_direction; // Die Richtung, in die wir schieben
+    Vector2 push_direction;                  // Die Richtung, in die wir schieben
 
     // --- Visuelle Effekte ---
     Color tint_color; // Die aktuelle Tönung des Spielers.
@@ -51,7 +53,12 @@ private:
     // --- MELEE ---
     bool melee_hitbox_spawned_;
 
+    // --- RANGED ---
+    bool has_fired_projectile_;
+
     // --- Animationen ---
+    void Update_Animation_Pointer(); // Eine Methode für die Animationsauswahl
+    float facing_angle_; // Speichert den genauen Winkel zum Zielen.
 
     // Idle
     RepeatAnimation anim_Idle_Front;
@@ -74,32 +81,39 @@ private:
     RepeatAnimation anim_Run_Back_Left;
 
     // Attack Throw
-    RepeatAnimation anim_Throw_Front;
-    RepeatAnimation anim_Throw_Back;
-    RepeatAnimation anim_Throw_Left;
-    RepeatAnimation anim_Throw_Right;
-    RepeatAnimation anim_Throw_Front_Right;
-    RepeatAnimation anim_Throw_Front_Left;
-    RepeatAnimation anim_Throw_Back_Left;
-    RepeatAnimation anim_Throw_Back_Right;
+    ControllableAnimations anim_Throw_Front;
+    ControllableAnimations anim_Throw_Back;
+    ControllableAnimations anim_Throw_Left;
+    ControllableAnimations anim_Throw_Right;
+    ControllableAnimations anim_Throw_Front_Right;
+    ControllableAnimations anim_Throw_Front_Left;
+    ControllableAnimations anim_Throw_Back_Left;
+    ControllableAnimations anim_Throw_Back_Right;
 
     // Attack Sweep
-    RepeatAnimation anim_Sweep_Front;
-    RepeatAnimation anim_Sweep_Back;
-    RepeatAnimation anim_Sweep_Left;
-    RepeatAnimation anim_Sweep_Right;
+    ControllableAnimations anim_Sweep_Front;
+    ControllableAnimations anim_Sweep_Back;
+    ControllableAnimations anim_Sweep_Left;
+    ControllableAnimations anim_Sweep_Right;
 
     // Pushing
-    RepeatAnimation anim_Push_Front;
-    RepeatAnimation anim_Push_Back;
-    RepeatAnimation anim_Push_Left;
-    RepeatAnimation anim_Push_Right;
+    ControllableAnimations anim_Push_Front;
+    ControllableAnimations anim_Push_Back;
+    ControllableAnimations anim_Push_Left;
+    ControllableAnimations anim_Push_Right;
 
     // Dying
-    RepeatAnimation anim_Dying;
+    ControllableAnimations anim_Dying;
 
     // Ein schwacher Zeiger auf die Kamera, um die Mausposition umzurechnen.
     std::weak_ptr<Cam> sp_camera;
+
+    // Hält die ID der getragenen Waffe. -1 bedeutet, keine Waffe wird getragen.
+    int held_weapon_id_ = -1;
+
+    // Variablen hit Feedback
+    int hit_feedback_blinks_left;
+    bool hit_feedback_on;
 
 public:
     /**
@@ -154,4 +168,9 @@ public:
     // --- METHODEN FÜR DEN SCORE ---
     void Add_Score(int amount);
     int Get_Score() const;
+
+    // Methoden zum Verwalten der getragenen Waffe
+    void SetHeldWeapon(int weapon_id);
+    int GetHeldWeapon() const;
+    void ClearHeldWeapon();
 };

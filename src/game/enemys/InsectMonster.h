@@ -19,7 +19,7 @@ namespace enemy
         AnimationState anim_state_;
         Vector2 last_player_position_;
         ControllableAnimations* p_current_animation_;
-        bool melee_hitbox_spawned_; // Merkt sich, ob die Hitbox für diesen Angriff schon erstellt wurde.
+        bool melee_hitbox_spawned_;
 
         // --- ANIMATIONS ---
 
@@ -66,5 +66,6 @@ namespace enemy
         // Soundfunktionen
         void PlayHitSound() override;
         void PlayDeathSound() override;
+        void PlayMoveSound() override;
     };
 }

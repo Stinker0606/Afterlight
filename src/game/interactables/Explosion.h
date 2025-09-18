@@ -1,14 +1,14 @@
 #pragma once
 #include "Object_Manager.h"
 #include "../Collidable.h"
-#include "../../core/RepeatAnimation.h"
+#include "../../core/ControllableAnimations.h"
 
 class Explosion : public Collidable
 {
 private:
     float lifetime;
     Object_Manager& om_ref_;
-    RepeatAnimation animation_;
+    ControllableAnimations animation_;
 
 public:
     Explosion(Vector2 position, Object_Manager& om);

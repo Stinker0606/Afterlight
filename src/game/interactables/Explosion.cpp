@@ -10,7 +10,9 @@ Explosion::Explosion(Vector2 position, Object_Manager& om)
           game::Config::kExplosionAnimationSize,
           game::Config::kExplosionAnimationPath,
           game::Config::kExplosionAnimationFrames,
-          game::Config::kExplosionAnimationFramesPerLine
+          game::Config::kExplosionAnimationFramesPerLine,
+          game::Config::kExplosionTimings,
+          false
       )
 {
     // Die Explosion ist ein 3x3 Kachel großes Feld (96x96), zentriert auf der Bombe
@@ -56,7 +58,7 @@ void Explosion::On_Collision(std::shared_ptr<Collidable> other)
                 {
                     if (Vector2Distance(explosion_center, wall_to_destroy->Get_Hitbox_Center()) <= search_radius)
                     {
-                        wall_to_destroy->Mark_For_Destruction();
+                        wall_to_destroy->DestroyWall();
                     }
                 }
             }

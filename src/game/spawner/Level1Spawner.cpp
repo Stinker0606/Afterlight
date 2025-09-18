@@ -1,10 +1,7 @@
 #include "Level1Spawner.h"
-#include <iostream>
 #include "../enemys/enemies_list.h"
 #include "../../config_enemies.h.in"
 #include "../PlayerProjectile.h"
-#include <numeric>
-
 #include "AssetManager.h"
 
 Level1_Spawner::Level1_Spawner(Rectangle spawner_Area,
@@ -44,6 +41,8 @@ void Level1_Spawner::Update_And_Count_Spawned_Enemies(std::map<enemy::EnemyType,
                 // Zähle die Typen der lebenden Gegner
                 if (auto insect = std::dynamic_pointer_cast<enemy::Insect_Monster>(locked_enemy)) {
                     counts[enemy::EnemyType::INSECT_MONSTER]++;
+                } else if (std::dynamic_pointer_cast<enemy::DarknessMonster>(locked_enemy)) {
+                    counts[enemy::EnemyType::DARKNESS_MONSTER]++;
                 }
                 // Hier weitere else-if für andere Gegnertypen
                 return false; // Behalte in der Liste
@@ -95,6 +94,9 @@ void Level1_Spawner::Tick(float delta_time)
                                 // Übergebe die object_manager_ref an den Konstruktor
                                     new_enemy_raw = new enemy::Insect_Monster(spawn_pos, object_manager_ref, true);
                             break;
+                            case enemy::EnemyType::DARKNESS_MONSTER:
+                                new_enemy_raw = new enemy::DarknessMonster(spawn_pos, object_manager_ref, true);
+                            break;
                             // Hier weitere cases für andere Gegner
                         }
 
@@ -121,7 +123,7 @@ void Level1_Spawner::Draw()
 void Level1_Spawner::On_Collision(std::shared_ptr<Collidable> other)
 {
     // Spawner reagieren NUR auf Spieler-Projektile
-    if (other->Get_Collision_Type() == Collision_Type::PLAYER_PROJECTILE)
+    if (other->Get_Collision_Type() == Collision_Type::PLAYER_PROJECTILE || other->Get_Collision_Type() == Collision_Type::PLAYER_MELEE_HITBOX)
     {
         // Wir prüfen nicht, ob es eine Bombe oder ein Speer ist, sondern einfach, ob es ein Spieler-Angriff ist.
         this->health_--;

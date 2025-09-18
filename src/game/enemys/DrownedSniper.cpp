@@ -79,7 +79,7 @@ namespace enemy
     {
         case AnimationState::RELOADING:
             // Wenn der Cooldown abgelaufen ist, können wir angreifen.
-            if (this->attack_Cooldown_Timer <= 0.0f)
+            if (this->attack_Cooldown_Timer <= 0.0f && Vector2Distance(Get_Hitbox_Center(), player_position) <= game::EnemyConfig::kDrownedSniperAttackRange)
             {
                 anim_state_ = AnimationState::ATTACKING;
                 // WICHTIG: Setze die Angriffs-Animationen zurück, damit sie von vorne beginnen.
@@ -123,7 +123,7 @@ namespace enemy
             this->enemy_Damage,
             game::EnemyConfig::kDrownedSniperProjectileSpriteUp
         );
-        SoundManager::GetInstance().PlaySfx("enemy_sniper_shoot");
+        SoundManager::GetInstance().PlaySfxAtPosition("enemy_sniper_shoot", this->Get_Hitbox_Center());
         om_ref_.AddObject(projectile);
     }
 
@@ -134,6 +134,8 @@ namespace enemy
     void DrownedSniper::PlayDeathSound() {
         SoundManager::GetInstance().PlaySfx("enemy_sniper_death");
     }
+
+    void DrownedSniper::PlayMoveSound() {}
 
     void DrownedSniper::Draw()
     {
@@ -189,7 +191,7 @@ namespace enemy
                     this->hitbox.x - game::EnemyConfig::kDrownedSniper_visual_offset.x,
                     this->hitbox.y - game::EnemyConfig::kDrownedSniper_visual_offset.y
                 };
-                Color tint = { 255, 255, 255, (unsigned char)(this->visibility_alpha * 255.0f) };
+                Color tint = { (unsigned char)this->tint_color.r, (unsigned char)this->tint_color.g, (unsigned char)this->tint_color.b, (unsigned char)(this->visibility_alpha * 255.0f) };
                 p_current_animation_->Draw_Current_Frame(draw_pos, tint);
 
                 if (this->is_animation_active_) {
@@ -203,10 +205,10 @@ namespace enemy
                     p_current_animation_->Reset();
                 }
             }
-            else
-            {
-                DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
-            }
+        }
+        else
+        {
+            DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
         }
     }
 }

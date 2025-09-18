@@ -59,7 +59,7 @@ void SpecificSpawner::Draw()
 
 void SpecificSpawner::On_Collision(std::shared_ptr<Collidable> other)
 {
-    if (other->Get_Collision_Type() == Collision_Type::PLAYER_PROJECTILE) {
+    if (other->Get_Collision_Type() == Collision_Type::PLAYER_PROJECTILE || other->Get_Collision_Type() == Collision_Type::PLAYER_MELEE_HITBOX) {
         this->health_--;
         if (health_ <= 0) {
             this->Mark_For_Destruction();
@@ -76,6 +76,14 @@ enemy::Enemy_Base_Class* SpecificSpawner::createEnemy(Vector2 position)
             return new enemy::Insect_Monster(position, om_ref_, true);
         case enemy::EnemyType::DROWNED_SNIPER:
             return new enemy::DrownedSniper(position, om_ref_, true);
+        case enemy::EnemyType::WALKING_CORPSE:
+            return new enemy::WalkingCorpse(position, om_ref_, true);
+        case enemy::EnemyType::CORPSE:
+            return new enemy::WalkingCorpse(position, om_ref_, true);
+        case enemy::EnemyType::WOOD_SNIPER:
+            return new enemy::WoodSniper(position, om_ref_, true);
+        case enemy::EnemyType::DARKNESS_MONSTER:
+            return new enemy::DarknessMonster(position, om_ref_, true);
     }
     return nullptr;
 }

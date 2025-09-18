@@ -28,14 +28,20 @@ namespace enemy
         float attack_Cooldown_Timer;
         int enemy_Value;
         bool is_Moving;
+        float move_sound_timer_;
+        float move_sound_interval_;
         Texture2D sprite;
         const char* projectile_sprite_path;
-        void Pathfinding(float target_Position_X, float target_Position_Y, float delta_Time);
+        void Pathfinding(Vector2 target_Position, float delta_Time, float attack_range);
         EnemyState current_state;
         float attack_animation_timer;
         Object_Manager& om_ref_;
         bool is_animation_active_;
-
+        Color tint_color;
+        float hit_feedback_timer;
+        float hit_feedback_total_time;
+        int hit_feedback_blinks_left;
+        bool hit_feedback_on;
     public:
         Enemy_Base_Class(std::string name, int health, float movement_speed, int damage, int value,
            const char* sprite_path, const char* projectile_sprite_path,Vector2 start_position, int width, int height,
@@ -52,9 +58,10 @@ namespace enemy
         void Set_Animation_Active(bool is_active);
 
         // --- Öffentliche Methoden ---
-        void Take_Damage(int damage_amount);
+        virtual void Take_Damage(int damage_amount);
         virtual void PlayHitSound();
         virtual void PlayDeathSound();
+        virtual void PlayMoveSound();
         int Get_Health() const { return enemy_Health; }
         int Get_Damage() const { return enemy_Damage; }
         int Get_Movement_Speed(){return enemy_Movement_Speed;};

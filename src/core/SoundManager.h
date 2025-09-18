@@ -21,15 +21,23 @@ public:
     // Methode für Soundeffekte
     void PlaySfx(const std::string& name, int max_instances = 3); // MAD FRAGEN
 
+    // Methode für räumliches Audio
+    void PlaySfxAtPosition(const std::string& name, Vector2 position, int max_instances = 3);
+
     // Muss jeden Frame aufgerufen werden, um die Musik-Streams zu aktualisieren.
     void Update();
 
     // Entlädt alle geladenen Sounds und Musikstücke.
     void UnloadAll();
 
+    void UpdateMusicVolume();
+
     // Verhindere das Kopieren und Zuweisen.
     SoundManager(SoundManager const&) = delete;
     void operator=(SoundManager const&) = delete;
+
+    //Getter um zu überprüfen ob Musik spielt
+    bool IsMusicPlaying(const std::string& name);
 
 private:
     SoundManager() = default;
@@ -45,4 +53,5 @@ private:
 
     // Zählt, wie oft ein Sound in diesem Frame schon gespielt wurde
     std::map<std::string, int> sfx_play_counts_this_frame_;
+
 };

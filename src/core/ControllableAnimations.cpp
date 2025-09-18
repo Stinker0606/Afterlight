@@ -55,10 +55,10 @@ void ControllableAnimations::Next_Frame() {
     }
 }
 
-void ControllableAnimations::Draw_Current_Frame(Vector2 pos, Color tint) {
+    void ControllableAnimations::Draw_Current_Frame(Vector2 pos, Color tint, float scale) {
     // Diese Draw-Methode ist robust und funktioniert mit dem Nebel-Shader.
-    Vector2 origin = { this->size.x / 2, this->size.y / 2 };
-    Rectangle dest = { pos.x, pos.y, this->size.x, this->size.y };
+    Rectangle dest = { pos.x, pos.y, this->size.x * scale, this->size.y * scale };
+    Vector2 origin = { (this->size.x * scale) / 2, (this->size.y * scale) / 2 };
 
     BeginBlendMode(BLEND_ALPHA);
     DrawTexturePro(
@@ -74,4 +74,17 @@ void ControllableAnimations::Draw_Current_Frame(Vector2 pos, Color tint) {
 
 bool ControllableAnimations::Is_Finished() const {
     return this->is_finished_;
+}
+
+void ControllableAnimations::SetProgress(int frame, int frame_progress) {
+    if (frame >= 0 && frame < this->frame_Count) {
+        this->current_Frame = frame;
+        this->frame_progress_counter_ = frame_progress;
+
+        // Aktualisiere das 'target' Rechteck, damit es zum neuen Frame passt.
+        int row = frame / this->sprites_per_line;
+        int col = frame % this->sprites_per_line;
+        this->target.x = 1 + col * this->size.x;
+        this->target.y = 1 + row * this->size.y;
+    }
 }

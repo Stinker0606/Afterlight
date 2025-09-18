@@ -42,6 +42,10 @@ namespace enemy
         this->anim_state_ = AnimationState::FLYING; // Startzustand
         this->p_current_animation_ = &anim_fly_front_; // Standard-Animation
         this->melee_hitbox_spawned_ = false;
+        this->move_sound_interval_ = 0.0f;
+        for (int timing : game::EnemyConfig::kInsectMonsterHoverTimings) {
+            this->move_sound_interval_ += (float)timing / 60.0f;
+        }
     }
 
     void Insect_Monster::Update_AI(float delta_time, Vector2 player_position)
@@ -66,7 +70,7 @@ namespace enemy
         switch (anim_state_)
         {
             case AnimationState::FLYING:
-                Pathfinding(player_position.x, player_position.y, delta_time);
+            Pathfinding(player_position, delta_time, 36);
             if (Vector2Distance(Get_Hitbox_Center(), player_position) <= game::EnemyConfig::kInsectMonsterAttackRange && this->attack_Cooldown_Timer <= 0.0f)
             {
                 anim_state_ = AnimationState::ATTACKING;
@@ -160,6 +164,10 @@ namespace enemy
         SoundManager::GetInstance().PlaySfx("enemy_insect_death");
     }
 
+    void Insect_Monster::PlayMoveSound() {
+        SoundManager::GetInstance().PlaySfx("enemy_insect_move", 1);
+    }
+
     void Insect_Monster::Draw()
     {
         if (game::EnemyConfig::kUseEnemyAnimations)
@@ -199,7 +207,7 @@ namespace enemy
                     this->hitbox.x - game::EnemyConfig::kInsectMonster_visual_offset.x,
                     this->hitbox.y - game::EnemyConfig::kInsectMonster_visual_offset.y
                 };
-                Color tint = { 255, 255, 255, (unsigned char)(this->visibility_alpha * 255.0f) };
+                Color tint = { (unsigned char)this->tint_color.r, (unsigned char)this->tint_color.g, (unsigned char)this->tint_color.b, (unsigned char)(this->visibility_alpha * 255.0f) };
                 p_current_animation_->Draw_Current_Frame(draw_pos, tint);
 
                 if (this->is_animation_active_) {
@@ -208,11 +216,11 @@ namespace enemy
                     p_current_animation_->Reset();
                 }
             }
-            else
-            {
-                // Fallback auf Platzhalter-Sprite
-                DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
-            }
+        }
+        else
+        {
+            // Fallback auf Platzhalter-Sprite
+            DrawTextureV(this->sprite, {this->hitbox.x, this->hitbox.y}, Fade(WHITE, this->visibility_alpha));
         }
     }
 }

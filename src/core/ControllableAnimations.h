@@ -25,9 +25,13 @@ public:
     ControllableAnimations(Vector2 sprite_size, const char* filename, int frame_count, int sprites_per_line, std::vector<int> frame_timings, bool loops = false);
 
     void Next_Frame();
-    void Draw_Current_Frame(Vector2 pos, Color tint = WHITE);
+    void Draw_Current_Frame(Vector2 pos, Color tint = WHITE, float scale = 1.0f);
 
+    void SetProgress(int frame, int frame_progress);
+    int Get_Frame_Progress() const { return frame_progress_counter_; }
+    int Get_Frame_Count() const { return frame_Count; }
     void Reset();
+
     bool Is_Finished() const;
     int Get_Current_Frame() const { return current_Frame; }
 };

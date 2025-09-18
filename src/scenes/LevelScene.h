@@ -4,14 +4,18 @@
 #include "LevelScreen.h"
 #include "Object_Manager.h"
 #include "CollisionManager.h"
-#include "../core/DeltaTimeMachine.h"
 #include "Cam.h"
-#include "FogManager.h"
-#include "../game/PlayerClass.h"
 #include <memory>
 #include <vector>
+#include "FogManager.h"
 #include "UIManager.h"
+#include "DialogManager.h"
+#include "../core/DeltaTimeMachine.h"
+#include "../game/PlayerClass.h"
 #include "../game/spawner/Level1Spawner.h"
+#include "../game/interactables/Statue.h"
+#include "../game/interactables/KeyConsumable.h"
+#include "PauseScene.h"
 
 namespace game::scenes
 {
@@ -23,6 +27,10 @@ namespace game::scenes
     class Level1Scene final : public game::core::Scene
     {
     private:
+        // --- PAUSEN-LOGIK ---
+        bool is_paused_ = false;
+        PauseScene pause_menu_;
+
         // --- Warteliste ---
         std::vector<std::shared_ptr<Collidable>> objects_to_add_list_;
 
@@ -41,6 +49,9 @@ namespace game::scenes
         // --- Fog-Manager ---
         FogManager fogManager;
 
+        // --- Dialog-Manager ---
+        DialogManager dialogManager_;
+
         // Eine RenderTexture, die als unsere "Nebel-Maske" dient.
         RenderTexture2D fogMaskTexture;
 
@@ -49,7 +60,6 @@ namespace game::scenes
         LevelScreen levelScreen{&level_Nbr}; // Wir benutzen unsere erweiterbare LevelScreen
 
         // Listen, die der EnemySpawner aus der Basis-Engine benötigt
-        // ---------------------------------------------------------------------
         // Eine Liste, die alle Hindernisse für die Spawner enthält.
         std::vector<Rectangle> obstacle_list_for_spawner;
 
@@ -58,7 +68,24 @@ namespace game::scenes
 
         // Eine Liste, die alle unsere Spawner-Objekte verwaltet.
         std::vector<std::unique_ptr<Enemy_Spawner>> spawner_list;
-        // ---------------------------------------------------------------------
+
+        // --- Zustandsvariablen für den Tod ---
+        bool is_frozen_ = false;            // Friert das Spiel ein, wenn true
+        float fade_to_black_alpha_ = 0.0f;  // Die aktuelle Transparenz für die Überblendung
+        float fade_duration_ = 2.0f;        // Dauer der Überblendung in Sekunden
+
+        bool puzzle_solved_ = false;
+        std::vector<std::weak_ptr<Statue>> statues_in_level_;
+
+        // ---  Für Fade-In Map ---
+        float fade_alpha_ = 1.0f; // Start: schwarz
+        float fadeIn_duration_ = 0.6f; // Sekunden
+        bool fade_done_ = false;
+
+        // -- Preload aller Enemies --
+        void PreloadEnemyAssets();
+        std::vector<std::weak_ptr<enemy::Enemy_Base_Class>> preload_dummies_;
+        float preload_death_timer_ = 2.0f;
 
     public:
         /**

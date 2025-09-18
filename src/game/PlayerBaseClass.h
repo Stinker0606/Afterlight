@@ -82,5 +82,7 @@ public:
 
 	float GetHealth() const { return player_Health; }
 	float GetMaxHealth() const { return player_Max_Health; }
+
+	void UpdateTimersAndEffects(float delta_time);
 };
 

@@ -65,7 +65,7 @@ void game::core::Stage::Update()
 
 void game::core::Stage::Draw()
 {
-    ClearBackground(WHITE);
+    ClearBackground(BLACK);
 
     for (auto const& [key, val] : this->scene_->actors)
     {
