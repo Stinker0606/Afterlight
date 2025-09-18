@@ -387,7 +387,7 @@ namespace game {
         // -- Stats --
         inline static constexpr int kWalkingCorpseHealth = 75;
         inline static constexpr float kWalkingCorpseMovementSpeed = 3.0f;
-        inline static constexpr int kWalkingCorpseDamage = 17;
+        inline static constexpr int kWalkingCorpseDamage = 20;
         inline static constexpr float kWalkingCorpseAttackCooldown = 13.0f;
         inline static constexpr float kWalkingCorpseAttackRange = 40.0f;
         inline static constexpr int kWalkingCorpseValue = 50;

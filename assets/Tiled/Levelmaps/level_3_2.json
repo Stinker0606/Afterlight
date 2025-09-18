@@ -165,7 +165,7 @@
                         {
                          "name":"max_enemies",
                          "type":"int",
-                         "value":5
+                         "value":2
                         }, 
                         {
                          "name":"spawn_rate",
