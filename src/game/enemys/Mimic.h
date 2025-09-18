@@ -12,6 +12,7 @@ namespace enemy
     private:
         enum class MimicState { TRANSFORMING, WALKING, ATTACKING, DYING };
         MimicState current_state_;
+        bool mimic_walk_sound_started_ = false;
 
         Vector2 last_player_position_;
         ControllableAnimations* p_current_animation_;

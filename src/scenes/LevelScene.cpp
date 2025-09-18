@@ -12,6 +12,7 @@
 #include "SoundManager.h"
 #include "MenuScene.h"
 #include "DeathScene.h"
+#include "EndScene.h"
 
 using namespace std::string_literals;
 
@@ -268,8 +269,12 @@ namespace game::scenes
                 fade_to_black_alpha_ += GetFrameTime() / fade_duration_;
                 if (fade_to_black_alpha_ >= 1.4f)
                 {
-                    // Wenn die Überblendung komplett ist, wechsle zur DeathScene.
-                    game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "death"s, std::make_unique<DeathScene>(player->Get_Score()));
+                    // Wenn die Überblendung komplett ist, wechsle zur EndScene oder DeathScene.
+                    if (game::core::Store::next_scene_map == "level_3_7.json") {
+                        game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "end"s, std::make_unique<EndScene>(player->Get_Score()));
+                    } else {
+                        game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "death"s, std::make_unique<DeathScene>(player->Get_Score()));
+                    }
                     return;
                 }
             }

@@ -10,6 +10,7 @@
 #include "CollisionManager.h"
 #include "CollisionResponse.h"
 #include "PlayerBaseClass.h"
+#include "SoundManager.h"
 #include <valarray>
 #include "../config_audio.h.in"
 namespace enemy
@@ -55,6 +56,10 @@ namespace enemy
         {
             // Logik für die Punktevergabe
             this->PlayDeathSound(); // Spiele den Todes-Sound
+            SoundManager::GetInstance().StopSfx("enemy_insect_move"); // Stoppe Bewegungssound
+            SoundManager::GetInstance().StopSfx("enemy_corpse_move");
+            SoundManager::GetInstance().StopSfx("darkness_move");
+            SoundManager::GetInstance().StopSfx("mimic_move");
             if (game::core::Store::player) {
                 game::core::Store::player->Add_Score(this->enemy_Value);
             }

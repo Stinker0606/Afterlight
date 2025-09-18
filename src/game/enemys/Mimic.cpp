@@ -49,7 +49,7 @@ namespace enemy
         anim_transform_.Reset();
         this->move_sound_interval_ = 0.0f;
         for (int timing : game::EnemyConfig::kMimicWalkTimings) {
-            this->move_sound_interval_ += (float)timing / 60.0f;
+            this->move_sound_interval_ += (float)timing / 100.0f;
         }
     }
 
@@ -80,6 +80,20 @@ namespace enemy
             case MimicState::WALKING:
                 Enemy_Base_Class::Tick(delta_time);
                 Pathfinding(player_position, delta_time, 36);
+
+                // Logik, die prüft, ob der Mimic sich bewegt, bevor der Sound gespielt wird.
+                if (is_Moving) {
+                    if (!mimic_walk_sound_started_) {
+                        SoundManager::GetInstance().PlaySfx("mimic_move", 1);
+                        mimic_walk_sound_started_ = true;
+                    }
+                } else {
+                    if (mimic_walk_sound_started_) {
+                        SoundManager::GetInstance().StopSfx("mimic_move");
+                        mimic_walk_sound_started_ = false;
+                    }
+                }
+
                 if (Vector2Distance(Get_Hitbox_Center(), player_position) <= game::EnemyConfig::kMimicAttackRange && this->attack_Cooldown_Timer <= 0.0f)
                 {
                     current_state_ = MimicState::ATTACKING;
@@ -88,6 +102,7 @@ namespace enemy
                     anim_attack_back_.Reset();
                     anim_attack_left_.Reset();
                     anim_attack_right_.Reset();
+                    SoundManager::GetInstance().StopSfx("mimic_move");
                 }
                 break;
 

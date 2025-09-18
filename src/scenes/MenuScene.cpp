@@ -72,6 +72,7 @@ namespace game::scenes
             transition_alpha_ += GetFrameTime() / transition_duration_play;
             if (transition_alpha_ >= 1.0f)
             {
+                game::core::Store::player = std::make_shared<PlayerClass>(Vector2{0,0}, nullptr);
                 game::core::Store::stage->ReplaceWithNewScene("menu"s, "gameplay"s, std::make_unique<Level1Scene>());
             }
             return;
