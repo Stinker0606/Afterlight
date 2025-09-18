@@ -454,28 +454,28 @@ namespace game {
         inline static constexpr int kWoodSniperDeathFramesPerLine = 10;
 
         // -- Ranged Attack Animations (8 Richtungen) --
-        inline static constexpr const char* kWoodSniperAttackUpPath = "assets/graphics/enemies/drowned_sniper/attack_up.png";
+        inline static constexpr const char* kWoodSniperAttackUpPath = "assets/graphics/animations/drowned_Sniper/attack/drowned_Sniper_shoot_Back.png";
         inline static constexpr int kWoodSniperAttackUpFrames = 12;
         inline static constexpr int kWoodSniperAttackUpFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackDownPath = "assets/graphics/enemies/drowned_sniper/attack_down.png";
+        inline static constexpr const char* kWoodSniperAttackDownPath = "assets/graphics/animations/drowned_Sniper/attack/drowned_Sniper_shoot_Front.png";
         inline static constexpr int kWoodSniperAttackDownFrames = 12;
         inline static constexpr int kWoodSniperAttackDownFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackLeftPath = "assets/graphics/enemies/drowned_sniper/attack_left.png";
+        inline static constexpr const char* kWoodSniperAttackLeftPath = "assets/graphics/animations/drowned_Sniper/attack/drowned_Sniper_shoot_Left.png";
         inline static constexpr int kWoodSniperAttackLeftFrames = 12;
         inline static constexpr int kWoodSniperAttackLeftFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackRightPath = "assets/graphics/enemies/drowned_sniper/attack_right.png";
+        inline static constexpr const char* kWoodSniperAttackRightPath = "assets/graphics/animations/drowned_Sniper/attack/drowned_Sniper_shoot_Right.png";
         inline static constexpr int kWoodSniperAttackRightFrames = 12;
         inline static constexpr int kWoodSniperAttackRightFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackUpLeftPath = "assets/graphics/enemies/drowned_sniper/attack_up_left.png";
+        inline static constexpr const char* kWoodSniperAttackUpLeftPath = "assets/graphics/animations/drowned_Sniper/attack/drowned_Sniper_shoot_Backleft.png";
         inline static constexpr int kWoodSniperAttackUpLeftFrames = 12;
         inline static constexpr int kWoodSniperAttackUpLeftFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackUpRightPath = "assets/graphics/enemies/drowned_sniper/attack_up_right.png";
+        inline static constexpr const char* kWoodSniperAttackUpRightPath = "assets/graphics/animations/drowned_Sniper/attack/drowned_Sniper_shoot_Backright.png";
         inline static constexpr int kWoodSniperAttackUpRightFrames = 12;
         inline static constexpr int kWoodSniperAttackUpRightFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackDownLeftPath = "assets/graphics/enemies/drowned_sniper/attack_down_left.png";
+        inline static constexpr const char* kWoodSniperAttackDownLeftPath = "assets/graphics/animations/drowned_Sniper/attack/drowned_Sniper_shoot_Frontleft.png";
         inline static constexpr int kWoodSniperAttackDownLeftFrames = 12;
         inline static constexpr int kWoodSniperAttackDownLeftFramesPerLine = 12;
-        inline static constexpr const char* kWoodSniperAttackDownRightPath = "assets/graphics/enemies/drowned_sniper/attack_down_right.png";
+        inline static constexpr const char* kWoodSniperAttackDownRightPath = "assets/graphics/animations/drowned_Sniper/attack/drowned_Sniper_shoot_Frontright.png";
         inline static constexpr int kWoodSniperAttackDownRightFrames = 12;
         inline static constexpr int kWoodSniperAttackDownRightFramesPerLine = 12;
 
