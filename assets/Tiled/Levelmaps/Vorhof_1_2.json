@@ -1167,7 +1167,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Lord Sazriel, wirst du ihm nie mit einer Waffe in der Hand und deiner\nFamilie zu Hause begegnen. Tausende haben versucht, dem Tod zu \nentgehen und sind gescheitert, denn der Gott des Todes wird immer \nseine Schulden einfordern. Solltest du es jemals versuchen,\nwirst du deinen Tod an der <b>Sense<\/b> des Todesgottes finden.\n"
+                         "value":"Lord Sazriel, wirst du ihm nie mit einer Waffe in der Hand und deiner\nFamilie zu Hause begegnen. Einige versuchten, dem Tod zu \nentgehen und sind gescheitert. Solltest du es jemals versuchen,\nwirst du deinen Tod an der <b>Sense<\/b> des Todesgottes finden.\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1201,7 +1201,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Die Gottheit Axaris, segne sie dich mit einer erholsamen Nacht.\nDie Gottheit der Dunkelheit, wurde schon immer verschrien, \ndoch die Menschheit wurde bald des Besseren belehrt. \nFuerchte dich vor der Motivation von Axaris, denn Axaris wird dich \nfinden, und du wirst bereuen, dass sie <b>Kusarigama<\/b> aufheben."
+                         "value":"Die Gottheit Axaris, segne sie dich mit einer erholsamen Nacht.\nDie Gottheit der Dunkelheit, wurde schon immer verschrien.\nFuerchte dich vor der Motivation von Axaris, denn Axaris wird dich \nfinden, und du wirst bereuen, dass sie <b>Kusarigama<\/b> aufheben."
                         }],
                  "rotation":0,
                  "type":"",
@@ -1218,7 +1218,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Lord Taelmir, mag er dich segnen damit du niemals betrogen wirst.\nNiemals solltest du die Worte des Gottes der List glauben,\nes sei denn, er verspricht dir, dass er ehrlich ist.\nAber sei gewarnt, bevor du dich mit denen anlegst, die\nseine Treue verdient haben, bevor du dich in seinen <b>Ketten<\/b> befindest.\n\n"
+                         "value":"Lord Taelmir, mag er dich segnen damit du niemals betrogen wirst.\nSei gewarnt, bevor du dich mit denen anlegst, die die Treue \ndes Gottes der Licht verdient haben, bevor du dich in seinen \n<b>Ketten<\/b> befindest.\n\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1235,7 +1235,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Man bemerkt einen Hauch der verbleibenden Macht, die durch\ndiese Statue floss. Doch mit dem Tod des Gottes,\nder einst geholfen hat, den gefaehrlichsten\nder korrupten Gottheiten zu versiegeln, ist die Statue zu \neiner Ruine geworden.\n"
+                         "value":"Man bemerkt einen Hauch der verbleibenden Macht, die durch\ndiese Statue floss. Doch mit dem Tod der Gottheit,\nist die Statue zu einer Ruine geworden.\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1252,7 +1252,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Lady Phoelia, mag sie dich segnen, damit du nie das Versagen deiner\nWaffe erlebst.\nHoffe ihren Zorn nie zu sehen, denn nach dem Tod ihrer geliebten\nFrau brannte sie beinahe die Welt nieder. Und es war ihre <b>Schmiede<\/b>, \ndie uns die Waffen gab, die ihren mit Gottheiten zum Sieg halfen."
+                         "value":"Lady Phoelia, mag sie dich segnen, damit du nie das Versagen deiner \nWaffe erlebst. Nach dem Tod ihrer geliebten Frau brannte sie \nbeinahe die Welt von Ihrer <b>Schmiede<\/b> schmiede nieder."
                         }],
                  "rotation":0,
                  "type":"",
