@@ -226,16 +226,16 @@ namespace game {
 
         // Attack Sweep (Melee)
         inline static constexpr const char* player_Sweep_Front_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Front.png";
-        inline static constexpr int player_Sweep_Front_Frames = 3;
-        inline static constexpr int player_Sweep_Front_Frames_Per_Line = 3;
+        inline static constexpr int player_Sweep_Front_Frames = 8;
+        inline static constexpr int player_Sweep_Front_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Sweep_Back_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Back.png";
-        inline static constexpr int player_Sweep_Back_Frames = 3;
-        inline static constexpr int player_Sweep_Back_Frames_Per_Line = 3;
+        inline static constexpr int player_Sweep_Back_Frames = 8;
+        inline static constexpr int player_Sweep_Back_Frames_Per_Line = 8;
 
         inline static constexpr const char* player_Sweep_Left_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Left.png";
-        inline static constexpr int player_Sweep_Left_Frames = 6;
-        inline static constexpr int player_Sweep_Left_Frames_Per_Line = 6;
+        inline static constexpr int player_Sweep_Left_Frames = 7;
+        inline static constexpr int player_Sweep_Left_Frames_Per_Line = 7;
 
         inline static constexpr const char* player_Sweep_Right_Path = "assets/graphics/animations/player/spear_sweep/MC_Sweep_Right.png";
         inline static constexpr int player_Sweep_Right_Frames = 7;
@@ -276,8 +276,8 @@ namespace game {
         // ====================================== PLAYER ANIMATION TIMINGS =============================================
 
         // -- SWEEP ATTACK --
-        inline static const std::vector<int> player_Sweep_Front_Timings = { 4, 8, 4 };
-        inline static const std::vector<int> player_Sweep_Back_Timings  = { 4, 8, 4 };
+        inline static const std::vector<int> player_Sweep_Front_Timings = { 3, 2, 4, 7, 6, 4, 2, 2};
+        inline static const std::vector<int> player_Sweep_Back_Timings  = { 3, 2, 4, 7, 6, 4, 2, 2};
         inline static const std::vector<int> player_Sweep_Left_Timings  = { 3, 2, 4, 7, 6, 4, 2};
         inline static const std::vector<int> player_Sweep_Right_Timings = { 3, 2, 4, 7, 6, 4, 2};
 
