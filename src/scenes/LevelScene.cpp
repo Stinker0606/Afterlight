@@ -1,0 +1,290 @@
+#include "LevelScene.h"
+#include <memory>
+#include "Store.h"
+#include "PauseScene.h"
+#include <string>
+#include <vector>
+#include "../config.h.in"
+#include "../game/Walls.h"
+#include "../game/enemys/enemies_list.h"
+#include "../game/interactables/interact_list.h"
+#include "SoundManager.h"
+#include "MenuScene.h"
+
+using namespace std::string_literals;
+
+namespace game::scenes
+{
+    Level1Scene::Level1Scene()
+    {
+        // Starte die Ingame-Musik
+        SoundManager::GetInstance().PlayMusic("ingame_music");
+
+        levelScreen.LoadSpecificLevelmap(game::core::Store::next_scene_map);
+        levelScreen.LoadGameObjects(objectManager);
+
+        // --- FINDE DEN KORREKTEN SPIELER-STARTPUNKT ---
+        Vector2 player_start_pos = { 250, 250 }; // Fallback
+        std::string spawn_name_to_find = game::core::Store::next_spawn_point;
+        if (levelScreen.spawn_points_.count(spawn_name_to_find)) {
+            player_start_pos = levelScreen.spawn_points_[spawn_name_to_find];
+        } else {
+            std::cout << "WARNUNG: Spawn-Punkt '" << spawn_name_to_find << "' nicht gefunden!" << std::endl;
+        }
+
+        // --- HOL DEN GLOBALEN SPIELER UND SETZE SEINE POSITION ---
+        if (game::core::Store::player) {
+            // 1. Hole den Pointer aus dem Store
+            this->sp_player = game::core::Store::player;
+
+            // 2. Füge den Spieler zu DIESER Szene hinzu
+            objectManager.AddObject(game::core::Store::player);
+
+            // 3. Setze seine Position auf den neuen Startpunkt
+            game::core::Store::player->Set_Position(player_start_pos);
+
+            // 4. Gib dem globalen Spieler die Referenz zum ObjectManager DIESER Szene.
+            game::core::Store::player->Set_Object_Manager(&objectManager);
+        }
+
+        // 5. Kamera erstellen und an den Spieler binden (benutze den Store-Pointer)
+        sp_cam = std::make_shared<Cam>(game::core::Store::player);
+
+        // 6. Weise dem Spieler die Kamera zu.
+        if (auto player = sp_player.lock()) {
+            player->Set_Camera(sp_cam);
+        }
+
+        // 7. UI Manager anpassen
+        uiManager_.SetPlayer(game::core::Store::player);
+
+        // 8. Collision Manager initialisieren
+        Rectangle world_bounds = {0, 0, 4000, 4000};
+        p_cm = std::make_unique<Collision_Manager>(world_bounds, objectManager.managed_objects);
+
+        // --- NEBEL-INITIALISIERUNG ---
+
+        // 9.1 Initialisiere die fogMaskTexture
+        this->fogMaskTexture = LoadRenderTexture(game::Config::kStageWidth, game::Config::kStageHeight);
+
+        // 9.2 Hole den Dateinamen der AKTUELLEN Map aus dem globalen Store.
+        std::string map_filename = game::core::Store::next_scene_map;
+
+        // 9.3 Initialisiere den FogManager mit dem korrekten, dynamischen Map-Namen.
+        fogManager.InitializeFog(map_filename, {(float)game::Config::kStageWidth, (float)game::Config::kStageHeight});
+        // -----------------------------------------
+
+        // 10. Zeitmessung starten
+        dtm.Start();
+    }
+
+    Level1Scene::~Level1Scene()
+    {
+        // Gib den Speicher der RenderTexture frei wenn die Szene zerstört wird.
+        UnloadRenderTexture(this->fogMaskTexture);
+    }
+
+    void Level1Scene::Add_Object_To_Waitlist(std::shared_ptr<Collidable> object)
+    {
+        if (object) {
+            objects_to_add_list_.push_back(object);
+        }
+    }
+
+    void Level1Scene::Update()
+    {
+        // Standard-Engine-Inputs
+
+        if (IsKeyPressed(KEY_P))
+        {
+            game::core::Store::stage->SwitchToNewScene("menu"s, std::make_unique<MenuScene>());
+            return;
+        }
+/*        if (IsKeyPressed(KEY_L)){
+            ToggleFullscreen();
+        }
+*/
+        if (auto player = sp_player.lock())
+        {
+            Vector2 player_position = player->Get_Player_Center();
+            Vector2 player_center = player->Get_Player_Center();
+
+            // --- INTELLIGENTE UPDATE-SCHLEIFE ---
+            for (const auto& obj : objectManager.managed_objects)
+            {
+                if (!obj) continue;
+
+                // 1. Versuche, das Objekt in einen Gegner umzuwandeln
+                if (auto enemy = std::dynamic_pointer_cast<enemy::Enemy_Base_Class>(obj))
+                {
+                    // Prüfe die Distanz zum Spieler, um die Animation zu aktivieren/deaktivieren
+                    Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                    float distance = Vector2Distance(player_center, obj_center);
+
+                    // Wenn der Gegner im sichtbaren Radius ist, schalte die Animation an.
+                    if (distance <= 99999999) {
+                        enemy->Set_Animation_Active(true);
+                    }
+                    // Sonst schalte sie aus.
+                    else {
+                        enemy->Set_Animation_Active(false);
+                    }
+                    // 2. Rufe die spezifische KI jedes Gegners auf, ohne seinen Typ zu kennen!
+                    enemy->Update_AI(dtm.Get_Dt(), player_position);
+                }
+                else
+                {
+                    // 3. WENN es KEIN Gegner ist, rufe die normale Tick-Methode auf.
+                    obj->Tick(dtm.Get_Dt());
+                }
+            }
+
+            if (player->Should_Place_Bomb())
+            {
+                // Platziere die Bombe auf dem Grid, auf dem der Spieler steht
+                Vector2 bomb_pos = {
+                    floorf(player_center.x / 32.0f) * 32.0f,
+                    floorf(player_center.y / 32.0f) * 32.0f
+                };
+                auto bomb = std::make_shared<Bomb>(bomb_pos, this, objectManager);
+                Add_Object_To_Waitlist(bomb);
+            }
+
+            // --- "useFog"-Logik ---
+            if (fogManager.IsFogActive())
+            {
+                // WENN der Nebel AN ist, berechne die Transparenz basierend auf der Distanz.
+                Vector2 player_center = player->Get_Player_Center();
+                for (const auto& obj : objectManager.managed_objects) {
+                    if (obj && obj->Get_Use_Fog()) {
+                        Vector2 obj_center = { obj->Get_Hitbox().x + obj->Get_Hitbox().width / 2, obj->Get_Hitbox().y + obj->Get_Hitbox().height / 2 };
+                        float distance = Vector2Distance(player_center, obj_center);
+                        float alpha = 1.0f;
+                        if (distance > game::Config::kFogFullVisibilityRadius) {
+                            alpha = 1.0f - (distance - game::Config::kFogFullVisibilityRadius) / (game::Config::kFogNoVisibilityRadius - game::Config::kFogFullVisibilityRadius);
+                        }
+                        obj->Set_Visibility_Alpha(Clamp(alpha, 0.0f, 1.0f));
+                    } else if (obj) {
+                        // Objekte ohne useFog sind im Nebel immer voll sichtbar.
+                        obj->Set_Visibility_Alpha(1.0f);
+                    }
+                }
+            }
+            else
+            {
+                // WENN der Nebel AUS ist, setze ALLE Objekte auf 100% Sichtbarkeit.
+                for (const auto& obj : objectManager.managed_objects) {
+                    if (obj) {
+                        obj->Set_Visibility_Alpha(1.0f);
+                    }
+                }
+            }
+
+            objectManager.Cleanup_Objects();
+
+            for (const auto& new_obj : objects_to_add_list_) {
+                objectManager.AddObject(new_obj);
+            }
+            objects_to_add_list_.clear();
+
+            // Aktualisiere Kamera und Kollisionen
+            p_cm->Check_Collisions();
+            sp_cam->Cam_Movement(dtm.Get_Dt());
+
+            // --- KAMERA-BEGRENZUNG ---
+            {
+                // 1. Hole die halbe Bildschirmgröße. Die Kamera schaut von der Mitte aus.
+                float screen_half_width = game::Config::kStageWidth / 2.0f;
+                float screen_half_height = game::Config::kStageHeight / 2.0f;
+
+                // 2. Berücksichtige den Zoom-Faktor.
+                float zoomed_half_width = screen_half_width / sp_cam->cam.zoom;
+                float zoomed_half_height = screen_half_height / sp_cam->cam.zoom;
+
+                // 3. Berechne die minimal und maximal erlaubten Koordinaten für das KAMERA-ZIEL.
+                float min_cam_x = game::Config::kWorldBoundsMinX + zoomed_half_width;
+                float max_cam_x = game::Config::kWorldBoundsMaxX - zoomed_half_width;
+                float min_cam_y = game::Config::kWorldBoundsMinY + zoomed_half_height;
+                float max_cam_y = game::Config::kWorldBoundsMaxY - zoomed_half_height;
+
+                // 4. "Klemme" die aktuelle Zielposition der Kamera an diese Grenzen.
+                sp_cam->cam.target.x = Clamp(sp_cam->cam.target.x, min_cam_x, max_cam_x);
+                sp_cam->cam.target.y = Clamp(sp_cam->cam.target.y, min_cam_y, max_cam_y);
+            }
+
+            // --- NEBEL-UPDATE ---
+            // Wir müssen die WELT-Position des Spielers in BILDSCHIRM-Koordinaten umrechnen.
+            Vector2 player_world_pos = player->Get_Player_Center();
+            Vector2 player_screen_pos = GetWorldToScreen2D(player_world_pos, sp_cam->cam);
+
+            // Übergib die korrekten Bildschirm-Koordinaten an den FogManager.
+            if (fogManager.IsFogActive()) {
+                fogManager.Update(player_screen_pos, dtm.Get_Dt());
+            }
+
+            // Aufräumen und Zeit aktualisieren
+            dtm.Update();
+        }
+    }
+
+    void Level1Scene::Draw()
+    {
+        BeginDrawing();
+        ClearBackground((Color){ 0, 32, 36, 255 }); // Hintergrundfarbe
+
+        BeginMode2D(sp_cam->cam);
+        {
+            // Zeichne ZUERST den Boden (alle Ebenen UNTER den Objekten)
+            // BEVOR der Nebel-Shader überhaupt aktiv wird.
+            levelScreen.Draw_Level(sp_cam, false);
+
+            // Starte den Nebel-Shader genau wie in deinem alten Code.
+            // Er wird den Sichtkreis um den Spieler selbst zeichnen.
+            fogManager.BeginFogMode();
+            {
+                // 1. ZEICHNE DEN BODEN ERNEUT
+                // Dies ist notwendig, damit Objekte korrekt hinter Wänden verschwinden.
+                levelScreen.Draw_Level(sp_cam, false);
+
+                // 2. SORTIERE ALLE SPIELOBJEKTE
+                // Hier werden Spieler, Gegner, Bäume etc. (sobald sie Objekte sind)
+                // und alle anderen Objekte in EINER Liste korrekt sortiert.
+                std::sort(objectManager.managed_objects.begin(), objectManager.managed_objects.end(),
+                    [](const std::shared_ptr<Collidable>& a, const std::shared_ptr<Collidable>& b) {
+                        // Sortiere nach der Unterkante der Hitbox
+                        return (a->Get_Hitbox().y + a->Get_Hitbox().height) < (b->Get_Hitbox().y + b->Get_Hitbox().height);
+                    });
+
+                // 3. ZEICHNE ALLE SORTIERTEN OBJEKTE
+                // Diese EINE Schleife zeichnet jetzt alles in der richtigen Reihenfolge.
+                // Jedes Objekt nutzt seine eigene `visibility_alpha` für den Entfernungs-Fade.
+                for (const auto& obj : objectManager.managed_objects) {
+                    if (obj) {
+                        obj->Draw();
+                    }
+                }
+
+                // 4. ZEICHNE DIE "IMMER-OBEN"-SCHICHT
+                // (z.B. Wandspitzen, die immer über dem Spieler sein müssen)
+                levelScreen.Draw_Level(sp_cam, true);
+            }
+            // Beende den Shader.
+            fogManager.EndFogMode();
+
+            // --- DEBUG ---
+            if (game::Config::kDebugShowHitboxes)
+            {
+                for (const auto& p_object : objectManager.managed_objects)
+                {
+                    if (p_object != nullptr)
+                    {
+                        DrawRectangleLinesEx(p_object->Get_Hitbox(), 2.0f, RED);
+                    }
+                }
+            }
+        }
+        EndMode2D();
+        // --- ZEICHNE DIE UI ---
+        uiManager_.DrawUI(sp_cam->cam);
+    }
+}

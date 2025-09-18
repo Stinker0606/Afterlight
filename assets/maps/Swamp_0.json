@@ -718,7 +718,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/graphics\/tilesets\/Afterlight_All_Level_Tileset.json"
+         "source":"..\/Tilesets\/Afterlight_All_Level_Tileset.json"
         }],
  "tilewidth":32,
  "type":"map",
