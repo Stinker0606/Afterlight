@@ -996,7 +996,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Hallo! \nWillkommen in deinem schlimmsten Albtraum. \nGehe weiter und erwarte dein Schicksal."
+                         "value":"Hello! \nWelcome to your worst nightmare. \nVenture forth and embrace your fate."
                         }, 
                         {
                          "name":"portrait_path",
@@ -1023,7 +1023,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Du wirst weiter in dieser Richtung erwartet ->\n<b>Tipp:<\/b> mit <b><brown>braunen Objekten<\/brown><\/b> kann interagiert werden!"
+                         "value":"You're expected this way ->\n<b>Tip:<\/b> you can interact with <b><brown>brown Objects!<\/brown><\/b>"
                         }, 
                         {
                          "name":"portrait_path",
@@ -1050,7 +1050,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Bomben koennen dir einst verborgene Wege freimachen. \n<b>Tipp: <white>Weisse Objekte<\/white><\/b> koennen zerstoert werden! Je naeher\nsie an Objekten platziert werden, desto hoeher der Schaden!"
+                         "value":"Bombs can free up closed paths. \n<b>Tip: <white>White Objects<\/white><\/b> can be destroyed! \nThe closer you place them the more damage they deal."
                         }, 
                         {
                          "name":"portrait_path",
@@ -1077,7 +1077,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Hier liegt ein Schluessel, welchen Weg er dir wohl\nfreischalten wird?\nTipp: manche Wege sind nur mit einem Schluessel begehbar!"
+                         "value":"Here's a key, I wonder which ways it opens up?\nTip: Some paths are only available after using a key!"
                         }, 
                         {
                          "name":"portrait_path",
@@ -1104,7 +1104,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Nimm einen Heiltrank um dein Leben aufzufrischen. \nTipp: Vorsicht, nicht jeder Trank ist gut!"
+                         "value":"Take a potion to refresh your health.\nTip: Careful, not every potion is good for you!"
                         }, 
                         {
                          "name":"portrait_path",
@@ -1131,7 +1131,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Hier sind Gegner. Sie wollen dir das Leben schwer machen. \nTipp: Gegner kommen aus einem Spawner, diese koennen \nzerstoert werden."
+                         "value":"There are enemies ahead, they have it out for you.\nTip: Enemies come from a spawner, which can be destroyed."
                         }, 
                         {
                          "name":"portrait_path",
@@ -1158,7 +1158,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Gehe nun weiter und besiege deine Gegner. \nDu musst das Schloss erreichen um den boesen Gott davon \nabzuhalten, unsere Welt zu zerstoeren!"
+                         "value":"Venture forth and defeat your enemies. \nYou have to reach the castle to stop the evil God from destroying our World!"
                         }, 
                         {
                          "name":"portrait_path",

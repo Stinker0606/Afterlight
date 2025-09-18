@@ -1076,7 +1076,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Ich brauche einen <b><brown>Schluessel<\/brown><\/b> um dieses Tor zu oeffnen!"
+                         "value":"I need a <b><brown>key<\/brown><\/b> to open this door!"
                         }, 
                         {
                          "name":"portrait_path",
@@ -1454,7 +1454,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Tag 981 des Krieges. Lady Nephira hat uns befohlen, diesen \nverdammten Ort auf etwas vorzubereiten. \nIch habe keine Ahnung, worum es geht. \nTag 982. Wir sind den neuen Chimaere begegnet. Furchterregende \nDinger. Ich hoffe ich seh solch eine Kreatur nie wieder.\n"
+                         "value":"Day 981 of the war. Lady Nephira has ordered us to prepare this\ncursed place for\u2026 something. I have no idea what it\u2019s about.\nDay 982. We encountered the new Chimera. Terrifying things. \nI hope I never see such a creature again.\n"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1471,7 +1471,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Der Schluessel befindet sich wohl tiefer im Labyrinth."
+                         "value":"The key is deeper inside this labyrinth."
                         }],
                  "rotation":0,
                  "type":"",
@@ -1488,7 +1488,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Endlich, ich habe den Schluessel gefunden!"
+                         "value":"Finally, I found the key!"
                         }],
                  "rotation":0,
                  "type":"",

@@ -1348,7 +1348,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Hallo, du hast es jetzt schon soweit geschafft.\nGehe weiter um den Gott des Chaos zu besiegen.\nAber zuerst, nimm diesen Trank zu meiner Rechten."
+                         "value":"Hey, you've made it this far already, but you have to\ncontinue forward to dispel all evil.\nBut first, take the potion to my right and freshen up."
                         }, 
                         {
                          "name":"portrait_path",
@@ -1386,7 +1386,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Viel Glueck!\nIch hoffe du stirbst nicht, das waere... \"tragisch\"... fuer mich."
+                         "value":"Good Luck!\nI hope you don't die, that would be.... \"tragic\"... for me.\n"
                         }, 
                         {
                          "name":"portrait_path",
@@ -1413,7 +1413,7 @@
                         {
                          "name":"dialog_text",
                          "type":"string",
-                         "value":"Keine Sorge, es wird bestimmt nicht schlimmer! \nOder vielleicht doch, wer weiss..."
+                         "value":"Don't worry, it probably won't get worse!\nOr maybe it will, who knows...\n"
                         }, 
                         {
                          "name":"portrait_path",
