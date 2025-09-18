@@ -82,7 +82,7 @@ namespace enemy
             if (move_sound_timer_ <= 0.0f)
             {
                 this->PlayMoveSound();
-                move_sound_timer_ = game::AudioConfig::kWalk_Sound_Timer;
+                move_sound_timer_ = this->move_sound_interval_;
             }
             // Normalisiert den Vektor: Macht den Pfeil zur reinen Richtung, indem seine Länge auf 1 gekürzt wird.
             // Dies ist der entscheidende Schritt für eine konstante Geschwindigkeit.
@@ -110,6 +110,9 @@ namespace enemy
     //Core Methoden
     void Enemy_Base_Class::Tick(float delta_time)
     {
+        if (move_sound_timer_ > 0.0f) {
+            move_sound_timer_ -= delta_time;
+        }
         if (attack_Cooldown_Timer > 0)
         {
             attack_Cooldown_Timer -= delta_time;

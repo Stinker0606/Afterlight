@@ -42,6 +42,10 @@ namespace enemy
         this->anim_state_ = AnimationState::FLYING; // Startzustand
         this->p_current_animation_ = &anim_fly_front_; // Standard-Animation
         this->melee_hitbox_spawned_ = false;
+        this->move_sound_interval_ = 0.0f;
+        for (int timing : game::EnemyConfig::kInsectMonsterHoverTimings) {
+            this->move_sound_interval_ += (float)timing / 60.0f;
+        }
     }
 
     void Insect_Monster::Update_AI(float delta_time, Vector2 player_position)

@@ -45,9 +45,12 @@ namespace enemy
         this->current_state_ = MimicState::TRANSFORMING;
         this->p_current_animation_ = &anim_transform_;
         this->melee_hitbox_spawned_ = false;
-
         SoundManager::GetInstance().PlaySfx("mimic_transform");
         anim_transform_.Reset();
+        this->move_sound_interval_ = 0.0f;
+        for (int timing : game::EnemyConfig::kMimicWalkTimings) {
+            this->move_sound_interval_ += (float)timing / 60.0f;
+        }
     }
 
     void Mimic::Update_AI(float delta_time, Vector2 player_position)

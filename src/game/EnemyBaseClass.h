@@ -29,6 +29,7 @@ namespace enemy
         int enemy_Value;
         bool is_Moving;
         float move_sound_timer_;
+        float move_sound_interval_;
         Texture2D sprite;
         const char* projectile_sprite_path;
         void Pathfinding(Vector2 target_Position, float delta_Time, float attack_range);

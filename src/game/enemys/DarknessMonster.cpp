@@ -52,6 +52,10 @@ namespace enemy
         this->has_attacked_in_state_ = false;
         this->attack_Cooldown_Timer = 0.0f; // Für Nahkampf
         this->ranged_attack_cooldown_timer_ = 0.0f; // Für Fernkampf
+        this->move_sound_interval_ = 0.0f;
+        for (int timing : game::EnemyConfig::kDarknessMonsterWalkTimings) {
+            this->move_sound_interval_ += (float)timing / 60.0f;
+        }
     }
 
     void DarknessMonster::Update_AI(float delta_time, Vector2 player_position)
