@@ -10,6 +10,7 @@
 #include "FogManager.h"
 #include "UIManager.h"
 #include "DialogManager.h"
+#include "NoiseManager.h"
 #include "../core/DeltaTimeMachine.h"
 #include "../game/PlayerClass.h"
 #include "../game/spawner/Level1Spawner.h"
@@ -48,6 +49,9 @@ namespace game::scenes
 
         // --- Fog-Manager ---
         FogManager fogManager;
+
+        // --- Noise-Manager ---
+        NoiseManager noiseManager;
 
         // --- Dialog-Manager ---
         DialogManager dialogManager_;

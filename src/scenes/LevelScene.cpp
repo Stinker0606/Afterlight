@@ -12,6 +12,7 @@
 #include "SoundManager.h"
 #include "MenuScene.h"
 #include "DeathScene.h"
+#include "EndScene.h"
 
 using namespace std::string_literals;
 
@@ -98,6 +99,9 @@ namespace game::scenes
 
         // 9.3 Initialisiere den FogManager mit dem korrekten, dynamischen Map-Namen.
         fogManager.InitializeFog(map_filename, {(float)game::Config::kStageWidth, (float)game::Config::kStageHeight});
+
+        // 9.4 Initialisiere den NoiseManager.
+        noiseManager.InitializeNoise(map_filename);
         // -----------------------------------------
 
         // 10. Zeitmessung starten
@@ -268,8 +272,20 @@ namespace game::scenes
                 fade_to_black_alpha_ += GetFrameTime() / fade_duration_;
                 if (fade_to_black_alpha_ >= 1.4f)
                 {
-                    // Wenn die Überblendung komplett ist, wechsle zur DeathScene.
-                    game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "death"s, std::make_unique<DeathScene>(player->Get_Score()));
+                    // --- ERSETZE DIE FOLGENDE ZEILE ---
+                    // game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "death"s, std::make_unique<DeathScene>(player->Get_Score()));
+
+                    // --- MIT DIESER LOGIK ---
+                    if (game::core::Store::next_scene_map == "level_3_7.json")
+                    {
+                        // Wenn wir in der speziellen Map sind, lade den EndScreen
+                        game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "end"s, std::make_unique<EndScene>(player->Get_Score()));
+                    }
+                    else
+                    {
+                        // Ansonsten, lade den normalen DeathScreen
+                        game::core::Store::stage->ReplaceWithNewScene("gameplay"s, "death"s, std::make_unique<DeathScene>(player->Get_Score()));
+                    }
                     return;
                 }
             }
@@ -425,6 +441,11 @@ namespace game::scenes
                     fogManager.Update(player_screen_pos, dtm.Get_Dt());
                 }
 
+                // Update the NoiseManager every frame
+                if (noiseManager.IsNoiseActive()) {
+                    noiseManager.Update(dtm.Get_Dt());
+                }
+
                 // Aufräumen und Zeit aktualisieren
                 dtm.Update();
             }
@@ -434,6 +455,10 @@ namespace game::scenes
     void Level1Scene::Draw()
     {
         BeginDrawing();
+
+        // Apply the noise shader to the ENTIRE screen
+        noiseManager.BeginNoiseMode();
+
         ClearBackground(Color{ 0, 32, 36, 255 }); // Hintergrundfarbe
 
         BeginMode2D(sp_cam->cam);
@@ -472,8 +497,9 @@ namespace game::scenes
                 // (z.B. Wandspitzen, die immer über dem Spieler sein müssen)
                 levelScreen.Draw_Level(sp_cam, true);
             }
-            // Beende den Shader.
+            // Beende die Shader.
             fogManager.EndFogMode();
+            noiseManager.EndNoiseMode();
 
             // --- DEBUG ---
             if (game::Config::kDebugShowHitboxes)
