@@ -38,7 +38,7 @@ namespace game {
         inline static const std::string kEnemyInsectMoveSfxPath = "assets/audio/sfx/Enemies/InsectNormal.mp3";                    //done
         inline static const std::string kEnemyInsectHitSfxPath = "assets/audio/sfx/Enemies/hitmarker2.mp3";
         inline static const std::string kEnemyInsectDeathSfxPath = "assets/audio/sfx/enemy_insect_death.wav";
-        inline static const std::string kEnemyInsectAttackSfxPath = "";
+        inline static const std::string kEnemyInsectAttackSfxPath = "assets/audio/sfx/Enemies/InsectNormal.mp3";
 
         // GEGNER: DROWNED SNIPER --
         inline static const std::string kEnemySniperHitSfxPath = "assets/audio/sfx/Enemies/hitmarker2.mp3";                           //done
